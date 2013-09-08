@@ -10,6 +10,21 @@
 
 
 @implementation UserComment
-@synthesize userName = _userName;
+@synthesize name = _name;
 @synthesize comment = _comment;
+@synthesize score = _score;
+
+- (id) initUserCommentWithName:(NSString*) name comment:(NSString*) comment score:(NSInteger) score
+{
+    self = [super init];
+    if (self)
+    {
+        _name = name;
+        _comment = comment;
+        _score = score;
+    }
+
+    return self;
+}
+
 @end

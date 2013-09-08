@@ -27,4 +27,10 @@
 + (void) alignBottom:(UIView*) source withTarget:(UIView*) target;
 
 + (void) alignMiddle:(UIView*) source withTarget:(UIView*) target;
+
++ (void) resize:(UIView*) target containerSize:(CGSize) size;
+
++ (void) resize:(UIView*) target containerWidth:(CGFloat) containerWidth;
+
++ (void) resize:(UIView*) target containerHeight:(CGFloat) containerHeight;
 @end

@@ -74,7 +74,7 @@
     CLLocationCoordinate2D coordinate;
     coordinate.longitude = 121.533916;
     coordinate.latitude = 25.01517;
-    mapRegion.center = coordinate;//self.mapView.userLocation.coordinate;
+    mapRegion.center = self.mapView.userLocation.coordinate;
     mapRegion.span.latitudeDelta = 0.01;
     mapRegion.span.longitudeDelta = 0.01;
     [self.mapView setRegion:mapRegion animated:YES];

@@ -10,6 +10,7 @@
 #import "ViewParams.h"
 #import "Views.h"
 #import "BadOrderItem.h"
+#import "UserComment.h"
 
 @interface OrderDetailController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, readonly) UITableView* commentListTableView;
@@ -17,6 +18,7 @@
 @property (nonatomic, readonly) UILabel* originalCommentLabel;
 @property (nonatomic, readonly) UILabel* scordLabel;
 @property (nonatomic) BadOrderItem* badOrderItem;
+@property (nonatomic, strong) NSMutableArray* otherComments;
 @end
 
 @implementation OrderDetailController
@@ -25,6 +27,8 @@
 @synthesize foodImageView = _foodImageView;
 @synthesize scordLabel = _scordLabel;
 @synthesize badOrderItem = _badOrderItem;
+@synthesize otherComments = _otherComments;
+
 
 - (id) initWithOrderDetailWithItem:(BadOrderItem*) item
 {
@@ -46,7 +50,10 @@
         [self.view addSubview:_scordLabel];
         [self.view addSubview:_commentListTableView];
 
+        _otherComments = [[NSMutableArray alloc] init];
+
         [self fetchOrderDetail:item];
+
     }
 
     return self;
@@ -81,21 +88,60 @@
     [Views locate:commentLabel x:10 y:[Views bottomOf:self.scordLabel]];
     [self.view addSubview:commentLabel];
 
+
+    UILabel* otherCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, [Views bottomOf:commentLabel], self.view.bounds.size.width, 60)];
+    otherCommentLabel.text = @"Other comments:";
+    otherCommentLabel.textColor = [UIColor grayColor];
+    otherCommentLabel.font = [UIFont systemFontOfSize:20];
+    [self.view addSubview:otherCommentLabel];
+
+    [Views resize:self.commentListTableView
+    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - [Views bottomOf:otherCommentLabel])];
+    [Views locate:self.commentListTableView y:[Views bottomOf:otherCommentLabel]];
+
 }
+
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    self.otherComments = [[NSMutableArray alloc] init];
+
+}
+
 
 - (void) fetchOrderDetail:(BadOrderItem*) item
 {
     //TODO fecth all comment
+    for (NSInteger i = 0; i < 10; ++i)
+    {
+        UserComment* comment = [[UserComment alloc] initUserCommentWithName:[NSString stringWithFormat:@"user %d", i]
+                                                                    comment:[NSString stringWithFormat:@"comment %d", i]
+                                                                      score:-1];
+        [self.otherComments addObject:comment];
+    }
 }
 
 - (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
 {
-    return 0;
+    return self.otherComments.count;
 }
 
 - (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
 {
-    return nil;
+    static NSString* CellIdentifier = @"Cell";
+
+    UITableViewCell* cell = (UITableViewCell*)
+      [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:CellIdentifier];
+    }
+
+    UserComment* comment = self.otherComments[(NSUInteger) indexPath.row];
+    cell.textLabel.text = comment.name;
+    cell.detailTextLabel.text = comment.comment;
+    return cell;
 }
 
 

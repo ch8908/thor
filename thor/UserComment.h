@@ -10,6 +10,9 @@
 
 
 @interface UserComment : NSObject
-@property (nonatomic, readonly) NSString* userName;
-@property (nonatomic, readonly) NSString* comment;
+@property (nonatomic, copy) NSString* name;
+@property (nonatomic, copy) NSString* comment;
+@property (nonatomic) NSInteger score;
+
+- (id) initUserCommentWithName:(NSString*) name comment:(NSString*) comment score:(NSInteger) score;
 @end

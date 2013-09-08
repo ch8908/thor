@@ -68,4 +68,25 @@
     [self locate:source y:target.frame.origin.y + (target.bounds.size.height - source.bounds.size.height) * 0.5];
 }
 
++ (void) resize:(UIView*) target containerSize:(CGSize) size
+{
+    CGRect rect = target.frame;
+    rect.size = size;
+    target.frame = rect;
+}
+
++ (void) resize:(UIView*) target containerWidth:(CGFloat) containerWidth
+{
+    CGRect rect = target.frame;
+    rect.size = CGSizeMake(containerWidth, rect.size.height);
+    target.frame = rect;
+}
+
++ (void) resize:(UIView*) target containerHeight:(CGFloat) containerHeight
+{
+    CGRect rect = target.frame;
+    rect.size = CGSizeMake(rect.size.width, containerHeight);
+    target.frame = rect;
+}
+
 @end
