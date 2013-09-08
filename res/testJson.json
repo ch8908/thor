@@ -1,0 +1,572 @@
+{
+  "data": [
+    {
+      "category": "本地商店", 
+      "category_list": [
+        {
+          "id": "273819889375819", 
+          "name": "餐廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }
+      ], 
+      "location": {
+        "street": "台北市中正區羅斯福路四段26號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "", 
+        "latitude": 25.015587054094, 
+        "longitude": 121.53313906209
+      }, 
+      "name": "統一星巴克公館門市", 
+      "id": "156915927700660"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "187425207958280", 
+          "name": "漢堡餐廳"
+        }
+      ], 
+      "location": {
+        "street": "羅斯福路四段24巷13號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.015013664433, 
+        "longitude": 121.53259799419
+      }, 
+      "name": "Bravo Burger發福公館店", 
+      "id": "215083245172893"
+    }, 
+    {
+      "category": "本地商店", 
+      "category_list": [
+        {
+          "id": "273819889375819", 
+          "name": "餐廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }
+      ], 
+      "location": {
+        "street": "台北市中正區汀州路三段108號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.014444164447, 
+        "longitude": 121.53331186203
+      }, 
+      "name": "夢駝鈴咖啡", 
+      "id": "179210532123350"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "127892053948220", 
+          "name": "自助餐廳"
+        }, 
+        {
+          "id": "174483852595760", 
+          "name": "中式餐廳"
+        }
+      ], 
+      "location": {
+        "street": "台北市大安區羅斯福路三段277號2樓", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.018258752375, 
+        "longitude": 121.53085421605
+      }, 
+      "name": "狠蝦 現做蝦料理吃到飽", 
+      "id": "108461945930272"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }
+      ], 
+      "location": {
+        "street": "羅斯福路四段12巷1號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "", 
+        "latitude": 25.015733886714, 
+        "longitude": 121.53294793183
+      }, 
+      "name": "Chef's Cafe 比利時鬆餅咖啡館", 
+      "id": "489936897684790"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "199146280116687", 
+          "name": "台式餐廳"
+        }, 
+        {
+          "id": "192108214153222", 
+          "name": "早餐&早午餐餐廳"
+        }, 
+        {
+          "id": "188334264523313", 
+          "name": "熟食店"
+        }
+      ], 
+      "location": {
+        "street": "台北市大安區新生南路三段八十六巷十九號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.018936131992, 
+        "longitude": 121.5323734266
+      }, 
+      "name": "Rebirth Cafe & Restaurant", 
+      "id": "235931036424028"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }, 
+        {
+          "id": "187425207958280", 
+          "name": "漢堡餐廳"
+        }, 
+        {
+          "id": "192108214153222", 
+          "name": "早餐&早午餐餐廳"
+        }
+      ], 
+      "location": {
+        "street": "臺北市羅斯福路3段316巷16號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.015575424915, 
+        "longitude": 121.53218948635
+      }, 
+      "name": "Kick Cafe", 
+      "id": "176850942547"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "188296324525457", 
+          "name": "三明治店"
+        }, 
+        {
+          "id": "187153754656815", 
+          "name": "甜點餐廳"
+        }, 
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }
+      ], 
+      "location": {
+        "street": "台北市中正區羅斯福路三段244巷10弄19號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.015997778242, 
+        "longitude": 121.53147434195
+      }, 
+      "name": "路燈咖啡館(Light Caf'e)", 
+      "id": "141435452626009"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "166419966738430", 
+          "name": "電台DJ"
+        }, 
+        {
+          "id": "233804719972590", 
+          "name": "燒烤店"
+        }
+      ], 
+      "location": {
+        "street": "羅斯福路三段316巷7之3號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.014751457973, 
+        "longitude": 121.53191080159
+      }, 
+      "name": "田季發爺公館店", 
+      "id": "272168346198471"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "119869574758000", 
+          "name": "西班牙小酒館餐廳"
+        }
+      ], 
+      "location": {
+        "street": "台北市新生南路三段86巷11號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.018838480064, 
+        "longitude": 121.53253245722
+      }, 
+      "name": "CAFE Odeon", 
+      "id": "217474584999768"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "273819889375819", 
+          "name": "餐廳"
+        }
+      ], 
+      "location": {
+        "street": "", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.015700565124, 
+        "longitude": 121.53244635966
+      }, 
+      "name": "重順川菜餐廳", 
+      "id": "176857505740365"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "273819889375819", 
+          "name": "餐廳"
+        }
+      ], 
+      "location": {
+        "street": "No.11, Ln. 284, Sec. 3, Roosevelt Rd.", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.016129098807, 
+        "longitude": 121.53175733852
+      }, 
+      "name": "Mr.拉麵", 
+      "id": "239821209482154"
+    }, 
+    {
+      "category": "本地商店", 
+      "category_list": [
+        {
+          "id": "2500", 
+          "name": "本地商店"
+        }
+      ], 
+      "location": {
+        "street": "", 
+        "zip": "", 
+        "latitude": 25.01702547, 
+        "longitude": 121.53312534
+      }, 
+      "name": "Coffee Restaurant", 
+      "id": "211575575572539"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "137670789632630", 
+          "name": "英式餐館"
+        }
+      ], 
+      "location": {
+        "street": "新北市淡水區英專路65-1號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "251", 
+        "latitude": 25.013741890759, 
+        "longitude": 121.53472093804
+      }, 
+      "name": "英國奶奶", 
+      "id": "123967921012393"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "174483852595760", 
+          "name": "中式餐廳"
+        }, 
+        {
+          "id": "218838724804749", 
+          "name": "拉麵店"
+        }, 
+        {
+          "id": "182923418412354", 
+          "name": "連鎖服務"
+        }
+      ], 
+      "location": {
+        "street": "台北市中正區汀州路三段269號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.012562570706, 
+        "longitude": 121.53532469174
+      }, 
+      "name": "愛呷面I Cha Mee", 
+      "id": "130470153810369"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "197227066968500", 
+          "name": "西餐廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }, 
+        {
+          "id": "193831710644458", 
+          "name": "義大利餐廳"
+        }
+      ], 
+      "location": {
+        "street": "大安區新生南路三段60巷8號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.020062082041, 
+        "longitude": 121.53343332299
+      }, 
+      "name": "霞飛驛PoSt義大利麵", 
+      "id": "430196757043773"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }
+      ], 
+      "location": {
+        "street": "台北市大安區溫州街75號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.020342206153, 
+        "longitude": 121.53295886738
+      }, 
+      "name": "PICNIC CAFE (野餐咖啡）", 
+      "id": "121084864580055"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }
+      ], 
+      "location": {
+        "street": "羅斯福路3段284巷2號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "10090", 
+        "latitude": 25.016313954834, 
+        "longitude": 121.5319899294
+      }, 
+      "name": "湛盧咖啡台大手沖館", 
+      "id": "129366607213420"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "188296324525457", 
+          "name": "三明治店"
+        }, 
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }
+      ], 
+      "location": {
+        "street": "台北市大安區溫州街74巷3弄5號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.01931251532, 
+        "longitude": 121.53220868417
+      }, 
+      "name": "好窩咖啡", 
+      "id": "102990033157116"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "187153754656815", 
+          "name": "甜點餐廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }, 
+        {
+          "id": "203462172997785", 
+          "name": "茶店"
+        }
+      ], 
+      "location": {
+        "street": "台北市大安區溫州街74巷4弄2號1樓", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "106", 
+        "latitude": 25.019719209313, 
+        "longitude": 121.53231549059
+      }, 
+      "name": "Le petit pâtissier 雷斯理", 
+      "id": "253752649551"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "166419966738430", 
+          "name": "電台DJ"
+        }, 
+        {
+          "id": "181289228581329", 
+          "name": "高級餐廳"
+        }, 
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }
+      ], 
+      "location": {
+        "street": "羅斯福路三段316巷18號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "10090", 
+        "latitude": 25.015326486909, 
+        "longitude": 121.53251072531
+      }, 
+      "name": "荒漠甘泉", 
+      "id": "393538977425470"
+    }, 
+    {
+      "category": "本地商店", 
+      "category_list": [
+        {
+          "id": "273819889375819", 
+          "name": "餐廳"
+        }, 
+        {
+          "id": "128673187201735", 
+          "name": "咖啡店"
+        }
+      ], 
+      "location": {
+        "street": "台北市羅斯福路三段283巷14弄16號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "", 
+        "latitude": 25.017955271876, 
+        "longitude": 121.53273135245
+      }, 
+      "name": "Padouva Cafe", 
+      "id": "194706463881968"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "197871390225897", 
+          "name": "咖啡廳"
+        }
+      ], 
+      "location": {
+        "street": "大安區溫州街7-1號1樓", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "100", 
+        "latitude": 25.015929500748, 
+        "longitude": 121.53260665124
+      }, 
+      "name": "小酒窩 Fossette De Bistro", 
+      "id": "212188588902597"
+    }, 
+    {
+      "category": "餐廳/咖啡館", 
+      "category_list": [
+        {
+          "id": "273819889375819", 
+          "name": "餐廳"
+        }
+      ], 
+      "location": {
+        "street": "羅斯福路4段142號", 
+        "city": "Taipei", 
+        "state": "", 
+        "country": "Taiwan", 
+        "zip": "10091", 
+        "latitude": 25.01297637173, 
+        "longitude": 121.53606049331
+      }, 
+      "name": "燒肉王子", 
+      "id": "207388359298947"
+    }
+  ], 
+  "paging": {
+    "next": "https://graph.facebook.com/search?type=place&center=25.01517,121.533916&distance=1000&locale=zh_TW&limit=25&offset=25&__after_id=207388359298947"
+  }
+}
