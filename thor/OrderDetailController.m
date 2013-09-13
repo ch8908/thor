@@ -43,7 +43,13 @@
         _commentListTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _commentListTableView.dataSource = self;
         _commentListTableView.delegate = self;
-        _foodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [ViewParams screenWidth], 260)];
+        _foodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [ViewParams screenWidth], 220)];
+
+        UITapGestureRecognizer* singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                                     action:@selector(onTapImage)];
+
+        [_foodImageView addGestureRecognizer:singleTapGestureRecognizer];
+        [_foodImageView setUserInteractionEnabled:YES];
 
         [self.view addSubview:_foodImageView];
         [self.view addSubview:_originalCommentLabel];
@@ -104,7 +110,11 @@
 {
     [super viewDidLoad];
     self.otherComments = [[NSMutableArray alloc] init];
+}
 
+- (void) onTapImage
+{
+    NSLog(@">>>>>>>> OrderDetailController tap image");
 }
 
 - (void) fetchOrderDetail:(BadOrderItem*) item
