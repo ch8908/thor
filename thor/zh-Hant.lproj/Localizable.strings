@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  thor
+
+  Created by Huang ChienShuo on 9/13/13.
+  Copyright (c) 2013 ThousandSquare. All rights reserved.
+*/
+"places_title" = "附近店家";
+
+"test_i18n" = "測試I18N";

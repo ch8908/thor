@@ -13,6 +13,7 @@
 #import "Place.h"
 #import "Beans.h"
 #import "BadOrderListController.h"
+#import "I18N.h"
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) MKMapView* mapView;
@@ -30,6 +31,8 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
+        self.navigationItem.title = [I18N key:@"places_title"];
+
         _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;

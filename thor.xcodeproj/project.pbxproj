@@ -12,6 +12,7 @@
 		191AED4B17C4F951003B10F0 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 191AED4A17C4F951003B10F0 /* res */; };
 		191AED4D17C5AA18003B10F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 191AED4C17C5AA18003B10F0 /* CoreLocation.framework */; };
 		192F311317D0F77D00509135 /* image in Resources */ = {isa = PBXBuildFile; fileRef = 192F311217D0F77D00509135 /* image */; };
+		1955A56B17E3178100BEF77F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1955A56D17E3178100BEF77F /* Localizable.strings */; };
 		1958468417C266C8004B8592 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468317C266C8004B8592 /* UIKit.framework */; };
 		1958468617C266C8004B8592 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468517C266C8004B8592 /* Foundation.framework */; };
 		1958468817C266C8004B8592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468717C266C8004B8592 /* CoreGraphics.framework */; };
@@ -22,6 +23,7 @@
 		1958469817C266C8004B8592 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469717C266C8004B8592 /* Default@2x.png */; };
 		1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
 		23D1A0E6F73C3B34D4FBE36A /* Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AB92AC7E61978BED36C6 /* Beans.m */; };
+		23D1A23692BB13BAED416EFC /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD4057DFC450C6BB8F12 /* I18N.m */; };
 		23D1A265DCEFAC7121C825B6 /* BadOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A816DA159E386022A8D0 /* BadOrderListController.m */; };
 		23D1A574E20A1B87B8000026 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD98012CD02A0361FECC /* Views.m */; };
 		23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */; };
@@ -41,6 +43,9 @@
 		191AED4A17C4F951003B10F0 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		191AED4C17C5AA18003B10F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		192F311217D0F77D00509135 /* image */ = {isa = PBXFileReference; lastKnownFileType = folder; path = image; sourceTree = "<group>"; };
+		1955A56717E2079400BEF77F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1955A56E17E3179700BEF77F /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1955A56F17E317F400BEF77F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1958468017C266C8004B8592 /* thor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1958468317C266C8004B8592 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1958468517C266C8004B8592 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -54,6 +59,7 @@
 		1958469517C266C8004B8592 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1958469717C266C8004B8592 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		1958469917C266C8004B8592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		23D1A0AFC1102BFC02544E58 /* I18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18N.h; sourceTree = "<group>"; };
 		23D1A1E85B3CC4D8C0CB99D4 /* BadOrderListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderListController.h; sourceTree = "<group>"; };
 		23D1A1F240455470FDA5652C /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserComment.h; sourceTree = "<group>"; };
 		23D1A204B58E3860C9A6B6C4 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
@@ -70,6 +76,7 @@
 		23D1AB255FE285C56859FCD1 /* Beans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beans.h; sourceTree = "<group>"; };
 		23D1AB92AC7E61978BED36C6 /* Beans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beans.m; sourceTree = "<group>"; };
 		23D1AC63A170820DA68C0594 /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserComment.m; sourceTree = "<group>"; };
+		23D1AD4057DFC450C6BB8F12 /* I18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I18N.m; sourceTree = "<group>"; };
 		23D1AD98012CD02A0361FECC /* Views.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Views.m; sourceTree = "<group>"; };
 		23D1ADB324F98D6717DC0450 /* ViewParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewParams.m; sourceTree = "<group>"; };
 		23D1ADFB54714B694009DF83 /* BadOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderItem.m; sourceTree = "<group>"; };
@@ -166,6 +173,7 @@
 			children = (
 				1958468B17C266C8004B8592 /* thor-Info.plist */,
 				1958468C17C266C8004B8592 /* InfoPlist.strings */,
+				1955A56D17E3178100BEF77F /* Localizable.strings */,
 				1958468F17C266C8004B8592 /* main.m */,
 				1958469117C266C8004B8592 /* thor-Prefix.pch */,
 				1958469517C266C8004B8592 /* Default.png */,
@@ -210,6 +218,8 @@
 				23D1A5899D65C485CB9A9515 /* ViewParams.h */,
 				23D1AD98012CD02A0361FECC /* Views.m */,
 				23D1AEAF11EE9ADFF8DE11BA /* Views.h */,
+				23D1AD4057DFC450C6BB8F12 /* I18N.m */,
+				23D1A0AFC1102BFC02544E58 /* I18N.h */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -250,6 +260,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hant",
 			);
 			mainGroup = 1958467717C266C8004B8592;
 			productRefGroup = 1958468117C266C8004B8592 /* Products */;
@@ -272,6 +283,7 @@
 				1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */,
 				191AED4B17C4F951003B10F0 /* res in Resources */,
 				192F311317D0F77D00509135 /* image in Resources */,
+				1955A56B17E3178100BEF77F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,16 +308,27 @@
 				23D1AE92968BEA5B3F185623 /* OrderDetailController.m in Sources */,
 				23D1A940A870925377C9813A /* BadOrderItem.m in Sources */,
 				23D1A574E20A1B87B8000026 /* Views.m in Sources */,
+				23D1A23692BB13BAED416EFC /* I18N.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		1955A56D17E3178100BEF77F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1955A56E17E3179700BEF77F /* en */,
+				1955A56F17E317F400BEF77F /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		1958468C17C266C8004B8592 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1958468D17C266C8004B8592 /* en */,
+				1955A56717E2079400BEF77F /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
