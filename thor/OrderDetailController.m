@@ -53,7 +53,6 @@
         _otherComments = [[NSMutableArray alloc] init];
 
         [self fetchOrderDetail:item];
-
     }
 
     return self;
@@ -107,7 +106,6 @@
     self.otherComments = [[NSMutableArray alloc] init];
 
 }
-
 
 - (void) fetchOrderDetail:(BadOrderItem*) item
 {

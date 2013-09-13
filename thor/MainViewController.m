@@ -44,9 +44,18 @@
         [self.view addSubview:_mapView];
         [self.view addSubview:_placeListTableView];
 
+        UIBarButtonItem* loginButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"login"]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self action:@selector(login)];
+        [self.navigationItem setRightBarButtonItem:loginButton];
     }
 
     return self;
+}
+
+- (void) login
+{
+
 }
 
 - (void) viewDidLayoutSubviews

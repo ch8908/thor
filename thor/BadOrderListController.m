@@ -9,6 +9,7 @@
 #import "BadOrderListController.h"
 #import "BadOrderItem.h"
 #import "OrderDetailController.h"
+#import "I18N.h"
 
 @interface BadOrderListController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, readonly) UITableView* badOrderList;
@@ -29,6 +30,11 @@
         _badOrderList.dataSource = self;
         _badOrderList.delegate = self;
         [self.view addSubview:_badOrderList];
+
+        UIBarButtonItem* addNewPostButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                          target:self
+                                                                                          action:@selector(newPost)];
+        [self.navigationItem setRightBarButtonItem:addNewPostButton];
     }
     return self;
 }
@@ -45,6 +51,11 @@
     [super viewDidLayoutSubviews];
     CGRect tableViewFrame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     self.badOrderList.frame = tableViewFrame;
+}
+
+- (void) newPost
+{
+
 }
 
 - (CGFloat) tableView:(UITableView*) tableView heightForRowAtIndexPath:(NSIndexPath*) indexPath
@@ -94,6 +105,10 @@
 {
     BadOrderItem* item = self.badOrderItems[(NSUInteger) indexPath.row];
     OrderDetailController* menuDetailController = [[OrderDetailController alloc] initWithOrderDetailWithItem:item];
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"back"]
+                                                                   style:UIBarButtonItemStyleBordered target:nil
+                                                                  action:nil];
+    [self.navigationItem setBackBarButtonItem:backButton];
     [self.navigationController pushViewController:menuDetailController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
