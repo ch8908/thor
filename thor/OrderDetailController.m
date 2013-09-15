@@ -131,7 +131,9 @@
     NotBadPopupController* notBadPopupController = [[NotBadPopupController alloc] initNotBadPopup];
     notBadPopupController.delegate = self;
     [self presentPopupViewController:notBadPopupController
-                       animationType:MJPopupViewAnimationSlideRightRight];
+                       animationType:MJPopupViewAnimationSlideRightRight dismissed:^{
+        [notBadPopupController removeTextFieldDelegate];
+    }];
 }
 
 - (void) stillBad
@@ -139,7 +141,9 @@
     StillBadPopupController* stillBadPopupController = [[StillBadPopupController alloc] initStillBadPopup];
     stillBadPopupController.delegate = self;
     [self presentPopupViewController:stillBadPopupController
-                       animationType:MJPopupViewAnimationSlideLeftLeft];
+                       animationType:MJPopupViewAnimationSlideLeftLeft dismissed:^{
+        [stillBadPopupController removeTextFieldDelegate];
+    }];
 }
 
 - (void) submitButtonClicked:(PopupViewController*) secondDetailViewController
@@ -189,6 +193,7 @@
     }
 
     UserComment* comment = self.otherComments[(NSUInteger) indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = comment.name;
     cell.detailTextLabel.text = comment.comment;
     return cell;

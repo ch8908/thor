@@ -21,4 +21,6 @@
 @property (nonatomic) UILabel* titleLabel;
 
 - (id) initWithPopup;
+
+- (void) removeTextFieldDelegate;
 @end

@@ -16,4 +16,6 @@
 "has_bad_orders_title" = "目前有 %1$@ 道餐點需要改進";
 "still_bad_popup_title" = "有哪裡需要改進？";
 "not_bad_popup_title" = "明明好吃呀！";
-"submit_button_title" = "送出評論";
+"submit_bad_button_title" = "送出負評";
+"submit_good_button_title" = "送出推薦";
+"comment_cannot_be_none" = "留言不得空白";

@@ -28,6 +28,7 @@
 		23D1A0E6F73C3B34D4FBE36A /* Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AB92AC7E61978BED36C6 /* Beans.m */; };
 		23D1A23692BB13BAED416EFC /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD4057DFC450C6BB8F12 /* I18N.m */; };
 		23D1A265DCEFAC7121C825B6 /* BadOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A816DA159E386022A8D0 /* BadOrderListController.m */; };
+		23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9C0D3B0DEA7139810F8 /* NSString+Util.m */; };
 		23D1A574E20A1B87B8000026 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD98012CD02A0361FECC /* Views.m */; };
 		23D1A5EDC93B9D29C24D824C /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A65A144C101063E84AEE /* PopupViewController.m */; };
 		23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */; };
@@ -83,9 +84,11 @@
 		23D1A5899D65C485CB9A9515 /* ViewParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewParams.h; sourceTree = "<group>"; };
 		23D1A65A144C101063E84AEE /* PopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupViewController.m; sourceTree = "<group>"; };
 		23D1A678E89E656221BD48C8 /* BadOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrder.m; sourceTree = "<group>"; };
+		23D1A7EC93A0F8843F4BED99 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		23D1A816DA159E386022A8D0 /* BadOrderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderListController.m; sourceTree = "<group>"; };
 		23D1A89CCBFB441509BF866C /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		23D1A97538A0BB28FF152EEE /* OrderDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailController.m; sourceTree = "<group>"; };
+		23D1A9C0D3B0DEA7139810F8 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookDaemon.m; sourceTree = "<group>"; };
 		23D1AB255FE285C56859FCD1 /* Beans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beans.h; sourceTree = "<group>"; };
 		23D1AB92AC7E61978BED36C6 /* Beans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beans.m; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				23D1AEAF11EE9ADFF8DE11BA /* Views.h */,
 				23D1AD4057DFC450C6BB8F12 /* I18N.m */,
 				23D1A0AFC1102BFC02544E58 /* I18N.h */,
+				23D1A9C0D3B0DEA7139810F8 /* NSString+Util.m */,
+				23D1A7EC93A0F8843F4BED99 /* NSString+Util.h */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 				195E62B817E59ED500576209 /* UIViewController+MJPopupViewController.m in Sources */,
 				23D1AF9C8E896794A38F706A /* StillBadPopupController.m in Sources */,
 				23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */,
+				23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

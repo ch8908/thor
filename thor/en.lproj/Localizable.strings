@@ -16,4 +16,6 @@
 "has_bad_orders_title" = "There are %1$@ bad orders here.";
 "still_bad_popup_title" = "Why it bad?";
 "not_bad_popup_title" = "It's not bad!";
-"submit_button_title" = "Submit!";
+"submit_bad_button_title" = "Submit Bad Comment";
+"submit_good_button_title" = "Submit Good Comment";
+"comment_cannot_be_none" = "Need Comment";

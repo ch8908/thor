@@ -18,6 +18,7 @@
     if (self)
     {
         self.titleLabel.text = [I18N key:@"not_bad_popup_title"];
+        [self.submitButton setTitle:[I18N key:@"submit_good_button_title"] forState:UIControlStateNormal];
     }
 
     return self;
