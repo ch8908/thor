@@ -17,6 +17,9 @@
 #import "StillBadPopupController.h"
 #import "NotBadPopupController.h"
 
+static NSInteger BAD_BUTTON_TAG = 0;
+static NSInteger NOT_BAD_BUTTON_TAG = 1;
+
 @interface OrderDetailController()<UITableViewDataSource, UITableViewDelegate, PopupSubmitDelegate>
 @property (nonatomic, readonly) UITableView* commentListTableView;
 @property (nonatomic, readwrite) UIImageView* foodImageView;
@@ -110,39 +113,43 @@
     [Views locate:self.commentListTableView y:[Views bottomOf:otherCommentLabel]];
 
     UIButton* stillBadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    stillBadButton.tag = BAD_BUTTON_TAG;
     [stillBadButton setTitle:[I18N key:@"button_title_still_bad"] forState:UIControlStateNormal];
     [stillBadButton sizeToFit];
     [Views locate:stillBadButton x:10 y:[Views bottomOf:self.foodImageView] - stillBadButton.bounds.size.height - 10];
-    [stillBadButton addTarget:self action:@selector(stillBad)
+    [stillBadButton addTarget:self action:@selector(voteOrder:)
              forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:stillBadButton];
 
     UIButton* notBadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    notBadButton.tag = NOT_BAD_BUTTON_TAG;
     [notBadButton setTitle:[I18N key:@"button_title_not_bad"] forState:UIControlStateNormal];
     [notBadButton sizeToFit];
-    [notBadButton addTarget:self action:@selector(notBad) forControlEvents:UIControlEventTouchUpInside];
+    [notBadButton addTarget:self action:@selector(voteOrder:) forControlEvents:UIControlEventTouchUpInside];
     [Views locate:notBadButton x:self.foodImageView.bounds.size.width - notBadButton.bounds.size.width - 10
                 y:stillBadButton.frame.origin.y];
     [self.view addSubview:notBadButton];
 }
 
-- (void) notBad
+- (void) voteOrder:(UIButton*) sender
 {
-    NotBadPopupController* notBadPopupController = [[NotBadPopupController alloc] initNotBadPopup];
-    notBadPopupController.delegate = self;
-    [self presentPopupViewController:notBadPopupController
-                       animationType:MJPopupViewAnimationSlideRightRight dismissed:^{
-        [notBadPopupController removeTextFieldDelegate];
-    }];
-}
-
-- (void) stillBad
-{
-    StillBadPopupController* stillBadPopupController = [[StillBadPopupController alloc] initStillBadPopup];
-    stillBadPopupController.delegate = self;
-    [self presentPopupViewController:stillBadPopupController
-                       animationType:MJPopupViewAnimationSlideLeftLeft dismissed:^{
-        [stillBadPopupController removeTextFieldDelegate];
+    //TODO - check login state
+    PopupViewController* popupViewController = nil;
+    MJPopupViewAnimation popupViewAnimation;
+    if (BAD_BUTTON_TAG == sender.tag)
+    {
+        popupViewController = [[StillBadPopupController alloc] initStillBadPopup];
+        popupViewAnimation = MJPopupViewAnimationSlideLeftLeft;
+    }
+    else
+    {
+        popupViewController = [[NotBadPopupController alloc] initNotBadPopup];
+        popupViewAnimation = MJPopupViewAnimationSlideRightRight;
+    }
+    popupViewController.delegate = self;
+    [self presentPopupViewController:popupViewController
+                       animationType:popupViewAnimation dismissed:^{
+        [popupViewController removeTextFieldDelegate];
     }];
 }
 
