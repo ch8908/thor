@@ -11,14 +11,18 @@
 #import "OrderDetailController.h"
 #import "I18N.h"
 
+CGFloat headerViewHeight = 80;
+
 @interface BadOrderListController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, readonly) UITableView* badOrderList;
 @property (nonatomic) NSMutableArray* badOrderItems;
+@property (nonatomic, strong) UIView* summarizeView;
 @end
 
 @implementation BadOrderListController
 @synthesize badOrderList = _badOrderList;
 @synthesize badOrderItems = _badOrderItems;
+@synthesize summarizeView = _summarizeView;
 
 - (id) initBadMenuWithTitle:(NSString*) title
 {
@@ -51,12 +55,60 @@
     [super viewDidLayoutSubviews];
     CGRect tableViewFrame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     self.badOrderList.frame = tableViewFrame;
+
+    [self headerForSummarize];
+
+}
+
+- (UIView*) headerForSummarize
+{
+    self.summarizeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, headerViewHeight)];
+    self.summarizeView.backgroundColor = [UIColor grayColor];
+    UILabel* titleLabel = [[UILabel alloc] init];
+
+    NSUInteger badOrderCount = self.badOrderItems.count;
+    if (badOrderCount == 0)
+    {
+        titleLabel.text = [I18N key:@"no_bad_order_title"];
+    }
+    else if (self.badOrderItems.count == 1)
+    {
+        titleLabel.text = [I18N key:@"has_bad_order_title", [NSString stringWithFormat:@"%d", badOrderCount]];
+    }
+    else
+    {
+        titleLabel.text = [I18N key:@"has_bad_orders_title", [NSString stringWithFormat:@"%d", badOrderCount]];
+    }
+
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont systemFontOfSize:16];
+    [titleLabel sizeToFit];
+    [self.summarizeView addSubview:titleLabel];
+
+    return self.summarizeView;
 }
 
 - (void) newPost
 {
 
 }
+
+- (CGFloat) tableView:(UITableView*) tableView heightForHeaderInSection:(NSInteger) section
+{
+    return section == 0 ? headerViewHeight : 0;
+}
+
+
+- (UIView*) tableView:(UITableView*) tableView viewForHeaderInSection:(NSInteger) section
+{
+    if (section == 0)
+    {
+        return self.summarizeView ? self.summarizeView : [self headerForSummarize];
+    }
+    return nil;
+}
+
 
 - (CGFloat) tableView:(UITableView*) tableView heightForRowAtIndexPath:(NSIndexPath*) indexPath
 {
@@ -89,7 +141,7 @@
 
 - (void) fetchItem
 {
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         BadOrderItem* item = [[BadOrderItem alloc] initBadOrderItemWithName:[NSString stringWithFormat:@"Order %d", i]
                                                                     orderId:@"asdfaiif2"

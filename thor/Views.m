@@ -43,6 +43,13 @@
     return view.frame.origin.y + view.frame.size.height;
 }
 
++ (void) alignCenter:(UIView*) target containerWidth:(CGFloat) containerWidth
+{
+    CGRect rect = target.frame;
+    rect.origin.x = roundf((containerWidth - rect.size.width) / 2);
+    target.frame = rect;
+}
+
 + (void) alignCenterMiddle:(UIView*) target containerFrame:(CGRect) frameRect
 {
     CGRect rect = target.frame;

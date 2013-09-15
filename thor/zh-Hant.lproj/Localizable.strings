@@ -6,6 +6,14 @@
   Copyright (c) 2013 ThousandSquare. All rights reserved.
 */
 "places_title" = "附近店家";
-"test_i18n" = "測試I18N";
 "back" = "返回";
 "login" = "登入";
+"other_comments" = "其他評論";
+"button_title_still_bad" = "一樣遭";
+"button_title_not_bad" = "好吃耶";
+"no_bad_order_title" = "目前沒有需要改進的餐點！";
+"has_bad_order_title" = "目前有 %1$@ 道餐點需要改進";
+"has_bad_orders_title" = "目前有 %1$@ 道餐點需要改進";
+"still_bad_popup_title" = "有哪裡需要改進？";
+"not_bad_popup_title" = "明明好吃呀！";
+"submit_button_title" = "送出評論";

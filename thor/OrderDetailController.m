@@ -11,8 +11,13 @@
 #import "Views.h"
 #import "BadOrderItem.h"
 #import "UserComment.h"
+#import "I18N.h"
+#import "PopupViewController.h"
+#import "UIViewController+MJPopupViewController.h"
+#import "StillBadPopupController.h"
+#import "NotBadPopupController.h"
 
-@interface OrderDetailController()<UITableViewDataSource, UITableViewDelegate>
+@interface OrderDetailController()<UITableViewDataSource, UITableViewDelegate, PopupSubmitDelegate>
 @property (nonatomic, readonly) UITableView* commentListTableView;
 @property (nonatomic, readwrite) UIImageView* foodImageView;
 @property (nonatomic, readonly) UILabel* originalCommentLabel;
@@ -95,7 +100,7 @@
 
 
     UILabel* otherCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, [Views bottomOf:commentLabel], self.view.bounds.size.width, 60)];
-    otherCommentLabel.text = @"Other comments:";
+    otherCommentLabel.text = [I18N key:@"other_comments"];
     otherCommentLabel.textColor = [UIColor grayColor];
     otherCommentLabel.font = [UIFont systemFontOfSize:20];
     [self.view addSubview:otherCommentLabel];
@@ -104,7 +109,44 @@
     containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - [Views bottomOf:otherCommentLabel])];
     [Views locate:self.commentListTableView y:[Views bottomOf:otherCommentLabel]];
 
+    UIButton* stillBadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [stillBadButton setTitle:[I18N key:@"button_title_still_bad"] forState:UIControlStateNormal];
+    [stillBadButton sizeToFit];
+    [Views locate:stillBadButton x:10 y:[Views bottomOf:self.foodImageView] - stillBadButton.bounds.size.height - 10];
+    [stillBadButton addTarget:self action:@selector(stillBad)
+             forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:stillBadButton];
+
+    UIButton* notBadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [notBadButton setTitle:[I18N key:@"button_title_not_bad"] forState:UIControlStateNormal];
+    [notBadButton sizeToFit];
+    [notBadButton addTarget:self action:@selector(notBad) forControlEvents:UIControlEventTouchUpInside];
+    [Views locate:notBadButton x:self.foodImageView.bounds.size.width - notBadButton.bounds.size.width - 10
+                y:stillBadButton.frame.origin.y];
+    [self.view addSubview:notBadButton];
 }
+
+- (void) notBad
+{
+    NotBadPopupController* notBadPopupController = [[NotBadPopupController alloc] initNotBadPopup];
+    notBadPopupController.delegate = self;
+    [self presentPopupViewController:notBadPopupController
+                       animationType:MJPopupViewAnimationSlideRightRight];
+}
+
+- (void) stillBad
+{
+    StillBadPopupController* stillBadPopupController = [[StillBadPopupController alloc] initStillBadPopup];
+    stillBadPopupController.delegate = self;
+    [self presentPopupViewController:stillBadPopupController
+                       animationType:MJPopupViewAnimationSlideLeftLeft];
+}
+
+- (void) submitButtonClicked:(PopupViewController*) secondDetailViewController
+{
+    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideTopTop];
+}
+
 
 - (void) viewDidLoad
 {

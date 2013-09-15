@@ -20,6 +20,8 @@
 
 + (CGFloat) bottomOf:(UIView*) view;
 
++ (void) alignCenter:(UIView*) target containerWidth:(CGFloat) containerWidth;
+
 + (void) alignCenterMiddle:(UIView*) target containerFrame:(CGRect) frameRect;
 
 + (void) alignMiddle:(UIView*) target containerHeight:(CGFloat) containerHeight;

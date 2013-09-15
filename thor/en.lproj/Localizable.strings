@@ -6,6 +6,14 @@
   Copyright (c) 2013 ThousandSquare. All rights reserved.
 */
 "places_title" = "Places";
-"test_i18n" = "Test I18N";
 "back" = "Back";
 "login" = "Log In";
+"other_comments" = "Other Comments";
+"button_title_still_bad" = "Still Bad";
+"button_title_not_bad" = "Not Bad";
+"no_bad_order_title" = "There's no bad order here!";
+"has_bad_order_title" = "There is %1$@ bad order here.";
+"has_bad_orders_title" = "There are %1$@ bad orders here.";
+"still_bad_popup_title" = "Why it bad?";
+"not_bad_popup_title" = "It's not bad!";
+"submit_button_title" = "Submit!";
