@@ -16,11 +16,14 @@
 @end
 
 @interface PopupViewController : UIViewController
+{
+    CGFloat viewAndKeyboardOffset;
+
+}
 @property (nonatomic, assign) id<PopupSubmitDelegate> delegate;
 @property (nonatomic) UIButton* submitButton;
 @property (nonatomic) UILabel* titleLabel;
 
 - (id) initWithPopup;
 
-- (void) removeTextFieldDelegate;
 @end

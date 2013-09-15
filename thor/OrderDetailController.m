@@ -148,16 +148,13 @@ static NSInteger NOT_BAD_BUTTON_TAG = 1;
     }
     popupViewController.delegate = self;
     [self presentPopupViewController:popupViewController
-                       animationType:popupViewAnimation dismissed:^{
-        [popupViewController removeTextFieldDelegate];
-    }];
+                       animationType:popupViewAnimation];
 }
 
 - (void) submitButtonClicked:(PopupViewController*) secondDetailViewController
 {
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideTopTop];
 }
-
 
 - (void) viewDidLoad
 {

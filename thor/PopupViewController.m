@@ -25,6 +25,11 @@
 @synthesize singleTapGestureRecognizer = _singleTapGestureRecognizer;
 @synthesize warningLabel = _warningLabel;
 
+- (void) dealloc
+{
+    self.textField.delegate = nil;
+}
+
 - (id) initWithPopup
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -67,9 +72,56 @@
         _singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                               action:@selector(onViewTap)];
         [self.view addGestureRecognizer:_singleTapGestureRecognizer];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
+
     }
 
     return self;
+}
+
+- (void) keyboardWillHide:(NSNotification*) notification
+{
+    NSDictionary* info = [notification userInfo];
+    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval duration = 0;
+    [value getValue:&duration];
+
+    [UIView animateWithDuration:duration animations :^{
+        self.view.frame = CGRectMake(self.view.frame.origin.x,
+                                     self.view.frame.origin.y + viewAndKeyboardOffset,
+                                     self.view.bounds.size.width,
+                                     self.view.bounds.size.height);
+    }];
+}
+
+- (void) keyboardWillShow:(NSNotification*) notification
+{
+    NSDictionary* info = [notification userInfo];
+    CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat diff = endFrame.origin.y - self.submitButton.frame.origin.y + self.submitButton.bounds.size.height * 0.5f;
+    if (diff < 0)
+    {
+        return;
+    }
+    viewAndKeyboardOffset = diff;
+    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval duration = 0;
+    [value getValue:&duration];
+
+    [UIView animateWithDuration:duration animations :^{
+        self.view.frame = CGRectMake(self.view.frame.origin.x,
+                                     self.view.frame.origin.y - diff,
+                                     self.view.bounds.size.width,
+                                     self.view.bounds.size.height);
+    }];
 }
 
 - (void) onViewTap
@@ -97,16 +149,13 @@
     }
 }
 
-- (void) removeTextFieldDelegate
-{
-    self.textField.delegate = nil;
-}
-
 - (BOOL) textFieldShouldBeginEditing:(UITextField*) textField
 {
     [self.view addGestureRecognizer:self.singleTapGestureRecognizer];
+
     return YES;
 }
+
 
 - (BOOL) textField:(UITextField*) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString*) string
 {
