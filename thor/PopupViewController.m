@@ -106,19 +106,19 @@
 {
     NSDictionary* info = [notification userInfo];
     CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat diff = endFrame.origin.y - self.submitButton.frame.origin.y + self.submitButton.bounds.size.height * 0.5f;
-    if (diff < 0)
+    CGFloat diff = endFrame.origin.y - (self.submitButton.frame.origin.y + self.submitButton.bounds.size.height + self.view.frame.origin.y);
+    if (diff > 0)
     {
         return;
     }
-    viewAndKeyboardOffset = diff;
+    viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
     NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
     [UIView animateWithDuration:duration animations :^{
         self.view.frame = CGRectMake(self.view.frame.origin.x,
-                                     self.view.frame.origin.y - diff,
+                                     self.view.frame.origin.y - viewAndKeyboardOffset,
                                      self.view.bounds.size.width,
                                      self.view.bounds.size.height);
     }];
