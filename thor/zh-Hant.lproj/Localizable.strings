@@ -19,3 +19,6 @@
 "submit_bad_button_title" = "送出負評";
 "submit_good_button_title" = "送出推薦";
 "comment_cannot_be_none" = "留言不得空白";
+"log_in_with_facebook" = "使用Facebook登入";
+"log_in_with_twitter" = "使用Twitter登入";
+"sign_up" = "快速註冊";

@@ -14,6 +14,7 @@
 #import "Beans.h"
 #import "BadOrderListController.h"
 #import "I18N.h"
+#import "LoginViewController.h"
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) MKMapView* mapView;
@@ -55,7 +56,9 @@
 
 - (void) login
 {
-
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
+    [self.navigationController presentViewController:navigationController
+                                            animated:YES completion:nil];
 }
 
 - (void) viewDidLayoutSubviews

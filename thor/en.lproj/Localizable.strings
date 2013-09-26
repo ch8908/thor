@@ -19,3 +19,6 @@
 "submit_bad_button_title" = "Submit Bad Comment";
 "submit_good_button_title" = "Submit Good Comment";
 "comment_cannot_be_none" = "Need Comment";
+"log_in_with_facebook" = "Log In With Facebook";
+"log_in_with_twitter" = "Log In With Twitter";
+"sign_up" = "Sign Up";
