@@ -10,6 +10,9 @@
 #import "BadOrderItem.h"
 #import "OrderDetailController.h"
 #import "I18N.h"
+#import "ThorNavigationController.h"
+#import "NewAnOrderController.h"
+#import "Place.h"
 
 CGFloat headerViewHeight = 80;
 
@@ -17,19 +20,22 @@ CGFloat headerViewHeight = 80;
 @property (nonatomic, readonly) UITableView* badOrderList;
 @property (nonatomic) NSMutableArray* badOrderItems;
 @property (nonatomic, strong) UIView* summarizeView;
+@property (nonatomic, strong) Place* place;
 @end
 
 @implementation BadOrderListController
 @synthesize badOrderList = _badOrderList;
 @synthesize badOrderItems = _badOrderItems;
 @synthesize summarizeView = _summarizeView;
+@synthesize place = _place;
 
-- (id) initBadMenuWithTitle:(NSString*) title
+- (id) initBadMenuWithTitle:(Place*) place
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.navigationItem.title = title;
+        _place = place;
+        self.navigationItem.title = place.name;
         _badOrderList = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _badOrderList.dataSource = self;
         _badOrderList.delegate = self;
@@ -37,7 +43,7 @@ CGFloat headerViewHeight = 80;
 
         UIBarButtonItem* addNewPostButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                           target:self
-                                                                                          action:@selector(newPost)];
+                                                                                          action:@selector(newAnOrder)];
         [self.navigationItem setRightBarButtonItem:addNewPostButton];
     }
     return self;
@@ -89,9 +95,11 @@ CGFloat headerViewHeight = 80;
     return self.summarizeView;
 }
 
-- (void) newPost
+- (void) newAnOrder
 {
-
+    ThorNavigationController* navigationController = [[ThorNavigationController alloc] initWithRootViewController:[[NewAnOrderController alloc] initWithPlaceId:self.place]];
+    [self.navigationController presentViewController:navigationController
+                                            animated:YES completion:nil];
 }
 
 - (CGFloat) tableView:(UITableView*) tableView heightForHeaderInSection:(NSInteger) section

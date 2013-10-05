@@ -32,6 +32,7 @@
 		23D1A574E20A1B87B8000026 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD98012CD02A0361FECC /* Views.m */; };
 		23D1A5EDC93B9D29C24D824C /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A65A144C101063E84AEE /* PopupViewController.m */; };
 		23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */; };
+		23D1A7298B740CB5405C3E61 /* NewAnOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7FC18AA61C3222D3798 /* NewAnOrderController.m */; };
 		23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD642F2574EF7B7ABE7A /* NotBadPopupController.m */; };
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1A84C59A39BE302D8A299 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A278AE463FD31482EF73 /* MainViewController.m */; };
@@ -89,6 +90,7 @@
 		23D1A678E89E656221BD48C8 /* BadOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrder.m; sourceTree = "<group>"; };
 		23D1A7D94D3A4DBBE7826F04 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		23D1A7EC93A0F8843F4BED99 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
+		23D1A7FC18AA61C3222D3798 /* NewAnOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnOrderController.m; sourceTree = "<group>"; };
 		23D1A816DA159E386022A8D0 /* BadOrderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderListController.m; sourceTree = "<group>"; };
 		23D1A89CCBFB441509BF866C /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		23D1A97538A0BB28FF152EEE /* OrderDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailController.m; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		23D1AEAF11EE9ADFF8DE11BA /* Views.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Views.h; sourceTree = "<group>"; };
 		23D1AED613012FB9659CB094 /* FacebookDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookDaemon.h; sourceTree = "<group>"; };
 		23D1AF9820251B10220838FF /* BadOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrder.h; sourceTree = "<group>"; };
+		23D1AFCEF599F9720D4F7949 /* NewAnOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnOrderController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +261,8 @@
 				23D1A7D94D3A4DBBE7826F04 /* LoginViewController.h */,
 				23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */,
 				23D1A0538595D89239E252D6 /* ThorNavigationController.h */,
+				23D1A7FC18AA61C3222D3798 /* NewAnOrderController.m */,
+				23D1AFCEF599F9720D4F7949 /* NewAnOrderController.h */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */,
 				23D1AAC6B2DE557D58DD1025 /* LoginViewController.m in Sources */,
 				23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */,
+				23D1A7298B740CB5405C3E61 /* NewAnOrderController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,3 +22,7 @@
 "log_in_with_facebook" = "Log In With Facebook";
 "log_in_with_twitter" = "Log In With Twitter";
 "sign_up" = "Sign Up";
+"add_photo_button_title" = "Add Food Photo";
+"take_a_photo" = "Take a photo";
+"select_from_album" = "Select from album";
+"cancel" = "Cancel";

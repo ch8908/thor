@@ -129,7 +129,7 @@
 - (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
 {
     Place* place = self.placeArray[(NSUInteger) indexPath.row];
-    BadOrderListController* badMenuController = [[BadOrderListController alloc] initBadMenuWithTitle:place.name];
+    BadOrderListController* badMenuController = [[BadOrderListController alloc] initBadMenuWithTitle:place];
     [self.navigationController pushViewController:badMenuController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
