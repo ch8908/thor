@@ -32,17 +32,18 @@
         [_signInWithFacebookButton setTitle:[I18N key:@"log_in_with_facebook"] forState:UIControlStateNormal];
         [Views resize:_signInWithFacebookButton containerSize:CGSizeMake(260, 50)];
         [Views alignCenter:_signInWithFacebookButton containerWidth:self.view.bounds.size.width];
+        [Views locate:_signInWithFacebookButton y:100];
         [self.view addSubview:_signInWithFacebookButton];
 
         _signInWithTwitterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_signInWithFacebookButton setTitle:[I18N key:@"log_in_with_twitter"] forState:UIControlStateNormal];
+        [_signInWithTwitterButton setTitle:[I18N key:@"log_in_with_twitter"] forState:UIControlStateNormal];
         [Views resize:_signInWithTwitterButton containerSize:CGSizeMake(260, 50)];
         [Views alignCenter:_signInWithTwitterButton containerWidth:self.view.bounds.size.width];
         [Views locate:_signInWithTwitterButton y:[Views bottomOf:_signInWithFacebookButton]];
         [self.view addSubview:_signInWithTwitterButton];
 
         _signUpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_signInWithFacebookButton setTitle:[I18N key:@"sign_up"] forState:UIControlStateNormal];
+        [_signUpButton setTitle:[I18N key:@"sign_up"] forState:UIControlStateNormal];
         [Views resize:_signUpButton containerSize:CGSizeMake(260, 50)];
         [Views alignCenter:_signUpButton containerWidth:self.view.bounds.size.width];
         [Views locate:_signUpButton y:[Views bottomOf:_signInWithTwitterButton]];
