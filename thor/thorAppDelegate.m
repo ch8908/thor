@@ -9,6 +9,7 @@
 #import "thorAppDelegate.h"
 #import "MainViewController.h"
 #import "Beans.h"
+#import "ThorNavigationController.h"
 
 @implementation thorAppDelegate
 
@@ -19,7 +20,7 @@
     [[Beans sharedInstance] configure];
 
     MainViewController* mainViewController = [[MainViewController alloc] initWithMainView];
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    ThorNavigationController* navigationController = [[ThorNavigationController alloc] initWithRootViewController:mainViewController];
     self.window.rootViewController = navigationController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

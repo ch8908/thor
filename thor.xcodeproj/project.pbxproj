@@ -33,6 +33,7 @@
 		23D1A5EDC93B9D29C24D824C /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A65A144C101063E84AEE /* PopupViewController.m */; };
 		23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */; };
 		23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD642F2574EF7B7ABE7A /* NotBadPopupController.m */; };
+		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1A84C59A39BE302D8A299 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A278AE463FD31482EF73 /* MainViewController.m */; };
 		23D1A8EF9C70584E0D22EB61 /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC63A170820DA68C0594 /* UserComment.m */; };
 		23D1A940A870925377C9813A /* BadOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1ADFB54714B694009DF83 /* BadOrderItem.m */; };
@@ -72,6 +73,7 @@
 		195E62B517E59ED500576209 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
 		195E62B617E59ED500576209 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		23D1A0538595D89239E252D6 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A0AFC1102BFC02544E58 /* I18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18N.h; sourceTree = "<group>"; };
 		23D1A1E85B3CC4D8C0CB99D4 /* BadOrderListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderListController.h; sourceTree = "<group>"; };
 		23D1A1F240455470FDA5652C /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserComment.h; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		23D1ABCA34DF042DC25D7CEB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		23D1AC01C21E73516591C786 /* PopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupViewController.h; sourceTree = "<group>"; };
 		23D1AC63A170820DA68C0594 /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserComment.m; sourceTree = "<group>"; };
+		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
 		23D1AD382D1127058CE22FF8 /* StillBadPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillBadPopupController.m; sourceTree = "<group>"; };
 		23D1AD4057DFC450C6BB8F12 /* I18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I18N.m; sourceTree = "<group>"; };
 		23D1AD642F2574EF7B7ABE7A /* NotBadPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotBadPopupController.m; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 				23D1A4E89E66835F6E9DA0CC /* NotBadPopupController.h */,
 				23D1ABCA34DF042DC25D7CEB /* LoginViewController.m */,
 				23D1A7D94D3A4DBBE7826F04 /* LoginViewController.h */,
+				23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */,
+				23D1A0538595D89239E252D6 /* ThorNavigationController.h */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 				23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */,
 				23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */,
 				23D1AAC6B2DE557D58DD1025 /* LoginViewController.m in Sources */,
+				23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
