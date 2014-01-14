@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		191AED4217C33E39003B10F0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 191AED4117C33E39003B10F0 /* MapKit.framework */; };
-		191AED4917C4E38E003B10F0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 191AED4817C4E38E003B10F0 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		191AED4B17C4F951003B10F0 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 191AED4A17C4F951003B10F0 /* res */; };
 		191AED4D17C5AA18003B10F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 191AED4C17C5AA18003B10F0 /* CoreLocation.framework */; };
 		192F311317D0F77D00509135 /* image in Resources */ = {isa = PBXBuildFile; fileRef = 192F311217D0F77D00509135 /* image */; };
+		194B1E7018855F3A004FCBA7 /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E6D18855F3A004FCBA7 /* MJPopupBackgroundView.m */; };
+		194B1E7118855F3A004FCBA7 /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E6F18855F3A004FCBA7 /* UIViewController+MJPopupViewController.m */; };
 		1955A56B17E3178100BEF77F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1955A56D17E3178100BEF77F /* Localizable.strings */; };
 		1958468417C266C8004B8592 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468317C266C8004B8592 /* UIKit.framework */; };
 		1958468617C266C8004B8592 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468517C266C8004B8592 /* Foundation.framework */; };
@@ -22,8 +23,6 @@
 		1958469617C266C8004B8592 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469517C266C8004B8592 /* Default.png */; };
 		1958469817C266C8004B8592 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469717C266C8004B8592 /* Default@2x.png */; };
 		1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
-		195E62B717E59ED500576209 /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 195E62B417E59ED500576209 /* MJPopupBackgroundView.m */; };
-		195E62B817E59ED500576209 /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 195E62B617E59ED500576209 /* UIViewController+MJPopupViewController.m */; };
 		195E62BA17E59EF600576209 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
 		23D1A0E6F73C3B34D4FBE36A /* Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AB92AC7E61978BED36C6 /* Beans.m */; };
 		23D1A23692BB13BAED416EFC /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD4057DFC450C6BB8F12 /* I18N.m */; };
@@ -44,15 +43,18 @@
 		23D1AE92968BEA5B3F185623 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A97538A0BB28FF152EEE /* OrderDetailController.m */; };
 		23D1AF9C8E896794A38F706A /* StillBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD382D1127058CE22FF8 /* StillBadPopupController.m */; };
 		23D1AFDACDB9CEA7F9AE0F78 /* BadOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A678E89E656221BD48C8 /* BadOrder.m */; };
+		77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB46A6B010F648FCB20DA62E /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		191AED4117C33E39003B10F0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		191AED4717C4E38E003B10F0 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		191AED4817C4E38E003B10F0 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		191AED4A17C4F951003B10F0 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		191AED4C17C5AA18003B10F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		192F311217D0F77D00509135 /* image */ = {isa = PBXFileReference; lastKnownFileType = folder; path = image; sourceTree = "<group>"; };
+		194B1E6C18855F3A004FCBA7 /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
+		194B1E6D18855F3A004FCBA7 /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
+		194B1E6E18855F3A004FCBA7 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
+		194B1E6F18855F3A004FCBA7 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
 		1955A56717E2079400BEF77F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1955A56E17E3179700BEF77F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1955A56F17E317F400BEF77F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -69,10 +71,6 @@
 		1958469517C266C8004B8592 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1958469717C266C8004B8592 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		1958469917C266C8004B8592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		195E62B317E59ED500576209 /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
-		195E62B417E59ED500576209 /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
-		195E62B517E59ED500576209 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
-		195E62B617E59ED500576209 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23D1A0538595D89239E252D6 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A0AFC1102BFC02544E58 /* I18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18N.h; sourceTree = "<group>"; };
@@ -112,6 +110,8 @@
 		23D1AED613012FB9659CB094 /* FacebookDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookDaemon.h; sourceTree = "<group>"; };
 		23D1AF9820251B10220838FF /* BadOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrder.h; sourceTree = "<group>"; };
 		23D1AFCEF599F9720D4F7949 /* NewAnOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnOrderController.h; sourceTree = "<group>"; };
+		BB46A6B010F648FCB20DA62E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,40 +125,42 @@
 				1958468417C266C8004B8592 /* UIKit.framework in Frameworks */,
 				1958468617C266C8004B8592 /* Foundation.framework in Frameworks */,
 				1958468817C266C8004B8592 /* CoreGraphics.framework in Frameworks */,
+				77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		191AED4517C4E375003B10F0 /* lib */ = {
+		194B1E6A18855F3A004FCBA7 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				195E62B217E59ED500576209 /* MJPopup */,
-				191AED4617C4E38E003B10F0 /* JSONKit */,
+				194B1E6B18855F3A004FCBA7 /* MJPopup */,
 			);
-			name = lib;
+			path = lib;
 			sourceTree = "<group>";
 		};
-		191AED4617C4E38E003B10F0 /* JSONKit */ = {
+		194B1E6B18855F3A004FCBA7 /* MJPopup */ = {
 			isa = PBXGroup;
 			children = (
-				191AED4717C4E38E003B10F0 /* JSONKit.h */,
-				191AED4817C4E38E003B10F0 /* JSONKit.m */,
+				194B1E6C18855F3A004FCBA7 /* MJPopupBackgroundView.h */,
+				194B1E6D18855F3A004FCBA7 /* MJPopupBackgroundView.m */,
+				194B1E6E18855F3A004FCBA7 /* UIViewController+MJPopupViewController.h */,
+				194B1E6F18855F3A004FCBA7 /* UIViewController+MJPopupViewController.m */,
 			);
-			name = JSONKit;
-			path = lib/JSONKit;
+			path = MJPopup;
 			sourceTree = "<group>";
 		};
 		1958467717C266C8004B8592 = {
 			isa = PBXGroup;
 			children = (
+				194B1E6A18855F3A004FCBA7 /* lib */,
 				192F311217D0F77D00509135 /* image */,
 				191AED4A17C4F951003B10F0 /* res */,
-				191AED4517C4E375003B10F0 /* lib */,
 				1958468917C266C8004B8592 /* thor */,
 				1958468217C266C8004B8592 /* Frameworks */,
 				1958468117C266C8004B8592 /* Products */,
+				E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,6 +181,7 @@
 				1958468317C266C8004B8592 /* UIKit.framework */,
 				1958468517C266C8004B8592 /* Foundation.framework */,
 				1958468717C266C8004B8592 /* CoreGraphics.framework */,
+				BB46A6B010F648FCB20DA62E /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -213,18 +216,6 @@
 				1958469917C266C8004B8592 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		195E62B217E59ED500576209 /* MJPopup */ = {
-			isa = PBXGroup;
-			children = (
-				195E62B317E59ED500576209 /* MJPopupBackgroundView.h */,
-				195E62B417E59ED500576209 /* MJPopupBackgroundView.m */,
-				195E62B517E59ED500576209 /* UIViewController+MJPopupViewController.h */,
-				195E62B617E59ED500576209 /* UIViewController+MJPopupViewController.m */,
-			);
-			name = MJPopup;
-			path = lib/MJPopup;
 			sourceTree = "<group>";
 		};
 		19D1E35F17DC6F3300F98548 /* model */ = {
@@ -289,9 +280,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1958469D17C266C8004B8592 /* Build configuration list for PBXNativeTarget "thor" */;
 			buildPhases = (
+				9BD60484A47F4C64B727EA6D /* Check Pods Manifest.lock */,
 				1958467C17C266C8004B8592 /* Sources */,
 				1958467D17C266C8004B8592 /* Frameworks */,
 				1958467E17C266C8004B8592 /* Resources */,
+				FC0E89A40C124D749587B785 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,6 +340,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9BD60484A47F4C64B727EA6D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FC0E89A40C124D749587B785 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1958467C17C266C8004B8592 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -356,11 +382,11 @@
 				1958469417C266C8004B8592 /* thorAppDelegate.m in Sources */,
 				23D1A84C59A39BE302D8A299 /* MainViewController.m in Sources */,
 				23D1AE5FA6AF5AA1E090D02D /* ViewParams.m in Sources */,
-				191AED4917C4E38E003B10F0 /* JSONKit.m in Sources */,
 				23D1AC9B3A417033CC069D27 /* Place.m in Sources */,
 				23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */,
 				23D1A0E6F73C3B34D4FBE36A /* Beans.m in Sources */,
 				23D1AFDACDB9CEA7F9AE0F78 /* BadOrder.m in Sources */,
+				194B1E7118855F3A004FCBA7 /* UIViewController+MJPopupViewController.m in Sources */,
 				23D1A8EF9C70584E0D22EB61 /* UserComment.m in Sources */,
 				23D1A265DCEFAC7121C825B6 /* BadOrderListController.m in Sources */,
 				23D1AE92968BEA5B3F185623 /* OrderDetailController.m in Sources */,
@@ -368,9 +394,8 @@
 				23D1A574E20A1B87B8000026 /* Views.m in Sources */,
 				23D1A23692BB13BAED416EFC /* I18N.m in Sources */,
 				23D1A5EDC93B9D29C24D824C /* PopupViewController.m in Sources */,
-				195E62B717E59ED500576209 /* MJPopupBackgroundView.m in Sources */,
-				195E62B817E59ED500576209 /* UIViewController+MJPopupViewController.m in Sources */,
 				23D1AF9C8E896794A38F706A /* StillBadPopupController.m in Sources */,
+				194B1E7018855F3A004FCBA7 /* MJPopupBackgroundView.m in Sources */,
 				23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */,
 				23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */,
 				23D1AAC6B2DE557D58DD1025 /* LoginViewController.m in Sources */,
@@ -461,6 +486,7 @@
 		};
 		1958469E17C266C8004B8592 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
@@ -472,6 +498,7 @@
 		};
 		1958469F17C266C8004B8592 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
