@@ -21,3 +21,4 @@ workspace.xml
 *.pbxuser
 *.xcworkspace
 xcuserdata
+Pods/
