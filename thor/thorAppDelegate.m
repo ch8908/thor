@@ -8,7 +8,6 @@
 
 #import "thorAppDelegate.h"
 #import "MainViewController.h"
-#import "Beans.h"
 #import "ThorNavigationController.h"
 
 @implementation thorAppDelegate
@@ -17,14 +16,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    [[Beans sharedInstance] configure];
 
     MainViewController* mainViewController = [[MainViewController alloc] initWithMainView];
     ThorNavigationController* navigationController = [[ThorNavigationController alloc] initWithRootViewController:mainViewController];
     self.window.rootViewController = navigationController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-
 
     return YES;
 }

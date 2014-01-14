@@ -13,6 +13,22 @@
 		192F311317D0F77D00509135 /* image in Resources */ = {isa = PBXBuildFile; fileRef = 192F311217D0F77D00509135 /* image */; };
 		194B1E7018855F3A004FCBA7 /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E6D18855F3A004FCBA7 /* MJPopupBackgroundView.m */; };
 		194B1E7118855F3A004FCBA7 /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E6F18855F3A004FCBA7 /* UIViewController+MJPopupViewController.m */; };
+		194B1E7B188564A8004FCBA7 /* BadOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E74188564A8004FCBA7 /* BadOrder.m */; };
+		194B1E7C188564A8004FCBA7 /* BadOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E76188564A8004FCBA7 /* BadOrderItem.m */; };
+		194B1E7D188564A8004FCBA7 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E78188564A8004FCBA7 /* Place.m */; };
+		194B1E7E188564A8004FCBA7 /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E7A188564A8004FCBA7 /* UserComment.m */; };
+		194B1E881885654F004FCBA7 /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E811885654F004FCBA7 /* I18N.m */; };
+		194B1E891885654F004FCBA7 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E831885654F004FCBA7 /* NSString+Util.m */; };
+		194B1E8A1885654F004FCBA7 /* ViewParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E851885654F004FCBA7 /* ViewParams.m */; };
+		194B1E8B1885654F004FCBA7 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E871885654F004FCBA7 /* Views.m */; };
+		194B1E9D18856618004FCBA7 /* BadOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E8E18856618004FCBA7 /* BadOrderListController.m */; };
+		194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9018856618004FCBA7 /* LoginViewController.m */; };
+		194B1E9F18856618004FCBA7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9218856618004FCBA7 /* MainViewController.m */; };
+		194B1EA018856618004FCBA7 /* NewAnOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9418856618004FCBA7 /* NewAnOrderController.m */; };
+		194B1EA118856618004FCBA7 /* NotBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9618856618004FCBA7 /* NotBadPopupController.m */; };
+		194B1EA218856618004FCBA7 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9818856618004FCBA7 /* OrderDetailController.m */; };
+		194B1EA318856618004FCBA7 /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9A18856618004FCBA7 /* PopupViewController.m */; };
+		194B1EA418856618004FCBA7 /* StillBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9C18856618004FCBA7 /* StillBadPopupController.m */; };
 		1955A56B17E3178100BEF77F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1955A56D17E3178100BEF77F /* Localizable.strings */; };
 		1958468417C266C8004B8592 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468317C266C8004B8592 /* UIKit.framework */; };
 		1958468617C266C8004B8592 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468517C266C8004B8592 /* Foundation.framework */; };
@@ -24,25 +40,10 @@
 		1958469817C266C8004B8592 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469717C266C8004B8592 /* Default@2x.png */; };
 		1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
 		195E62BA17E59EF600576209 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
-		23D1A0E6F73C3B34D4FBE36A /* Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AB92AC7E61978BED36C6 /* Beans.m */; };
-		23D1A23692BB13BAED416EFC /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD4057DFC450C6BB8F12 /* I18N.m */; };
-		23D1A265DCEFAC7121C825B6 /* BadOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A816DA159E386022A8D0 /* BadOrderListController.m */; };
-		23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9C0D3B0DEA7139810F8 /* NSString+Util.m */; };
-		23D1A574E20A1B87B8000026 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD98012CD02A0361FECC /* Views.m */; };
-		23D1A5EDC93B9D29C24D824C /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A65A144C101063E84AEE /* PopupViewController.m */; };
-		23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */; };
-		23D1A7298B740CB5405C3E61 /* NewAnOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7FC18AA61C3222D3798 /* NewAnOrderController.m */; };
-		23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD642F2574EF7B7ABE7A /* NotBadPopupController.m */; };
+		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
+		23D1A49A66472AAD3B75B44A /* ThorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* ThorManager.m */; };
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
-		23D1A84C59A39BE302D8A299 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A278AE463FD31482EF73 /* MainViewController.m */; };
-		23D1A8EF9C70584E0D22EB61 /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC63A170820DA68C0594 /* UserComment.m */; };
-		23D1A940A870925377C9813A /* BadOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1ADFB54714B694009DF83 /* BadOrderItem.m */; };
-		23D1AAC6B2DE557D58DD1025 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1ABCA34DF042DC25D7CEB /* LoginViewController.m */; };
-		23D1AC9B3A417033CC069D27 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A89CCBFB441509BF866C /* Place.m */; };
-		23D1AE5FA6AF5AA1E090D02D /* ViewParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1ADB324F98D6717DC0450 /* ViewParams.m */; };
-		23D1AE92968BEA5B3F185623 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A97538A0BB28FF152EEE /* OrderDetailController.m */; };
-		23D1AF9C8E896794A38F706A /* StillBadPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD382D1127058CE22FF8 /* StillBadPopupController.m */; };
-		23D1AFDACDB9CEA7F9AE0F78 /* BadOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A678E89E656221BD48C8 /* BadOrder.m */; };
+		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
 		77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB46A6B010F648FCB20DA62E /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,38 @@
 		194B1E6D18855F3A004FCBA7 /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
 		194B1E6E18855F3A004FCBA7 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
 		194B1E6F18855F3A004FCBA7 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
+		194B1E73188564A8004FCBA7 /* BadOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrder.h; sourceTree = "<group>"; };
+		194B1E74188564A8004FCBA7 /* BadOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrder.m; sourceTree = "<group>"; };
+		194B1E75188564A8004FCBA7 /* BadOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderItem.h; sourceTree = "<group>"; };
+		194B1E76188564A8004FCBA7 /* BadOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderItem.m; sourceTree = "<group>"; };
+		194B1E77188564A8004FCBA7 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		194B1E78188564A8004FCBA7 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		194B1E79188564A8004FCBA7 /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserComment.h; sourceTree = "<group>"; };
+		194B1E7A188564A8004FCBA7 /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserComment.m; sourceTree = "<group>"; };
+		194B1E801885654F004FCBA7 /* I18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18N.h; sourceTree = "<group>"; };
+		194B1E811885654F004FCBA7 /* I18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I18N.m; sourceTree = "<group>"; };
+		194B1E821885654F004FCBA7 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
+		194B1E831885654F004FCBA7 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
+		194B1E841885654F004FCBA7 /* ViewParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewParams.h; sourceTree = "<group>"; };
+		194B1E851885654F004FCBA7 /* ViewParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewParams.m; sourceTree = "<group>"; };
+		194B1E861885654F004FCBA7 /* Views.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Views.h; sourceTree = "<group>"; };
+		194B1E871885654F004FCBA7 /* Views.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Views.m; sourceTree = "<group>"; };
+		194B1E8D18856618004FCBA7 /* BadOrderListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderListController.h; sourceTree = "<group>"; };
+		194B1E8E18856618004FCBA7 /* BadOrderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderListController.m; sourceTree = "<group>"; };
+		194B1E8F18856618004FCBA7 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		194B1E9018856618004FCBA7 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		194B1E9118856618004FCBA7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		194B1E9218856618004FCBA7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		194B1E9318856618004FCBA7 /* NewAnOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnOrderController.h; sourceTree = "<group>"; };
+		194B1E9418856618004FCBA7 /* NewAnOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnOrderController.m; sourceTree = "<group>"; };
+		194B1E9518856618004FCBA7 /* NotBadPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotBadPopupController.h; sourceTree = "<group>"; };
+		194B1E9618856618004FCBA7 /* NotBadPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotBadPopupController.m; sourceTree = "<group>"; };
+		194B1E9718856618004FCBA7 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
+		194B1E9818856618004FCBA7 /* OrderDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailController.m; sourceTree = "<group>"; };
+		194B1E9918856618004FCBA7 /* PopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupViewController.h; sourceTree = "<group>"; };
+		194B1E9A18856618004FCBA7 /* PopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupViewController.m; sourceTree = "<group>"; };
+		194B1E9B18856618004FCBA7 /* StillBadPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StillBadPopupController.h; sourceTree = "<group>"; };
+		194B1E9C18856618004FCBA7 /* StillBadPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillBadPopupController.m; sourceTree = "<group>"; };
 		1955A56717E2079400BEF77F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1955A56E17E3179700BEF77F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1955A56F17E317F400BEF77F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -73,43 +106,13 @@
 		1958469917C266C8004B8592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23D1A0538595D89239E252D6 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
-		23D1A0AFC1102BFC02544E58 /* I18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18N.h; sourceTree = "<group>"; };
-		23D1A1E85B3CC4D8C0CB99D4 /* BadOrderListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderListController.h; sourceTree = "<group>"; };
-		23D1A1F240455470FDA5652C /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserComment.h; sourceTree = "<group>"; };
-		23D1A204B58E3860C9A6B6C4 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
-		23D1A2689170F323E44BB649 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		23D1A278AE463FD31482EF73 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		23D1A32D5D9E6990B02D8D75 /* BadOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderItem.h; sourceTree = "<group>"; };
-		23D1A3C67FFDA84793EDC998 /* StillBadPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StillBadPopupController.h; sourceTree = "<group>"; };
-		23D1A4213F96D73BD61AAA72 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
-		23D1A4E89E66835F6E9DA0CC /* NotBadPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotBadPopupController.h; sourceTree = "<group>"; };
-		23D1A5899D65C485CB9A9515 /* ViewParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewParams.h; sourceTree = "<group>"; };
-		23D1A65A144C101063E84AEE /* PopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupViewController.m; sourceTree = "<group>"; };
-		23D1A678E89E656221BD48C8 /* BadOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrder.m; sourceTree = "<group>"; };
-		23D1A7D94D3A4DBBE7826F04 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		23D1A7EC93A0F8843F4BED99 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
-		23D1A7FC18AA61C3222D3798 /* NewAnOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnOrderController.m; sourceTree = "<group>"; };
-		23D1A816DA159E386022A8D0 /* BadOrderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderListController.m; sourceTree = "<group>"; };
-		23D1A89CCBFB441509BF866C /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
-		23D1A97538A0BB28FF152EEE /* OrderDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailController.m; sourceTree = "<group>"; };
-		23D1A9C0D3B0DEA7139810F8 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
-		23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookDaemon.m; sourceTree = "<group>"; };
-		23D1AB255FE285C56859FCD1 /* Beans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beans.h; sourceTree = "<group>"; };
-		23D1AB92AC7E61978BED36C6 /* Beans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beans.m; sourceTree = "<group>"; };
-		23D1ABCA34DF042DC25D7CEB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		23D1AC01C21E73516591C786 /* PopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupViewController.h; sourceTree = "<group>"; };
-		23D1AC63A170820DA68C0594 /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserComment.m; sourceTree = "<group>"; };
+		23D1A3251F2E796969FF73F9 /* ThorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorManager.h; sourceTree = "<group>"; };
+		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
+		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		23D1AC8EF72D800DBE6619AA /* ThorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
-		23D1AD382D1127058CE22FF8 /* StillBadPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillBadPopupController.m; sourceTree = "<group>"; };
-		23D1AD4057DFC450C6BB8F12 /* I18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I18N.m; sourceTree = "<group>"; };
-		23D1AD642F2574EF7B7ABE7A /* NotBadPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotBadPopupController.m; sourceTree = "<group>"; };
-		23D1AD98012CD02A0361FECC /* Views.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Views.m; sourceTree = "<group>"; };
-		23D1ADB324F98D6717DC0450 /* ViewParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewParams.m; sourceTree = "<group>"; };
-		23D1ADFB54714B694009DF83 /* BadOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadOrderItem.m; sourceTree = "<group>"; };
-		23D1AEAF11EE9ADFF8DE11BA /* Views.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Views.h; sourceTree = "<group>"; };
-		23D1AED613012FB9659CB094 /* FacebookDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookDaemon.h; sourceTree = "<group>"; };
-		23D1AF9820251B10220838FF /* BadOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrder.h; sourceTree = "<group>"; };
-		23D1AFCEF599F9720D4F7949 /* NewAnOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnOrderController.h; sourceTree = "<group>"; };
+		23D1AE90B22EF5500267ECBD /* CoffeeShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShop.h; sourceTree = "<group>"; };
+		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		BB46A6B010F648FCB20DA62E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +154,72 @@
 			path = MJPopup;
 			sourceTree = "<group>";
 		};
+		194B1E72188564A8004FCBA7 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				194B1E73188564A8004FCBA7 /* BadOrder.h */,
+				194B1E74188564A8004FCBA7 /* BadOrder.m */,
+				194B1E75188564A8004FCBA7 /* BadOrderItem.h */,
+				194B1E76188564A8004FCBA7 /* BadOrderItem.m */,
+				194B1E77188564A8004FCBA7 /* Place.h */,
+				194B1E78188564A8004FCBA7 /* Place.m */,
+				194B1E79188564A8004FCBA7 /* UserComment.h */,
+				194B1E7A188564A8004FCBA7 /* UserComment.m */,
+				23D1A702A947B002EC72EBD7 /* CoffeeShop.m */,
+				23D1AE90B22EF5500267ECBD /* CoffeeShop.h */,
+				23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */,
+				23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		194B1E7F1885654F004FCBA7 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				194B1E801885654F004FCBA7 /* I18N.h */,
+				194B1E811885654F004FCBA7 /* I18N.m */,
+				194B1E821885654F004FCBA7 /* NSString+Util.h */,
+				194B1E831885654F004FCBA7 /* NSString+Util.m */,
+				194B1E841885654F004FCBA7 /* ViewParams.h */,
+				194B1E851885654F004FCBA7 /* ViewParams.m */,
+				194B1E861885654F004FCBA7 /* Views.h */,
+				194B1E871885654F004FCBA7 /* Views.m */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		194B1E8C18856618004FCBA7 /* viewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				194B1E8D18856618004FCBA7 /* BadOrderListController.h */,
+				194B1E8E18856618004FCBA7 /* BadOrderListController.m */,
+				194B1E8F18856618004FCBA7 /* LoginViewController.h */,
+				194B1E9018856618004FCBA7 /* LoginViewController.m */,
+				194B1E9118856618004FCBA7 /* MainViewController.h */,
+				194B1E9218856618004FCBA7 /* MainViewController.m */,
+				194B1E9318856618004FCBA7 /* NewAnOrderController.h */,
+				194B1E9418856618004FCBA7 /* NewAnOrderController.m */,
+				194B1E9518856618004FCBA7 /* NotBadPopupController.h */,
+				194B1E9618856618004FCBA7 /* NotBadPopupController.m */,
+				194B1E9718856618004FCBA7 /* OrderDetailController.h */,
+				194B1E9818856618004FCBA7 /* OrderDetailController.m */,
+				194B1E9918856618004FCBA7 /* PopupViewController.h */,
+				194B1E9A18856618004FCBA7 /* PopupViewController.m */,
+				194B1E9B18856618004FCBA7 /* StillBadPopupController.h */,
+				194B1E9C18856618004FCBA7 /* StillBadPopupController.m */,
+			);
+			path = viewcontroller;
+			sourceTree = "<group>";
+		};
+		194B1EA5188566FF004FCBA7 /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				23D1AC8EF72D800DBE6619AA /* ThorManager.m */,
+				23D1A3251F2E796969FF73F9 /* ThorManager.h */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
 		1958467717C266C8004B8592 = {
 			isa = PBXGroup;
 			children = (
@@ -189,16 +258,14 @@
 		1958468917C266C8004B8592 /* thor */ = {
 			isa = PBXGroup;
 			children = (
-				19D1E36117DC6F7600F98548 /* util */,
+				194B1EA5188566FF004FCBA7 /* manager */,
+				194B1E8C18856618004FCBA7 /* viewcontroller */,
+				194B1E7F1885654F004FCBA7 /* util */,
+				194B1E72188564A8004FCBA7 /* model */,
 				19D1E36017DC6F3C00F98548 /* view */,
-				19D1E35F17DC6F3300F98548 /* model */,
 				1958469217C266C8004B8592 /* thorAppDelegate.h */,
 				1958469317C266C8004B8592 /* thorAppDelegate.m */,
 				1958468A17C266C8004B8592 /* Supporting Files */,
-				23D1AA9FDB49A842718DE233 /* FacebookDaemon.m */,
-				23D1AED613012FB9659CB094 /* FacebookDaemon.h */,
-				23D1AB92AC7E61978BED36C6 /* Beans.m */,
-				23D1AB255FE285C56859FCD1 /* Beans.h */,
 			);
 			path = thor;
 			sourceTree = "<group>";
@@ -218,59 +285,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		19D1E35F17DC6F3300F98548 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				23D1AC63A170820DA68C0594 /* UserComment.m */,
-				23D1A1F240455470FDA5652C /* UserComment.h */,
-				23D1A89CCBFB441509BF866C /* Place.m */,
-				23D1A4213F96D73BD61AAA72 /* Place.h */,
-				23D1A678E89E656221BD48C8 /* BadOrder.m */,
-				23D1AF9820251B10220838FF /* BadOrder.h */,
-				23D1ADFB54714B694009DF83 /* BadOrderItem.m */,
-				23D1A32D5D9E6990B02D8D75 /* BadOrderItem.h */,
-			);
-			name = model;
-			sourceTree = "<group>";
-		};
 		19D1E36017DC6F3C00F98548 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				23D1A278AE463FD31482EF73 /* MainViewController.m */,
-				23D1A2689170F323E44BB649 /* MainViewController.h */,
-				23D1A816DA159E386022A8D0 /* BadOrderListController.m */,
-				23D1A1E85B3CC4D8C0CB99D4 /* BadOrderListController.h */,
-				23D1A97538A0BB28FF152EEE /* OrderDetailController.m */,
-				23D1A204B58E3860C9A6B6C4 /* OrderDetailController.h */,
-				23D1A65A144C101063E84AEE /* PopupViewController.m */,
-				23D1AC01C21E73516591C786 /* PopupViewController.h */,
-				23D1AD382D1127058CE22FF8 /* StillBadPopupController.m */,
-				23D1A3C67FFDA84793EDC998 /* StillBadPopupController.h */,
-				23D1AD642F2574EF7B7ABE7A /* NotBadPopupController.m */,
-				23D1A4E89E66835F6E9DA0CC /* NotBadPopupController.h */,
-				23D1ABCA34DF042DC25D7CEB /* LoginViewController.m */,
-				23D1A7D94D3A4DBBE7826F04 /* LoginViewController.h */,
 				23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */,
 				23D1A0538595D89239E252D6 /* ThorNavigationController.h */,
-				23D1A7FC18AA61C3222D3798 /* NewAnOrderController.m */,
-				23D1AFCEF599F9720D4F7949 /* NewAnOrderController.h */,
 			);
 			name = view;
-			sourceTree = "<group>";
-		};
-		19D1E36117DC6F7600F98548 /* util */ = {
-			isa = PBXGroup;
-			children = (
-				23D1ADB324F98D6717DC0450 /* ViewParams.m */,
-				23D1A5899D65C485CB9A9515 /* ViewParams.h */,
-				23D1AD98012CD02A0361FECC /* Views.m */,
-				23D1AEAF11EE9ADFF8DE11BA /* Views.h */,
-				23D1AD4057DFC450C6BB8F12 /* I18N.m */,
-				23D1A0AFC1102BFC02544E58 /* I18N.h */,
-				23D1A9C0D3B0DEA7139810F8 /* NSString+Util.m */,
-				23D1A7EC93A0F8843F4BED99 /* NSString+Util.h */,
-			);
-			name = util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,28 +400,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				1958469017C266C8004B8592 /* main.m in Sources */,
+				194B1EA018856618004FCBA7 /* NewAnOrderController.m in Sources */,
 				1958469417C266C8004B8592 /* thorAppDelegate.m in Sources */,
-				23D1A84C59A39BE302D8A299 /* MainViewController.m in Sources */,
-				23D1AE5FA6AF5AA1E090D02D /* ViewParams.m in Sources */,
-				23D1AC9B3A417033CC069D27 /* Place.m in Sources */,
-				23D1A6749A6311926698DECC /* FacebookDaemon.m in Sources */,
-				23D1A0E6F73C3B34D4FBE36A /* Beans.m in Sources */,
-				23D1AFDACDB9CEA7F9AE0F78 /* BadOrder.m in Sources */,
+				194B1E891885654F004FCBA7 /* NSString+Util.m in Sources */,
+				194B1E9F18856618004FCBA7 /* MainViewController.m in Sources */,
+				194B1EA418856618004FCBA7 /* StillBadPopupController.m in Sources */,
+				194B1E7D188564A8004FCBA7 /* Place.m in Sources */,
+				194B1E9D18856618004FCBA7 /* BadOrderListController.m in Sources */,
 				194B1E7118855F3A004FCBA7 /* UIViewController+MJPopupViewController.m in Sources */,
-				23D1A8EF9C70584E0D22EB61 /* UserComment.m in Sources */,
-				23D1A265DCEFAC7121C825B6 /* BadOrderListController.m in Sources */,
-				23D1AE92968BEA5B3F185623 /* OrderDetailController.m in Sources */,
-				23D1A940A870925377C9813A /* BadOrderItem.m in Sources */,
-				23D1A574E20A1B87B8000026 /* Views.m in Sources */,
-				23D1A23692BB13BAED416EFC /* I18N.m in Sources */,
-				23D1A5EDC93B9D29C24D824C /* PopupViewController.m in Sources */,
-				23D1AF9C8E896794A38F706A /* StillBadPopupController.m in Sources */,
+				194B1EA118856618004FCBA7 /* NotBadPopupController.m in Sources */,
+				194B1E8B1885654F004FCBA7 /* Views.m in Sources */,
+				194B1EA218856618004FCBA7 /* OrderDetailController.m in Sources */,
+				194B1E7B188564A8004FCBA7 /* BadOrder.m in Sources */,
+				194B1E7C188564A8004FCBA7 /* BadOrderItem.m in Sources */,
+				194B1E881885654F004FCBA7 /* I18N.m in Sources */,
 				194B1E7018855F3A004FCBA7 /* MJPopupBackgroundView.m in Sources */,
-				23D1A745D9A5767747F8180B /* NotBadPopupController.m in Sources */,
-				23D1A4B04F24731834FCFA1C /* NSString+Util.m in Sources */,
-				23D1AAC6B2DE557D58DD1025 /* LoginViewController.m in Sources */,
+				194B1E8A1885654F004FCBA7 /* ViewParams.m in Sources */,
+				194B1E7E188564A8004FCBA7 /* UserComment.m in Sources */,
 				23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */,
-				23D1A7298B740CB5405C3E61 /* NewAnOrderController.m in Sources */,
+				194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */,
+				194B1EA318856618004FCBA7 /* PopupViewController.m in Sources */,
+				23D1A49A66472AAD3B75B44A /* ThorManager.m in Sources */,
+				23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */,
+				23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +514,7 @@
 				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
 				INFOPLIST_FILE = "thor/thor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -504,6 +527,7 @@
 				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
 				INFOPLIST_FILE = "thor/thor-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
