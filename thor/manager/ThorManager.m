@@ -3,6 +3,7 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "ThorManager.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "JSONKit.h"
@@ -36,15 +37,18 @@ NSString* LoadShopSuccessNotification = @"LoadShopSuccessNotification";
     return self;
 }
 
-- (void) fetchFromServer
+- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D
 {
-    NSString* urlString = [NSString stringWithFormat:@"http://geekcoffee.roachking.net:80/api/v1/shops?per_page=500&page=1"];
+    NSString* urlString = [NSString stringWithFormat:@"http://geekcoffee.roachking.net:80/api/v1/shops/near?lat=%f&lng=%f&distance=%d&per_page=500&page=1",
+                                                     coordinate2D.latitude,
+                                                     coordinate2D.longitude,
+                                                     10];
+
     NSMutableArray* coffeeShops = [[NSMutableArray alloc] init];
 
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    __weak ThorManager* preventCircularRef = self;
     [manager GET:urlString parameters:nil
          success:^(AFHTTPRequestOperation* operation, id responseObject) {
              NSString* encodeJsonData = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

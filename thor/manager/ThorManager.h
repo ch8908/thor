@@ -11,5 +11,5 @@ extern NSString* LoadShopSuccessNotification;
 @interface ThorManager : NSObject
 + (id) sharedInstance;
 
-- (void) fetchFromServer;
+- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D;
 @end

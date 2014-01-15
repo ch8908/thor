@@ -21,6 +21,7 @@
 @property (nonatomic) MKMapView* mapView;
 @property (nonatomic) UITableView* tableView;
 @property (nonatomic) NSMutableArray* coffeeShops;
+@property (nonatomic) NSMutableDictionary* annotations;
 @end
 
 @implementation MainViewController
@@ -36,7 +37,6 @@
         self.mapView.delegate = self;
         self.mapView.showsUserLocation = YES;
 
-
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
@@ -48,8 +48,6 @@
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopFailedNotification)
                                                      name:LoadShopFailedNotification object:nil];
-
-        [[ThorManager sharedInstance] fetchFromServer];
     }
 
     return self;
@@ -92,12 +90,19 @@
 
 - (void) showOnMap
 {
+    if (self.annotations)
+    {
+        self.annotations = nil;
+    }
+    self.annotations = [[NSMutableDictionary alloc] init];
     for (CoffeeShop* coffeeShop in self.coffeeShops)
     {
         TRAnnotation* annotation = [[TRAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(coffeeShop.latitude, coffeeShop.longitude)
+                                                                         id:coffeeShop.id
                                                                        name:coffeeShop.name
                                                                        info:coffeeShop.infoString];
         [self.mapView addAnnotation:annotation];
+        [self.annotations setObject:annotation forKey:coffeeShop.id];
     }
 }
 
@@ -115,6 +120,7 @@
     mapRegion.span.latitudeDelta = 0.01;
     mapRegion.span.longitudeDelta = 0.01;
     [self.mapView setRegion:mapRegion animated:YES];
+    [[ThorManager sharedInstance] fetchShopsWithCenter:self.mapView.userLocation.coordinate];
 }
 
 - (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
@@ -141,8 +147,28 @@
 
 - (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
 {
-
+    CoffeeShop* shop = self.coffeeShops[(NSUInteger) indexPath.row];
+    [self setMapCenterToShop:shop];
+    [self openAnnotationWithShop:shop];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void) openAnnotationWithShop:(CoffeeShop*) coffeeShop
+{
+    TRAnnotation* shopAnnotation = [self.annotations objectForKey:coffeeShop.id];
+    if (shopAnnotation)
+    {
+        [self.mapView selectAnnotation:shopAnnotation animated:YES];
+    }
+}
+
+- (void) setMapCenterToShop:(CoffeeShop*) shop
+{
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = CLLocationCoordinate2DMake(shop.latitude, shop.longitude);
+    mapRegion.span.latitudeDelta = 0.01;
+    mapRegion.span.longitudeDelta = 0.01;
+    [self.mapView setRegion:mapRegion animated:YES];
 }
 
 @end
