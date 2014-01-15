@@ -15,6 +15,7 @@
 #import "ThorManager.h"
 #import "CoffeeShop.h"
 #import "TRAnnotation.h"
+#import "CoffeeShop+Strings.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -142,6 +143,7 @@
 
     CoffeeShop* coffeeShop = self.coffeeShops[(NSUInteger) indexPath.row];
     cell.textLabel.text = coffeeShop.name;
+    cell.detailTextLabel.text = [coffeeShop distanceStringWithCenter:self.mapView.userLocation.coordinate];
     return cell;
 }
 

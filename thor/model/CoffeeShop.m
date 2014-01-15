@@ -3,7 +3,9 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "CoffeeShop.h"
+#import "I18N.h"
 
 
 @implementation CoffeeShop
@@ -45,18 +47,4 @@
                         powerOutlet:powerOutlet];
 }
 
-- (NSString*) infoString
-{
-    return [NSString stringWithFormat:@"Wifi:%@, Power:%@", [self wifiFreeString], [self powerOutletString]];
-}
-
-- (NSString*) powerOutletString
-{
-    return self.powerOutlet ? @"◯" : @"X";
-}
-
-- (NSString*) wifiFreeString
-{
-    return self.wifiFree ? @"◯" : @"X";
-}
 @end

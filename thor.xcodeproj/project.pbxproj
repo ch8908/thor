@@ -42,6 +42,7 @@
 		195E62BA17E59EF600576209 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
 		23D1A49A66472AAD3B75B44A /* ThorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* ThorManager.m */; };
+		23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */; };
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
 		77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB46A6B010F648FCB20DA62E /* libPods.a */; };
@@ -107,8 +108,10 @@
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23D1A0538595D89239E252D6 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A3251F2E796969FF73F9 /* ThorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorManager.h; sourceTree = "<group>"; };
+		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* ThorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
 		23D1AE90B22EF5500267ECBD /* CoffeeShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShop.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				23D1AE90B22EF5500267ECBD /* CoffeeShop.h */,
 				23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */,
 				23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */,
+				23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */,
+				23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				23D1A49A66472AAD3B75B44A /* ThorManager.m in Sources */,
 				23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */,
 				23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */,
+				23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

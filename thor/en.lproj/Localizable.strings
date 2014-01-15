@@ -26,3 +26,6 @@
 "take_a_photo" = "Take a photo";
 "select_from_album" = "Select from album";
 "cancel" = "Cancel";
+"distance_subtitle_meters" = "%1$@ meters";
+"distance_subtitle_km" = "%1$@ km";
+"distance_less_than_1_meter" = "Less than 1 meter";

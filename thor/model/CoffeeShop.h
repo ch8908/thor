@@ -16,7 +16,5 @@
 
 - (instancetype) initWithId:(NSNumber*) id name:(NSString*) name latitude:(double) latitude longitude:(double) longitude wifiFree:(BOOL) wifiFree powerOutlet:(BOOL) powerOutlet;
 
-- (NSString*) infoString;
-
 + (instancetype) map:(NSDictionary*) raw;
 @end
