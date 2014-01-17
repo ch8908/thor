@@ -8,8 +8,44 @@
 
 #import "Views.h"
 
+CGFloat const VIEWS_NAVIGATION_BAR_HEIGHT = 44;
+CGFloat const VIEWS_STATUS_BAR_HEIGHT = 20;
+CGFloat const VIEWS_PAGE_CONTROL_HEIGHT = 3;
 
 @implementation Views
+
++ (BOOL) isRetina
+{
+    return ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2);
+}
+
++ (BOOL) isRetina4
+{
+    if (![self isRetina])
+    {
+        return NO;
+    }
+    return [UIScreen mainScreen].bounds.size.height == 568.0f;
+}
+
++ (CGFloat) screenWidth
+{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    return screenWidth;
+}
+
++ (CGFloat) screenHeight
+{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenHeight = screenRect.size.height;
+    return screenHeight;
+}
+
++ (CGFloat) viewHeight
+{
+    return [Views screenHeight] - VIEWS_STATUS_BAR_HEIGHT - VIEWS_NAVIGATION_BAR_HEIGHT;
+}
 
 + (void) locate:(UIView*) target x:(CGFloat) x y:(CGFloat) y
 {
@@ -70,6 +106,16 @@
     [self locate:source y:[self bottomOf:target] - source.bounds.size.height];
 }
 
++ (void) alignTop:(UIView*) view withTarget:(UIView*) target
+{
+    [self locate:view y:target.frame.origin.y];
+}
+
++ (void) below:(UIView*) view withTarget:(UIView*) target
+{
+    [self locate:view y:target.frame.origin.y + target.bounds.size.height];
+}
+
 + (void) alignMiddle:(UIView*) source withTarget:(UIView*) target
 {
     [self locate:source y:target.frame.origin.y + (target.bounds.size.height - source.bounds.size.height) * 0.5];
@@ -96,4 +142,16 @@
     target.frame = rect;
 }
 
++ (void) move:(UIView*) target deltaX:(CGFloat) dx deltaY:(CGFloat) dy
+{
+    CGRect rect = target.frame;
+    rect.origin.x += dx;
+    rect.origin.y += dy;
+    target.frame = rect;
+}
+
++ (void) alignCenter:(UIView*) source withTarget:(UIView*) target
+{
+    [Views locate:source y:target.frame.origin.y + target.bounds.size.height / 2 - source.bounds.size.height / 2];
+}
 @end

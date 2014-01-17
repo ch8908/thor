@@ -3,9 +3,7 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
-#import <CoreLocation/CoreLocation.h>
 #import "CoffeeShop.h"
-#import "I18N.h"
 
 
 @implementation CoffeeShop

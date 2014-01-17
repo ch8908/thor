@@ -12,10 +12,12 @@
 #import "I18N.h"
 #import "LoginViewController.h"
 #import "ThorNavigationController.h"
-#import "ThorManager.h"
 #import "CoffeeShop.h"
 #import "TRAnnotation.h"
 #import "CoffeeShop+Strings.h"
+#import "Views.h"
+#import "CoffeeService.h"
+#import "DetailViewController.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -23,6 +25,7 @@
 @property (nonatomic) UITableView* tableView;
 @property (nonatomic) NSMutableArray* coffeeShops;
 @property (nonatomic) NSMutableDictionary* annotations;
+@property (nonatomic) UIButton* locateButton;
 @end
 
 @implementation MainViewController
@@ -41,8 +44,15 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
-        [self.view addSubview:self.mapView];
-        [self.view addSubview:self.tableView];
+
+        _locateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_normal.png"]
+                           forState:UIControlStateNormal];
+        [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_pressed.png"]
+                           forState:UIControlStateHighlighted];
+        [self.locateButton sizeToFit];
+        [self.locateButton addTarget:self action:@selector(setMapCenterUser)
+                    forControlEvents:UIControlEventTouchUpInside];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopSuccessNotification:)
                                                      name:LoadShopSuccessNotification object:nil];
@@ -75,6 +85,12 @@
                                        self.view.bounds.size.width,
                                        self.view.bounds.size.height - mapViewFrame.size.height);
     self.tableView.frame = tableViewFrame;
+
+    [Views alignBottom:self.locateButton withTarget:self.mapView];
+
+    [self.view addSubview:self.mapView];
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.locateButton];
 }
 
 - (void) onLoadShopFailedNotification
@@ -121,7 +137,41 @@
     mapRegion.span.latitudeDelta = 0.01;
     mapRegion.span.longitudeDelta = 0.01;
     [self.mapView setRegion:mapRegion animated:YES];
-    [[ThorManager sharedInstance] fetchShopsWithCenter:self.mapView.userLocation.coordinate];
+    [[CoffeeService sharedInstance] fetchShopsWithCenter:self.mapView.userLocation.coordinate];
+}
+
+- (MKAnnotationView*) mapView:(MKMapView*) mapView viewForAnnotation:(id<MKAnnotation>) annotation
+{
+    MKPinAnnotationView* mapPin = nil;
+    if (annotation != self.mapView.userLocation)
+    {
+        static NSString* defaultPinID = @"defaultPin";
+        mapPin = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+        if (mapPin == nil )
+        {
+            mapPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                     reuseIdentifier:defaultPinID];
+            mapPin.canShowCallout = YES;
+            UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            mapPin.rightCalloutAccessoryView = infoButton;
+        }
+        else
+            mapPin.annotation = annotation;
+
+    }
+    return mapPin;
+}
+
+- (void) mapView:(MKMapView*) mapView annotationView:(MKAnnotationView*) view calloutAccessoryControlTapped:(UIControl*) control
+{
+    if (![view.annotation isKindOfClass:[TRAnnotation class]])
+    {
+        return;
+    }
+    TRAnnotation* annotation = (TRAnnotation*) view.annotation;
+    DetailViewController* controller = [[DetailViewController alloc] initDetailViewControllerWithId:annotation.id];
+    [self.navigationController pushViewController:controller animated:YES];
+
 }
 
 - (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
@@ -162,6 +212,15 @@
     {
         [self.mapView selectAnnotation:shopAnnotation animated:YES];
     }
+}
+
+- (void) setMapCenterUser
+{
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = self.mapView.userLocation.coordinate;
+    mapRegion.span.latitudeDelta = 0.01;
+    mapRegion.span.longitudeDelta = 0.01;
+    [self.mapView setRegion:mapRegion animated:YES];
 }
 
 - (void) setMapCenterToShop:(CoffeeShop*) shop

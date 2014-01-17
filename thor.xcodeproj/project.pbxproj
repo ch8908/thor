@@ -40,8 +40,13 @@
 		1958469817C266C8004B8592 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469717C266C8004B8592 /* Default@2x.png */; };
 		1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
 		195E62BA17E59EF600576209 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
+		19D5856D1889948E0086DA82 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5856C1889948E0086DA82 /* UIColor+Util.m */; };
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
-		23D1A49A66472AAD3B75B44A /* ThorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* ThorManager.m */; };
+		23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA16F1846149509F9444 /* UIColor+Constant.m */; };
+		23D1A48C49168AB057EF6D05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A27A8488A14E95502F4D /* DetailViewController.m */; };
+		23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */; };
+		23D1A4FA5078287033E22B22 /* CoffeeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A326D67B1D409AD436E2 /* CoffeeService.m */; };
+		23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */; };
 		23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */; };
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
@@ -106,14 +111,24 @@
 		1958469717C266C8004B8592 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		1958469917C266C8004B8592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		19D5856B1889948E0086DA82 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
+		19D5856C1889948E0086DA82 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		23D1A0538595D89239E252D6 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
-		23D1A3251F2E796969FF73F9 /* ThorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorManager.h; sourceTree = "<group>"; };
+		23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShopDetail.m; sourceTree = "<group>"; };
+		23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Constant.h"; sourceTree = "<group>"; };
+		23D1A27A8488A14E95502F4D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		23D1A3251F2E796969FF73F9 /* CoffeeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeManager.h; sourceTree = "<group>"; };
+		23D1A326D67B1D409AD436E2 /* CoffeeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeService.m; sourceTree = "<group>"; };
 		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
+		23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeService.h; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
-		23D1AC8EF72D800DBE6619AA /* ThorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorManager.m; sourceTree = "<group>"; };
+		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
+		23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShopDetail.h; sourceTree = "<group>"; };
 		23D1AE90B22EF5500267ECBD /* CoffeeShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShop.h; sourceTree = "<group>"; };
 		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		BB46A6B010F648FCB20DA62E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +189,8 @@
 				23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */,
 				23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */,
 				23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */,
+				23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */,
+				23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -181,6 +198,8 @@
 		194B1E7F1885654F004FCBA7 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				19D5856B1889948E0086DA82 /* UIColor+Util.h */,
+				19D5856C1889948E0086DA82 /* UIColor+Util.m */,
 				194B1E801885654F004FCBA7 /* I18N.h */,
 				194B1E811885654F004FCBA7 /* I18N.m */,
 				194B1E821885654F004FCBA7 /* NSString+Util.h */,
@@ -212,6 +231,8 @@
 				194B1E9A18856618004FCBA7 /* PopupViewController.m */,
 				194B1E9B18856618004FCBA7 /* StillBadPopupController.h */,
 				194B1E9C18856618004FCBA7 /* StillBadPopupController.m */,
+				23D1A27A8488A14E95502F4D /* DetailViewController.m */,
+				23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -219,8 +240,10 @@
 		194B1EA5188566FF004FCBA7 /* manager */ = {
 			isa = PBXGroup;
 			children = (
-				23D1AC8EF72D800DBE6619AA /* ThorManager.m */,
-				23D1A3251F2E796969FF73F9 /* ThorManager.h */,
+				23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */,
+				23D1A3251F2E796969FF73F9 /* CoffeeManager.h */,
+				23D1A326D67B1D409AD436E2 /* CoffeeService.m */,
+				23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -263,6 +286,7 @@
 		1958468917C266C8004B8592 /* thor */ = {
 			isa = PBXGroup;
 			children = (
+				19D5856A188988FC0086DA82 /* constant */,
 				194B1EA5188566FF004FCBA7 /* manager */,
 				194B1E8C18856618004FCBA7 /* viewcontroller */,
 				194B1E7F1885654F004FCBA7 /* util */,
@@ -297,6 +321,15 @@
 				23D1A0538595D89239E252D6 /* ThorNavigationController.h */,
 			);
 			name = view;
+			sourceTree = "<group>";
+		};
+		19D5856A188988FC0086DA82 /* constant */ = {
+			isa = PBXGroup;
+			children = (
+				23D1AA16F1846149509F9444 /* UIColor+Constant.m */,
+				23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */,
+			);
+			path = constant;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,10 +458,15 @@
 				23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */,
 				194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */,
 				194B1EA318856618004FCBA7 /* PopupViewController.m in Sources */,
-				23D1A49A66472AAD3B75B44A /* ThorManager.m in Sources */,
+				23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */,
 				23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */,
 				23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */,
 				23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */,
+				23D1A48C49168AB057EF6D05 /* DetailViewController.m in Sources */,
+				19D5856D1889948E0086DA82 /* UIColor+Util.m in Sources */,
+				23D1A4FA5078287033E22B22 /* CoffeeService.m in Sources */,
+				23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */,
+				23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
