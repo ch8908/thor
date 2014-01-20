@@ -17,7 +17,14 @@ NSString* LoadShopSuccessNotification = @"LoadShopSuccessNotification";
 NSString* LoadShopDetailSuccessNotification = @"LoadShopDetailSuccessNotification";
 NSString* LoadShopDetailFailedNotification = @"LoadShopDetailFailedNotification";
 
-static NSString* BASE_API_URL = @"http://geekcoffee.roachking.net:80/api/v1";
+NSString* RegisterFailedNotification = @"RegisterFailedNotification";
+
+static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net:80/api/v1";
+
+
+@interface CoffeeService()
+@property (nonatomic) AFHTTPRequestOperationManager* manager;
+@end
 
 @implementation CoffeeService
 
@@ -38,7 +45,7 @@ static NSString* BASE_API_URL = @"http://geekcoffee.roachking.net:80/api/v1";
     self = [super init];
     if (self)
     {
-
+        _manager = [AFHTTPRequestOperationManager manager];
     }
     return self;
 }
@@ -56,47 +63,72 @@ static NSString* BASE_API_URL = @"http://geekcoffee.roachking.net:80/api/v1";
 
     NSMutableArray* coffeeShops = [[NSMutableArray alloc] init];
 
-    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    [manager GET:urlString parameters:params
-         success:^(AFHTTPRequestOperation* operation, id responseObject) {
-             NSString* encodeJsonData = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-             NSArray* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-             for (NSDictionary* item in jsonDic)
-             {
-                 CoffeeShop* shop = [CoffeeShop map:item];
-                 [coffeeShops addObject:shop];
-             }
-             [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopSuccessNotification object:coffeeShops];
-         }
-         failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-             NSLog(@">>>>> request failed");
-             [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopFailedNotification object:nil];
-         }];
+    [self.manager GET:urlString parameters:params
+              success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                  NSString* encodeJsonData = [[NSString alloc] initWithData:responseObject
+                                                                   encoding:NSUTF8StringEncoding];
+                  NSArray* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+                  for (NSDictionary* item in jsonDic)
+                  {
+                      CoffeeShop* shop = [CoffeeShop map:item];
+                      [coffeeShops addObject:shop];
+                  }
+                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopSuccessNotification
+                                                                      object:coffeeShops];
+              }
+              failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                  NSLog(@">>>>> request failed");
+                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopFailedNotification object:nil];
+              }];
 }
 
 - (void) fetchDetailWithShopId:(NSNumber*) number
 {
     NSString* urlString = [NSString stringWithFormat:@"%@%@%@", BASE_API_URL, @"/shops/", number];
 
-    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    [manager GET:urlString parameters:nil
-         success:^(AFHTTPRequestOperation* operation, id responseObject) {
-             NSString* encodeJsonData = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-             NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+    [self.manager GET:urlString parameters:nil
+              success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                  NSString* encodeJsonData = [[NSString alloc] initWithData:responseObject
+                                                                   encoding:NSUTF8StringEncoding];
+                  NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
 
-             CoffeeShopDetail* detail = [CoffeeShopDetail map:jsonDic];
+                  CoffeeShopDetail* detail = [CoffeeShopDetail map:jsonDic];
 
-             [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailSuccessNotification
-                                                                 object:detail];
-         }
-         failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-             NSLog(@">>>>> request failed");
-             [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailFailedNotification object:nil];
-         }];
+                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailSuccessNotification
+                                                                      object:detail];
+              }
+              failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                  NSLog(@">>>>> fetchDetailWithShopId request failed");
+                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailFailedNotification
+                                                                      object:nil];
+              }];
+}
+
+- (void) resisterWithParams:(NSDictionary*) dictionary
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/sign_up"];
+
+    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [self.manager POST:urlString parameters:dictionary
+               success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                   NSString* encodeJsonData = [[NSString alloc] initWithData:responseObject
+                                                                    encoding:NSUTF8StringEncoding];
+                   NSLog(@">>>>>> encodeJsonData:%@", encodeJsonData);
+               }
+               failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                   NSString* encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
+                                                                    encoding:NSUTF8StringEncoding];
+                   NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+
+                   [[NSNotificationCenter defaultCenter] postNotificationName:RegisterFailedNotification
+                                                                       object:[jsonDic objectForKey:@"error"]];
+                   NSLog(@">>>> resisterWithParams failed json:%@", encodeJsonData);
+               }];
 }
 
 @end

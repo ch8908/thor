@@ -7,7 +7,8 @@
 */
 "places_title" = "附近店家";
 "back" = "返回";
-"login" = "登入";
+"log_in" = "登入";
+"login" = "已登入";
 "other_comments" = "其他評論";
 "button_title_still_bad" = "一樣遭";
 "button_title_not_bad" = "好吃耶";
@@ -29,3 +30,7 @@
 "distance_subtitle_meters" = "距離 %1$@ 公尺";
 "distance_subtitle_km" = "距離 %1$@ 公里";
 "distance_less_than_1_meter" = "不到 1 公尺";
+"enter_email_placeholder" = "輸入Email";
+"enter_password_placeholder" = "輸入密碼";
+"confirm_password_placeholder" = "確認密碼";
+"register_button_title" = "註冊";

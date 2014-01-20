@@ -7,7 +7,6 @@
 
 
 #import "OrderDetailController.h"
-#import "ViewParams.h"
 #import "Views.h"
 #import "BadOrderItem.h"
 #import "UserComment.h"
@@ -51,7 +50,7 @@ static NSInteger NOT_BAD_BUTTON_TAG = 1;
         _commentListTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _commentListTableView.dataSource = self;
         _commentListTableView.delegate = self;
-        _foodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [ViewParams screenWidth], 220)];
+        _foodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 220)];
 
         UITapGestureRecognizer* singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                      action:@selector(onTapImage)];

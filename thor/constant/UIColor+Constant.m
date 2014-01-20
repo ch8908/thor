@@ -4,6 +4,7 @@
 //
 
 #import "UIColor+Constant.h"
+#import "UIColor+Util.h"
 
 
 @implementation UIColor(Constant)
@@ -11,5 +12,20 @@
 + (UIColor*) addressTextColor
 {
     return [UIColor blackColor];
+}
+
++ (UIColor*) facebookLoginButtonBgColor
+{
+    return [UIColor hexARGB:0xFF3937FF];
+}
+
++ (UIColor*) twitterLoginButtonBgColor
+{
+    return [UIColor hexARGB:0xFF55A8FF];
+}
+
++ (UIColor*) inputFiendBgColor
+{
+    return [UIColor lightGrayColor];
 }
 @end

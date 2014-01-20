@@ -7,8 +7,9 @@
 
 
 #import <Foundation/Foundation.h>
+#import "AbstractUIViewController.h"
 
 
-@interface MainViewController : UIViewController
+@interface MainViewController : AbstractUIViewController
 - (id) initWithMainView;
 @end

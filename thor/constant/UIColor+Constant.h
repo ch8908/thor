@@ -7,4 +7,10 @@
 
 @interface UIColor(Constant)
 + (UIColor*) addressTextColor;
+
++ (UIColor*) facebookLoginButtonBgColor;
+
++ (UIColor*) twitterLoginButtonBgColor;
+
++ (UIColor*) inputFiendBgColor;
 @end

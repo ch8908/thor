@@ -8,7 +8,6 @@
 
 #import <MapKit/MapKit.h>
 #import "MainViewController.h"
-#import "ViewParams.h"
 #import "I18N.h"
 #import "LoginViewController.h"
 #import "ThorNavigationController.h"
@@ -18,6 +17,7 @@
 #import "Views.h"
 #import "CoffeeService.h"
 #import "DetailViewController.h"
+#import "LogStateMachine.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -26,6 +26,7 @@
 @property (nonatomic) NSMutableArray* coffeeShops;
 @property (nonatomic) NSMutableDictionary* annotations;
 @property (nonatomic) UIButton* locateButton;
+@property (nonatomic) BOOL initUserLocation;
 @end
 
 @implementation MainViewController
@@ -68,7 +69,8 @@
 {
     [super viewDidLoad];
     self.coffeeShops = [[NSMutableArray alloc] init];
-    UIBarButtonItem* loginButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"login"]
+    NSString* loginString = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"login"] : [I18N key:@"log_in"];
+    UIBarButtonItem* loginButton = [[UIBarButtonItem alloc] initWithTitle:loginString
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self action:@selector(login)];
     [self.navigationItem setRightBarButtonItem:loginButton];
@@ -77,15 +79,11 @@
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    CGRect mapViewFrame = CGRectMake(0, 0, [ViewParams screenWidth], 200);
-    self.mapView.frame = mapViewFrame;
+    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 260)];
+    [Views resize:self.tableView
+    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - self.mapView.bounds.size.height)];
 
-    CGRect tableViewFrame = CGRectMake(0,
-                                       mapViewFrame.origin.y + mapViewFrame.size.height,
-                                       self.view.bounds.size.width,
-                                       self.view.bounds.size.height - mapViewFrame.size.height);
-    self.tableView.frame = tableViewFrame;
-
+    [Views locate:self.tableView y:[Views bottomOf:self.mapView]];
     [Views alignBottom:self.locateButton withTarget:self.mapView];
 
     [self.view addSubview:self.mapView];
@@ -132,12 +130,17 @@
 
 - (void) mapView:(MKMapView*) mapView didUpdateUserLocation:(MKUserLocation*) userLocation
 {
+    if (self.initUserLocation)
+    {
+        return;
+    }
     MKCoordinateRegion mapRegion;
-    mapRegion.center = self.mapView.userLocation.coordinate;
+    mapRegion.center = userLocation.coordinate;
     mapRegion.span.latitudeDelta = 0.01;
     mapRegion.span.longitudeDelta = 0.01;
     [self.mapView setRegion:mapRegion animated:YES];
-    [[CoffeeService sharedInstance] fetchShopsWithCenter:self.mapView.userLocation.coordinate];
+    self.initUserLocation = YES;
+    [[CoffeeService sharedInstance] fetchShopsWithCenter:userLocation.coordinate];
 }
 
 - (MKAnnotationView*) mapView:(MKMapView*) mapView viewForAnnotation:(id<MKAnnotation>) annotation
@@ -174,6 +177,45 @@
 
 }
 
+- (void) mapView:(MKMapView*) mapView didSelectAnnotationView:(MKAnnotationView*) view
+{
+    [self setMapCenterToCoordinate:view.annotation.coordinate];
+    [self selectCellWithAnnotation:(TRAnnotation*) view.annotation];
+}
+
+- (void) selectCellWithAnnotation:(TRAnnotation*) annotation
+{
+    NSNumber* id = annotation.id;
+    NSIndexPath* selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    CoffeeShop* selectedShop = self.coffeeShops[(NSUInteger) selectedIndexPath.row];
+
+    if ([selectedShop.id isEqualToNumber:id])
+    {
+        return;
+    }
+
+    NSInteger index = -1;
+    for (NSUInteger i = 0; i < self.coffeeShops.count; i++)
+    {
+        CoffeeShop* shop = self.coffeeShops[i];
+        if ([shop.id isEqualToNumber:id])
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index < 0)
+    {
+        return;
+    }
+
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index
+                                                            inSection:0]
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionMiddle];
+}
+
 - (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
 {
     return self.coffeeShops.count;
@@ -200,9 +242,7 @@
 - (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
 {
     CoffeeShop* shop = self.coffeeShops[(NSUInteger) indexPath.row];
-    [self setMapCenterToShop:shop];
     [self openAnnotationWithShop:shop];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void) openAnnotationWithShop:(CoffeeShop*) coffeeShop
@@ -223,12 +263,13 @@
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
-- (void) setMapCenterToShop:(CoffeeShop*) shop
+- (void) setMapCenterToCoordinate:(CLLocationCoordinate2D) coordinate
 {
+    MKCoordinateSpan currentSpan = self.mapView.region.span;
     MKCoordinateRegion mapRegion;
-    mapRegion.center = CLLocationCoordinate2DMake(shop.latitude, shop.longitude);
-    mapRegion.span.latitudeDelta = 0.01;
-    mapRegion.span.longitudeDelta = 0.01;
+    mapRegion.center = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+    mapRegion.span.latitudeDelta = currentSpan.latitudeDelta < 0.01 ? currentSpan.latitudeDelta : 0.01;
+    mapRegion.span.longitudeDelta = currentSpan.longitudeDelta < 0.01 ? currentSpan.longitudeDelta : 0.01;
     [self.mapView setRegion:mapRegion animated:YES];
 }
 

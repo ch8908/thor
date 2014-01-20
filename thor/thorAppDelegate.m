@@ -9,6 +9,9 @@
 #import "thorAppDelegate.h"
 #import "MainViewController.h"
 #import "ThorNavigationController.h"
+#import "CoffeeService.h"
+#import "CoffeeManager.h"
+#import "LogStateMachine.h"
 
 @implementation thorAppDelegate
 
@@ -17,13 +20,23 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
+    [self configure];
+
     MainViewController* mainViewController = [[MainViewController alloc] initWithMainView];
-    ThorNavigationController* navigationController = [[ThorNavigationController alloc] initWithRootViewController:mainViewController];
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    navigationController.navigationBar.translucent = YES;
     self.window.rootViewController = navigationController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
     return YES;
+}
+
+- (void) configure
+{
+    [CoffeeService sharedInstance];
+    [CoffeeManager sharedInstance];
+    [LogStateMachine sharedInstance];
 }
 
 - (void) applicationWillResignActive:(UIApplication*) application

@@ -10,6 +10,7 @@ extern NSString* LoadShopFailedNotification;
 extern NSString* LoadShopSuccessNotification;
 extern NSString* LoadShopDetailSuccessNotification;
 extern NSString* LoadShopDetailFailedNotification;
+extern NSString* RegisterFailedNotification;
 
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
@@ -17,4 +18,6 @@ extern NSString* LoadShopDetailFailedNotification;
 - (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D;
 
 - (void) fetchDetailWithShopId:(NSNumber*) number;
+
+- (void) resisterWithParams:(NSDictionary*) dictionary;
 @end

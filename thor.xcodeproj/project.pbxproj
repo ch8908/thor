@@ -19,7 +19,6 @@
 		194B1E7E188564A8004FCBA7 /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E7A188564A8004FCBA7 /* UserComment.m */; };
 		194B1E881885654F004FCBA7 /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E811885654F004FCBA7 /* I18N.m */; };
 		194B1E891885654F004FCBA7 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E831885654F004FCBA7 /* NSString+Util.m */; };
-		194B1E8A1885654F004FCBA7 /* ViewParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E851885654F004FCBA7 /* ViewParams.m */; };
 		194B1E8B1885654F004FCBA7 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E871885654F004FCBA7 /* Views.m */; };
 		194B1E9D18856618004FCBA7 /* BadOrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E8E18856618004FCBA7 /* BadOrderListController.m */; };
 		194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9018856618004FCBA7 /* LoginViewController.m */; };
@@ -41,15 +40,24 @@
 		1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
 		195E62BA17E59EF600576209 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
 		19D5856D1889948E0086DA82 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5856C1889948E0086DA82 /* UIColor+Util.m */; };
+		19D58571188C0B840086DA82 /* Pref.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D58570188C0B840086DA82 /* Pref.m */; };
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
+		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
 		23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA16F1846149509F9444 /* UIColor+Constant.m */; };
 		23D1A48C49168AB057EF6D05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A27A8488A14E95502F4D /* DetailViewController.m */; };
 		23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */; };
 		23D1A4FA5078287033E22B22 /* CoffeeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A326D67B1D409AD436E2 /* CoffeeService.m */; };
 		23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */; };
 		23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */; };
+		23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
+		23D1A7B8B1FF42FD6C55C0BF /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* LoginState.m */; };
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
+		23D1AAA666E4D17926AC985F /* LogingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* LogingState.m */; };
+		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
+		23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
+		23D1AFCBC759CBFFD96D5443 /* AbstractState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1CDD7F7F79D53004C90 /* AbstractState.m */; };
 		77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB46A6B010F648FCB20DA62E /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -74,8 +82,6 @@
 		194B1E811885654F004FCBA7 /* I18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I18N.m; sourceTree = "<group>"; };
 		194B1E821885654F004FCBA7 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		194B1E831885654F004FCBA7 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
-		194B1E841885654F004FCBA7 /* ViewParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewParams.h; sourceTree = "<group>"; };
-		194B1E851885654F004FCBA7 /* ViewParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewParams.m; sourceTree = "<group>"; };
 		194B1E861885654F004FCBA7 /* Views.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Views.h; sourceTree = "<group>"; };
 		194B1E871885654F004FCBA7 /* Views.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Views.m; sourceTree = "<group>"; };
 		194B1E8D18856618004FCBA7 /* BadOrderListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadOrderListController.h; sourceTree = "<group>"; };
@@ -113,23 +119,41 @@
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		19D5856B1889948E0086DA82 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		19D5856C1889948E0086DA82 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
+		19D5856F188C0B840086DA82 /* Pref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pref.h; sourceTree = "<group>"; };
+		19D58570188C0B840086DA82 /* Pref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pref.m; sourceTree = "<group>"; };
 		23D1A0538595D89239E252D6 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShopDetail.m; sourceTree = "<group>"; };
+		23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractState.h; sourceTree = "<group>"; };
 		23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Constant.h"; sourceTree = "<group>"; };
+		23D1A1468711D39C6AB838AA /* System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
+		23D1A1CDD7F7F79D53004C90 /* AbstractState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractState.m; sourceTree = "<group>"; };
+		23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		23D1A27A8488A14E95502F4D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		23D1A3251F2E796969FF73F9 /* CoffeeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeManager.h; sourceTree = "<group>"; };
 		23D1A326D67B1D409AD436E2 /* CoffeeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeService.m; sourceTree = "<group>"; };
 		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
+		23D1A3C17A2C3980E9A6CAF0 /* System.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = System.m; sourceTree = "<group>"; };
+		23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStateMachine.h; sourceTree = "<group>"; };
 		23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeService.h; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
+		23D1A740CB25632BD838B160 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractUIViewController.m; sourceTree = "<group>"; };
+		23D1A9662F95D333D7E3D6B1 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
+		23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStateMachine.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
+		23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractUIViewController.h; sourceTree = "<group>"; };
+		23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		23D1AB80F2A22133B19F5B0F /* LogoutState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutState.h; sourceTree = "<group>"; };
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
+		23D1AD7599D1816C1FB154C7 /* LogingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogingState.m; sourceTree = "<group>"; };
 		23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShopDetail.h; sourceTree = "<group>"; };
 		23D1AE90B22EF5500267ECBD /* CoffeeShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShop.h; sourceTree = "<group>"; };
+		23D1AF3067EB607F0EEB3682 /* LogoutState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutState.m; sourceTree = "<group>"; };
+		23D1AF548060079D38D25BF2 /* LogingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogingState.h; sourceTree = "<group>"; };
 		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		BB46A6B010F648FCB20DA62E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -175,6 +199,8 @@
 		194B1E72188564A8004FCBA7 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				19D5856F188C0B840086DA82 /* Pref.h */,
+				19D58570188C0B840086DA82 /* Pref.m */,
 				194B1E73188564A8004FCBA7 /* BadOrder.h */,
 				194B1E74188564A8004FCBA7 /* BadOrder.m */,
 				194B1E75188564A8004FCBA7 /* BadOrderItem.h */,
@@ -204,10 +230,10 @@
 				194B1E811885654F004FCBA7 /* I18N.m */,
 				194B1E821885654F004FCBA7 /* NSString+Util.h */,
 				194B1E831885654F004FCBA7 /* NSString+Util.m */,
-				194B1E841885654F004FCBA7 /* ViewParams.h */,
-				194B1E851885654F004FCBA7 /* ViewParams.m */,
 				194B1E861885654F004FCBA7 /* Views.h */,
 				194B1E871885654F004FCBA7 /* Views.m */,
+				23D1A1468711D39C6AB838AA /* System.h */,
+				23D1A3C17A2C3980E9A6CAF0 /* System.m */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -233,6 +259,10 @@
 				194B1E9C18856618004FCBA7 /* StillBadPopupController.m */,
 				23D1A27A8488A14E95502F4D /* DetailViewController.m */,
 				23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */,
+				23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */,
+				23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */,
+				23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */,
+				23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -286,6 +316,7 @@
 		1958468917C266C8004B8592 /* thor */ = {
 			isa = PBXGroup;
 			children = (
+				19D5856E188BFA800086DA82 /* statemachine */,
 				19D5856A188988FC0086DA82 /* constant */,
 				194B1EA5188566FF004FCBA7 /* manager */,
 				194B1E8C18856618004FCBA7 /* viewcontroller */,
@@ -330,6 +361,23 @@
 				23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */,
 			);
 			path = constant;
+			sourceTree = "<group>";
+		};
+		19D5856E188BFA800086DA82 /* statemachine */ = {
+			isa = PBXGroup;
+			children = (
+				23D1A1CDD7F7F79D53004C90 /* AbstractState.m */,
+				23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */,
+				23D1AF3067EB607F0EEB3682 /* LogoutState.m */,
+				23D1AB80F2A22133B19F5B0F /* LogoutState.h */,
+				23D1AD7599D1816C1FB154C7 /* LogingState.m */,
+				23D1AF548060079D38D25BF2 /* LogingState.h */,
+				23D1A9662F95D333D7E3D6B1 /* LoginState.m */,
+				23D1A740CB25632BD838B160 /* LoginState.h */,
+				23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */,
+				23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */,
+			);
+			path = statemachine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,12 +501,12 @@
 				194B1E7C188564A8004FCBA7 /* BadOrderItem.m in Sources */,
 				194B1E881885654F004FCBA7 /* I18N.m in Sources */,
 				194B1E7018855F3A004FCBA7 /* MJPopupBackgroundView.m in Sources */,
-				194B1E8A1885654F004FCBA7 /* ViewParams.m in Sources */,
 				194B1E7E188564A8004FCBA7 /* UserComment.m in Sources */,
 				23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */,
 				194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */,
 				194B1EA318856618004FCBA7 /* PopupViewController.m in Sources */,
 				23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */,
+				19D58571188C0B840086DA82 /* Pref.m in Sources */,
 				23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */,
 				23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */,
 				23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */,
@@ -467,6 +515,14 @@
 				23D1A4FA5078287033E22B22 /* CoffeeService.m in Sources */,
 				23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */,
 				23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */,
+				23D1AFCBC759CBFFD96D5443 /* AbstractState.m in Sources */,
+				23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */,
+				23D1AAA666E4D17926AC985F /* LogingState.m in Sources */,
+				23D1A7B8B1FF42FD6C55C0BF /* LoginState.m in Sources */,
+				23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */,
+				23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */,
+				23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */,
+				23D1A391C2ADA57631EF0D74 /* System.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

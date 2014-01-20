@@ -53,7 +53,7 @@ extern CGFloat const VIEWS_PAGE_CONTROL_HEIGHT;
 
 + (void) alignTop:(UIView*) view withTarget:(UIView*) target;
 
-+ (void) below:(UIView*) view withTarget:(UIView*) target1;
++ (void) below:(UIView*) view withTarget:(UIView*) target;
 
 + (void) alignCenter:(UIView*) source withTarget:(UIView*) target;
 @end

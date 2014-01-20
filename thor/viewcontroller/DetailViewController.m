@@ -3,6 +3,7 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import "AbstractUIViewController.h"
 #import "DetailViewController.h"
 #import "CoffeeService.h"
 #import "Views.h"
@@ -53,7 +54,7 @@
     [self.addressLable sizeToFit];
 
     [Views alignCenter:self.shopImageView containerWidth:self.view.bounds.size.width];
-    [Views locate:self.shopImageView x:20];
+    [Views locate:self.shopImageView y:self.topBarOffset];
 
     [Views locate:self.addressLable y:[Views bottomOf:self.shopImageView]];
 

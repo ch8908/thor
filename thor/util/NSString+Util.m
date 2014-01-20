@@ -11,11 +11,20 @@
 
 @implementation NSString(Util)
 /**
-* white space and new line
+* trim white space and new line
 */
 - (NSString*) stringByTrim
 {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
++ (BOOL) isEmpty:(NSString*) string
+{
+    return !string || string.length == 0;
+}
+
++ (BOOL) isEmptyAfterTrim:(NSString*) string
+{
+    return [NSString isEmpty:[string stringByTrim]];
+}
 @end

@@ -6,6 +6,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : AbstractUIViewController
 - (id) initDetailViewControllerWithId:(NSNumber*) id1;
 @end

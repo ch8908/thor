@@ -7,7 +7,8 @@
 */
 "places_title" = "Places";
 "back" = "Back";
-"login" = "Log In";
+"log_in" = "Log In";
+"login" = "Login";
 "other_comments" = "Other Comments";
 "button_title_still_bad" = "Still Bad";
 "button_title_not_bad" = "Not Bad";
@@ -29,3 +30,7 @@
 "distance_subtitle_meters" = "%1$@ meters";
 "distance_subtitle_km" = "%1$@ km";
 "distance_less_than_1_meter" = "Less than 1 meter";
+"enter_email_placeholder" = "Email";
+"enter_password_placeholder" = "New Password";
+"confirm_password_placeholder" = "Confirm Password";
+"register_button_title" = "Register";
