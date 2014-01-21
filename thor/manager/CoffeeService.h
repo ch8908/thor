@@ -11,6 +11,8 @@ extern NSString* LoadShopSuccessNotification;
 extern NSString* LoadShopDetailSuccessNotification;
 extern NSString* LoadShopDetailFailedNotification;
 extern NSString* RegisterFailedNotification;
+extern NSString* SignInSuccessNotification;
+extern NSString* SignInFailedNotification;
 
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
@@ -20,4 +22,6 @@ extern NSString* RegisterFailedNotification;
 - (void) fetchDetailWithShopId:(NSNumber*) number;
 
 - (void) resisterWithParams:(NSDictionary*) dictionary;
+
+- (void) signInWithEmail:(NSString*) email password:(NSString*) password;
 @end

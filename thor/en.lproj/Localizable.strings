@@ -34,3 +34,4 @@
 "enter_password_placeholder" = "New Password";
 "confirm_password_placeholder" = "Confirm Password";
 "register_button_title" = "Register";
+"sign_in_button_title" = "Sign In";

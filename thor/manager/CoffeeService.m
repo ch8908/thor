@@ -17,6 +17,9 @@ NSString* LoadShopSuccessNotification = @"LoadShopSuccessNotification";
 NSString* LoadShopDetailSuccessNotification = @"LoadShopDetailSuccessNotification";
 NSString* LoadShopDetailFailedNotification = @"LoadShopDetailFailedNotification";
 
+NSString* SignInSuccessNotification = @"SignInSuccessNotification";
+NSString* SignInFailedNotification = @"SignInFailedNotification";
+
 NSString* RegisterFailedNotification = @"RegisterFailedNotification";
 
 static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net:80/api/v1";
@@ -128,6 +131,29 @@ static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net:80/api
                    [[NSNotificationCenter defaultCenter] postNotificationName:RegisterFailedNotification
                                                                        object:[jsonDic objectForKey:@"error"]];
                    NSLog(@">>>> resisterWithParams failed json:%@", encodeJsonData);
+               }];
+}
+
+
+- (void) signInWithEmail:(NSString*) email password:(NSString*) password
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/tokens/create"];
+
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:email forKey:@"email"];
+    [params setObject:password forKey:@"password"];
+
+    [self.manager POST:urlString parameters:params
+               success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                   [[NSNotificationCenter defaultCenter] postNotificationName:SignInSuccessNotification
+                                                                       object:nil];
+               }
+               failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                   NSString* encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
+                                                                    encoding:NSUTF8StringEncoding];
+                   NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:SignInFailedNotification
+                                                                       object:[jsonDic objectForKey:@"error"]];
                }];
 }
 

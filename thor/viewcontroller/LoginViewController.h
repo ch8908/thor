@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : AbstractUIViewController
 - (id) initLogin;
 @end

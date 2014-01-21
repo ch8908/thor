@@ -34,3 +34,4 @@
 "enter_password_placeholder" = "輸入密碼";
 "confirm_password_placeholder" = "確認密碼";
 "register_button_title" = "註冊";
+"sign_in_button_title" = "登入";
