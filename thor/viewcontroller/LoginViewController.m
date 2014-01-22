@@ -24,7 +24,7 @@
 @property (nonatomic) UIButton* signUpButton;
 @property (nonatomic) UITextField* emailField;
 @property (nonatomic) UITextField* passwordField;
-@property (nonatomic) UIButton* signInButton;
+@property (nonatomic) UIButton* logInButton;
 @property (nonatomic) UILabel* errorMessageLabel;
 @end
 
@@ -41,9 +41,9 @@
         _signInWithTwitterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _signUpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 
-        _signInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.signInButton addTarget:self action:@selector(onSubmit)
-                    forControlEvents:UIControlEventTouchUpInside];
+        _logInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.logInButton addTarget:self action:@selector(onSubmit)
+                   forControlEvents:UIControlEventTouchUpInside];
 
         CGRect rect = CGRectMake(0, 0, 280, 44);
         _emailField = [[UITextField alloc] initWithFrame:rect];
@@ -108,17 +108,17 @@
     [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
     [Views locate:self.passwordField y:[Views bottomOf:self.emailField] + 5];
 
-    [self.signInButton setTitle:[I18N key:@"sign_in_button_title"] forState:UIControlStateNormal];
-    [self.signInButton sizeToFit];
+    [self.logInButton setTitle:[I18N key:@"log_in_button_title"] forState:UIControlStateNormal];
+    [self.logInButton sizeToFit];
 
-    [Views alignCenter:self.signInButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.signInButton y:[Views bottomOf:self.passwordField] + 10];
+    [Views alignCenter:self.logInButton containerWidth:self.view.bounds.size.width];
+    [Views locate:self.logInButton y:[Views bottomOf:self.passwordField] + 10];
 
     [self.signInWithFacebookButton setTitle:[I18N key:@"log_in_with_facebook"] forState:UIControlStateNormal];
     self.signInWithFacebookButton.backgroundColor = [UIColor facebookLoginButtonBgColor];
     [Views resize:self.signInWithFacebookButton containerSize:CGSizeMake(260, 50)];
     [Views alignCenter:self.signInWithFacebookButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.signInWithFacebookButton y:[Views bottomOf:self.signInButton] + 20];
+    [Views locate:self.signInWithFacebookButton y:[Views bottomOf:self.logInButton] + 20];
 
     [self.signInWithTwitterButton setTitle:[I18N key:@"log_in_with_twitter"] forState:UIControlStateNormal];
     self.signInWithTwitterButton.backgroundColor = [UIColor twitterLoginButtonBgColor];
@@ -137,7 +137,7 @@
     [self.view addSubview:self.errorMessageLabel];
     [self.view addSubview:self.emailField];
     [self.view addSubview:self.passwordField];
-    [self.view addSubview:self.signInButton];
+    [self.view addSubview:self.logInButton];
     [self.view addSubview:self.signInWithFacebookButton];
     [self.view addSubview:self.signInWithTwitterButton];
     [self.view addSubview:self.signUpButton];

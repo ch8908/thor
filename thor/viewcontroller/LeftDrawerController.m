@@ -17,7 +17,7 @@ enum
     TotalCount
 };
 
-@interface LeftDrawerController()<UITableViewDelegate, UITableViewDataSource>
+@interface LeftDrawerController()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property UITableView* tableView;
 @end
 
@@ -100,7 +100,7 @@ enum
     {
         case LogInLogOut:
         {
-            NSString* key = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"sign_out_button_title"] : [I18N key:@"sign_in_button_title"];
+            NSString* key = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
             cell.textLabel.text = key;
             break;
         }
@@ -121,7 +121,7 @@ enum
         {
             if ([[LogStateMachine sharedInstance] isLogin])
             {
-                [[LogStateMachine sharedInstance] changeState:[[LogoutState alloc] init]];
+                [self confirmSignOut];
             }
             else
             {
@@ -135,5 +135,25 @@ enum
     }
 }
 
+- (void) confirmSignOut
+{
+    NSString* signOut = [I18N key:@"log_out_button_title"];
+    NSString* cancel = [I18N key:@"cancel"];
+    UIActionSheet* actionSheet = [[UIActionSheet alloc]
+                                                 initWithTitle:[I18N key:@"log_out_action_sheet_title"]
+                                                      delegate:self
+                                             cancelButtonTitle:nil
+                                        destructiveButtonTitle:signOut
+                                             otherButtonTitles:cancel, nil];
+    [actionSheet showInView:self.mm_drawerController.view];
+}
+
+- (void) actionSheet:(UIActionSheet*) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        [[LogStateMachine sharedInstance] changeState:[[LogoutState alloc] init]];
+    }
+}
 
 @end

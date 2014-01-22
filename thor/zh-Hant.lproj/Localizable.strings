@@ -34,7 +34,8 @@
 "enter_password_placeholder" = "輸入密碼";
 "confirm_password_placeholder" = "確認密碼";
 "register_button_title" = "註冊";
-"sign_in_button_title" = "登入";
-"sign_out_button_title" = "登出";
+"log_in_button_title" = "登入";
+"log_out_button_title" = "登出";
 "map_tab_title" = "地圖";
 "setting_tab_title" = "設定";
+"log_out_action_sheet_title" = "你確定要登出？";

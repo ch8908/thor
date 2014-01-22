@@ -36,6 +36,7 @@
 
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [drawerController setMaximumLeftDrawerWidth:260];
 
     self.window.rootViewController = drawerController;
     self.window.backgroundColor = [UIColor whiteColor];

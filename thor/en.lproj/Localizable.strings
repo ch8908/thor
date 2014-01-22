@@ -34,7 +34,8 @@
 "enter_password_placeholder" = "New Password";
 "confirm_password_placeholder" = "Confirm Password";
 "register_button_title" = "Register";
-"sign_in_button_title" = "Sign In";
-"sign_out_button_title" = "Sign Out";
+"log_in_button_title" = "Log In";
+"log_out_button_title" = "Log Out";
 "map_tab_title" = "Map";
 "setting_tab_title" = "Setting";
+"log_out_action_sheet_title" = "Are you sure you want to log out?";
