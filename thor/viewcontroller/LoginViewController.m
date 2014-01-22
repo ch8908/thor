@@ -14,6 +14,9 @@
 #import "SignUpViewController.h"
 #import "CoffeeService.h"
 #import "NSString+Util.h"
+#import "Pref.h"
+#import "LogStateMachine.h"
+#import "LoginState.h"
 
 @interface LoginViewController()<UITextFieldDelegate>
 @property (nonatomic) UIButton* signInWithFacebookButton;
@@ -22,6 +25,7 @@
 @property (nonatomic) UITextField* emailField;
 @property (nonatomic) UITextField* passwordField;
 @property (nonatomic) UIButton* signInButton;
+@property (nonatomic) UILabel* errorMessageLabel;
 @end
 
 @implementation LoginViewController
@@ -31,7 +35,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [UIColor loginViewBgColor];
 
         _signInWithFacebookButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _signInWithTwitterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -43,17 +47,35 @@
 
         CGRect rect = CGRectMake(0, 0, 280, 44);
         _emailField = [[UITextField alloc] initWithFrame:rect];
+        self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
         self.emailField.delegate = self;
         self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
         self.emailField.backgroundColor = [UIColor inputFiendBgColor];
 
         _passwordField = [[UITextField alloc] initWithFrame:rect];
+        self.passwordField.secureTextEntry = YES;
         self.passwordField.delegate = self;
         self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
         self.passwordField.backgroundColor = [UIColor inputFiendBgColor];
 
+        _errorMessageLabel = [[UILabel alloc] init];
+        self.errorMessageLabel.textColor = [UIColor redColor];
+        self.errorMessageLabel.backgroundColor = [UIColor clearColor];
+        self.errorMessageLabel.numberOfLines = 2;
+        self.errorMessageLabel.textAlignment = NSTextAlignmentCenter;
+
         [self.signUpButton addTarget:self action:@selector(onSignUp)
                     forControlEvents:UIControlEventTouchUpInside];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onSignInFailedNotification:)
+                                                     name:SignInFailedNotification
+                                                   object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onSignInSuccessNotification:)
+                                                     name:SignInSuccessNotification
+                                                   object:nil];
     }
 
     return self;
@@ -76,10 +98,15 @@
 {
     [super viewDidLayoutSubviews];
 
+    [Views resize:self.errorMessageLabel containerSize:CGSizeMake(300, 50)];
+    [Views alignCenter:self.errorMessageLabel containerWidth:self.view.bounds.size.width];
+    [Views locate:self.errorMessageLabel y:self.topBarOffset + 5];
+
     [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
-    [Views locate:self.emailField y:self.topBarOffset + 20];
+    [Views locate:self.emailField y:[Views bottomOf:self.errorMessageLabel] + 5];
+
     [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
-    [Views locate:self.passwordField y:[Views bottomOf:self.emailField]];
+    [Views locate:self.passwordField y:[Views bottomOf:self.emailField] + 5];
 
     [self.signInButton setTitle:[I18N key:@"sign_in_button_title"] forState:UIControlStateNormal];
     [self.signInButton sizeToFit];
@@ -91,7 +118,7 @@
     self.signInWithFacebookButton.backgroundColor = [UIColor facebookLoginButtonBgColor];
     [Views resize:self.signInWithFacebookButton containerSize:CGSizeMake(260, 50)];
     [Views alignCenter:self.signInWithFacebookButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.signInWithFacebookButton y:[Views bottomOf:self.signInButton] + 10];
+    [Views locate:self.signInWithFacebookButton y:[Views bottomOf:self.signInButton] + 20];
 
     [self.signInWithTwitterButton setTitle:[I18N key:@"log_in_with_twitter"] forState:UIControlStateNormal];
     self.signInWithTwitterButton.backgroundColor = [UIColor twitterLoginButtonBgColor];
@@ -107,6 +134,7 @@
     [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
     [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
 
+    [self.view addSubview:self.errorMessageLabel];
     [self.view addSubview:self.emailField];
     [self.view addSubview:self.passwordField];
     [self.view addSubview:self.signInButton];
@@ -119,6 +147,29 @@
 {
     [self onViewTap];
     return YES;
+}
+
+- (BOOL) textField:(UITextField*) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString*) string
+{
+    if ([string stringByTrim].length > 0)
+    {
+        self.errorMessageLabel.text = @"";
+    }
+    return YES;
+}
+
+- (void) onSignInSuccessNotification:(NSNotification*) notification
+{
+    NSString* token = notification.object;
+    [[Pref sharedInstance] setAuthenticationToken:token];
+    [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
+    [self onCancel];
+}
+
+- (void) onSignInFailedNotification:(NSNotification*) notification
+{
+    NSString* errorMessage = notification.object;
+    self.errorMessageLabel.text = errorMessage;
 }
 
 - (void) onSubmit

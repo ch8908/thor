@@ -13,4 +13,6 @@
 + (UIColor*) twitterLoginButtonBgColor;
 
 + (UIColor*) inputFiendBgColor;
+
++ (UIColor*) loginViewBgColor;
 @end

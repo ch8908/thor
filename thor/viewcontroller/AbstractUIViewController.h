@@ -8,4 +8,5 @@
 
 @interface AbstractUIViewController : UIViewController
 @property (nonatomic) CGFloat topBarOffset;
+@property (nonatomic) CGFloat bottomBarOffset;
 @end

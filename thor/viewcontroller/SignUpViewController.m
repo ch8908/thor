@@ -26,17 +26,20 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [UIColor loginViewBgColor];
         CGRect rect = CGRectMake(0, 0, 280, 44);
         _emailField = [[UITextField alloc] initWithFrame:rect];
+        self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
         self.emailField.delegate = self;
         self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
 
         _passwordField = [[UITextField alloc] initWithFrame:rect];
+        self.passwordField.secureTextEntry = YES;
         self.passwordField.delegate = self;
         self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
 
         _confirmPasswordField = [[UITextField alloc] initWithFrame:rect];
+        self.confirmPasswordField.secureTextEntry = YES;
         self.confirmPasswordField.delegate = self;
         self.confirmPasswordField.placeholder = [I18N key:@"confirm_password_placeholder"];
 

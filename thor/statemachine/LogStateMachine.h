@@ -7,6 +7,8 @@
 
 @class AbstractState;
 
+extern NSString* MachineLoginSuccessNotification;
+extern NSString* MachineLogoutNotification;
 
 @interface LogStateMachine : NSObject
 @property AbstractState* currentState;
@@ -16,4 +18,5 @@
 - (BOOL) isLogin;
 
 - (void) changeState:(AbstractState*) newState;
+
 @end

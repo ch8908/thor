@@ -22,7 +22,7 @@ NSString* SignInFailedNotification = @"SignInFailedNotification";
 
 NSString* RegisterFailedNotification = @"RegisterFailedNotification";
 
-static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net:80/api/v1";
+static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 
 @interface CoffeeService()
@@ -145,8 +145,12 @@ static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net:80/api
 
     [self.manager POST:urlString parameters:params
                success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                   NSString* encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
+                                                                    encoding:NSUTF8StringEncoding];
+                   NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+
                    [[NSNotificationCenter defaultCenter] postNotificationName:SignInSuccessNotification
-                                                                       object:nil];
+                                                                       object:[jsonDic objectForKey:@"authentication_token"]];
                }
                failure:^(AFHTTPRequestOperation* operation, NSError* error) {
                    NSString* encodeJsonData = [[NSString alloc] initWithData:operation.responseObject

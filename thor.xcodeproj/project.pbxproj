@@ -43,12 +43,14 @@
 		19D58571188C0B840086DA82 /* Pref.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D58570188C0B840086DA82 /* Pref.m */; };
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
 		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
 		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
 		23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA16F1846149509F9444 /* UIColor+Constant.m */; };
 		23D1A48C49168AB057EF6D05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A27A8488A14E95502F4D /* DetailViewController.m */; };
 		23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */; };
 		23D1A4FA5078287033E22B22 /* CoffeeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A326D67B1D409AD436E2 /* CoffeeService.m */; };
 		23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */; };
+		23D1A6E0C4047D78369E49D2 /* UINavigationBar+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A73222B0E6C346CB77F5 /* UINavigationBar+Appearance.m */; };
 		23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */; };
 		23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
 		23D1A7B8B1FF42FD6C55C0BF /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* LoginState.m */; };
@@ -136,9 +138,13 @@
 		23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStateMachine.h; sourceTree = "<group>"; };
 		23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeService.h; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
+		23D1A73222B0E6C346CB77F5 /* UINavigationBar+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Appearance.m"; sourceTree = "<group>"; };
+		23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftDrawerController.h; sourceTree = "<group>"; };
 		23D1A740CB25632BD838B160 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
 		23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractUIViewController.m; sourceTree = "<group>"; };
+		23D1A8FC954617646ACA6350 /* UINavigationBar+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Appearance.h"; sourceTree = "<group>"; };
+		23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftDrawerController.m; sourceTree = "<group>"; };
 		23D1A9662F95D333D7E3D6B1 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
 		23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStateMachine.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
@@ -263,6 +269,8 @@
 				23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */,
 				23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */,
 				23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */,
+				23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */,
+				23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -316,6 +324,7 @@
 		1958468917C266C8004B8592 /* thor */ = {
 			isa = PBXGroup;
 			children = (
+				197D92CA1890093D008B135A /* appearance */,
 				19D5856E188BFA800086DA82 /* statemachine */,
 				19D5856A188988FC0086DA82 /* constant */,
 				194B1EA5188566FF004FCBA7 /* manager */,
@@ -343,6 +352,15 @@
 				1958469917C266C8004B8592 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		197D92CA1890093D008B135A /* appearance */ = {
+			isa = PBXGroup;
+			children = (
+				23D1A73222B0E6C346CB77F5 /* UINavigationBar+Appearance.m */,
+				23D1A8FC954617646ACA6350 /* UINavigationBar+Appearance.h */,
+			);
+			path = appearance;
 			sourceTree = "<group>";
 		};
 		19D1E36017DC6F3C00F98548 /* view */ = {
@@ -523,6 +541,8 @@
 				23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */,
 				23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */,
 				23D1A391C2ADA57631EF0D74 /* System.m in Sources */,
+				23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */,
+				23D1A6E0C4047D78369E49D2 /* UINavigationBar+Appearance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

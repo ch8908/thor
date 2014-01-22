@@ -26,6 +26,12 @@
 
 + (UIColor*) inputFiendBgColor
 {
-    return [UIColor lightGrayColor];
+    return [UIColor hexARGB:0xFFFFFFFF];
 }
+
++ (UIColor*) loginViewBgColor
+{
+    return [UIColor hexARGB:0xFF73FFBB];
+}
+
 @end

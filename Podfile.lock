@@ -21,6 +21,18 @@ PODS:
   - Facebook-iOS-SDK (3.11.0)
   - JSONKit (1.5pre)
   - Mixpanel (2.2.2)
+  - MMDrawerController (0.5.1):
+    - MMDrawerController/Core
+    - MMDrawerController/MMDrawerBarButtonItem
+    - MMDrawerController/MMDrawerVisualStates
+    - MMDrawerController/Subclass
+  - MMDrawerController/Core (0.5.1)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.1):
+    - MMDrawerController/Core
+  - MMDrawerController/MMDrawerVisualStates (0.5.1):
+    - MMDrawerController/Core
+  - MMDrawerController/Subclass (0.5.1):
+    - MMDrawerController/Core
   - TMCache (1.2.0)
 
 DEPENDENCIES:
@@ -29,6 +41,7 @@ DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.11.0)
   - JSONKit
   - Mixpanel
+  - MMDrawerController
   - TMCache
 
 SPEC CHECKSUMS:
@@ -37,6 +50,7 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: 2eb12f9ed04f3d3956f0a4fb0e4e60c824dcd101
   JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
   Mixpanel: feb06062e703ac9e0da2c93e7327895c9b5d0a1f
+  MMDrawerController: 3e22aec684dbee5307ff9d1e76523003a3303a2d
   TMCache: 4b05e1b124d9f7e8d449640e059cff4cda17ed27
 
 COCOAPODS: 0.29.0

@@ -4,12 +4,15 @@
 //
 
 #import "LoginState.h"
+#import "LogStateMachine.h"
+#import "Pref.h"
 
 
 @implementation LoginState
 - (void) enter
 {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
+    [[NSNotificationCenter defaultCenter] postNotificationName:MachineLoginSuccessNotification object:nil];
 }
 
 - (void) execute
@@ -19,5 +22,7 @@
 - (void) exit
 {
     NSLog(@"Log: exit:%@", NSStringFromClass([self class]));
+    [[Pref sharedInstance] removeAuthenticationToken];
 }
+
 @end

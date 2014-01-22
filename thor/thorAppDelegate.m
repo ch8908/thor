@@ -8,10 +8,11 @@
 
 #import "thorAppDelegate.h"
 #import "MainViewController.h"
-#import "ThorNavigationController.h"
 #import "CoffeeService.h"
 #import "CoffeeManager.h"
 #import "LogStateMachine.h"
+#import "LeftDrawerController.h"
+#import "MMDrawerController.h"
 
 @implementation thorAppDelegate
 
@@ -23,9 +24,20 @@
     [self configure];
 
     MainViewController* mainViewController = [[MainViewController alloc] initWithMainView];
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-    navigationController.navigationBar.translucent = YES;
-    self.window.rootViewController = navigationController;
+    UINavigationController* mainNavViewController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    mainNavViewController.navigationBar.translucent = YES;
+
+    LeftDrawerController* leftDrawerViewController = [[LeftDrawerController alloc] initLeftDrawerViewController];
+    UINavigationController* leftDrawerNavViewController = [[UINavigationController alloc] initWithRootViewController:leftDrawerViewController];
+    leftDrawerNavViewController.navigationBar.translucent = YES;
+
+    MMDrawerController* drawerController = [[MMDrawerController alloc] initWithCenterViewController:mainNavViewController
+                                                                           leftDrawerViewController:leftDrawerNavViewController];
+
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+
+    self.window.rootViewController = drawerController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 

@@ -35,3 +35,6 @@
 "confirm_password_placeholder" = "確認密碼";
 "register_button_title" = "註冊";
 "sign_in_button_title" = "登入";
+"sign_out_button_title" = "登出";
+"map_tab_title" = "地圖";
+"setting_tab_title" = "設定";

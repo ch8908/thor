@@ -9,6 +9,8 @@
 #import "LoginState.h"
 #import "LogoutState.h"
 
+NSString* MachineLoginSuccessNotification = @"MachineLoginSuccessNotification";
+NSString* MachineLogoutNotification = @"MachineLogoutNotification";
 
 @implementation LogStateMachine
 

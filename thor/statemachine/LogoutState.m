@@ -4,6 +4,7 @@
 //
 
 #import "LogoutState.h"
+#import "LogStateMachine.h"
 
 
 @implementation LogoutState
@@ -11,6 +12,7 @@
 - (void) enter
 {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
+    [[NSNotificationCenter defaultCenter] postNotificationName:MachineLogoutNotification object:nil];
 }
 
 - (void) execute

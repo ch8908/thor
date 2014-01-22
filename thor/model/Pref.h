@@ -16,4 +16,6 @@
 - (void) setAuthenticationToken:(NSString*) token;
 
 - (NSString*) authenticationToken;
+
+- (void) removeAuthenticationToken;
 @end

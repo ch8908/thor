@@ -7,6 +7,7 @@
 
 
 #import <MapKit/MapKit.h>
+#import <MMDrawerController/MMDrawerController.h>
 #import "MainViewController.h"
 #import "I18N.h"
 #import "LoginViewController.h"
@@ -18,6 +19,8 @@
 #import "CoffeeService.h"
 #import "DetailViewController.h"
 #import "LogStateMachine.h"
+#import "MMDrawerBarButtonItem.h"
+#import "UIViewController+MMDrawerController.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -60,6 +63,10 @@
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopFailedNotification)
                                                      name:LoadShopFailedNotification object:nil];
+        UITabBarItem* item = [[UITabBarItem alloc] initWithTitle:[I18N key:@"map_tab_title"]
+                                                           image:[UIImage imageNamed:@"image/icon_map_tab.png"]
+                                                             tag:1];
+        self.tabBarItem = item;
     }
 
     return self;
@@ -69,19 +76,25 @@
 {
     [super viewDidLoad];
     self.coffeeShops = [[NSMutableArray alloc] init];
-    NSString* loginString = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"login"] : [I18N key:@"log_in"];
-    UIBarButtonItem* loginButton = [[UIBarButtonItem alloc] initWithTitle:loginString
-                                                                    style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(login)];
-    [self.navigationItem setRightBarButtonItem:loginButton];
+    MMDrawerBarButtonItem* leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
+                                                                                     style:UIBarButtonItemStylePlain
+                                                                                    target:self
+                                                                                    action:@selector(onSlideMenuButtonPress)];
+    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
+
+    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                               target:self
+                                                                               action:@selector(onAddShop)];
+    [self.navigationItem setRightBarButtonItem:addButton];
 }
 
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 260)];
+    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 310)];
+
     [Views resize:self.tableView
-    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - self.mapView.bounds.size.height)];
+    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - self.mapView.bounds.size.height - self.bottomBarOffset)];
 
     [Views locate:self.tableView y:[Views bottomOf:self.mapView]];
     [Views alignBottom:self.locateButton withTarget:self.mapView];
@@ -121,11 +134,14 @@
     }
 }
 
-- (void) login
+- (void) onSlideMenuButtonPress
 {
-    ThorNavigationController* navigationController = [[ThorNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
-    [self.navigationController presentViewController:navigationController
-                                            animated:YES completion:nil];
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
+- (void) onAddShop
+{
+
 }
 
 - (void) mapView:(MKMapView*) mapView didUpdateUserLocation:(MKUserLocation*) userLocation

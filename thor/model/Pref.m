@@ -55,4 +55,9 @@
     return [self.userDefaults objectForKey:@"AUTHENTICATION_TOKEN"];
 }
 
+- (void) removeAuthenticationToken
+{
+    [self.userDefaults removeObjectForKey:@"AUTHENTICATION_TOKEN"];
+}
+
 @end

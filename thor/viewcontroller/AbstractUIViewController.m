@@ -15,6 +15,7 @@
     if ([System isMinimumiOS7])
     {
         self.topBarOffset = self.topLayoutGuide.length;
+        self.bottomBarOffset = self.bottomLayoutGuide.length;
     }
 }
 
