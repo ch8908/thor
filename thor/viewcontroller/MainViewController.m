@@ -10,20 +10,20 @@
 #import <MMDrawerController/MMDrawerController.h>
 #import "MainViewController.h"
 #import "I18N.h"
-#import "LoginViewController.h"
-#import "ThorNavigationController.h"
 #import "CoffeeShop.h"
 #import "TRAnnotation.h"
 #import "CoffeeShop+Strings.h"
 #import "Views.h"
 #import "CoffeeService.h"
 #import "DetailViewController.h"
-#import "LogStateMachine.h"
 #import "MMDrawerBarButtonItem.h"
 #import "UIViewController+MMDrawerController.h"
+#import "AddShopViewController.h"
+#import "LogStateMachine.h"
+#import "LoginViewController.h"
 
 
-@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 @property (nonatomic) MKMapView* mapView;
 @property (nonatomic) UITableView* tableView;
 @property (nonatomic) NSMutableArray* coffeeShops;
@@ -63,10 +63,6 @@
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopFailedNotification)
                                                      name:LoadShopFailedNotification object:nil];
-        UITabBarItem* item = [[UITabBarItem alloc] initWithTitle:[I18N key:@"map_tab_title"]
-                                                           image:[UIImage imageNamed:@"image/icon_map_tab.png"]
-                                                             tag:1];
-        self.tabBarItem = item;
     }
 
     return self;
@@ -141,7 +137,38 @@
 
 - (void) onAddShop
 {
+    if (![[LogStateMachine sharedInstance] isLogin])
+    {
+        [self showLoginOption];
+        return;
+    }
+    AddShopViewController* controller = [[AddShopViewController alloc] initAddShopViewController];
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.navigationController presentViewController:navigationController
+                                            animated:YES completion:nil];
+}
 
+- (void) showLoginOption
+{
+    NSString* login = [I18N key:@"log_in_button_title"];
+    NSString* cancel = [I18N key:@"cancel"];
+    UIActionSheet* actionSheet = [[UIActionSheet alloc]
+                                                 initWithTitle:[I18N key:@"add_login_require_action_sheet_title"]
+                                                      delegate:self
+                                             cancelButtonTitle:nil
+                                        destructiveButtonTitle:login
+                                             otherButtonTitles:cancel, nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void) actionSheet:(UIActionSheet*) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
+        [self.navigationController presentViewController:navigationController
+                                                animated:YES completion:nil];
+    }
 }
 
 - (void) mapView:(MKMapView*) mapView didUpdateUserLocation:(MKUserLocation*) userLocation

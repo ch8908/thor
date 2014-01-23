@@ -113,7 +113,6 @@ enum
 - (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
 
     switch (indexPath.row)
     {
@@ -125,6 +124,7 @@ enum
             }
             else
             {
+                UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
                 [self.mm_drawerController presentViewController:navigationController
                                                        animated:YES completion:nil];
             }

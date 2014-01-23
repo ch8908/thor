@@ -39,3 +39,4 @@
 "map_tab_title" = "Map";
 "setting_tab_title" = "Setting";
 "log_out_action_sheet_title" = "Are you sure you want to log out?";
+"add_login_require_action_sheet_title" = "Login required for add shop";

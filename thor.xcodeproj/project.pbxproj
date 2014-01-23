@@ -42,6 +42,7 @@
 		19D5856D1889948E0086DA82 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5856C1889948E0086DA82 /* UIColor+Util.m */; };
 		19D58571188C0B840086DA82 /* Pref.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D58570188C0B840086DA82 /* Pref.m */; };
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
+		23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF812EA31A3594E08DF /* AddShopViewController.m */; };
 		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
 		23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
 		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
@@ -151,6 +152,7 @@
 		23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractUIViewController.h; sourceTree = "<group>"; };
 		23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		23D1AB80F2A22133B19F5B0F /* LogoutState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutState.h; sourceTree = "<group>"; };
+		23D1AC024B7C9EB60CB43861 /* AddShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopViewController.h; sourceTree = "<group>"; };
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		23D1AF3067EB607F0EEB3682 /* LogoutState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutState.m; sourceTree = "<group>"; };
 		23D1AF548060079D38D25BF2 /* LogingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogingState.h; sourceTree = "<group>"; };
 		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
+		23D1AFF812EA31A3594E08DF /* AddShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopViewController.m; sourceTree = "<group>"; };
 		BB46A6B010F648FCB20DA62E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -271,6 +274,8 @@
 				23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */,
 				23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */,
 				23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */,
+				23D1AFF812EA31A3594E08DF /* AddShopViewController.m */,
+				23D1AC024B7C9EB60CB43861 /* AddShopViewController.h */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 				23D1A391C2ADA57631EF0D74 /* System.m in Sources */,
 				23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */,
 				23D1A6E0C4047D78369E49D2 /* UINavigationBar+Appearance.m in Sources */,
+				23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

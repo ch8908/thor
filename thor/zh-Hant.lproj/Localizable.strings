@@ -39,3 +39,4 @@
 "map_tab_title" = "地圖";
 "setting_tab_title" = "設定";
 "log_out_action_sheet_title" = "你確定要登出？";
+"add_login_require_action_sheet_title" = "要先登入才能新增商店";
