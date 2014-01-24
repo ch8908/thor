@@ -40,3 +40,6 @@
 "setting_tab_title" = "Setting";
 "log_out_action_sheet_title" = "Are you sure you want to log out?";
 "add_login_require_action_sheet_title" = "Login required for add shop";
+"address_above_title" = "Address from map center:";
+"input_address_placeholder" = "Input address";
+"input_address_title" = "Type an address for query:";
