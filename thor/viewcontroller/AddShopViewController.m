@@ -286,7 +286,7 @@ CGFloat PADDING_HORIZONTAL = 10;
     // Set delegate right now, prevent first location show in USA, CA (that's mapView default location)
     self.mapView.delegate = self;
 
-    [self.mapView setRegion:mapRegion animated:YES];
+    [self.mapView setRegion:mapRegion animated:NO];
     self.initUserLocation = YES;
 }
 
