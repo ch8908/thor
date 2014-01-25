@@ -49,3 +49,9 @@
 "input_name_title" = "輸入商店名稱(必要):";
 "wifi_free_title" = "有免費WIFI:";
 "power_outlet_title" = "提供電源插頭:";
+"add_shop_title" = "新增咖啡廳";
+"submiting_message" = "新增中";
+"submit_success" = "新增成功";
+"submit_failed" = "新增失敗";
+"submit_again_message" = "新增失敗，請再嘗試新增一次";
+"try_again" = "再試一次";

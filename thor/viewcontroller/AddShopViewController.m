@@ -13,6 +13,8 @@
 #import "MKMapView+ZoomLevel.h"
 
 CGFloat PADDING_HORIZONTAL = 10;
+NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
+
 
 @interface AddShopViewController()<MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 @property MKMapView* mapView;
@@ -37,6 +39,8 @@ CGFloat PADDING_HORIZONTAL = 10;
 @property (nonatomic) UILabel* powerOutletTitle;
 @property (nonatomic) UIButton* zoomInButton;
 @property (nonatomic) UIButton* zoomOutButton;
+@property (nonatomic) UIBarButtonItem* submitButton;
+@property (nonatomic) UIBarButtonItem* cancelButton;
 @end
 
 @implementation AddShopViewController
@@ -74,6 +78,7 @@ CGFloat PADDING_HORIZONTAL = 10;
 
         _inputAddressTitle = [self titleLabelWithTitle:[I18N key:@"input_address_title"]];
         _inputAddressTextField = [self inputTextFieldWithPlaceholder:[I18N key:@"input_address_placeholder"]];
+        self.inputAddressTextField.tag = INPUT_ADDRESS_TEXT_FIELD_TAG;
 
         _indicatorViewForMap = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 
@@ -111,6 +116,14 @@ CGFloat PADDING_HORIZONTAL = 10;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillHide:)
                                                      name:UIKeyboardWillHideNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onAddShopSuccessNotification)
+                                                     name:AddShopSuccessNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onAddShopFailedNotification:)
+                                                     name:AddShopFailedNotification
                                                    object:nil];
     }
     return self;
@@ -150,15 +163,17 @@ CGFloat PADDING_HORIZONTAL = 10;
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                  target:self
-                                                                                  action:@selector(onCancel)];
-    [self.navigationItem setLeftBarButtonItem:cancelButton];
+    self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                      target:self
+                                                                      action:@selector(onCancel)];
+    [self.navigationItem setLeftBarButtonItem:self.cancelButton];
 
-    UIBarButtonItem* submitButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-                                                                                  target:self
-                                                                                  action:@selector(onSubmit)];
-    [self.navigationItem setRightBarButtonItem:submitButton];
+    self.submitButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                                      target:self
+                                                                      action:@selector(onSubmit)];
+    [self.navigationItem setRightBarButtonItem:self.submitButton];
+
+    [self.navigationItem setTitle:[I18N key:@"add_shop_title"]];
 }
 
 - (void) viewDidLayoutSubviews
@@ -246,6 +261,9 @@ CGFloat PADDING_HORIZONTAL = 10;
 
 - (void) onSubmit
 {
+    [self.view endEditing:YES];
+    self.submitButton.enabled = NO;
+
     SubmitInfo* info = [[SubmitInfo alloc] init];
     info.name = self.inputNameTextField.text;
     info.phone = self.inputPhoneTitle.text;
@@ -254,8 +272,82 @@ CGFloat PADDING_HORIZONTAL = 10;
     info.latitude = self.mapView.centerCoordinate.latitude;
     info.longitude = self.mapView.centerCoordinate.longitude;
     info.address = self.addressTextViewFromMapCenter.text;
+    info.website_rul = @"http://tw.yahoo.com";
+    info.hours = @"111";
+    info.shopDescription = @"description";
 
     [[CoffeeService sharedInstance] submitShopInfo:info];
+
+    [self showIndicatorOnNavigationBar];
+}
+
+- (void) showIndicatorOnNavigationBar
+{
+    self.navigationItem.title = @"";
+    [self.navigationItem setTitleView:[self getIndicatorView]];
+}
+
+- (UILabel*) navigationBarTitleLabelWithString:(NSString*) title
+{
+    UILabel* titleLabel = [[UILabel alloc] init];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    titleLabel.text = title;
+    [titleLabel sizeToFit];
+    return titleLabel;
+}
+
+- (UIView*) getIndicatorView
+{
+    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    UIActivityIndicatorView* indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    indicatorView.backgroundColor = [UIColor clearColor];
+    [indicatorView sizeToFit];
+
+    UILabel* titleLabel = [self navigationBarTitleLabelWithString:[I18N key:@"submiting_message"]];
+
+    [Views alignCenterMiddle:titleLabel containerFrame:view.frame];
+    [Views alignMiddle:indicatorView containerHeight:view.bounds.size.height];
+    [Views locate:indicatorView x:titleLabel.frame.origin.x - indicatorView.bounds.size.width - 3];
+
+    [view addSubview:indicatorView];
+    [view addSubview:titleLabel];
+
+    [indicatorView startAnimating];
+    return view;
+}
+
+- (void) onAddShopFailedNotification:(NSNotification*) notification
+{
+    [self showNavigationTitleWithString:[I18N key:@"submit_failed"]];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:[I18N key:@"submit_failed"]
+                                                        message:[I18N key:@"submit_again_message"]
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:[I18N key:@"try_again"], nil];
+    [alertView show];
+}
+
+- (void) onAddShopSuccessNotification
+{
+    [self showNavigationTitleWithString:[I18N key:@"submit_success"]];
+}
+
+- (void) showNavigationTitleWithString:(NSString*) message
+{
+    self.submitButton.enabled = YES;
+
+    UILabel* titleView = [self navigationBarTitleLabelWithString:message];
+    [self.navigationItem setTitleView:titleView];
+
+    double delayInSeconds = 1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        [self.navigationItem setTitleView:nil];
+        [self.navigationItem setTitle:[I18N key:@"add_shop_title"]];
+    });
 }
 
 - (void) zoomOut
@@ -335,6 +427,10 @@ CGFloat PADDING_HORIZONTAL = 10;
 
 - (void) textFieldDidEndEditing:(UITextField*) textField
 {
+    if (INPUT_ADDRESS_TEXT_FIELD_TAG != textField.tag)
+    {
+        return;
+    }
     [self.indicatorViewForMap startAnimating];
     NSString* queryAddressString = textField.text;
     [self.geocoder geocodeAddressString:queryAddressString

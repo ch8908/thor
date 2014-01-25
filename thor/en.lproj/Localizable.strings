@@ -49,3 +49,9 @@
 "input_name_title" = "Input shop name (required):";
 "wifi_free_title" = "Wifi free:";
 "power_outlet_title" = "Power outlets:";
+"add_shop_title" = "Add a Coffee Shop";
+"submiting_message" = "Processing";
+"submit_success" = "Submit Success";
+"submit_failed" = "Submit Failed";
+"submit_again_message" = "Submit failed. Please try again.";
+"try_again" = "Try again";
