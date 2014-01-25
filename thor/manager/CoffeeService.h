@@ -6,13 +6,22 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
+@class SubmitInfo;
+
 extern NSString* LoadShopFailedNotification;
 extern NSString* LoadShopSuccessNotification;
+
 extern NSString* LoadShopDetailSuccessNotification;
 extern NSString* LoadShopDetailFailedNotification;
+
+extern NSString* RegisterSuccessNotification;
 extern NSString* RegisterFailedNotification;
+
 extern NSString* SignInSuccessNotification;
 extern NSString* SignInFailedNotification;
+
+extern NSString* AddShopSuccessNotification;
+extern NSString* AddShopFailedNotification;
 
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
@@ -24,4 +33,6 @@ extern NSString* SignInFailedNotification;
 - (void) resisterWithParams:(NSDictionary*) dictionary;
 
 - (void) signInWithEmail:(NSString*) email password:(NSString*) password;
+
+- (void) submitShopInfo:(SubmitInfo*) info;
 @end

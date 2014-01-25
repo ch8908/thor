@@ -10,6 +10,8 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "CoffeeShopDetail.h"
+#import "SubmitInfo.h"
+#import "LogStateMachine.h"
 
 NSString* LoadShopFailedNotification = @"LoadShopFailedNotification";
 NSString* LoadShopSuccessNotification = @"LoadShopSuccessNotification";
@@ -20,10 +22,13 @@ NSString* LoadShopDetailFailedNotification = @"LoadShopDetailFailedNotification"
 NSString* SignInSuccessNotification = @"SignInSuccessNotification";
 NSString* SignInFailedNotification = @"SignInFailedNotification";
 
+NSString* RegisterSuccessNotification = @"RegisterSuccessNotification";
 NSString* RegisterFailedNotification = @"RegisterFailedNotification";
 
-static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
+NSString* AddShopSuccessNotification = @"AddShopSuccessNotification";
+NSString* AddShopFailedNotification = @"AddShopFailedNotification";
 
+static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 @interface CoffeeService()
 @property (nonatomic) AFHTTPRequestOperationManager* manager;
@@ -157,6 +162,31 @@ static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
                                                                     encoding:NSUTF8StringEncoding];
                    NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
                    [[NSNotificationCenter defaultCenter] postNotificationName:SignInFailedNotification
+                                                                       object:[jsonDic objectForKey:@"error"]];
+               }];
+}
+
+- (void) submitShopInfo:(SubmitInfo*) info
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops"];
+
+    NSDictionary* parameters = [info infoAsDictionaryWithToken:[[LogStateMachine sharedInstance] authenticationToken]];
+
+    [self.manager POST:urlString
+            parameters:parameters
+               success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                   NSString* encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
+                                                                    encoding:NSUTF8StringEncoding];
+                   NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+
+                   [[NSNotificationCenter defaultCenter] postNotificationName:AddShopSuccessNotification
+                                                                       object:[jsonDic objectForKey:@"authentication_token"]];
+               }
+               failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                   NSString* encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
+                                                                    encoding:NSUTF8StringEncoding];
+                   NSDictionary* jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:AddShopFailedNotification
                                                                        object:[jsonDic objectForKey:@"error"]];
                }];
 }

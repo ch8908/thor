@@ -43,3 +43,9 @@
 "address_above_title" = "上面地圖中心的位置:";
 "input_address_placeholder" = "輸入地址";
 "input_address_title" = "輸入特定地址查詢:";
+"input_phone_placeholder" = "電話";
+"input_phone_title" = "輸入電話(必要):";
+"input_name_placeholder" = "商店名稱";
+"input_name_title" = "輸入商店名稱(必要):";
+"wifi_free_title" = "有免費WIFI:";
+"power_outlet_title" = "提供電源插頭:";

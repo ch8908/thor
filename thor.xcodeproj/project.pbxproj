@@ -43,8 +43,10 @@
 		19D5856D1889948E0086DA82 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5856C1889948E0086DA82 /* UIColor+Util.m */; };
 		19D58571188C0B840086DA82 /* Pref.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D58570188C0B840086DA82 /* Pref.m */; };
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
+		23D1A066EB52712B23F811C3 /* SubmitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */; };
 		23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF812EA31A3594E08DF /* AddShopViewController.m */; };
 		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */; };
 		23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
 		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
 		23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA16F1846149509F9444 /* UIColor+Constant.m */; };
@@ -140,15 +142,18 @@
 		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
 		23D1A3C17A2C3980E9A6CAF0 /* System.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = System.m; sourceTree = "<group>"; };
 		23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStateMachine.h; sourceTree = "<group>"; };
+		23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeService.h; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
 		23D1A73222B0E6C346CB77F5 /* UINavigationBar+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Appearance.m"; sourceTree = "<group>"; };
 		23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftDrawerController.h; sourceTree = "<group>"; };
 		23D1A740CB25632BD838B160 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitInfo.m; sourceTree = "<group>"; };
 		23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractUIViewController.m; sourceTree = "<group>"; };
 		23D1A8FC954617646ACA6350 /* UINavigationBar+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Appearance.h"; sourceTree = "<group>"; };
 		23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftDrawerController.m; sourceTree = "<group>"; };
+		23D1A95738A865504909BF24 /* SubmitInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitInfo.h; sourceTree = "<group>"; };
 		23D1A9662F95D333D7E3D6B1 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
 		23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStateMachine.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
@@ -159,6 +164,7 @@
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
+		23D1AD2FB23E68372C3FB2FC /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		23D1AD7599D1816C1FB154C7 /* LogingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogingState.m; sourceTree = "<group>"; };
 		23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShopDetail.h; sourceTree = "<group>"; };
@@ -230,6 +236,8 @@
 				23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */,
 				23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */,
 				23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */,
+				23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */,
+				23D1A95738A865504909BF24 /* SubmitInfo.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -247,6 +255,8 @@
 				194B1E871885654F004FCBA7 /* Views.m */,
 				23D1A1468711D39C6AB838AA /* System.h */,
 				23D1A3C17A2C3980E9A6CAF0 /* System.m */,
+				23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */,
+				23D1AD2FB23E68372C3FB2FC /* MKMapView+ZoomLevel.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -555,6 +565,8 @@
 				23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */,
 				23D1A6E0C4047D78369E49D2 /* UINavigationBar+Appearance.m in Sources */,
 				23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */,
+				23D1A066EB52712B23F811C3 /* SubmitInfo.m in Sources */,
+				23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

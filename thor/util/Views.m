@@ -154,4 +154,5 @@ CGFloat const VIEWS_PAGE_CONTROL_HEIGHT = 3;
 {
     [Views locate:source y:target.frame.origin.y + target.bounds.size.height / 2 - source.bounds.size.height / 2];
 }
+
 @end
