@@ -61,6 +61,7 @@
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
 		23D1AAA666E4D17926AC985F /* LogingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* LogingState.m */; };
+		23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
 		23D1AFCBC759CBFFD96D5443 /* AbstractState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1CDD7F7F79D53004C90 /* AbstractState.m */; };
@@ -137,8 +138,10 @@
 		23D1A1CDD7F7F79D53004C90 /* AbstractState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractState.m; sourceTree = "<group>"; };
 		23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		23D1A27A8488A14E95502F4D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+Util.m"; sourceTree = "<group>"; };
 		23D1A3251F2E796969FF73F9 /* CoffeeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeManager.h; sourceTree = "<group>"; };
 		23D1A326D67B1D409AD436E2 /* CoffeeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeService.m; sourceTree = "<group>"; };
+		23D1A398EC5FB31F0218DACE /* UINavigationItem+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Util.h"; sourceTree = "<group>"; };
 		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
 		23D1A3C17A2C3980E9A6CAF0 /* System.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = System.m; sourceTree = "<group>"; };
 		23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStateMachine.h; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				23D1A3C17A2C3980E9A6CAF0 /* System.m */,
 				23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */,
 				23D1AD2FB23E68372C3FB2FC /* MKMapView+ZoomLevel.h */,
+				23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */,
+				23D1A398EC5FB31F0218DACE /* UINavigationItem+Util.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */,
 				23D1A066EB52712B23F811C3 /* SubmitInfo.m in Sources */,
 				23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */,
+				23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

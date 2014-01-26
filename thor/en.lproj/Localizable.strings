@@ -44,7 +44,7 @@
 "input_address_placeholder" = "Input address";
 "input_address_title" = "Type an address for query:";
 "input_phone_placeholder" = "Phone number";
-"input_phone_title" = "Input phone number (required):";
+"input_phone_title" = "Input phone number:";
 "input_name_placeholder" = "Shop name";
 "input_name_title" = "Input shop name (required):";
 "wifi_free_title" = "Wifi free:";

@@ -21,6 +21,7 @@
 #import "AddShopViewController.h"
 #import "LogStateMachine.h"
 #import "LoginViewController.h"
+#import "UINavigationItem+Util.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
@@ -31,6 +32,7 @@
 @property (nonatomic) UIButton* locateButton;
 @property (nonatomic) BOOL initUserLocation;
 @property (nonatomic) UITableViewController* tableViewController;
+@property (nonatomic) UINavigationBar* navigationBar;
 @end
 
 @implementation MainViewController
@@ -40,7 +42,8 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.navigationItem.title = [I18N key:@"places_title"];
+        self.navigationBar = self.navigationController.navigationBar;
+        [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
 
         _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
         self.mapView.delegate = self;
@@ -122,17 +125,31 @@
 
 - (void) onRefreshShops
 {
+    [self.navigationItem setTitleViewWithTitle:@"Refresh" animated:YES];
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate];
+}
+
+- (void) endRefreshShops
+{
+    if (self.tableViewController.refreshControl.refreshing)
+    {
+        [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:YES];
+    }
+    else
+    {
+        [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
+    }
+    [self.tableViewController.refreshControl endRefreshing];
 }
 
 - (void) onLoadShopFailedNotification
 {
-    [self.tableViewController.refreshControl endRefreshing];
+    [self endRefreshShops];
 }
 
 - (void) onLoadShopSuccessNotification:(NSNotification*) notification
 {
-    [self.tableViewController.refreshControl endRefreshing];
+    [self endRefreshShops];
     self.coffeeShops = notification.object;
     [self removeAllAnnotations];
     [self showOnMap];
