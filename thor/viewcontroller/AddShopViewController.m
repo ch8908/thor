@@ -11,6 +11,8 @@
 #import "CoffeeService.h"
 #import "SubmitInfo.h"
 #import "MKMapView+ZoomLevel.h"
+#import "NSString+Util.h"
+#import "UIColor+Constant.h"
 
 CGFloat PADDING_HORIZONTAL = 10;
 NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
@@ -153,7 +155,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 {
     UITextField* textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - PADDING_HORIZONTAL * 2, 36)];
     textField.font = [UIFont systemFontOfSize:12];
-    textField.backgroundColor = [UIColor lightGrayColor];
+    textField.backgroundColor = [UIColor inputFieldBgColor];
     textField.textColor = [UIColor blackColor];
     textField.placeholder = placeHolder;
     textField.delegate = self;
@@ -261,6 +263,11 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 
 - (void) onSubmit
 {
+    if (![self checkRequiredField])
+    {
+        return;
+    }
+
     [self.view endEditing:YES];
     self.submitButton.enabled = NO;
 
@@ -279,6 +286,16 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [[CoffeeService sharedInstance] submitShopInfo:info];
 
     [self showIndicatorOnNavigationBar];
+}
+
+- (BOOL) checkRequiredField
+{
+    if ([NSString isEmptyAfterTrim:self.inputNameTextField.text])
+    {
+        self.inputNameTextField.backgroundColor = [UIColor requiredFieldWarningColor];
+        return NO;
+    }
+    return YES;
 }
 
 - (void) showIndicatorOnNavigationBar
@@ -423,6 +440,15 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     mapRegion.span.latitudeDelta = currentSpan.latitudeDelta < 0.01 ? currentSpan.latitudeDelta : 0.01;
     mapRegion.span.longitudeDelta = currentSpan.longitudeDelta < 0.01 ? currentSpan.longitudeDelta : 0.01;
     [self.mapView setRegion:mapRegion animated:YES];
+}
+
+- (BOOL) textField:(UITextField*) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString*) string
+{
+    if ([string stringByTrim].length > 0)
+    {
+        self.inputNameTextField.backgroundColor = [UIColor inputFieldBgColor];
+    }
+    return YES;
 }
 
 - (void) textFieldDidEndEditing:(UITextField*) textField
