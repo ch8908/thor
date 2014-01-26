@@ -13,6 +13,7 @@
 #import "MKMapView+ZoomLevel.h"
 #import "NSString+Util.h"
 #import "UIColor+Constant.h"
+#import "UINavigationItem+Util.h"
 
 CGFloat PADDING_HORIZONTAL = 10;
 NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
@@ -175,7 +176,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                                                                       action:@selector(onSubmit)];
     [self.navigationItem setRightBarButtonItem:self.submitButton];
 
-    [self.navigationItem setTitle:[I18N key:@"add_shop_title"]];
+    [self.navigationItem setTitleViewWithTitle:[I18N key:@"add_shop_title"] animated:NO];
 }
 
 - (void) viewDidLayoutSubviews
@@ -301,7 +302,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 - (void) showIndicatorOnNavigationBar
 {
     self.navigationItem.title = @"";
-    [self.navigationItem setTitleView:[self getIndicatorView]];
+    [self.navigationItem setTitleView:[self getIndicatorView] animated:YES];
 }
 
 - (UILabel*) navigationBarTitleLabelWithString:(NSString*) title
@@ -356,14 +357,13 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 {
     self.submitButton.enabled = YES;
 
-    UILabel* titleView = [self navigationBarTitleLabelWithString:message];
-    [self.navigationItem setTitleView:titleView];
+    [self.navigationItem setTitleViewWithTitle:message animated:YES];
 
     double delayInSeconds = 1;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         [self.navigationItem setTitleView:nil];
-        [self.navigationItem setTitle:[I18N key:@"add_shop_title"]];
+        [self.navigationItem setTitleViewWithTitle:[I18N key:@"add_shop_title"] animated:YES];
     });
 }
 
