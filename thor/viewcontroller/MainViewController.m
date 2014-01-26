@@ -30,6 +30,7 @@
 @property (nonatomic) NSMutableDictionary* annotations;
 @property (nonatomic) UIButton* locateButton;
 @property (nonatomic) BOOL initUserLocation;
+@property (nonatomic) UITableViewController* tableViewController;
 @end
 
 @implementation MainViewController
@@ -45,10 +46,6 @@
         self.mapView.delegate = self;
         self.mapView.showsUserLocation = YES;
 
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-
         _locateButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_normal.png"]
                            forState:UIControlStateNormal];
@@ -57,6 +54,19 @@
         [self.locateButton sizeToFit];
         [self.locateButton addTarget:self action:@selector(setMapCenterUser)
                     forControlEvents:UIControlEventTouchUpInside];
+
+        _tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+        [self addChildViewController:self.tableViewController];
+        self.tableViewController.tableView.delegate = self;
+        self.tableViewController.tableView.dataSource = self;
+        _tableView = self.tableViewController.tableView;
+
+        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+        [refreshControl addTarget:self action:@selector(onRefreshShops)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.tableViewController.refreshControl = refreshControl;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopSuccessNotification:)
                                                      name:LoadShopSuccessNotification object:nil];
@@ -87,10 +97,10 @@
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    CGFloat mapHeight = 300;
+    CGFloat mapHeight = 280;
     if ([Views screenHeight] > 480)
     {
-        mapHeight = 360;
+        mapHeight = 320;
     }
     [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, mapHeight)];
 
@@ -105,13 +115,25 @@
     [self.view addSubview:self.locateButton];
 }
 
+- (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate
+{
+    [[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate];
+}
+
+- (void) onRefreshShops
+{
+    NSLog(@">>>> refresh");
+    [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate];
+}
+
 - (void) onLoadShopFailedNotification
 {
-
+    [self.tableViewController.refreshControl endRefreshing];
 }
 
 - (void) onLoadShopSuccessNotification:(NSNotification*) notification
 {
+    [self.tableViewController.refreshControl endRefreshing];
     self.coffeeShops = notification.object;
     [self showOnMap];
     [self.tableView reloadData];
@@ -188,7 +210,7 @@
     mapRegion.span.longitudeDelta = 0.01;
     [self.mapView setRegion:mapRegion animated:YES];
     self.initUserLocation = YES;
-    [[CoffeeService sharedInstance] fetchShopsWithCenter:userLocation.coordinate];
+    [self listCoffeeShopsWithCoordinate:userLocation.coordinate];
 }
 
 - (MKAnnotationView*) mapView:(MKMapView*) mapView viewForAnnotation:(id<MKAnnotation>) annotation
