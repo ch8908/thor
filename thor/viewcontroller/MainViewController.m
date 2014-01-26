@@ -122,7 +122,6 @@
 
 - (void) onRefreshShops
 {
-    NSLog(@">>>> refresh");
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate];
 }
 
@@ -222,22 +221,24 @@
 - (MKAnnotationView*) mapView:(MKMapView*) mapView viewForAnnotation:(id<MKAnnotation>) annotation
 {
     MKPinAnnotationView* mapPin = nil;
-    if (annotation != self.mapView.userLocation)
+    if ([self isUserLocationAnnotation:annotation])
     {
-        static NSString* defaultPinID = @"defaultPin";
-        mapPin = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-        if (mapPin == nil )
-        {
-            mapPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
-                                                     reuseIdentifier:defaultPinID];
-            mapPin.canShowCallout = YES;
-            UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            mapPin.rightCalloutAccessoryView = infoButton;
-        }
-        else
-            mapPin.annotation = annotation;
-
+        return mapPin;
     }
+
+    static NSString* defaultPinID = @"defaultPin";
+    mapPin = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+    if (mapPin == nil )
+    {
+        mapPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                 reuseIdentifier:defaultPinID];
+        mapPin.canShowCallout = YES;
+        UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        mapPin.rightCalloutAccessoryView = infoButton;
+    }
+    else
+        mapPin.annotation = annotation;
+
     return mapPin;
 }
 
@@ -255,8 +256,17 @@
 
 - (void) mapView:(MKMapView*) mapView didSelectAnnotationView:(MKAnnotationView*) view
 {
+    if ([self isUserLocationAnnotation:view.annotation])
+    {
+        return;
+    }
     [self setMapCenterToCoordinate:view.annotation.coordinate];
     [self selectCellWithAnnotation:(TRAnnotation*) view.annotation];
+}
+
+- (BOOL) isUserLocationAnnotation:(id<MKAnnotation>) annotation
+{
+    return annotation == self.mapView.userLocation;
 }
 
 - (void) selectCellWithAnnotation:(TRAnnotation*) annotation
