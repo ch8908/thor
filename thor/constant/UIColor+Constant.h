@@ -12,7 +12,9 @@
 
 + (UIColor*) twitterLoginButtonBgColor;
 
-+ (UIColor*) inputFiendBgColor;
++ (UIColor*) inputFieldBgColor;
 
 + (UIColor*) loginViewBgColor;
+
++ (UIColor*) requiredFieldWarningColor;
 @end

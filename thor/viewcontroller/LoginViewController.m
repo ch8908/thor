@@ -50,13 +50,13 @@
         self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
         self.emailField.delegate = self;
         self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
-        self.emailField.backgroundColor = [UIColor inputFiendBgColor];
+        self.emailField.backgroundColor = [UIColor inputFieldBgColor];
 
         _passwordField = [[UITextField alloc] initWithFrame:rect];
         self.passwordField.secureTextEntry = YES;
         self.passwordField.delegate = self;
         self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
-        self.passwordField.backgroundColor = [UIColor inputFiendBgColor];
+        self.passwordField.backgroundColor = [UIColor inputFieldBgColor];
 
         _errorMessageLabel = [[UILabel alloc] init];
         self.errorMessageLabel.textColor = [UIColor redColor];

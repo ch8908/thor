@@ -24,9 +24,9 @@
     return [UIColor hexARGB:0xFF55A8FF];
 }
 
-+ (UIColor*) inputFiendBgColor
++ (UIColor*) inputFieldBgColor
 {
-    return [UIColor hexARGB:0xFFFFFFFF];
+    return [UIColor hexARGB:0xFF999999];
 }
 
 + (UIColor*) loginViewBgColor
@@ -34,4 +34,8 @@
     return [UIColor hexARGB:0xFF73FFBB];
 }
 
++ (UIColor*) requiredFieldWarningColor
+{
+    return [UIColor hexARGB:0xFFFF9291];
+}
 @end

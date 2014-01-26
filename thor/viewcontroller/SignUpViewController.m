@@ -92,9 +92,9 @@
 {
     [super viewDidLayoutSubviews];
 
-    self.emailField.backgroundColor = [UIColor inputFiendBgColor];
-    self.passwordField.backgroundColor = [UIColor inputFiendBgColor];
-    self.confirmPasswordField.backgroundColor = [UIColor inputFiendBgColor];
+    self.emailField.backgroundColor = [UIColor inputFieldBgColor];
+    self.passwordField.backgroundColor = [UIColor inputFieldBgColor];
+    self.confirmPasswordField.backgroundColor = [UIColor inputFieldBgColor];
 
     [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
     [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
