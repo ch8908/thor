@@ -87,7 +87,12 @@
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 310)];
+    CGFloat mapHeight = 300;
+    if ([Views screenHeight] > 480)
+    {
+        mapHeight = 360;
+    }
+    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, mapHeight)];
 
     [Views resize:self.tableView
     containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - self.mapView.bounds.size.height - self.bottomBarOffset)];
