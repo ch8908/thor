@@ -135,8 +135,14 @@
 {
     [self.tableViewController.refreshControl endRefreshing];
     self.coffeeShops = notification.object;
+    [self removeAllAnnotations];
     [self showOnMap];
     [self.tableView reloadData];
+}
+
+- (void) removeAllAnnotations
+{
+    [self.mapView removeAnnotations:[self.annotations allValues]];
 }
 
 - (void) showOnMap
