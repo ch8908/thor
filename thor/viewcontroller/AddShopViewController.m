@@ -487,13 +487,15 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
+    CGFloat offset = self.viewAndKeyboardOffset;
     [UIView animateWithDuration:duration animations:^{
         [Views locate:self.view y:self.view.frame.origin.y];
         self.view.frame = CGRectMake(self.view.frame.origin.x,
-                                     self.view.frame.origin.y + self.viewAndKeyboardOffset,
+                                     self.view.frame.origin.y + offset,
                                      self.view.bounds.size.width,
                                      self.view.bounds.size.height);
     }];
+    self.viewAndKeyboardOffset = 0;
 }
 
 - (void) keyboardWillShow:(NSNotification*) notification
@@ -508,14 +510,25 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     {
         return;
     }
-    self.viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
+
+    CGFloat moveOffset = 0;
+    if (self.viewAndKeyboardOffset > 0)
+    {
+        self.viewAndKeyboardOffset += (CGFloat) fabs(diff) + 5;
+        moveOffset = (CGFloat) fabs(diff) + 5;
+    }
+    else
+    {
+        self.viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
+        moveOffset = self.viewAndKeyboardOffset;
+    }
     NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
     [UIView animateWithDuration:duration animations:^{
         self.view.frame = CGRectMake(self.view.frame.origin.x,
-                                     self.view.frame.origin.y - self.viewAndKeyboardOffset,
+                                     self.view.frame.origin.y - moveOffset,
                                      self.view.bounds.size.width,
                                      self.view.bounds.size.height);
     }];
