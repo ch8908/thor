@@ -17,4 +17,8 @@
 + (UIColor*) loginViewBgColor;
 
 + (UIColor*) requiredFieldWarningColor;
+
++ (UIColor*) filterButtonBgColorNormal;
+
++ (UIColor*) filterButtonBgColorHighlighted;
 @end

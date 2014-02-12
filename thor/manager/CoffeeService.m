@@ -87,7 +87,8 @@ static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
                                                                       object:coffeeShops];
               }
               failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-                  NSLog(@">>>>> request failed");
+
+                  NSLog(@">>>>> request failed:%@", error.localizedDescription);
                   [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopFailedNotification object:nil];
               }];
 }

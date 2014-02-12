@@ -22,6 +22,8 @@
 #import "LogStateMachine.h"
 #import "LoginViewController.h"
 #import "UINavigationItem+Util.h"
+#import "UIImage+Util.h"
+#import "UIColor+Constant.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
@@ -32,7 +34,7 @@
 @property (nonatomic) UIButton* locateButton;
 @property (nonatomic) BOOL initUserLocation;
 @property (nonatomic) UITableViewController* tableViewController;
-@property (nonatomic) UINavigationBar* navigationBar;
+@property UIButton* filterButton;
 @end
 
 @implementation MainViewController
@@ -42,7 +44,6 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.navigationBar = self.navigationController.navigationBar;
         [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
 
         _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
@@ -54,7 +55,11 @@
                            forState:UIControlStateNormal];
         [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_pressed.png"]
                            forState:UIControlStateHighlighted];
-        [self.locateButton sizeToFit];
+        [self.locateButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
+                                     forState:UIControlStateNormal];
+
+        [self.locateButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
+                                     forState:UIControlStateHighlighted];
         [self.locateButton addTarget:self action:@selector(setMapCenterUser)
                     forControlEvents:UIControlEventTouchUpInside];
 
@@ -63,6 +68,14 @@
         self.tableViewController.tableView.delegate = self;
         self.tableViewController.tableView.dataSource = self;
         _tableView = self.tableViewController.tableView;
+
+        _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.filterButton setTitle:[I18N key:@"filter_button_title"] forState:UIControlStateNormal];
+        [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
+                                     forState:UIControlStateNormal];
+
+        [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
+                                     forState:UIControlStateHighlighted];
 
         UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
@@ -111,11 +124,19 @@
     containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - self.mapView.bounds.size.height - self.bottomBarOffset)];
 
     [Views locate:self.tableView y:[Views bottomOf:self.mapView]];
-    [Views alignBottom:self.locateButton withTarget:self.mapView];
+
+    [self.locateButton sizeToFit];
+    [Views locate:self.locateButton x:5 y:[Views bottomOf:self.mapView] - self.locateButton.bounds.size.height - 5];
+
+    self.filterButton.titleLabel.font = [UIFont systemFontOfSize:26];
+    [self.filterButton sizeToFit];
+    [Views locate:self.filterButton x:self.mapView.bounds.size.width - self.filterButton.bounds.size.width - 5
+                y:[Views bottomOf:self.mapView] - self.filterButton.bounds.size.height - 5];
 
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.locateButton];
+    [self.view addSubview:self.filterButton];
 }
 
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate

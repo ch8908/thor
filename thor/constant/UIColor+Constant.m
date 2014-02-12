@@ -38,4 +38,14 @@
 {
     return [UIColor hexARGB:0xFFFF9291];
 }
+
++ (UIColor*) filterButtonBgColorNormal
+{
+    return [UIColor hexARGB:0xFF55FFAC];
+}
+
++ (UIColor*) filterButtonBgColorHighlighted
+{
+    return [UIColor hexARGB:0xFF00DC71];
+}
 @end
