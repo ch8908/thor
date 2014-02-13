@@ -35,6 +35,8 @@
 @property (nonatomic) BOOL initUserLocation;
 @property (nonatomic) UITableViewController* tableViewController;
 @property UIButton* filterButton;
+@property UIButton* zoomInButton;
+@property UIButton* zoomOutButton;
 @end
 
 @implementation MainViewController
@@ -83,6 +85,20 @@
                  forControlEvents:UIControlEventValueChanged];
 
         self.tableViewController.refreshControl = refreshControl;
+
+        _zoomInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.zoomInButton setImage:[UIImage imageNamed:@"image/button_map_zoomin.png"]
+                           forState:UIControlStateNormal];
+        [self.zoomInButton sizeToFit];
+        [self.zoomInButton addTarget:self action:@selector(zoomIn)
+                    forControlEvents:UIControlEventTouchUpInside];
+
+        _zoomOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.zoomOutButton setImage:[UIImage imageNamed:@"image/button_map_zoomout.png"]
+                            forState:UIControlStateNormal];
+        [self.zoomOutButton sizeToFit];
+        [self.zoomOutButton addTarget:self action:@selector(zoomOut)
+                     forControlEvents:UIControlEventTouchUpInside];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopSuccessNotification:)
                                                      name:LoadShopSuccessNotification object:nil];
@@ -133,10 +149,28 @@
     [Views locate:self.filterButton x:self.mapView.bounds.size.width - self.filterButton.bounds.size.width - 5
                 y:[Views bottomOf:self.mapView] - self.filterButton.bounds.size.height - 5];
 
+    [Views locate:self.zoomOutButton x:self.view.bounds.size.width - self.zoomInButton.bounds.size.width - 10
+                y:self.filterButton.frame.origin.y - self.zoomOutButton.bounds.size.height];
+
+    [Views locate:self.zoomInButton x:self.zoomOutButton.frame.origin.x
+                y:self.zoomOutButton.frame.origin.y - self.zoomInButton.bounds.size.height - 5];
+
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.locateButton];
     [self.view addSubview:self.filterButton];
+    [self.view addSubview:self.zoomInButton];
+    [self.view addSubview:self.zoomOutButton];
+}
+
+- (void) zoomOut
+{
+
+}
+
+- (void) zoomIn
+{
+
 }
 
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate
