@@ -24,9 +24,10 @@
 #import "UINavigationItem+Util.h"
 #import "UIImage+Util.h"
 #import "UIColor+Constant.h"
+#import "RNGridMenu.h"
 
 
-@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
 @property (nonatomic) MKMapView* mapView;
 @property (nonatomic) UITableView* tableView;
 @property (nonatomic) NSMutableArray* coffeeShops;
@@ -75,6 +76,8 @@
         [self.filterButton setTitle:[I18N key:@"filter_button_title"] forState:UIControlStateNormal];
         [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
                                      forState:UIControlStateNormal];
+        [self.filterButton addTarget:self action:@selector(filter)
+                    forControlEvents:UIControlEventTouchUpInside];
 
         [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
                                      forState:UIControlStateHighlighted];
@@ -162,6 +165,31 @@
     [self.view addSubview:self.zoomInButton];
     [self.view addSubview:self.zoomOutButton];
 }
+
+- (void) gridMenu:(RNGridMenu*) gridMenu willDismissWithSelectedItem:(RNGridMenuItem*) item atIndex:(NSInteger) itemIndex
+{
+    NSLog(@"Dismissed with item %d: %@", itemIndex, item.title);
+}
+
+- (void) filter
+{
+    CGRect rect = CGRectMake(0, 0, 20, 20);
+    NSArray* items = @[
+      [[RNGridMenuItem alloc] initWithImage:[UIImage imageWithRect:rect
+                                                             color:[UIColor whiteColor]]
+                                      title:@"Wifi"],
+      [[RNGridMenuItem alloc] initWithImage:[UIImage imageWithRect:rect
+                                                             color:[UIColor whiteColor]]
+                                      title:@"Power"]
+    ];
+
+    RNGridMenu* av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
+    av.delegate = self;
+    //    av.bounces = NO;
+    [av showInViewController:self.mm_drawerController.centerViewController
+                      center:CGPointMake(self.view.bounds.size.width / 2.f, self.view.bounds.size.height / 2.f)];
+}
+
 
 - (void) zoomOut
 {
@@ -295,7 +323,7 @@
     MKPinAnnotationView* mapPin = nil;
     if ([self isUserLocationAnnotation:annotation])
     {
-        return mapPin;
+        return nil;
     }
 
     static NSString* defaultPinID = @"defaultPin";
