@@ -4,18 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AbstractPref.h"
 
+@interface Pref : AbstractPref
+@property NSStringPref* authenticationToken;
+@property NSNumberPref* searchDistance;
 
-@interface Pref : NSObject
 + (id) sharedInstance;
 
-- (void) setDeviceToken:(NSString*) token;
-
-- (NSString*) deviceToken;
-
-- (void) setAuthenticationToken:(NSString*) token;
-
-- (NSString*) authenticationToken;
-
-- (void) removeAuthenticationToken;
 @end

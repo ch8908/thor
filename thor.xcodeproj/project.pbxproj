@@ -65,6 +65,7 @@
 		23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
+		23D1AE4499B34B0941E7FEA2 /* AbstractPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFE4F0985AEC60D83452 /* AbstractPref.m */; };
 		23D1AFCBC759CBFFD96D5443 /* AbstractState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1CDD7F7F79D53004C90 /* AbstractState.m */; };
 		77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB46A6B010F648FCB20DA62E /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -157,6 +158,7 @@
 		23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitInfo.m; sourceTree = "<group>"; };
 		23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Util.m"; sourceTree = "<group>"; };
 		23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractUIViewController.m; sourceTree = "<group>"; };
+		23D1A8D3129C44C831678F98 /* AbstractPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractPref.h; sourceTree = "<group>"; };
 		23D1A8FC954617646ACA6350 /* UINavigationBar+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Appearance.h"; sourceTree = "<group>"; };
 		23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftDrawerController.m; sourceTree = "<group>"; };
 		23D1A95738A865504909BF24 /* SubmitInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitInfo.h; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		23D1AE90B22EF5500267ECBD /* CoffeeShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShop.h; sourceTree = "<group>"; };
 		23D1AF3067EB607F0EEB3682 /* LogoutState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutState.m; sourceTree = "<group>"; };
 		23D1AF548060079D38D25BF2 /* LogingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogingState.h; sourceTree = "<group>"; };
+		23D1AFE4F0985AEC60D83452 /* AbstractPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractPref.m; sourceTree = "<group>"; };
 		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		23D1AFF812EA31A3594E08DF /* AddShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopViewController.m; sourceTree = "<group>"; };
 		BB46A6B010F648FCB20DA62E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +247,8 @@
 				23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */,
 				23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */,
 				23D1A95738A865504909BF24 /* SubmitInfo.h */,
+				23D1AFE4F0985AEC60D83452 /* AbstractPref.m */,
+				23D1A8D3129C44C831678F98 /* AbstractPref.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 				23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */,
 				23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */,
 				23D1A62022DEE8338D98E6AE /* UIImage+Util.m in Sources */,
+				23D1AE4499B34B0941E7FEA2 /* AbstractPref.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

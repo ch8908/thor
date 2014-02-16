@@ -26,7 +26,7 @@ extern NSString* AddShopFailedNotification;
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
 
-- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D;
+- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber*) distance;
 
 - (void) fetchDetailWithShopId:(NSNumber*) number;
 

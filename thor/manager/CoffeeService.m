@@ -58,14 +58,14 @@ static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
     return self;
 }
 
-- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D
+- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber*) distance
 {
     NSString* urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/near"];
 
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithDouble:coordinate2D.latitude] forKey:@"lat"];
     [params setObject:[NSNumber numberWithDouble:coordinate2D.longitude] forKey:@"lng"];
-    [params setObject:[NSNumber numberWithInt:10] forKey:@"distance"];
+    [params setObject:distance forKey:@"distance"];
     [params setObject:[NSNumber numberWithInt:500] forKey:@"per_page"];
     [params setObject:[NSNumber numberWithInt:1] forKey:@"page"];
 
@@ -171,7 +171,7 @@ static NSString* BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
 {
     NSString* urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops"];
 
-    NSDictionary* parameters = [info infoAsDictionaryWithToken:[[LogStateMachine sharedInstance] authenticationToken]];
+    NSDictionary* parameters = [info infoAsDictionaryWithToken:[[LogStateMachine sharedInstance] authToken]];
 
     [self.manager POST:urlString
             parameters:parameters

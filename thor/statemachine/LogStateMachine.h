@@ -12,7 +12,7 @@ extern NSString* MachineLogoutNotification;
 
 @interface LogStateMachine : NSObject
 @property AbstractState* currentState;
-@property NSString* authenticationToken;
+@property NSString* authToken;
 
 + (id) sharedInstance;
 

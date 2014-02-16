@@ -5,12 +5,9 @@
 
 #import "Pref.h"
 
-@interface Pref()
-@property (nonatomic, strong) NSUserDefaults* userDefaults;
-@end
+static int DEFAULT_SEARCH_RANGE = 20;
 
 @implementation Pref
-@synthesize userDefaults = _userDefaults;
 
 + (id) sharedInstance
 {
@@ -29,35 +26,12 @@
     self = [super init];
     if (self)
     {
-        _userDefaults = [NSUserDefaults standardUserDefaults];
+        _authenticationToken = [NSStringPref prefWithKey:@"AUTHENTICATION_TOKEN"];
+        _searchDistance = [NSNumberPref prefWithKey:@"SEARCH_NUMBER"
+                                   defaultNumber:[NSNumber numberWithInt:DEFAULT_SEARCH_RANGE]];
     }
 
     return self;
-}
-
-- (void) setDeviceToken:(NSString*) token
-{
-    [self.userDefaults setObject:token forKey:@"DEVICE_TOKEN"];
-}
-
-- (NSString*) deviceToken
-{
-    return [self.userDefaults objectForKey:@"DEVICE_TOKEN"];
-}
-
-- (void) setAuthenticationToken:(NSString*) token
-{
-    [self.userDefaults setObject:token forKey:@"AUTHENTICATION_TOKEN"];
-}
-
-- (NSString*) authenticationToken
-{
-    return [self.userDefaults objectForKey:@"AUTHENTICATION_TOKEN"];
-}
-
-- (void) removeAuthenticationToken
-{
-    [self.userDefaults removeObjectForKey:@"AUTHENTICATION_TOKEN"];
 }
 
 @end

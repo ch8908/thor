@@ -14,6 +14,7 @@
 enum
 {
     LogInLogOut = 0,
+    Setting,
     TotalCount
 };
 
@@ -104,6 +105,8 @@ enum
             cell.textLabel.text = key;
             break;
         }
+        case Setting:
+            cell.textLabel.text = [I18N key:@"setting_title"];
         default:
             break;
     }
@@ -129,6 +132,10 @@ enum
                                                        animated:YES completion:nil];
             }
             break;
+        }
+        case Setting:
+        {
+
         }
         default:
             break;

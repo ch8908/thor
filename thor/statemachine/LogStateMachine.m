@@ -28,10 +28,10 @@ NSString* MachineLogoutNotification = @"MachineLogoutNotification";
 
 - (id) initLogStateMachine
 {
-    NSString* token = [[Pref sharedInstance] authenticationToken];
+    NSString* token = [[[Pref sharedInstance] authenticationToken] getString];
     if (token)
     {
-        _authenticationToken = token;
+        _authToken = token;
         _currentState = [[LoginState alloc] init];
     }
     else

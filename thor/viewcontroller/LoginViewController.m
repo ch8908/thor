@@ -161,7 +161,7 @@
 - (void) onSignInSuccessNotification:(NSNotification*) notification
 {
     NSString* token = notification.object;
-    [[Pref sharedInstance] setAuthenticationToken:token];
+    [[[Pref sharedInstance] authenticationToken] setString:token];
     [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
     [self onCancel];
 }

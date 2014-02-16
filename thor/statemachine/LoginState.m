@@ -22,7 +22,7 @@
 - (void) exit
 {
     NSLog(@"Log: exit:%@", NSStringFromClass([self class]));
-    [[Pref sharedInstance] removeAuthenticationToken];
+    [[[Pref sharedInstance] authenticationToken] removeString];
 }
 
 @end

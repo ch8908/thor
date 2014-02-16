@@ -25,6 +25,7 @@
 #import "UIImage+Util.h"
 #import "UIColor+Constant.h"
 #import "RNGridMenu.h"
+#import "Pref.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
@@ -203,7 +204,8 @@
 
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate
 {
-    [[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate];
+    NSNumber* distance = [[[Pref sharedInstance] searchDistance] getNumber];
+    [[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance];
 }
 
 - (void) onRefreshShops
