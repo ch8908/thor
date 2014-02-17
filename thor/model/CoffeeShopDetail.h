@@ -9,12 +9,12 @@
 
 
 @interface CoffeeShopDetail : NSObject
-@property (nonatomic) CoffeeShop* coffeeShop;
-@property (nonatomic) NSString* address;
-@property (nonatomic) NSString* shopDescription;
-@property (nonatomic) NSString* hours;
-@property (nonatomic) NSString* websiteUrl;
-@property (nonatomic) NSNumber* avgRating;
+@property CoffeeShop* coffeeShop;
+@property NSString* address;
+@property NSString* shopDescription;
+@property NSString* hours;
+@property NSString* websiteUrl;
+@property NSNumber* avgRating;
 
 - (instancetype) initWithCoffeeShop:(CoffeeShop*) coffeeShop address:(NSString*) address shopDescription:(NSString*) shopDescription hours:(NSString*) hours websiteUrl:(NSString*) websiteUrl avgRating:(NSNumber*) avgRating;
 

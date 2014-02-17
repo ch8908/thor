@@ -57,3 +57,9 @@
 "try_again" = "再試一次";
 "filter_button_title" = "篩選";
 "setting_title" = "設定";
+"shop_name_title" = "名稱:";
+"address_title" = "地址:";
+"desctiption_title" = "敘述:";
+"hour_title" = "營業時間:";
+"website_title" = "網站:";
+"wifi_power_title" = "設備狀況:";

@@ -57,3 +57,9 @@
 "try_again" = "Try again";
 "filter_button_title" = "Filter";
 "setting_title" = "Setting";
+"shop_name_title" = "Name:";
+"address_title" = "Address:";
+"desctiption_title" = "Desctiption:";
+"hour_title" = "Hours:";
+"website_title" = "WebSite:";
+"wifi_power_title" = "設備狀況:";

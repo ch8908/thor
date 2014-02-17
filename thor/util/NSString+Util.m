@@ -20,11 +20,19 @@
 
 + (BOOL) isEmpty:(NSString*) string
 {
-    return !string || string.length == 0;
+    if (!string || [[NSNull null] isEqual:string])
+    {
+        return YES;
+    }
+    return string.length == 0;
 }
 
 + (BOOL) isEmptyAfterTrim:(NSString*) string
 {
+    if (!string || [[NSNull null] isEqual:string])
+    {
+        return YES;
+    }
     return [NSString isEmpty:[string stringByTrim]];
 }
 @end

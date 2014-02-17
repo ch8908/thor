@@ -7,16 +7,29 @@
 #import "DetailViewController.h"
 #import "CoffeeService.h"
 #import "Views.h"
-#import "UIColor+Constant.h"
 #import "CoffeeShopDetail.h"
+#import "I18N.h"
+#import "CoffeeShop.h"
+#import "CoffeeShop+Strings.h"
+#import "NSString+Util.h"
 
-@interface DetailViewController()
-@property (nonatomic) UIImageView* shopImageView;
-@property (nonatomic) UILabel* addressLable;
-@property (nonatomic) UIImageView* nameLabel;
-@property (nonatomic) UILabel* urlLabel;
-@property (nonatomic) NSNumber* id;
-@property (nonatomic) CoffeeShopDetail* coffeeShopDetail;
+
+enum
+{
+    ShopName = 0,
+    ShopAddress,
+    ShopDescription,
+    ShopHour,
+    ShopWebSite,
+    ShopWifiPower,
+    DetailTotalCount
+};
+
+@interface DetailViewController()<UITableViewDataSource, UITableViewDelegate>
+@property UIImageView* shopImageView;
+@property NSNumber* id;
+@property CoffeeShopDetail* coffeeShopDetail;
+@property UITableView* tableView;
 @end
 
 @implementation DetailViewController
@@ -31,10 +44,13 @@
         [[CoffeeService sharedInstance] fetchDetailWithShopId:id];
 
         _shopImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/image_placeholder.png"]];
+        self.shopImageView.clipsToBounds = YES;
 
-        _addressLable = [[UILabel alloc] init];
-        self.addressLable.textColor = [UIColor addressTextColor];
-        self.addressLable.font = [UIFont systemFontOfSize:18];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.shopImageView.bounds.size.height)
+                                                  style:UITableViewStyleGrouped];
+
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopDetailSuccessNotification:)
                                                      name:LoadShopDetailSuccessNotification object:nil];
@@ -50,27 +66,90 @@
 {
     [super viewDidLayoutSubviews];
 
-    self.addressLable.text = self.coffeeShopDetail.address;
-    [self.addressLable sizeToFit];
-
     [Views alignCenter:self.shopImageView containerWidth:self.view.bounds.size.width];
     [Views locate:self.shopImageView y:self.topBarOffset];
 
-    [Views locate:self.addressLable y:[Views bottomOf:self.shopImageView]];
+    [Views locate:self.tableView y:[Views bottomOf:self.shopImageView]];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 
     [self.view addSubview:self.shopImageView];
-    [self.view addSubview:self.addressLable];
+    [self.view addSubview:self.tableView];
 }
 
 - (void) onLoadShopDetailSuccessNotification:(NSNotification*) notification
 {
     self.coffeeShopDetail = notification.object;
-    [self.view setNeedsLayout];
+    [self.tableView reloadData];
 }
 
 - (void) onLoadShopDetailFailedNotification
 {
 
+}
+
+- (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
+{
+    return DetailTotalCount;
+}
+
+- (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
+{
+    static NSString* CellIdentifier = @"DetailCell";
+
+    UITableViewCell* cell = (UITableViewCell*)
+      [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+                                      reuseIdentifier:CellIdentifier];
+    }
+
+    switch (indexPath.row)
+    {
+        case ShopName:
+            cell.textLabel.text = [I18N key:@"shop_name_title"];
+            cell.detailTextLabel.text = self.coffeeShopDetail.coffeeShop.name;
+            break;
+        case ShopAddress:
+            cell.textLabel.text = [I18N key:@"address_title"];
+            cell.detailTextLabel.text = self.coffeeShopDetail.address;
+            break;
+        case ShopDescription:
+        {
+            cell.textLabel.text = [I18N key:@"desctiption_title"];
+            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.shopDescription])
+            {
+                cell.detailTextLabel.text = self.coffeeShopDetail.shopDescription;
+            }
+            break;
+        }
+        case ShopHour:
+        {
+            cell.textLabel.text = [I18N key:@"hour_title"];
+            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.hours])
+            {
+                cell.detailTextLabel.text = self.coffeeShopDetail.hours;
+            }
+            break;
+        }
+        case ShopWebSite:
+        {
+            cell.textLabel.text = [I18N key:@"website_title"];
+            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.websiteUrl])
+            {
+                cell.detailTextLabel.text = self.coffeeShopDetail.websiteUrl;
+            }
+            break;
+        }
+        case ShopWifiPower:
+            cell.textLabel.text = [I18N key:@"wifi_power_title"];
+            cell.detailTextLabel.text = self.coffeeShopDetail.coffeeShop.infoString;
+            break;
+        default:
+            return nil;
+    }
+
+    return cell;
 }
 
 @end
