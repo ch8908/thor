@@ -22,7 +22,7 @@ enum
     ShopHour,
     ShopWebSite,
     ShopWifiPower,
-    DetailTotalCount
+    ShopDetailTotalCount
 };
 
 @interface DetailViewController()<UITableViewDataSource, UITableViewDelegate>
@@ -62,6 +62,17 @@ enum
     return self;
 }
 
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+
+    UIBarButtonItem* navigateButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"navigate_to_title"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(navigateTo)];
+    [self.navigationItem setRightBarButtonItem:navigateButton];
+}
+
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
@@ -74,6 +85,11 @@ enum
 
     [self.view addSubview:self.shopImageView];
     [self.view addSubview:self.tableView];
+}
+
+- (void) navigateTo
+{
+
 }
 
 - (void) onLoadShopDetailSuccessNotification:(NSNotification*) notification
@@ -89,7 +105,7 @@ enum
 
 - (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
 {
-    return DetailTotalCount;
+    return ShopDetailTotalCount;
 }
 
 - (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
