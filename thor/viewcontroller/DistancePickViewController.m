@@ -43,7 +43,13 @@
 - (void) viewWillDisappear:(BOOL) animated
 {
     [super viewWillDisappear:animated];
-    [[[Pref sharedInstance] searchDistance] setNumber:self.selectedDistance];
+    NSNumber *savedDistance = [[[Pref sharedInstance] searchDistance] getNumber];
+    if (![savedDistance isEqualToNumber:self.selectedDistance])
+    {
+        [[[Pref sharedInstance] searchDistance] setNumber:self.selectedDistance];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SearchDistanceChangedNotification
+                                                            object:self.selectedDistance];
+    }
 }
 
 - (void) viewDidLayoutSubviews

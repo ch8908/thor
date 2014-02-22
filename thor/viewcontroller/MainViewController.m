@@ -109,6 +109,9 @@
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopFailedNotification)
                                                      name:LoadShopFailedNotification object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
+                                                     name:SearchDistanceChangedNotification object:nil];
     }
 
     return self;
@@ -167,6 +170,12 @@
     [self.view addSubview:self.zoomOutButton];
 }
 
+- (void) onSearchDistanceChangedNotification:(NSNotification *) notification
+{
+    NSNumber *distance = notification.object;
+    [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate distance:distance];
+}
+
 - (void) gridMenu:(RNGridMenu *) gridMenu willDismissWithSelectedItem:(RNGridMenuItem *) item atIndex:(NSInteger) itemIndex
 {
     NSLog(@"Dismissed with item %d: %@", itemIndex, item.title);
@@ -205,6 +214,11 @@
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate
 {
     NSNumber *distance = [[[Pref sharedInstance] searchDistance] getNumber];
+    [self listCoffeeShopsWithCoordinate:coordinate distance:distance];
+}
+
+- (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate distance:(NSNumber *) distance
+{
     [[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance];
 }
 
