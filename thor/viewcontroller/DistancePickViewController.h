@@ -1,5 +1,5 @@
 //
-// Created by Huang ChienShuo on 2/16/14.
+// Created by Huang ChienShuo on 2/22/14.
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
@@ -7,8 +7,5 @@
 #import "AbstractUIViewController.h"
 
 
-@interface SettingController : AbstractUIViewController
-
-
-- (id) initSettingController;
+@interface DistancePickViewController : AbstractUIViewController
 @end

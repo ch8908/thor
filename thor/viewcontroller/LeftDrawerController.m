@@ -10,6 +10,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "LogStateMachine.h"
 #import "LogoutState.h"
+#import "SettingController.h"
 
 enum
 {
@@ -135,6 +136,13 @@ enum
         }
         case Setting:
         {
+            SettingController* controller = [[SettingController alloc] initSettingController];
+            UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+            [self.mm_drawerController.centerViewController presentViewController:navigationController
+                                                                        animated:YES
+                                                                      completion:nil];
+            [self.mm_drawerController closeDrawerAnimated:YES
+                                               completion:nil];
 
         }
         default:

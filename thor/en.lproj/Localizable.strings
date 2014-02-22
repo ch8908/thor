@@ -64,3 +64,5 @@
 "website_title" = "WebSite:";
 "wifi_power_title" = "設備狀況:";
 "navigate_to_title" = "Navigate";
+"search_distance_title" = "Search Distance";
+"distance_unit" = "km";

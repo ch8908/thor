@@ -5,7 +5,7 @@
 
 #import "Pref.h"
 
-static int DEFAULT_SEARCH_RANGE = 20;
+static int DEFAULT_SEARCH_RANGE = 5;
 
 @implementation Pref
 
@@ -28,7 +28,7 @@ static int DEFAULT_SEARCH_RANGE = 20;
     {
         _authenticationToken = [NSStringPref prefWithKey:@"AUTHENTICATION_TOKEN"];
         _searchDistance = [NSNumberPref prefWithKey:@"SEARCH_NUMBER"
-                                   defaultNumber:[NSNumber numberWithInt:DEFAULT_SEARCH_RANGE]];
+                                      defaultNumber:[NSNumber numberWithInt:DEFAULT_SEARCH_RANGE]];
     }
 
     return self;

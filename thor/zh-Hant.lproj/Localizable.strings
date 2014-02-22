@@ -64,3 +64,5 @@
 "website_title" = "網站:";
 "wifi_power_title" = "設備狀況:";
 "navigate_to_title" = "前往";
+"search_distance_title" = "搜尋範圍";
+"distance_unit" = "公里";
