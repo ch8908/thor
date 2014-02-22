@@ -8,9 +8,9 @@
 
 @interface BOOLPref : NSObject
 
-+ (instancetype) prefWithKey:(NSString*) key;
++ (instancetype) prefWithKey:(NSString *) key;
 
-+ (instancetype) prefWithKey:(NSString*) key defaultValue:(BOOL) defaultValue;
++ (instancetype) prefWithKey:(NSString *) key defaultValue:(BOOL) defaultValue;
 
 - (void) setBool:(BOOL) boolValue;
 
@@ -19,13 +19,13 @@
 
 @interface NSStringPref : NSObject
 
-+ (instancetype) prefWithKey:(NSString*) key;
++ (instancetype) prefWithKey:(NSString *) key;
 
-+ (instancetype) prefWithKey:(NSString*) key defaultString:(NSString*) defaultString;
++ (instancetype) prefWithKey:(NSString *) key defaultString:(NSString *) defaultString;
 
-- (void) setString:(NSString*) defaultString;
+- (void) setString:(NSString *) defaultString;
 
-- (NSString*) getString;
+- (NSString *) getString;
 
 - (void) removeString;
 
@@ -33,13 +33,13 @@
 
 @interface NSNumberPref : NSObject
 
-+ (instancetype) prefWithKey:(NSString*) key;
++ (instancetype) prefWithKey:(NSString *) key;
 
-+ (instancetype) prefWithKey:(NSString*) key defaultNumber:(NSNumber*) defaultValue;
++ (instancetype) prefWithKey:(NSString *) key defaultNumber:(NSNumber *) defaultValue;
 
-- (void) setNumber:(NSNumber*) defaultNumber;
+- (void) setNumber:(NSNumber *) defaultNumber;
 
-- (NSNumber*) getNumber;
+- (NSNumber *) getNumber;
 
 - (void) removeNumber;
 

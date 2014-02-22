@@ -10,9 +10,9 @@
 @implementation TRAnnotation
 
 - (instancetype) initWithCoordinate:(CLLocationCoordinate2D) coordinate
-                                 id:(NSNumber*) id
-                               name:(NSString*) name
-                               info:(NSString*) info
+                                 id:(NSNumber *) id
+                               name:(NSString *) name
+                               info:(NSString *) info
 {
     self = [super init];
     if (self)
@@ -26,12 +26,12 @@
     return self;
 }
 
-- (NSString*) title
+- (NSString *) title
 {
     return self.name;
 }
 
-- (NSString*) subtitle
+- (NSString *) subtitle
 {
     return self.info;
 }
@@ -46,7 +46,7 @@
     {
         return YES;
     }
-    if ([self.id isEqualToNumber:((TRAnnotation*) other).id])
+    if ([self.id isEqualToNumber:((TRAnnotation *) other).id])
     {
         return YES;
     }

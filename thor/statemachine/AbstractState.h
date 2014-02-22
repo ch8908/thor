@@ -10,7 +10,7 @@
 
 @interface AbstractState : NSObject
 
-@property (nonatomic) CoffeeService* service;
+@property (nonatomic) CoffeeService *service;
 
 - (void) enter;
 

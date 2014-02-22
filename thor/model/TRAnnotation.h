@@ -9,13 +9,13 @@
 
 @interface TRAnnotation : NSObject<MKAnnotation>
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonatomic) NSNumber* id;
-@property (nonatomic) NSString* name;
-@property (nonatomic) NSString* info;
+@property (nonatomic) NSNumber *id;
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *info;
 
 - (instancetype) initWithCoordinate:(CLLocationCoordinate2D) coordinate
-                                 id:(NSNumber*) id
-                               name:(NSString*) name
-                               info:(NSString*) info;
+                                 id:(NSNumber *) id
+                               name:(NSString *) name
+                               info:(NSString *) info;
 
 @end

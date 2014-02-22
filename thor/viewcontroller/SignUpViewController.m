@@ -11,12 +11,12 @@
 #import "CoffeeService.h"
 
 @interface SignUpViewController()<UITextFieldDelegate>
-@property (nonatomic) UITextField* emailField;
-@property (nonatomic) UITextField* passwordField;
-@property (nonatomic) UITextField* confirmPasswordField;
+@property (nonatomic) UITextField *emailField;
+@property (nonatomic) UITextField *passwordField;
+@property (nonatomic) UITextField *confirmPasswordField;
 @property (nonatomic) CGFloat viewAndKeyboardOffset;
-@property (nonatomic) UIButton* submitButton;
-@property (nonatomic) UILabel* errorMessageLabel;
+@property (nonatomic) UIButton *submitButton;
+@property (nonatomic) UILabel *errorMessageLabel;
 @end
 
 @implementation SignUpViewController
@@ -70,9 +70,9 @@
     return self;
 }
 
-- (void) onRegisterFailedNotification:(NSNotification*) notification
+- (void) onRegisterFailedNotification:(NSNotification *) notification
 {
-    NSString* errorMessage = notification.object;
+    NSString *errorMessage = notification.object;
     self.errorMessageLabel.text = errorMessage;
     [self.errorMessageLabel sizeToFit];
     [Views alignCenter:self.errorMessageLabel containerWidth:self.view.bounds.size.width];
@@ -82,7 +82,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    UITapGestureRecognizer* singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                  action:@selector(onViewTap)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:singleTapGestureRecognizer];
@@ -118,10 +118,10 @@
     [self.view addSubview:self.errorMessageLabel];
 }
 
-- (void) keyboardWillHide:(NSNotification*) notification
+- (void) keyboardWillHide:(NSNotification *) notification
 {
-    NSDictionary* info = [notification userInfo];
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSDictionary *info = [notification userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
@@ -134,9 +134,9 @@
     }];
 }
 
-- (void) keyboardWillShow:(NSNotification*) notification
+- (void) keyboardWillShow:(NSNotification *) notification
 {
-    NSDictionary* info = [notification userInfo];
+    NSDictionary *info = [notification userInfo];
     CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat diff = endFrame.origin.y - (self.confirmPasswordField.frame.origin.y + self.confirmPasswordField.bounds.size.height + self.view.frame.origin.y);
     if (diff > 0)
@@ -144,7 +144,7 @@
         return;
     }
     self.viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
@@ -158,9 +158,9 @@
 
 - (void) onSubmit
 {
-    NSString* email = self.emailField.text;
-    NSString* password = self.passwordField.text;
-    NSString* confirmPassword = self.confirmPasswordField.text;
+    NSString *email = self.emailField.text;
+    NSString *password = self.passwordField.text;
+    NSString *confirmPassword = self.confirmPasswordField.text;
 
     if ([NSString isEmptyAfterTrim:email] && [NSString isEmptyAfterTrim:password] && [NSString isEmptyAfterTrim:confirmPassword])
     {
@@ -172,7 +172,7 @@
         return;
     }
 
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:email forKey:@"email"];
     [params setObject:password forKey:@"password"];
     [params setObject:confirmPassword forKey:@"password_confirmation"];
@@ -186,7 +186,7 @@
     [self.confirmPasswordField resignFirstResponder];
 }
 
-- (BOOL) textField:(UITextField*) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString*) string
+- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
 {
     if ([string stringByTrim].length > 0)
     {

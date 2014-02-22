@@ -24,17 +24,17 @@
     return SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0");
 }
 
-+ (NSString*) systemVersion
++ (NSString *) systemVersion
 {
     return [[UIDevice currentDevice] systemVersion];
 }
 
-+ (NSString*) UUIDString
++ (NSString *) UUIDString
 {
     return [[UIDevice currentDevice] identifierForVendor].UUIDString;
 }
 
-+ (NSString*) deviceModel
++ (NSString *) deviceModel
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -43,33 +43,33 @@
     return @"iPhone";
 }
 
-+ (NSString*) country
++ (NSString *) country
 {
-    NSLocale* currentLocale = [NSLocale currentLocale];
+    NSLocale *currentLocale = [NSLocale currentLocale];
     return [currentLocale objectForKey:NSLocaleCountryCode];
 }
 
-+ (NSString*) mcc
++ (NSString *) mcc
 {
-    CTCarrier* carrier = [[CTCarrier alloc] init];
+    CTCarrier *carrier = [[CTCarrier alloc] init];
     return [carrier mobileCountryCode] ? [carrier mobileCountryCode] : @"";
 }
 
-+ (NSString*) mnc
++ (NSString *) mnc
 {
-    CTCarrier* carrier = [[CTCarrier alloc] init];
+    CTCarrier *carrier = [[CTCarrier alloc] init];
     return [carrier mobileNetworkCode] ? [carrier mobileNetworkCode] : @"";
 }
 
-+ (NSString*) icc
++ (NSString *) icc
 {
-    CTCarrier* carrier = [[CTCarrier alloc] init];
+    CTCarrier *carrier = [[CTCarrier alloc] init];
     return [carrier isoCountryCode] ? [carrier isoCountryCode] : @"";
 }
 
-+ (NSString*) currency
++ (NSString *) currency
 {
-    NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     return [formatter currencyCode];
 }
 @end

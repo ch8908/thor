@@ -19,13 +19,13 @@
 #import "LoginState.h"
 
 @interface LoginViewController()<UITextFieldDelegate>
-@property (nonatomic) UIButton* signInWithFacebookButton;
-@property (nonatomic) UIButton* signInWithTwitterButton;
-@property (nonatomic) UIButton* signUpButton;
-@property (nonatomic) UITextField* emailField;
-@property (nonatomic) UITextField* passwordField;
-@property (nonatomic) UIButton* logInButton;
-@property (nonatomic) UILabel* errorMessageLabel;
+@property (nonatomic) UIButton *signInWithFacebookButton;
+@property (nonatomic) UIButton *signInWithTwitterButton;
+@property (nonatomic) UIButton *signUpButton;
+@property (nonatomic) UITextField *emailField;
+@property (nonatomic) UITextField *passwordField;
+@property (nonatomic) UIButton *logInButton;
+@property (nonatomic) UILabel *errorMessageLabel;
 @end
 
 @implementation LoginViewController
@@ -84,11 +84,11 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                   target:self
                                                                                   action:@selector(onCancel)];
     [self.navigationItem setLeftBarButtonItem:cancelButton];
-    UITapGestureRecognizer* singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                  action:@selector(onViewTap)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:singleTapGestureRecognizer];
@@ -143,13 +143,13 @@
     [self.view addSubview:self.signUpButton];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField*) textField
+- (BOOL) textFieldShouldReturn:(UITextField *) textField
 {
     [self onViewTap];
     return YES;
 }
 
-- (BOOL) textField:(UITextField*) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString*) string
+- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
 {
     if ([string stringByTrim].length > 0)
     {
@@ -158,24 +158,24 @@
     return YES;
 }
 
-- (void) onSignInSuccessNotification:(NSNotification*) notification
+- (void) onSignInSuccessNotification:(NSNotification *) notification
 {
-    NSString* token = notification.object;
+    NSString *token = notification.object;
     [[[Pref sharedInstance] authenticationToken] setString:token];
     [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
     [self onCancel];
 }
 
-- (void) onSignInFailedNotification:(NSNotification*) notification
+- (void) onSignInFailedNotification:(NSNotification *) notification
 {
-    NSString* errorMessage = notification.object;
+    NSString *errorMessage = notification.object;
     self.errorMessageLabel.text = errorMessage;
 }
 
 - (void) onSubmit
 {
-    NSString* email = self.emailField.text;
-    NSString* password = self.passwordField.text;
+    NSString *email = self.emailField.text;
+    NSString *password = self.passwordField.text;
 
     if (![NSString isEmptyAfterTrim:email] && ![NSString isEmptyAfterTrim:password])
     {
@@ -196,7 +196,7 @@
 
 - (void) onSignUp
 {
-    SignUpViewController* viewController = [[SignUpViewController alloc] initSignUpViewController];
+    SignUpViewController *viewController = [[SignUpViewController alloc] initSignUpViewController];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

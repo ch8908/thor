@@ -23,38 +23,38 @@ extern CGFloat const VIEWS_PAGE_CONTROL_HEIGHT;
 
 + (CGFloat) viewHeight;
 
-+ (void) locate:(UIView*) target x:(CGFloat) x y:(CGFloat) y;
++ (void) locate:(UIView *) target x:(CGFloat) x y:(CGFloat) y;
 
-+ (void) locate:(UIView*) target y:(CGFloat) y;
++ (void) locate:(UIView *) target y:(CGFloat) y;
 
-+ (void) locate:(UIView*) target x:(CGFloat) x;
++ (void) locate:(UIView *) target x:(CGFloat) x;
 
-+ (CGFloat) rightOf:(UIView*) view;
++ (CGFloat) rightOf:(UIView *) view;
 
-+ (CGFloat) bottomOf:(UIView*) view;
++ (CGFloat) bottomOf:(UIView *) view;
 
-+ (void) alignCenter:(UIView*) target containerWidth:(CGFloat) containerWidth;
++ (void) alignCenter:(UIView *) target containerWidth:(CGFloat) containerWidth;
 
-+ (void) alignCenterMiddle:(UIView*) target containerFrame:(CGRect) frameRect;
++ (void) alignCenterMiddle:(UIView *) target containerFrame:(CGRect) frameRect;
 
-+ (void) alignMiddle:(UIView*) target containerHeight:(CGFloat) containerHeight;
++ (void) alignMiddle:(UIView *) target containerHeight:(CGFloat) containerHeight;
 
-+ (void) alignBottom:(UIView*) source withTarget:(UIView*) target;
++ (void) alignBottom:(UIView *) source withTarget:(UIView *) target;
 
-+ (void) alignMiddle:(UIView*) source withTarget:(UIView*) target;
++ (void) alignMiddle:(UIView *) source withTarget:(UIView *) target;
 
-+ (void) resize:(UIView*) target containerSize:(CGSize) size;
++ (void) resize:(UIView *) target containerSize:(CGSize) size;
 
-+ (void) resize:(UIView*) target containerWidth:(CGFloat) containerWidth;
++ (void) resize:(UIView *) target containerWidth:(CGFloat) containerWidth;
 
-+ (void) resize:(UIView*) target containerHeight:(CGFloat) containerHeight;
++ (void) resize:(UIView *) target containerHeight:(CGFloat) containerHeight;
 
-+ (void) move:(UIView*) target deltaX:(CGFloat) dx deltaY:(CGFloat) dy;
++ (void) move:(UIView *) target deltaX:(CGFloat) dx deltaY:(CGFloat) dy;
 
-+ (void) alignTop:(UIView*) view withTarget:(UIView*) target;
++ (void) alignTop:(UIView *) view withTarget:(UIView *) target;
 
-+ (void) below:(UIView*) view withTarget:(UIView*) target;
++ (void) below:(UIView *) view withTarget:(UIView *) target;
 
-+ (void) alignCenter:(UIView*) source withTarget:(UIView*) target;
++ (void) alignCenter:(UIView *) source withTarget:(UIView *) target;
 
 @end

@@ -20,30 +20,30 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 
 
 @interface AddShopViewController()<MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
-@property MKMapView* mapView;
-@property (nonatomic) BOOL initUserLocation;
-@property (nonatomic) UIScrollView* scrollView;
-@property (nonatomic) CLLocationManager* locationManager;
-@property (nonatomic) CLGeocoder* geocoder;
-@property (nonatomic) UIImageView* centerPin;
-@property (nonatomic) UITextView* addressTextViewFromMapCenter;
-@property (nonatomic) UILabel* addressFromMapCenterTitle;
-@property (nonatomic) UILabel* inputAddressTitle;
-@property (nonatomic) UITextField* inputAddressTextField;
-@property (nonatomic) UIActivityIndicatorView* indicatorViewForMap;
-@property (nonatomic) UILabel* inputPhoneTitle;
-@property (nonatomic) UITextField* inputPhoneTextField;
-@property (nonatomic) UILabel* inputNameTitle;
-@property (nonatomic) UITextField* inputNameTextField;
-@property (nonatomic) CGFloat viewAndKeyboardOffset;
-@property (nonatomic) UISwitch* wifiFreeSwitch;
-@property (nonatomic) UISwitch* powerOutletSwitch;
-@property (nonatomic) UILabel* wifiFreeTitle;
-@property (nonatomic) UILabel* powerOutletTitle;
-@property (nonatomic) UIButton* zoomInButton;
-@property (nonatomic) UIButton* zoomOutButton;
-@property (nonatomic) UIBarButtonItem* submitButton;
-@property (nonatomic) UIBarButtonItem* cancelButton;
+@property MKMapView *mapView;
+@property (nonatomic, assign) BOOL initUserLocation;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLGeocoder *geocoder;
+@property (nonatomic, strong) UIImageView *centerPin;
+@property (nonatomic, strong) UITextView *addressTextViewFromMapCenter;
+@property (nonatomic, strong) UILabel *addressFromMapCenterTitle;
+@property (nonatomic, strong) UILabel *inputAddressTitle;
+@property (nonatomic, strong) UITextField *inputAddressTextField;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorViewForMap;
+@property (nonatomic, strong) UILabel *inputPhoneTitle;
+@property (nonatomic, strong) UITextField *inputPhoneTextField;
+@property (nonatomic, strong) UILabel *inputNameTitle;
+@property (nonatomic, strong) UITextField *inputNameTextField;
+@property (nonatomic, assign) CGFloat viewAndKeyboardOffset;
+@property (nonatomic, strong) UISwitch *wifiFreeSwitch;
+@property (nonatomic, strong) UISwitch *powerOutletSwitch;
+@property (nonatomic, strong) UILabel *wifiFreeTitle;
+@property (nonatomic, strong) UILabel *powerOutletTitle;
+@property (nonatomic, strong) UIButton *zoomInButton;
+@property (nonatomic, strong) UIButton *zoomOutButton;
+@property (nonatomic, strong) UIBarButtonItem *submitButton;
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @end
 
 @implementation AddShopViewController
@@ -132,9 +132,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return self;
 }
 
-- (UILabel*) switchLabelWithTitle:(NSString*) title
+- (UILabel *) switchLabelWithTitle:(NSString *) title
 {
-    UILabel* label = [[UILabel alloc] init];
+    UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor blackColor];
     label.font = [UIFont systemFontOfSize:16];
@@ -142,9 +142,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return label;
 }
 
-- (UILabel*) titleLabelWithTitle:(NSString*) title
+- (UILabel *) titleLabelWithTitle:(NSString *) title
 {
-    UILabel* label = [[UILabel alloc] init];
+    UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor grayColor];
     label.font = [UIFont systemFontOfSize:12];
@@ -152,9 +152,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return label;
 }
 
-- (UITextField*) inputTextFieldWithPlaceholder:(NSString*) placeHolder
+- (UITextField *) inputTextFieldWithPlaceholder:(NSString *) placeHolder
 {
-    UITextField* textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - PADDING_HORIZONTAL * 2, 36)];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - PADDING_HORIZONTAL * 2, 36)];
     textField.font = [UIFont systemFontOfSize:12];
     textField.backgroundColor = [UIColor inputFieldBgColor];
     textField.textColor = [UIColor blackColor];
@@ -272,7 +272,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [self.view endEditing:YES];
     self.submitButton.enabled = NO;
 
-    SubmitInfo* info = [[SubmitInfo alloc] init];
+    SubmitInfo *info = [[SubmitInfo alloc] init];
     info.name = self.inputNameTextField.text;
     info.phone = self.inputPhoneTitle.text;
     info.is_wifi_free = self.wifiFreeSwitch.isOn;
@@ -305,9 +305,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [self.navigationItem setTitleView:[self getIndicatorView] animated:YES];
 }
 
-- (UILabel*) navigationBarTitleLabelWithString:(NSString*) title
+- (UILabel *) navigationBarTitleLabelWithString:(NSString *) title
 {
-    UILabel* titleLabel = [[UILabel alloc] init];
+    UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:18];
@@ -316,15 +316,15 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return titleLabel;
 }
 
-- (UIView*) getIndicatorView
+- (UIView *) getIndicatorView
 {
-    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-    UIActivityIndicatorView* indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     indicatorView.backgroundColor = [UIColor clearColor];
     [indicatorView sizeToFit];
 
-    UILabel* titleLabel = [self navigationBarTitleLabelWithString:[I18N key:@"submiting_message"]];
+    UILabel *titleLabel = [self navigationBarTitleLabelWithString:[I18N key:@"submiting_message"]];
 
     [Views alignCenterMiddle:titleLabel containerFrame:view.frame];
     [Views alignMiddle:indicatorView containerHeight:view.bounds.size.height];
@@ -337,10 +337,10 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return view;
 }
 
-- (void) onAddShopFailedNotification:(NSNotification*) notification
+- (void) onAddShopFailedNotification:(NSNotification *) notification
 {
     [self showNavigationTitleWithString:[I18N key:@"submit_failed"]];
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:[I18N key:@"submit_failed"]
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[I18N key:@"submit_failed"]
                                                         message:[I18N key:@"submit_again_message"]
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -353,7 +353,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [self showNavigationTitleWithString:[I18N key:@"submit_success"]];
 }
 
-- (void) showNavigationTitleWithString:(NSString*) message
+- (void) showNavigationTitleWithString:(NSString *) message
 {
     self.submitButton.enabled = YES;
 
@@ -381,7 +381,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                              animated:YES];
 }
 
-- (void) locationManager:(CLLocationManager*) manager didUpdateLocations:(NSArray*) locations
+- (void) locationManager:(CLLocationManager *) manager didUpdateLocations:(NSArray *) locations
 {
     if (self.initUserLocation)
     {
@@ -399,24 +399,24 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     self.initUserLocation = YES;
 }
 
-- (void) mapView:(MKMapView*) mapView regionWillChangeAnimated:(BOOL) animated
+- (void) mapView:(MKMapView *) mapView regionWillChangeAnimated:(BOOL) animated
 {
     [self.indicatorViewForMap startAnimating];
 }
 
-- (void) mapView:(MKMapView*) mapView regionDidChangeAnimated:(BOOL) animated
+- (void) mapView:(MKMapView *) mapView regionDidChangeAnimated:(BOOL) animated
 {
-    CLLocation* location = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude
                                                       longitude:self.mapView.centerCoordinate.longitude];
 
     [self.geocoder reverseGeocodeLocation:location
-                        completionHandler:^(NSArray* placemarks, NSError* error) {
+                        completionHandler:^(NSArray *placemarks, NSError *error) {
                             [self.indicatorViewForMap stopAnimating];
                             if (error)
                             {
                                 return;
                             }
-                            CLPlacemark* placemark = [placemarks lastObject];
+                            CLPlacemark *placemark = [placemarks lastObject];
                             if (placemark)
                             {
                                 [self setAddressWithPlacemark:placemark];
@@ -424,15 +424,15 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                         }];
 }
 
-- (void) setAddressWithPlacemark:(CLPlacemark*) placemark
+- (void) setAddressWithPlacemark:(CLPlacemark *) placemark
 {
-    NSString* addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
-    NSString* newAddress = [addressString stringByReplacingOccurrencesOfString:@"\n"
+    NSString *addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+    NSString *newAddress = [addressString stringByReplacingOccurrencesOfString:@"\n"
                                                                     withString:@" "];
     self.addressTextViewFromMapCenter.text = newAddress;
 }
 
-- (void) setLocationWithPlacemark:(CLPlacemark*) placemark
+- (void) setLocationWithPlacemark:(CLPlacemark *) placemark
 {
     MKCoordinateSpan currentSpan = self.mapView.region.span;
     MKCoordinateRegion mapRegion;
@@ -442,7 +442,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
-- (BOOL) textField:(UITextField*) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString*) string
+- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
 {
     if ([string stringByTrim].length > 0)
     {
@@ -451,22 +451,22 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return YES;
 }
 
-- (void) textFieldDidEndEditing:(UITextField*) textField
+- (void) textFieldDidEndEditing:(UITextField *) textField
 {
     if (INPUT_ADDRESS_TEXT_FIELD_TAG != textField.tag)
     {
         return;
     }
     [self.indicatorViewForMap startAnimating];
-    NSString* queryAddressString = textField.text;
+    NSString *queryAddressString = textField.text;
     [self.geocoder geocodeAddressString:queryAddressString
-                      completionHandler:^(NSArray* placemarks, NSError* error) {
+                      completionHandler:^(NSArray *placemarks, NSError *error) {
                           [self.indicatorViewForMap stopAnimating];
                           if (error)
                           {
                               return;
                           }
-                          CLPlacemark* placemark = [placemarks lastObject];
+                          CLPlacemark *placemark = [placemarks lastObject];
                           if (placemark)
                           {
                               [self setLocationWithPlacemark:placemark];
@@ -474,16 +474,16 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                       }];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField*) textField
+- (BOOL) textFieldShouldReturn:(UITextField *) textField
 {
     [self.view endEditing:YES];
     return YES;
 }
 
-- (void) keyboardWillHide:(NSNotification*) notification
+- (void) keyboardWillHide:(NSNotification *) notification
 {
-    NSDictionary* info = [notification userInfo];
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSDictionary *info = [notification userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
@@ -498,9 +498,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     self.viewAndKeyboardOffset = 0;
 }
 
-- (void) keyboardWillShow:(NSNotification*) notification
+- (void) keyboardWillShow:(NSNotification *) notification
 {
-    NSDictionary* info = [notification userInfo];
+    NSDictionary *info = [notification userInfo];
     CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
     CGRect convertFrame = [self.view convertRect:self.inputPhoneTextField.frame fromView:self.scrollView];
@@ -522,7 +522,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
         self.viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
         moveOffset = self.viewAndKeyboardOffset;
     }
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 

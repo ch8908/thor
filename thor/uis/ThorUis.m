@@ -9,7 +9,7 @@
 
 @implementation ThorUis
 
-+ (NSString*) searchDistanceString:(NSNumber*) number
++ (NSString *) searchDistanceString:(NSNumber *) number
 {
     return [NSString stringWithFormat:@"%@ %@", number, [I18N key:@"distance_unit"]];
 }

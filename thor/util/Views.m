@@ -47,7 +47,7 @@ CGFloat const VIEWS_PAGE_CONTROL_HEIGHT = 3;
     return [Views screenHeight] - VIEWS_STATUS_BAR_HEIGHT - VIEWS_NAVIGATION_BAR_HEIGHT;
 }
 
-+ (void) locate:(UIView*) target x:(CGFloat) x y:(CGFloat) y
++ (void) locate:(UIView *) target x:(CGFloat) x y:(CGFloat) y
 {
     CGRect rect = target.frame;
     rect.origin.x = x;
@@ -55,38 +55,38 @@ CGFloat const VIEWS_PAGE_CONTROL_HEIGHT = 3;
     target.frame = rect;
 }
 
-+ (void) locate:(UIView*) target y:(CGFloat) y
++ (void) locate:(UIView *) target y:(CGFloat) y
 {
     CGRect rect = target.frame;
     rect.origin.y = y;
     target.frame = rect;
 }
 
-+ (void) locate:(UIView*) target x:(CGFloat) x
++ (void) locate:(UIView *) target x:(CGFloat) x
 {
     CGRect rect = target.frame;
     rect.origin.x = x;
     target.frame = rect;
 }
 
-+ (CGFloat) rightOf:(UIView*) view
++ (CGFloat) rightOf:(UIView *) view
 {
     return view.frame.origin.x + view.frame.size.width;
 }
 
-+ (CGFloat) bottomOf:(UIView*) view
++ (CGFloat) bottomOf:(UIView *) view
 {
     return view.frame.origin.y + view.frame.size.height;
 }
 
-+ (void) alignCenter:(UIView*) target containerWidth:(CGFloat) containerWidth
++ (void) alignCenter:(UIView *) target containerWidth:(CGFloat) containerWidth
 {
     CGRect rect = target.frame;
     rect.origin.x = roundf((containerWidth - rect.size.width) / 2);
     target.frame = rect;
 }
 
-+ (void) alignCenterMiddle:(UIView*) target containerFrame:(CGRect) frameRect
++ (void) alignCenterMiddle:(UIView *) target containerFrame:(CGRect) frameRect
 {
     CGRect rect = target.frame;
     rect.origin.x = roundf(frameRect.origin.x + (frameRect.size.width - rect.size.width) / 2);
@@ -94,55 +94,55 @@ CGFloat const VIEWS_PAGE_CONTROL_HEIGHT = 3;
     target.frame = rect;
 }
 
-+ (void) alignMiddle:(UIView*) target containerHeight:(CGFloat) containerHeight
++ (void) alignMiddle:(UIView *) target containerHeight:(CGFloat) containerHeight
 {
     CGRect rect = target.frame;
     rect.origin.y = roundf((containerHeight - rect.size.height) / 2);
     target.frame = rect;
 }
 
-+ (void) alignBottom:(UIView*) source withTarget:(UIView*) target
++ (void) alignBottom:(UIView *) source withTarget:(UIView *) target
 {
     [self locate:source y:[self bottomOf:target] - source.bounds.size.height];
 }
 
-+ (void) alignTop:(UIView*) view withTarget:(UIView*) target
++ (void) alignTop:(UIView *) view withTarget:(UIView *) target
 {
     [self locate:view y:target.frame.origin.y];
 }
 
-+ (void) below:(UIView*) view withTarget:(UIView*) target
++ (void) below:(UIView *) view withTarget:(UIView *) target
 {
     [self locate:view y:target.frame.origin.y + target.bounds.size.height];
 }
 
-+ (void) alignMiddle:(UIView*) source withTarget:(UIView*) target
++ (void) alignMiddle:(UIView *) source withTarget:(UIView *) target
 {
     [self locate:source y:target.frame.origin.y + (target.bounds.size.height - source.bounds.size.height) * 0.5];
 }
 
-+ (void) resize:(UIView*) target containerSize:(CGSize) size
++ (void) resize:(UIView *) target containerSize:(CGSize) size
 {
     CGRect rect = target.frame;
     rect.size = size;
     target.frame = rect;
 }
 
-+ (void) resize:(UIView*) target containerWidth:(CGFloat) containerWidth
++ (void) resize:(UIView *) target containerWidth:(CGFloat) containerWidth
 {
     CGRect rect = target.frame;
     rect.size = CGSizeMake(containerWidth, rect.size.height);
     target.frame = rect;
 }
 
-+ (void) resize:(UIView*) target containerHeight:(CGFloat) containerHeight
++ (void) resize:(UIView *) target containerHeight:(CGFloat) containerHeight
 {
     CGRect rect = target.frame;
     rect.size = CGSizeMake(rect.size.width, containerHeight);
     target.frame = rect;
 }
 
-+ (void) move:(UIView*) target deltaX:(CGFloat) dx deltaY:(CGFloat) dy
++ (void) move:(UIView *) target deltaX:(CGFloat) dx deltaY:(CGFloat) dy
 {
     CGRect rect = target.frame;
     rect.origin.x += dx;
@@ -150,7 +150,7 @@ CGFloat const VIEWS_PAGE_CONTROL_HEIGHT = 3;
     target.frame = rect;
 }
 
-+ (void) alignCenter:(UIView*) source withTarget:(UIView*) target
++ (void) alignCenter:(UIView *) source withTarget:(UIView *) target
 {
     [Views locate:source y:target.frame.origin.y + target.bounds.size.height / 2 - source.bounds.size.height / 2];
 }

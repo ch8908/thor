@@ -9,7 +9,7 @@ static CGFloat DURATION = 0.5;
 
 @implementation UINavigationItem(Util)
 
-- (void) setTitleView:(UIView*) titleView animated:(BOOL) animated
+- (void) setTitleView:(UIView *) titleView animated:(BOOL) animated
 {
     if (!animated)
     {
@@ -22,11 +22,11 @@ static CGFloat DURATION = 0.5;
     }];
 }
 
-- (void) setTitleViewWithTitle:(NSString*) title animated:(BOOL) animated
+- (void) setTitleViewWithTitle:(NSString *) title animated:(BOOL) animated
 {
     if (!animated)
     {
-        UILabel* titleView = [self titleViewWithTitle:title];
+        UILabel *titleView = [self titleViewWithTitle:title];
         [self setTitleView:titleView];
         return;
     }
@@ -39,7 +39,7 @@ static CGFloat DURATION = 0.5;
 - (void) disappearCurrentTitle:(void (^)(void)) completion
 {
     [CATransaction begin];
-    CABasicAnimation* fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
     fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
     fadeOutAnimation.duration = DURATION;
@@ -52,13 +52,13 @@ static CGFloat DURATION = 0.5;
     [CATransaction commit];
 }
 
-- (void) showNewTitleView:(UIView*) titleView
+- (void) showNewTitleView:(UIView *) titleView
 {
     [self setTitleView:titleView];
     self.titleView.alpha = 0;
 
     [CATransaction begin];
-    CABasicAnimation* fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
     fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
     fadeInAnimation.duration = DURATION;
@@ -70,14 +70,14 @@ static CGFloat DURATION = 0.5;
     [CATransaction commit];
 }
 
-- (void) showNewTitleViewWithString:(NSString*) title
+- (void) showNewTitleViewWithString:(NSString *) title
 {
-    UILabel* titleView = [self titleViewWithTitle:title];
+    UILabel *titleView = [self titleViewWithTitle:title];
     [self setTitleView:titleView];
     self.titleView.alpha = 0;
 
     [CATransaction begin];
-    CABasicAnimation* fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
     fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
     fadeInAnimation.duration = DURATION;
@@ -89,9 +89,9 @@ static CGFloat DURATION = 0.5;
     [CATransaction commit];
 }
 
-- (UILabel*) titleViewWithTitle:(NSString*) title
+- (UILabel *) titleViewWithTitle:(NSString *) title
 {
-    UILabel* titleLabel = [[UILabel alloc] init];
+    UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:18];

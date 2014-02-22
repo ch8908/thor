@@ -20,7 +20,7 @@ enum
 };
 
 @interface LeftDrawerController()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
-@property UITableView* tableView;
+@property UITableView *tableView;
 @end
 
 @implementation LeftDrawerController
@@ -76,21 +76,21 @@ enum
     [self.tableView reloadData];
 }
 
-- (CGFloat) tableView:(UITableView*) tableView heightForRowAtIndexPath:(NSIndexPath*) indexPath
+- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
 {
     return 50;
 }
 
-- (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
     return TotalCount;
 }
 
-- (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    static NSString* CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Cell";
 
-    UITableViewCell* cell = (UITableViewCell*)
+    UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -102,7 +102,7 @@ enum
     {
         case LogInLogOut:
         {
-            NSString* key = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
+            NSString *key = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
             cell.textLabel.text = key;
             break;
         }
@@ -114,7 +114,7 @@ enum
     return cell;
 }
 
-- (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
@@ -128,7 +128,7 @@ enum
             }
             else
             {
-                UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
+                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
                 [self.mm_drawerController presentViewController:navigationController
                                                        animated:YES completion:nil];
             }
@@ -136,8 +136,8 @@ enum
         }
         case Setting:
         {
-            SettingController* controller = [[SettingController alloc] initSettingController];
-            UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+            SettingController *controller = [[SettingController alloc] initSettingController];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
             [self.mm_drawerController.centerViewController presentViewController:navigationController
                                                                         animated:YES
                                                                       completion:nil];
@@ -152,9 +152,9 @@ enum
 
 - (void) confirmSignOut
 {
-    NSString* signOut = [I18N key:@"log_out_button_title"];
-    NSString* cancel = [I18N key:@"cancel"];
-    UIActionSheet* actionSheet = [[UIActionSheet alloc]
+    NSString *signOut = [I18N key:@"log_out_button_title"];
+    NSString *cancel = [I18N key:@"cancel"];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                                  initWithTitle:[I18N key:@"log_out_action_sheet_title"]
                                                       delegate:self
                                              cancelButtonTitle:nil
@@ -163,7 +163,7 @@ enum
     [actionSheet showInView:self.mm_drawerController.view];
 }
 
-- (void) actionSheet:(UIActionSheet*) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
+- (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
 {
     if (buttonIndex == 0)
     {

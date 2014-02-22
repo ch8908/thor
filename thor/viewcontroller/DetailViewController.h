@@ -7,5 +7,5 @@
 
 
 @interface DetailViewController : AbstractUIViewController
-- (id) initDetailViewControllerWithId:(NSNumber*) id1;
+- (id) initDetailViewControllerWithId:(NSNumber *) id1;
 @end

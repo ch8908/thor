@@ -5,13 +5,15 @@
 
 #import "Pref.h"
 
+NSString *const SearchDistanceChangedNotification = @"SearchDistanceChangedNotification";
+
 static int DEFAULT_SEARCH_RANGE = 5;
 
 @implementation Pref
 
 + (id) sharedInstance
 {
-    static Pref* sharedMyInstance = nil;
+    static Pref *sharedMyInstance = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

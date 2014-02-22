@@ -11,19 +11,19 @@
 
 + (BOOL) isMinimumiOS6;
 
-+ (NSString*) systemVersion;
++ (NSString *) systemVersion;
 
-+ (NSString*) UUIDString;
++ (NSString *) UUIDString;
 
-+ (NSString* ) deviceModel;
++ (NSString *) deviceModel;
 
-+ (NSString*) country;
++ (NSString *) country;
 
-+ (NSString*) mcc;
++ (NSString *) mcc;
 
-+ (NSString*) mnc;
++ (NSString *) mnc;
 
-+ (NSString*) icc;
++ (NSString *) icc;
 
-+ (NSString*) currency;
++ (NSString *) currency;
 @end

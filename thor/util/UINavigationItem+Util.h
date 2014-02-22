@@ -6,8 +6,8 @@
 #import <Foundation/Foundation.h>
 
 @interface UINavigationItem(Util)
-- (void) setTitleView:(UIView*) titleView animated:(BOOL) animated;
+- (void) setTitleView:(UIView *) titleView animated:(BOOL) animated;
 
-- (void) setTitleViewWithTitle:(NSString*) title animated:(BOOL) animated;
+- (void) setTitleViewWithTitle:(NSString *) title animated:(BOOL) animated;
 
 @end

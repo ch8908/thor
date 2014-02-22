@@ -7,17 +7,17 @@
 
 @class AbstractState;
 
-extern NSString* MachineLoginSuccessNotification;
-extern NSString* MachineLogoutNotification;
+extern NSString *MachineLoginSuccessNotification;
+extern NSString *MachineLogoutNotification;
 
 @interface LogStateMachine : NSObject
-@property AbstractState* currentState;
-@property NSString* authToken;
+@property AbstractState *currentState;
+@property NSString *authToken;
 
 + (id) sharedInstance;
 
 - (BOOL) isLogin;
 
-- (void) changeState:(AbstractState*) newState;
+- (void) changeState:(AbstractState *) newState;
 
 @end

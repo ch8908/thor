@@ -6,8 +6,8 @@
 #import <Foundation/Foundation.h>
 
 @interface UIColor(Util)
-+ (UIColor*) hexColor:(int) rgbHex;
++ (UIColor *) hexColor:(int) rgbHex;
 
-+ (UIColor*) hexARGB:(int) argbHex;
++ (UIColor *) hexARGB:(int) argbHex;
 
 @end

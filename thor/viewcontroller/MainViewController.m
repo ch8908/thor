@@ -29,16 +29,16 @@
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
-@property (nonatomic) MKMapView* mapView;
-@property (nonatomic) UITableView* tableView;
-@property (nonatomic) NSMutableArray* coffeeShops;
-@property (nonatomic) NSMutableDictionary* annotations;
-@property (nonatomic) UIButton* locateButton;
-@property (nonatomic) BOOL initUserLocation;
-@property (nonatomic) UITableViewController* tableViewController;
-@property UIButton* filterButton;
-@property UIButton* zoomInButton;
-@property UIButton* zoomOutButton;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *coffeeShops;
+@property (nonatomic, strong) NSMutableDictionary *annotations;
+@property (nonatomic, strong) UIButton *locateButton;
+@property (nonatomic, assign) BOOL initUserLocation;
+@property (nonatomic, strong) UITableViewController *tableViewController;
+@property (nonatomic, strong) UIButton *filterButton;
+@property (nonatomic, strong) UIButton *zoomInButton;
+@property (nonatomic, strong) UIButton *zoomOutButton;
 @end
 
 @implementation MainViewController
@@ -83,7 +83,7 @@
         [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
                                      forState:UIControlStateHighlighted];
 
-        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         [refreshControl addTarget:self action:@selector(onRefreshShops)
                  forControlEvents:UIControlEventValueChanged];
@@ -118,13 +118,13 @@
 {
     [super viewDidLoad];
     self.coffeeShops = [[NSMutableArray alloc] init];
-    MMDrawerBarButtonItem* leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
+    MMDrawerBarButtonItem *leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
                                                                                      style:UIBarButtonItemStylePlain
                                                                                     target:self
                                                                                     action:@selector(onSlideMenuButtonPress)];
     [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
 
-    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                target:self
                                                                                action:@selector(onAddShop)];
     [self.navigationItem setRightBarButtonItem:addButton];
@@ -167,7 +167,7 @@
     [self.view addSubview:self.zoomOutButton];
 }
 
-- (void) gridMenu:(RNGridMenu*) gridMenu willDismissWithSelectedItem:(RNGridMenuItem*) item atIndex:(NSInteger) itemIndex
+- (void) gridMenu:(RNGridMenu *) gridMenu willDismissWithSelectedItem:(RNGridMenuItem *) item atIndex:(NSInteger) itemIndex
 {
     NSLog(@"Dismissed with item %d: %@", itemIndex, item.title);
 }
@@ -175,7 +175,7 @@
 - (void) filter
 {
     CGRect rect = CGRectMake(0, 0, 20, 20);
-    NSArray* items = @[
+    NSArray *items = @[
       [[RNGridMenuItem alloc] initWithImage:[UIImage imageWithRect:rect
                                                              color:[UIColor whiteColor]]
                                       title:@"Wifi"],
@@ -184,7 +184,7 @@
                                       title:@"Power"]
     ];
 
-    RNGridMenu* av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
+    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
     av.delegate = self;
     //    av.bounces = NO;
     [av showInViewController:self.mm_drawerController.centerViewController
@@ -204,7 +204,7 @@
 
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate
 {
-    NSNumber* distance = [[[Pref sharedInstance] searchDistance] getNumber];
+    NSNumber *distance = [[[Pref sharedInstance] searchDistance] getNumber];
     [[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance];
 }
 
@@ -232,7 +232,7 @@
     [self endRefreshShops];
 }
 
-- (void) onLoadShopSuccessNotification:(NSNotification*) notification
+- (void) onLoadShopSuccessNotification:(NSNotification *) notification
 {
     [self endRefreshShops];
     self.coffeeShops = notification.object;
@@ -253,9 +253,9 @@
         self.annotations = nil;
     }
     self.annotations = [[NSMutableDictionary alloc] init];
-    for (CoffeeShop* coffeeShop in self.coffeeShops)
+    for (CoffeeShop *coffeeShop in self.coffeeShops)
     {
-        TRAnnotation* annotation = [[TRAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(coffeeShop.latitude, coffeeShop.longitude)
+        TRAnnotation *annotation = [[TRAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(coffeeShop.latitude, coffeeShop.longitude)
                                                                          id:coffeeShop.id
                                                                        name:coffeeShop.name
                                                                        info:coffeeShop.infoString];
@@ -276,17 +276,17 @@
         [self showLoginOption];
         return;
     }
-    AddShopViewController* controller = [[AddShopViewController alloc] initAddShopViewController];
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    AddShopViewController *controller = [[AddShopViewController alloc] initAddShopViewController];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     [self.navigationController presentViewController:navigationController
                                             animated:YES completion:nil];
 }
 
 - (void) showLoginOption
 {
-    NSString* login = [I18N key:@"log_in_button_title"];
-    NSString* cancel = [I18N key:@"cancel"];
-    UIActionSheet* actionSheet = [[UIActionSheet alloc]
+    NSString *login = [I18N key:@"log_in_button_title"];
+    NSString *cancel = [I18N key:@"cancel"];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                                  initWithTitle:[I18N key:@"add_login_require_action_sheet_title"]
                                                       delegate:self
                                              cancelButtonTitle:nil
@@ -295,17 +295,17 @@
     [actionSheet showInView:self.view];
 }
 
-- (void) actionSheet:(UIActionSheet*) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
+- (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
 {
     if (buttonIndex == 0)
     {
-        UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
         [self.navigationController presentViewController:navigationController
                                                 animated:YES completion:nil];
     }
 }
 
-- (void) mapView:(MKMapView*) mapView didUpdateUserLocation:(MKUserLocation*) userLocation
+- (void) mapView:(MKMapView *) mapView didUpdateUserLocation:(MKUserLocation *) userLocation
 {
     if (self.initUserLocation)
     {
@@ -320,22 +320,22 @@
     [self listCoffeeShopsWithCoordinate:userLocation.coordinate];
 }
 
-- (MKAnnotationView*) mapView:(MKMapView*) mapView viewForAnnotation:(id<MKAnnotation>) annotation
+- (MKAnnotationView *) mapView:(MKMapView *) mapView viewForAnnotation:(id<MKAnnotation>) annotation
 {
-    MKPinAnnotationView* mapPin = nil;
+    MKPinAnnotationView *mapPin = nil;
     if ([self isUserLocationAnnotation:annotation])
     {
         return nil;
     }
 
-    static NSString* defaultPinID = @"defaultPin";
-    mapPin = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+    static NSString *defaultPinID = @"defaultPin";
+    mapPin = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
     if (mapPin == nil )
     {
         mapPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                  reuseIdentifier:defaultPinID];
         mapPin.canShowCallout = YES;
-        UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         mapPin.rightCalloutAccessoryView = infoButton;
     }
     else
@@ -344,26 +344,26 @@
     return mapPin;
 }
 
-- (void) mapView:(MKMapView*) mapView annotationView:(MKAnnotationView*) view calloutAccessoryControlTapped:(UIControl*) control
+- (void) mapView:(MKMapView *) mapView annotationView:(MKAnnotationView *) view calloutAccessoryControlTapped:(UIControl *) control
 {
     if (![view.annotation isKindOfClass:[TRAnnotation class]])
     {
         return;
     }
-    TRAnnotation* annotation = (TRAnnotation*) view.annotation;
-    DetailViewController* controller = [[DetailViewController alloc] initDetailViewControllerWithId:annotation.id];
+    TRAnnotation *annotation = (TRAnnotation *) view.annotation;
+    DetailViewController *controller = [[DetailViewController alloc] initDetailViewControllerWithId:annotation.id];
     [self.navigationController pushViewController:controller animated:YES];
 
 }
 
-- (void) mapView:(MKMapView*) mapView didSelectAnnotationView:(MKAnnotationView*) view
+- (void) mapView:(MKMapView *) mapView didSelectAnnotationView:(MKAnnotationView *) view
 {
     if ([self isUserLocationAnnotation:view.annotation])
     {
         return;
     }
     [self setMapCenterToCoordinate:view.annotation.coordinate];
-    [self selectCellWithAnnotation:(TRAnnotation*) view.annotation];
+    [self selectCellWithAnnotation:(TRAnnotation *) view.annotation];
 }
 
 - (BOOL) isUserLocationAnnotation:(id<MKAnnotation>) annotation
@@ -371,11 +371,11 @@
     return annotation == self.mapView.userLocation;
 }
 
-- (void) selectCellWithAnnotation:(TRAnnotation*) annotation
+- (void) selectCellWithAnnotation:(TRAnnotation *) annotation
 {
-    NSNumber* id = annotation.id;
-    NSIndexPath* selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    CoffeeShop* selectedShop = self.coffeeShops[(NSUInteger) selectedIndexPath.row];
+    NSNumber *id = annotation.id;
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    CoffeeShop *selectedShop = self.coffeeShops[(NSUInteger) selectedIndexPath.row];
 
     if ([selectedShop.id isEqualToNumber:id])
     {
@@ -385,7 +385,7 @@
     NSInteger index = -1;
     for (NSUInteger i = 0; i < self.coffeeShops.count; i++)
     {
-        CoffeeShop* shop = self.coffeeShops[i];
+        CoffeeShop *shop = self.coffeeShops[i];
         if ([shop.id isEqualToNumber:id])
         {
             index = i;
@@ -404,16 +404,16 @@
                           scrollPosition:UITableViewScrollPositionMiddle];
 }
 
-- (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
     return self.coffeeShops.count;
 }
 
-- (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    static NSString* CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Cell";
 
-    UITableViewCell* cell = (UITableViewCell*)
+    UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -421,21 +421,21 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
-    CoffeeShop* coffeeShop = self.coffeeShops[(NSUInteger) indexPath.row];
+    CoffeeShop *coffeeShop = self.coffeeShops[(NSUInteger) indexPath.row];
     cell.textLabel.text = coffeeShop.name;
     cell.detailTextLabel.text = [coffeeShop distanceStringWithCenter:self.mapView.userLocation.coordinate];
     return cell;
 }
 
-- (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    CoffeeShop* shop = self.coffeeShops[(NSUInteger) indexPath.row];
+    CoffeeShop *shop = self.coffeeShops[(NSUInteger) indexPath.row];
     [self openAnnotationWithShop:shop];
 }
 
-- (void) openAnnotationWithShop:(CoffeeShop*) coffeeShop
+- (void) openAnnotationWithShop:(CoffeeShop *) coffeeShop
 {
-    TRAnnotation* shopAnnotation = [self.annotations objectForKey:coffeeShop.id];
+    TRAnnotation *shopAnnotation = [self.annotations objectForKey:coffeeShop.id];
     if (shopAnnotation)
     {
         [self.mapView selectAnnotation:shopAnnotation animated:YES];

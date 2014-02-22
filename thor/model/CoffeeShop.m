@@ -8,8 +8,8 @@
 
 @implementation CoffeeShop
 
-- (instancetype) initWithId:(NSNumber*) id
-                       name:(NSString*) name
+- (instancetype) initWithId:(NSNumber *) id
+                       name:(NSString *) name
                    latitude:(double) latitude
                   longitude:(double) longitude
                    wifiFree:(BOOL) wifiFree
@@ -29,10 +29,10 @@
     return self;
 }
 
-+ (instancetype) map:(NSDictionary*) raw
++ (instancetype) map:(NSDictionary *) raw
 {
-    NSNumber* id = [NSNumber numberWithLong:[[raw objectForKey:@"id"] longValue]];
-    NSString* name = [raw objectForKey:@"name"];
+    NSNumber *id = [NSNumber numberWithLong:[[raw objectForKey:@"id"] longValue]];
+    NSString *name = [raw objectForKey:@"name"];
     double latitude = [[raw objectForKey:@"lat"] doubleValue];
     double longitude = [[raw objectForKey:@"lng"] doubleValue];
     BOOL wifiFree = [[raw objectForKey:@"is_wifi_free"] boolValue];

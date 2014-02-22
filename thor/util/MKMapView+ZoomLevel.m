@@ -49,7 +49,7 @@
     return zoomLevel;
 }
 
-- (MKCoordinateSpan) coordinateSpanWithMapView:(MKMapView*) mapView
+- (MKCoordinateSpan) coordinateSpanWithMapView:(MKMapView *) mapView
                               centerCoordinate:(CLLocationCoordinate2D) centerCoordinate
                                   andZoomLevel:(NSUInteger) zoomLevel
 {

@@ -8,22 +8,22 @@
 
 @interface BOOLPref()
 @property BOOL defaultValue;
-@property (copy) NSString* key;
+@property (copy) NSString *key;
 @end
 
 @implementation BOOLPref
 
-+ (instancetype) prefWithKey:(NSString*) key
++ (instancetype) prefWithKey:(NSString *) key
 {
     return [[self alloc] initWithKey:key defaultValue:NO];
 }
 
-+ (instancetype) prefWithKey:(NSString*) key defaultValue:(BOOL) defaultValue
++ (instancetype) prefWithKey:(NSString *) key defaultValue:(BOOL) defaultValue
 {
     return [[self alloc] initWithKey:key defaultValue:defaultValue];
 }
 
-- (id) initWithKey:(NSString*) key defaultValue:(BOOL) defaultValue
+- (id) initWithKey:(NSString *) key defaultValue:(BOOL) defaultValue
 {
     self = [super init];
     if (self)
@@ -48,23 +48,23 @@
 @end
 
 @interface NSStringPref()
-@property (copy) NSString* defaultValue;
-@property (copy) NSString* key;
+@property (copy) NSString *defaultValue;
+@property (copy) NSString *key;
 @end
 
 @implementation NSStringPref
 
-+ (instancetype) prefWithKey:(NSString*) key
++ (instancetype) prefWithKey:(NSString *) key
 {
     return [[self alloc] initWithKey:key defaultString:nil];
 }
 
-+ (instancetype) prefWithKey:(NSString*) key defaultString:(NSString*) defaultString
++ (instancetype) prefWithKey:(NSString *) key defaultString:(NSString *) defaultString
 {
     return [[self alloc] initWithKey:key defaultString:defaultString];
 }
 
-- (instancetype) initWithKey:(NSString*) key defaultString:(NSString*) defaultString
+- (instancetype) initWithKey:(NSString *) key defaultString:(NSString *) defaultString
 {
     self = [super init];
     if (self)
@@ -80,12 +80,12 @@
     return self;
 }
 
-- (void) setString:(NSString*) defaultString
+- (void) setString:(NSString *) defaultString
 {
     [[NSUserDefaults standardUserDefaults] setObject:defaultString forKey:self.key];
 }
 
-- (NSString*) getString
+- (NSString *) getString
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:self.key];
 }
@@ -98,23 +98,23 @@
 @end
 
 @interface NSNumberPref()
-@property NSNumber* defaultNumber;
-@property (copy) NSString* key;
+@property NSNumber *defaultNumber;
+@property (copy) NSString *key;
 @end
 
 @implementation NSNumberPref
 
-+ (instancetype) prefWithKey:(NSString*) key
++ (instancetype) prefWithKey:(NSString *) key
 {
     return [[self alloc] initWithKey:key defaultNumber:nil];
 }
 
-+ (instancetype) prefWithKey:(NSString*) key defaultNumber:(NSNumber*) defaultNumber
++ (instancetype) prefWithKey:(NSString *) key defaultNumber:(NSNumber *) defaultNumber
 {
     return [[self alloc] initWithKey:key defaultNumber:defaultNumber];
 }
 
-- (instancetype) initWithKey:(NSString*) key defaultNumber:(NSNumber*) defaultNumber
+- (instancetype) initWithKey:(NSString *) key defaultNumber:(NSNumber *) defaultNumber
 {
     self = [super init];
     if (self)
@@ -130,12 +130,12 @@
     return self;
 }
 
-- (void) setNumber:(NSNumber*) defaultNumber
+- (void) setNumber:(NSNumber *) defaultNumber
 {
     [[NSUserDefaults standardUserDefaults] setObject:defaultNumber forKey:self.key];
 }
 
-- (NSNumber*) getNumber
+- (NSNumber *) getNumber
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:self.key];
 }

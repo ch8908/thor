@@ -11,6 +11,6 @@
 
 @interface I18N : NSObject
 
-+ (NSString*) key:(NSString*) localizedKey, ...;
++ (NSString *) key:(NSString *) localizedKey, ...;
 
 @end

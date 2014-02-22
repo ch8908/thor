@@ -8,31 +8,31 @@
 
 @class SubmitInfo;
 
-extern NSString* LoadShopFailedNotification;
-extern NSString* LoadShopSuccessNotification;
+extern NSString *LoadShopFailedNotification;
+extern NSString *LoadShopSuccessNotification;
 
-extern NSString* LoadShopDetailSuccessNotification;
-extern NSString* LoadShopDetailFailedNotification;
+extern NSString *LoadShopDetailSuccessNotification;
+extern NSString *LoadShopDetailFailedNotification;
 
-extern NSString* RegisterSuccessNotification;
-extern NSString* RegisterFailedNotification;
+extern NSString *RegisterSuccessNotification;
+extern NSString *RegisterFailedNotification;
 
-extern NSString* SignInSuccessNotification;
-extern NSString* SignInFailedNotification;
+extern NSString *SignInSuccessNotification;
+extern NSString *SignInFailedNotification;
 
-extern NSString* AddShopSuccessNotification;
-extern NSString* AddShopFailedNotification;
+extern NSString *AddShopSuccessNotification;
+extern NSString *AddShopFailedNotification;
 
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
 
-- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber*) distance;
+- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance;
 
-- (void) fetchDetailWithShopId:(NSNumber*) number;
+- (void) fetchDetailWithShopId:(NSNumber *) number;
 
-- (void) resisterWithParams:(NSDictionary*) dictionary;
+- (void) resisterWithParams:(NSDictionary *) dictionary;
 
-- (void) signInWithEmail:(NSString*) email password:(NSString*) password;
+- (void) signInWithEmail:(NSString *) email password:(NSString *) password;
 
-- (void) submitShopInfo:(SubmitInfo*) info;
+- (void) submitShopInfo:(SubmitInfo *) info;
 @end

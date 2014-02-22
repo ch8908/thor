@@ -7,7 +7,7 @@
 
 
 @implementation UIColor(Util)
-+ (UIColor*) hexColor:(int) rgbHex
++ (UIColor *) hexColor:(int) rgbHex
 {
     int r = (rgbHex & 0xFF0000) >> 16;
     int g = (rgbHex & 0x00FF00) >> 8;
@@ -19,7 +19,7 @@
                            alpha:1];
 }
 
-+ (UIColor*) hexARGB:(int) argbHex
++ (UIColor *) hexARGB:(int) argbHex
 {
     int a = (argbHex & 0xFF000000) >> 24;
     int r = (argbHex & 0x00FF0000) >> 16;

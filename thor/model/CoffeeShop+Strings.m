@@ -8,23 +8,23 @@
 
 
 @implementation CoffeeShop(Strings)
-- (NSString*) infoString
+- (NSString *) infoString
 {
     return [NSString stringWithFormat:@"Wifi:%@, Power:%@", [self wifiFreeString], [self powerOutletString]];
 }
 
-- (NSString*) distanceStringWithCenter:(CLLocationCoordinate2D) centerCoordinate
+- (NSString *) distanceStringWithCenter:(CLLocationCoordinate2D) centerCoordinate
 {
-    CLLocation* centerLocation = [[CLLocation alloc] initWithLatitude:centerCoordinate.latitude
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:centerCoordinate.latitude
                                                             longitude:centerCoordinate.longitude];
-    CLLocation* shopLocation = [[CLLocation alloc] initWithLatitude:self.latitude
+    CLLocation *shopLocation = [[CLLocation alloc] initWithLatitude:self.latitude
                                                           longitude:self.longitude];
     CLLocationDistance meters = [centerLocation distanceFromLocation:shopLocation];
 
     return [self stringWithDistance:meters];
 }
 
-- (NSString*) stringWithDistance:(CLLocationDistance) meters
+- (NSString *) stringWithDistance:(CLLocationDistance) meters
 {
     if (meters < 1)
     {
@@ -42,12 +42,12 @@
     }
 }
 
-- (NSString*) powerOutletString
+- (NSString *) powerOutletString
 {
     return self.powerOutlet ? @"◯" : @"X";
 }
 
-- (NSString*) wifiFreeString
+- (NSString *) wifiFreeString
 {
     return self.wifiFree ? @"◯" : @"X";
 }

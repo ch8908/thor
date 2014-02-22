@@ -18,7 +18,7 @@ enum
 };
 
 @interface SettingController()<UITableViewDelegate, UITableViewDataSource>
-@property UITableView* tableView;
+@property UITableView *tableView;
 @end
 
 @implementation SettingController
@@ -40,7 +40,7 @@ enum
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                 target:self
                                                                                 action:@selector(onDone)];
     [self.navigationItem setLeftBarButtonItem:doneButton];
@@ -68,16 +68,16 @@ enum
     [self.view addSubview:self.tableView];
 }
 
-- (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
     return TotalSettingCount;
 }
 
-- (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    static NSString* CellIdentifier = @"SettingCell";
+    static NSString *CellIdentifier = @"SettingCell";
 
-    UITableViewCell* cell = (UITableViewCell*)
+    UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -90,7 +90,7 @@ enum
         case SearchDistance:
         {
             cell.textLabel.text = [I18N key:@"search_distance_title"];
-            NSNumber* number = [[[Pref sharedInstance] searchDistance] getNumber];
+            NSNumber *number = [[[Pref sharedInstance] searchDistance] getNumber];
             cell.detailTextLabel.text = [ThorUis searchDistanceString:number];
             number;
             break;
@@ -101,10 +101,10 @@ enum
     return cell;
 }
 
-- (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DistancePickViewController* distancePickViewController = [[DistancePickViewController alloc] init];
+    DistancePickViewController *distancePickViewController = [[DistancePickViewController alloc] init];
     [self.navigationController pushViewController:distancePickViewController animated:YES];
 }
 

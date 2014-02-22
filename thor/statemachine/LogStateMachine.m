@@ -9,14 +9,14 @@
 #import "LoginState.h"
 #import "LogoutState.h"
 
-NSString* MachineLoginSuccessNotification = @"MachineLoginSuccessNotification";
-NSString* MachineLogoutNotification = @"MachineLogoutNotification";
+NSString *MachineLoginSuccessNotification = @"MachineLoginSuccessNotification";
+NSString *MachineLogoutNotification = @"MachineLogoutNotification";
 
 @implementation LogStateMachine
 
 + (id) sharedInstance
 {
-    static LogStateMachine* sharedMyInstance = nil;
+    static LogStateMachine *sharedMyInstance = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -28,7 +28,7 @@ NSString* MachineLogoutNotification = @"MachineLogoutNotification";
 
 - (id) initLogStateMachine
 {
-    NSString* token = [[[Pref sharedInstance] authenticationToken] getString];
+    NSString *token = [[[Pref sharedInstance] authenticationToken] getString];
     if (token)
     {
         _authToken = token;
@@ -50,7 +50,7 @@ NSString* MachineLogoutNotification = @"MachineLogoutNotification";
     return NO;
 }
 
-- (void) changeState:(AbstractState*) newState
+- (void) changeState:(AbstractState *) newState
 {
     [self.currentState exit];
     self.currentState = newState;

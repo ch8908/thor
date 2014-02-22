@@ -6,19 +6,19 @@
 #import <Foundation/Foundation.h>
 
 @interface UIColor(Constant)
-+ (UIColor*) addressTextColor;
++ (UIColor *) addressTextColor;
 
-+ (UIColor*) facebookLoginButtonBgColor;
++ (UIColor *) facebookLoginButtonBgColor;
 
-+ (UIColor*) twitterLoginButtonBgColor;
++ (UIColor *) twitterLoginButtonBgColor;
 
-+ (UIColor*) inputFieldBgColor;
++ (UIColor *) inputFieldBgColor;
 
-+ (UIColor*) loginViewBgColor;
++ (UIColor *) loginViewBgColor;
 
-+ (UIColor*) requiredFieldWarningColor;
++ (UIColor *) requiredFieldWarningColor;
 
-+ (UIColor*) filterButtonBgColorNormal;
++ (UIColor *) filterButtonBgColorNormal;
 
-+ (UIColor*) filterButtonBgColorHighlighted;
++ (UIColor *) filterButtonBgColorHighlighted;
 @end

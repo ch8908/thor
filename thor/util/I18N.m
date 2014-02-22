@@ -11,15 +11,15 @@
 
 @implementation I18N
 
-+ (NSString*) key:(NSString*) localizedKey, ...
++ (NSString *) key:(NSString *) localizedKey, ...
 {
-    NSString* format = [[NSBundle mainBundle] localizedStringForKey:localizedKey
+    NSString *format = [[NSBundle mainBundle] localizedStringForKey:localizedKey
                                                               value:[NSString stringWithFormat:@"!%@!", localizedKey]
                                                               table:nil];
 
     va_list vl;
     va_start(vl, localizedKey);
-    NSString* str = [[NSString alloc] initWithFormat:format arguments:vl];
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:vl];
     va_end(vl);
 
     return str;

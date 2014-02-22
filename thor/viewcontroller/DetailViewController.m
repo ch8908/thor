@@ -26,15 +26,15 @@ enum
 };
 
 @interface DetailViewController()<UITableViewDataSource, UITableViewDelegate>
-@property UIImageView* shopImageView;
-@property NSNumber* id;
-@property CoffeeShopDetail* coffeeShopDetail;
-@property UITableView* tableView;
+@property UIImageView *shopImageView;
+@property NSNumber *id;
+@property CoffeeShopDetail *coffeeShopDetail;
+@property UITableView *tableView;
 @end
 
 @implementation DetailViewController
 
-- (id) initDetailViewControllerWithId:(NSNumber*) id
+- (id) initDetailViewControllerWithId:(NSNumber *) id
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self)
@@ -66,7 +66,7 @@ enum
 {
     [super viewDidLoad];
 
-    UIBarButtonItem* navigateButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"navigate_to_title"]
+    UIBarButtonItem *navigateButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"navigate_to_title"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(navigateTo)];
@@ -92,7 +92,7 @@ enum
 
 }
 
-- (void) onLoadShopDetailSuccessNotification:(NSNotification*) notification
+- (void) onLoadShopDetailSuccessNotification:(NSNotification *) notification
 {
     self.coffeeShopDetail = notification.object;
     [self.tableView reloadData];
@@ -103,16 +103,16 @@ enum
 
 }
 
-- (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
     return ShopDetailTotalCount;
 }
 
-- (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    static NSString* CellIdentifier = @"DetailCell";
+    static NSString *CellIdentifier = @"DetailCell";
 
-    UITableViewCell* cell = (UITableViewCell*)
+    UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {

@@ -9,9 +9,9 @@
 #import "Pref.h"
 
 @interface DistancePickViewController()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, copy) NSArray* distanceOptions;
-@property (nonatomic, strong) NSNumber* selectedDistance;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, copy) NSArray *distanceOptions;
+@property (nonatomic, strong) NSNumber *selectedDistance;
 @end
 
 @implementation DistancePickViewController
@@ -46,7 +46,6 @@
     [[[Pref sharedInstance] searchDistance] setNumber:self.selectedDistance];
 }
 
-
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
@@ -56,16 +55,16 @@
     [self.view addSubview:self.tableView];
 }
 
-- (NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
     return self.distanceOptions.count;
 }
 
-- (UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    static NSString* CellIdentifier = @"DistanceCell";
+    static NSString *CellIdentifier = @"DistanceCell";
 
-    UITableViewCell* cell = (UITableViewCell*)
+    UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -73,7 +72,7 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
-    NSNumber* distance = self.distanceOptions[(NSUInteger) indexPath.row];
+    NSNumber *distance = self.distanceOptions[(NSUInteger) indexPath.row];
     cell.textLabel.text = [ThorUis searchDistanceString:distance];
     if ([distance isEqualToNumber:self.selectedDistance])
     {
@@ -82,17 +81,17 @@
     return cell;
 }
 
-- (void) tableView:(UITableView*) tableView didSelectRowAtIndexPath:(NSIndexPath*) indexPath
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSUInteger index = [self.distanceOptions indexOfObject:self.selectedDistance];
     if (index != NSNotFound)
     {
-        NSIndexPath* selectedIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
+        NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     self.selectedDistance = self.distanceOptions[(NSUInteger) indexPath.row];
 }

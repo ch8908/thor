@@ -10,7 +10,7 @@
 
 + (id) sharedInstance
 {
-    static CoffeeManager* sharedMyInstance = nil;
+    static CoffeeManager *sharedMyInstance = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -8,7 +8,7 @@
 #import "CoffeeShop.h"
 
 @interface CoffeeShop(Strings)
-- (NSString*) distanceStringWithCenter:(CLLocationCoordinate2D) centerCoordinate;
+- (NSString *) distanceStringWithCenter:(CLLocationCoordinate2D) centerCoordinate;
 
-- (NSString*) infoString;
+- (NSString *) infoString;
 @end

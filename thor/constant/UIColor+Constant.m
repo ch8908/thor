@@ -9,42 +9,42 @@
 
 @implementation UIColor(Constant)
 
-+ (UIColor*) addressTextColor
++ (UIColor *) addressTextColor
 {
     return [UIColor blackColor];
 }
 
-+ (UIColor*) facebookLoginButtonBgColor
++ (UIColor *) facebookLoginButtonBgColor
 {
     return [UIColor hexARGB:0xFF3937FF];
 }
 
-+ (UIColor*) twitterLoginButtonBgColor
++ (UIColor *) twitterLoginButtonBgColor
 {
     return [UIColor hexARGB:0xFF55A8FF];
 }
 
-+ (UIColor*) inputFieldBgColor
++ (UIColor *) inputFieldBgColor
 {
     return [UIColor hexARGB:0xFF999999];
 }
 
-+ (UIColor*) loginViewBgColor
++ (UIColor *) loginViewBgColor
 {
     return [UIColor hexARGB:0xFF73FFBB];
 }
 
-+ (UIColor*) requiredFieldWarningColor
++ (UIColor *) requiredFieldWarningColor
 {
     return [UIColor hexARGB:0xFFFF9291];
 }
 
-+ (UIColor*) filterButtonBgColorNormal
++ (UIColor *) filterButtonBgColorNormal
 {
     return [UIColor hexARGB:0xFF55FFAC];
 }
 
-+ (UIColor*) filterButtonBgColorHighlighted
++ (UIColor *) filterButtonBgColorHighlighted
 {
     return [UIColor hexARGB:0xFF00DC71];
 }

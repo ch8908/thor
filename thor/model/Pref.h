@@ -6,9 +6,11 @@
 #import <Foundation/Foundation.h>
 #import "AbstractPref.h"
 
+extern NSString *const SearchDistanceChangedNotification;
+
 @interface Pref : AbstractPref
-@property NSStringPref* authenticationToken;
-@property NSNumberPref* searchDistance;
+@property NSStringPref *authenticationToken;
+@property NSNumberPref *searchDistance;
 
 + (id) sharedInstance;
 

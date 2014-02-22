@@ -7,5 +7,5 @@
 
 
 @interface ThorUis : NSObject
-+ (NSString*) searchDistanceString:(NSNumber*) number;
++ (NSString *) searchDistanceString:(NSNumber *) number;
 @end

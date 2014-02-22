@@ -6,11 +6,11 @@
 #import <Foundation/Foundation.h>
 
 @interface UIImage(Util)
-+ (UIImage*) imageWithColor:(UIColor*) color;
++ (UIImage *) imageWithColor:(UIColor *) color;
 
-+ (UIImage*) imageWithRect:(CGRect) rect color:(UIColor*) color;
++ (UIImage *) imageWithRect:(CGRect) rect color:(UIColor *) color;
 
-- (UIImage*) cropImageWithRect:(CGRect) rect;
+- (UIImage *) cropImageWithRect:(CGRect) rect;
 
-- (UIImage*) resizeImageWithSize:(CGSize) newSize;
+- (UIImage *) resizeImageWithSize:(CGSize) newSize;
 @end

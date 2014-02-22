@@ -7,14 +7,14 @@
 
 
 @interface CoffeeShop : NSObject
-@property (nonatomic) NSNumber* id;
-@property (nonatomic, copy) NSString* name;
+@property (nonatomic) NSNumber *id;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 @property (nonatomic) BOOL wifiFree;
 @property (nonatomic) BOOL powerOutlet;
 
-- (instancetype) initWithId:(NSNumber*) id name:(NSString*) name latitude:(double) latitude longitude:(double) longitude wifiFree:(BOOL) wifiFree powerOutlet:(BOOL) powerOutlet;
+- (instancetype) initWithId:(NSNumber *) id name:(NSString *) name latitude:(double) latitude longitude:(double) longitude wifiFree:(BOOL) wifiFree powerOutlet:(BOOL) powerOutlet;
 
-+ (instancetype) map:(NSDictionary*) raw;
++ (instancetype) map:(NSDictionary *) raw;
 @end

@@ -9,14 +9,14 @@
 
 
 @interface CoffeeShopDetail : NSObject
-@property CoffeeShop* coffeeShop;
-@property NSString* address;
-@property NSString* shopDescription;
-@property NSString* hours;
-@property NSString* websiteUrl;
-@property NSNumber* avgRating;
+@property CoffeeShop *coffeeShop;
+@property NSString *address;
+@property NSString *shopDescription;
+@property NSString *hours;
+@property NSString *websiteUrl;
+@property NSNumber *avgRating;
 
-- (instancetype) initWithCoffeeShop:(CoffeeShop*) coffeeShop address:(NSString*) address shopDescription:(NSString*) shopDescription hours:(NSString*) hours websiteUrl:(NSString*) websiteUrl avgRating:(NSNumber*) avgRating;
+- (instancetype) initWithCoffeeShop:(CoffeeShop *) coffeeShop address:(NSString *) address shopDescription:(NSString *) shopDescription hours:(NSString *) hours websiteUrl:(NSString *) websiteUrl avgRating:(NSNumber *) avgRating;
 
-+ (instancetype) map:(NSDictionary*) raw;
++ (instancetype) map:(NSDictionary *) raw;
 @end

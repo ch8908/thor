@@ -13,12 +13,12 @@
 /**
 * trim white space and new line
 */
-- (NSString*) stringByTrim
+- (NSString *) stringByTrim
 {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-+ (BOOL) isEmpty:(NSString*) string
++ (BOOL) isEmpty:(NSString *) string
 {
     if (!string || [[NSNull null] isEqual:string])
     {
@@ -27,7 +27,7 @@
     return string.length == 0;
 }
 
-+ (BOOL) isEmptyAfterTrim:(NSString*) string
++ (BOOL) isEmptyAfterTrim:(NSString *) string
 {
     if (!string || [[NSNull null] isEqual:string])
     {

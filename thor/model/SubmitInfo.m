@@ -8,16 +8,16 @@
 
 @implementation SubmitInfo
 
-- (instancetype) initWithName:(NSString*) name
-                        phone:(NSString*) phone
-                  website_rul:(NSString*) website_rul
+- (instancetype) initWithName:(NSString *) name
+                        phone:(NSString *) phone
+                  website_rul:(NSString *) website_rul
                  is_wifi_free:(BOOL) is_wifi_free
                 power_outlets:(BOOL) power_outlets
-                        hours:(NSString*) hours
-              shopDescription:(NSString*) shopDescription
+                        hours:(NSString *) hours
+              shopDescription:(NSString *) shopDescription
                      latitude:(double) latitude
                longitudeDelta:(double) longitudeDelta
-                      address:(NSString*) address
+                      address:(NSString *) address
 {
     self = [super init];
     if (self)
@@ -37,25 +37,25 @@
     return self;
 }
 
-+ (instancetype) infoWithName:(NSString*) name
-                        phone:(NSString*) phone
-                  website_rul:(NSString*) website_rul
++ (instancetype) infoWithName:(NSString *) name
+                        phone:(NSString *) phone
+                  website_rul:(NSString *) website_rul
                  is_wifi_free:(BOOL) is_wifi_free
                 power_outlets:(BOOL) power_outlets
-                        hours:(NSString*) hours
-              shopDescription:(NSString*) shopDescription
+                        hours:(NSString *) hours
+              shopDescription:(NSString *) shopDescription
                      latitude:(double) latitude
                longitudeDelta:(double) longitudeDelta
-                      address:(NSString*) address
+                      address:(NSString *) address
 {
     return [[self alloc] initWithName:name phone:phone website_rul:website_rul is_wifi_free:is_wifi_free
                         power_outlets:power_outlets hours:hours shopDescription:shopDescription latitude:latitude
                        longitudeDelta:longitudeDelta address:address];
 }
 
-- (NSDictionary*) infoAsDictionaryWithToken:(NSString*) token
+- (NSDictionary *) infoAsDictionaryWithToken:(NSString *) token
 {
-    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
 
     [params setObject:self.name forKey:@"name"];
     [params setObject:self.phone forKey:@"phone"];

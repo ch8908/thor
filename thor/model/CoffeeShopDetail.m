@@ -9,7 +9,7 @@
 
 @implementation CoffeeShopDetail
 
-- (instancetype) initWithCoffeeShop:(CoffeeShop*) coffeeShop address:(NSString*) address shopDescription:(NSString*) shopDescription hours:(NSString*) hours websiteUrl:(NSString*) websiteUrl avgRating:(NSNumber*) avgRating
+- (instancetype) initWithCoffeeShop:(CoffeeShop *) coffeeShop address:(NSString *) address shopDescription:(NSString *) shopDescription hours:(NSString *) hours websiteUrl:(NSString *) websiteUrl avgRating:(NSNumber *) avgRating
 {
     self = [super init];
     if (self)
@@ -25,13 +25,13 @@
     return self;
 }
 
-+ (instancetype) map:(NSDictionary*) raw
++ (instancetype) map:(NSDictionary *) raw
 {
-    CoffeeShop* coffeeShop = [CoffeeShop map:raw];
-    NSString* address = [raw objectForKey:@"address"];
-    NSString* shopDescription = [raw objectForKey:@"description"];
-    NSString* hours = [raw objectForKey:@"hours"];
-    NSString* websiteUrl = [raw objectForKey:@"website_url"];
+    CoffeeShop *coffeeShop = [CoffeeShop map:raw];
+    NSString *address = [raw objectForKey:@"address"];
+    NSString *shopDescription = [raw objectForKey:@"description"];
+    NSString *hours = [raw objectForKey:@"hours"];
+    NSString *websiteUrl = [raw objectForKey:@"website_url"];
     float avgRating = [[raw objectForKey:@"avg_rating"] floatValue];
 
     return [[self alloc] initWithCoffeeShop:coffeeShop address:address
