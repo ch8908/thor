@@ -7,25 +7,10 @@
 */
 "places_title" = "附近店家";
 "back" = "返回";
-"log_in" = "登入";
 "login" = "已登入";
-"other_comments" = "其他評論";
-"button_title_still_bad" = "一樣遭";
-"button_title_not_bad" = "好吃耶";
-"no_bad_order_title" = "目前沒有需要改進的餐點！";
-"has_bad_order_title" = "目前有 %1$@ 道餐點需要改進";
-"has_bad_orders_title" = "目前有 %1$@ 道餐點需要改進";
-"still_bad_popup_title" = "有哪裡需要改進？";
-"not_bad_popup_title" = "明明好吃呀！";
-"submit_bad_button_title" = "送出負評";
-"submit_good_button_title" = "送出推薦";
-"comment_cannot_be_none" = "留言不得空白";
 "log_in_with_facebook" = "使用Facebook登入";
 "log_in_with_twitter" = "使用Twitter登入";
 "sign_up" = "快速註冊";
-"add_photo_button_title" = "Add Food Photo";
-"take_a_photo" = "Take a photo";
-"select_from_album" = "Select from album";
 "cancel" = "Cancel";
 "distance_subtitle_meters" = "距離 %1$@ 公尺";
 "distance_subtitle_km" = "距離 %1$@ 公里";
@@ -36,8 +21,6 @@
 "register_button_title" = "註冊";
 "log_in_button_title" = "登入";
 "log_out_button_title" = "登出";
-"map_tab_title" = "地圖";
-"setting_tab_title" = "設定";
 "log_out_action_sheet_title" = "你確定要登出？";
 "add_login_require_action_sheet_title" = "要先登入才能新增商店";
 "address_above_title" = "上面地圖中心的位置:";
@@ -66,3 +49,6 @@
 "navigate_to_title" = "前往";
 "search_distance_title" = "搜尋範圍";
 "distance_unit" = "公里";
+"apple_map_navigation" = "開啟內建地圖導航";
+"google_map_navigation" = "開啟 Google Maps 導航";
+"choose_navigation" = "選擇導航系統";

@@ -7,25 +7,10 @@
 */
 "places_title" = "Places";
 "back" = "Back";
-"log_in" = "Log In";
 "login" = "Login";
-"other_comments" = "Other Comments";
-"button_title_still_bad" = "Still Bad";
-"button_title_not_bad" = "Not Bad";
-"no_bad_order_title" = "There's no bad order here!";
-"has_bad_order_title" = "There is %1$@ bad order here.";
-"has_bad_orders_title" = "There are %1$@ bad orders here.";
-"still_bad_popup_title" = "Why it bad?";
-"not_bad_popup_title" = "It's not bad!";
-"submit_bad_button_title" = "Submit Bad Comment";
-"submit_good_button_title" = "Submit Good Comment";
-"comment_cannot_be_none" = "Need Comment";
 "log_in_with_facebook" = "Log In With Facebook";
 "log_in_with_twitter" = "Log In With Twitter";
 "sign_up" = "Sign Up";
-"add_photo_button_title" = "Add Food Photo";
-"take_a_photo" = "Take a photo";
-"select_from_album" = "Select from album";
 "cancel" = "Cancel";
 "distance_subtitle_meters" = "%1$@ meters";
 "distance_subtitle_km" = "%1$@ km";
@@ -36,8 +21,6 @@
 "register_button_title" = "Register";
 "log_in_button_title" = "Log In";
 "log_out_button_title" = "Log Out";
-"map_tab_title" = "Map";
-"setting_tab_title" = "Setting";
 "log_out_action_sheet_title" = "Are you sure you want to log out?";
 "add_login_require_action_sheet_title" = "Login required for add shop";
 "address_above_title" = "Address from map center:";
@@ -66,3 +49,6 @@
 "navigate_to_title" = "Navigate";
 "search_distance_title" = "Search Distance";
 "distance_unit" = "km";
+"apple_map_navigation" = "Open navigation";
+"google_map_navigation" = "Open Google Maps navigation";
+"choose_navigation" = "Choose navigation";

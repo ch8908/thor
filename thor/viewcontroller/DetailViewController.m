@@ -3,6 +3,7 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
 #import "AbstractUIViewController.h"
 #import "DetailViewController.h"
 #import "CoffeeService.h"
@@ -12,7 +13,11 @@
 #import "CoffeeShop.h"
 #import "CoffeeShop+Strings.h"
 #import "NSString+Util.h"
+#import "ExternalApp.h"
 
+
+NSString *const LAUNCH_APPLE_MAP_DIRECTION_I18N_KEY = @"apple_map_navigation";
+NSString *const LAUNCH_GOOGLE_MAP_DIRECTION_I18N_KEY = @"google_map_navigation";
 
 enum
 {
@@ -25,11 +30,11 @@ enum
     ShopDetailTotalCount
 };
 
-@interface DetailViewController()<UITableViewDataSource, UITableViewDelegate>
-@property UIImageView *shopImageView;
-@property NSNumber *id;
-@property CoffeeShopDetail *coffeeShopDetail;
-@property UITableView *tableView;
+@interface DetailViewController()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, CLLocationManagerDelegate>
+@property (nonatomic, strong) UIImageView *shopImageView;
+@property (nonatomic, strong) NSNumber *id;
+@property (nonatomic, strong) CoffeeShopDetail *coffeeShopDetail;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation DetailViewController
@@ -89,7 +94,41 @@ enum
 
 - (void) navigateTo
 {
+    if (![ExternalApp supportGoogleMap])
+    {
+        [self launchNativeNavigation];
+        return;
+    }
 
+    NSString *appleMap = [I18N key:LAUNCH_APPLE_MAP_DIRECTION_I18N_KEY];
+    NSString *googleMap = [I18N key:LAUNCH_GOOGLE_MAP_DIRECTION_I18N_KEY];
+    NSString *cancel = [I18N key:@"cancel"];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                                 initWithTitle:[I18N key:@"choose_navigation"]
+                                                      delegate:self
+                                             cancelButtonTitle:cancel
+                                        destructiveButtonTitle:nil
+                                             otherButtonTitles:appleMap, googleMap, nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void) launchNativeNavigation
+{
+    CLLocationCoordinate2D toLocation = CLLocationCoordinate2DMake(self.coffeeShopDetail.coffeeShop.latitude, self.coffeeShopDetail.coffeeShop.longitude);
+    [ExternalApp openNativeNavigation:toLocation address:self.coffeeShopDetail.address];
+}
+
+- (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LAUNCH_APPLE_MAP_DIRECTION_I18N_KEY]])
+    {
+        [self launchNativeNavigation];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LAUNCH_GOOGLE_MAP_DIRECTION_I18N_KEY]])
+    {
+        CLLocationCoordinate2D toLocation = CLLocationCoordinate2DMake(self.coffeeShopDetail.coffeeShop.latitude, self.coffeeShopDetail.coffeeShop.longitude);
+        [ExternalApp openGoogleMapDirection:toLocation];
+    }
 }
 
 - (void) onLoadShopDetailSuccessNotification:(NSNotification *) notification
@@ -99,6 +138,11 @@ enum
 }
 
 - (void) onLoadShopDetailFailedNotification
+{
+
+}
+
+- (void) locationManager:(CLLocationManager *) manager didUpdateLocations:(NSArray *) locations
 {
 
 }

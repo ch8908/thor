@@ -56,6 +56,7 @@
 		23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
+		23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */; };
 		23D1ADAF7031590D64AE4C1A /* ThorUis.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A243DA38B16BA100F0C6 /* ThorUis.m */; };
 		23D1AE4499B34B0941E7FEA2 /* AbstractPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFE4F0985AEC60D83452 /* AbstractPref.m */; };
 		23D1AFB5453C919E0EE1499A /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A4636A449BF441538AD1 /* SettingController.m */; };
@@ -143,6 +144,7 @@
 		23D1A95738A865504909BF24 /* SubmitInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitInfo.h; sourceTree = "<group>"; };
 		23D1A9662F95D333D7E3D6B1 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
 		23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStateMachine.m; sourceTree = "<group>"; };
+		23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalApp.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
 		23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractUIViewController.h; sourceTree = "<group>"; };
 		23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
 		23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
+		23D1ACB703730537CED19AED /* ExternalApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalApp.h; sourceTree = "<group>"; };
 		23D1AD2FB23E68372C3FB2FC /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		23D1AD7599D1816C1FB154C7 /* LogingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogingState.m; sourceTree = "<group>"; };
 		23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 				1958469317C266C8004B8592 /* thorAppDelegate.m */,
 				1958468A17C266C8004B8592 /* Supporting Files */,
 				23D1A0213F5B3C9CE58B7C22 /* uis */,
+				23D1A75D601DACC98C2F6F82 /* external */,
 			);
 			path = thor;
 			sourceTree = "<group>";
@@ -405,6 +409,15 @@
 				23D1A251A54477874EEDE336 /* ThorUis.h */,
 			);
 			path = uis;
+			sourceTree = "<group>";
+		};
+		23D1A75D601DACC98C2F6F82 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */,
+				23D1ACB703730537CED19AED /* ExternalApp.h */,
+			);
+			path = external;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,6 +564,7 @@
 				23D1AFB5453C919E0EE1499A /* SettingController.m in Sources */,
 				23D1ADAF7031590D64AE4C1A /* ThorUis.m in Sources */,
 				23D1A49FEAC497E4D78696F3 /* DistancePickViewController.m in Sources */,
+				23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

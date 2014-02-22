@@ -28,6 +28,8 @@
 #import "Pref.h"
 
 
+NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
+
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UITableView *tableView;
@@ -298,7 +300,7 @@
 
 - (void) showLoginOption
 {
-    NSString *login = [I18N key:@"log_in_button_title"];
+    NSString *login = [I18N key:LOG_IN_I18N_KEY];
     NSString *cancel = [I18N key:@"cancel"];
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                                  initWithTitle:[I18N key:@"add_login_require_action_sheet_title"]
@@ -311,7 +313,7 @@
 
 - (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
 {
-    if (buttonIndex == 0)
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LOG_IN_I18N_KEY]])
     {
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
         [self.navigationController presentViewController:navigationController
@@ -367,7 +369,6 @@
     TRAnnotation *annotation = (TRAnnotation *) view.annotation;
     DetailViewController *controller = [[DetailViewController alloc] initDetailViewControllerWithId:annotation.id];
     [self.navigationController pushViewController:controller animated:YES];
-
 }
 
 - (void) mapView:(MKMapView *) mapView didSelectAnnotationView:(MKAnnotationView *) view
