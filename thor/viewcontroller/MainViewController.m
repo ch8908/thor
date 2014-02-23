@@ -26,6 +26,8 @@
 #import "UIColor+Constant.h"
 #import "RNGridMenu.h"
 #import "Pref.h"
+#import "TRFilterState.h"
+#import "CoffeeManager.h"
 
 
 NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
@@ -33,6 +35,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *filteredCoffeeShops;
 @property (nonatomic, strong) NSMutableArray *coffeeShops;
 @property (nonatomic, strong) NSMutableDictionary *annotations;
 @property (nonatomic, strong) UIButton *locateButton;
@@ -41,6 +44,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 @property (nonatomic, strong) UIButton *filterButton;
 @property (nonatomic, strong) UIButton *zoomInButton;
 @property (nonatomic, strong) UIButton *zoomOutButton;
+@property (nonatomic, strong) TRFilterState *filterState;
 @end
 
 @implementation MainViewController
@@ -106,6 +110,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
         [self.zoomOutButton addTarget:self action:@selector(zoomOut)
                      forControlEvents:UIControlEventTouchUpInside];
 
+        _filterState = [[TRFilterState alloc] init];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopSuccessNotification:)
                                                      name:LoadShopSuccessNotification object:nil];
 
@@ -122,6 +128,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    self.filteredCoffeeShops = [[NSMutableArray alloc] init];
     self.coffeeShops = [[NSMutableArray alloc] init];
     MMDrawerBarButtonItem *leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
                                                                                      style:UIBarButtonItemStylePlain
@@ -178,30 +185,64 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate distance:distance];
 }
 
+#pragma RNGridMenu delegate
+
 - (void) gridMenu:(RNGridMenu *) gridMenu willDismissWithSelectedItem:(RNGridMenuItem *) item atIndex:(NSInteger) itemIndex
 {
-    NSLog(@"Dismissed with item %d: %@", itemIndex, item.title);
+    if (itemIndex == 0)
+    {
+        self.filterState.needWifi = !self.filterState.needWifi;
+    }
+    else if (itemIndex == 1)
+    {
+        self.filterState.needPower = !self.filterState.needPower;
+    }
+
+    [self reloadFilteredCoffeeShops];
+}
+
+- (UIImage *) wifiItemImage
+{
+    CGRect rect = CGRectMake(0, 0, 20, 20);
+    if (self.filterState.needWifi)
+    {
+        return [UIImage imageWithRect:rect
+                                color:[UIColor whiteColor]];
+    }
+    return [UIImage imageWithRect:rect
+                            color:[UIColor grayColor]];
+}
+
+- (UIImage *) powerItemImage
+{
+    CGRect rect = CGRectMake(0, 0, 20, 20);
+    if (self.filterState.needPower)
+    {
+        return [UIImage imageWithRect:rect
+                                color:[UIColor whiteColor]];
+    }
+    return [UIImage imageWithRect:rect
+                            color:[UIColor grayColor]];
 }
 
 - (void) filter
 {
-    CGRect rect = CGRectMake(0, 0, 20, 20);
+    RNGridMenuItem *wifiItem = [[RNGridMenuItem alloc] initWithImage:[self wifiItemImage]
+                                                               title:@"Wifi"];
+
+    RNGridMenuItem *powerItem = [[RNGridMenuItem alloc] initWithImage:[self powerItemImage]
+                                                                title:@"Power"];
     NSArray *items = @[
-      [[RNGridMenuItem alloc] initWithImage:[UIImage imageWithRect:rect
-                                                             color:[UIColor whiteColor]]
-                                      title:@"Wifi"],
-      [[RNGridMenuItem alloc] initWithImage:[UIImage imageWithRect:rect
-                                                             color:[UIColor whiteColor]]
-                                      title:@"Power"]
+      wifiItem,
+      powerItem
     ];
 
     RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
     av.delegate = self;
     //    av.bounces = NO;
-    [av showInViewController:self.mm_drawerController.centerViewController
+    [av showInViewController:self.mm_drawerController
                       center:CGPointMake(self.view.bounds.size.width / 2.f, self.view.bounds.size.height / 2.f)];
 }
-
 
 - (void) zoomOut
 {
@@ -251,9 +292,19 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 - (void) onLoadShopSuccessNotification:(NSNotification *) notification
 {
     [self endRefreshShops];
-    self.coffeeShops = notification.object;
+    [self.coffeeShops removeAllObjects];
+    [self.coffeeShops addObjectsFromArray:notification.object];
+
+    [self reloadFilteredCoffeeShops];
+}
+
+- (void) reloadFilteredCoffeeShops
+{
+    [self.filteredCoffeeShops removeAllObjects];
+    [self.filteredCoffeeShops addObjectsFromArray:[[CoffeeManager sharedInstance] filterShops:self.coffeeShops
+                                                                                  filterState:self.filterState]];
     [self removeAllAnnotations];
-    [self showOnMap];
+    [self showCoffeeShopOnMap];
     [self.tableView reloadData];
 }
 
@@ -262,14 +313,14 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self.mapView removeAnnotations:[self.annotations allValues]];
 }
 
-- (void) showOnMap
+- (void) showCoffeeShopOnMap
 {
     if (self.annotations)
     {
         self.annotations = nil;
     }
     self.annotations = [[NSMutableDictionary alloc] init];
-    for (CoffeeShop *coffeeShop in self.coffeeShops)
+    for (CoffeeShop *coffeeShop in self.filteredCoffeeShops)
     {
         TRAnnotation *annotation = [[TRAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(coffeeShop.latitude, coffeeShop.longitude)
                                                                          id:coffeeShop.id
@@ -310,6 +361,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                                              otherButtonTitles:cancel, nil];
     [actionSheet showInView:self.view];
 }
+
+#pragma Action Sheet delegete
 
 - (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
 {
@@ -390,7 +443,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 {
     NSNumber *id = annotation.id;
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    CoffeeShop *selectedShop = self.coffeeShops[(NSUInteger) selectedIndexPath.row];
+    CoffeeShop *selectedShop = self.filteredCoffeeShops[(NSUInteger) selectedIndexPath.row];
 
     if ([selectedShop.id isEqualToNumber:id])
     {
@@ -398,9 +451,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     }
 
     NSInteger index = -1;
-    for (NSUInteger i = 0; i < self.coffeeShops.count; i++)
+    for (NSUInteger i = 0; i < self.filteredCoffeeShops.count; i++)
     {
-        CoffeeShop *shop = self.coffeeShops[i];
+        CoffeeShop *shop = self.filteredCoffeeShops[i];
         if ([shop.id isEqualToNumber:id])
         {
             index = i;
@@ -419,9 +472,11 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                           scrollPosition:UITableViewScrollPositionMiddle];
 }
 
+#pragma Table View delegate
+
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
-    return self.coffeeShops.count;
+    return self.filteredCoffeeShops.count;
 }
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
@@ -436,7 +491,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                                       reuseIdentifier:CellIdentifier];
     }
 
-    CoffeeShop *coffeeShop = self.coffeeShops[(NSUInteger) indexPath.row];
+    CoffeeShop *coffeeShop = self.filteredCoffeeShops[(NSUInteger) indexPath.row];
     cell.textLabel.text = coffeeShop.name;
     cell.detailTextLabel.text = [coffeeShop distanceStringWithCenter:self.mapView.userLocation.coordinate];
     return cell;
@@ -444,7 +499,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    CoffeeShop *shop = self.coffeeShops[(NSUInteger) indexPath.row];
+    CoffeeShop *shop = self.filteredCoffeeShops[(NSUInteger) indexPath.row];
     [self openAnnotationWithShop:shop];
 }
 

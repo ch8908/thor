@@ -4,6 +4,8 @@
 //
 
 #import "CoffeeManager.h"
+#import "TRFilterState.h"
+#import "CoffeeShop.h"
 
 
 @implementation CoffeeManager
@@ -30,4 +32,27 @@
     return self;
 }
 
+- (NSArray *) filterShops:(NSArray *) shops filterState:(TRFilterState *) filterState
+{
+    NSMutableArray *filteredResult = [NSMutableArray array];
+    for (CoffeeShop *shop in shops)
+    {
+        BOOL wifiCheck = YES;
+        BOOL powerCheck = YES;
+        if (filterState.needWifi && !shop.wifiFree)
+        {
+            wifiCheck = NO;
+        }
+
+        if (filterState.needPower && !shop.powerOutlet)
+        {
+            powerCheck = NO;
+        }
+        if (wifiCheck && powerCheck)
+        {
+            [filteredResult addObject:shop];
+        }
+    }
+    return [filteredResult copy];
+}
 @end

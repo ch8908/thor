@@ -11,10 +11,10 @@
 #import "DistancePickViewController.h"
 
 
-enum
+typedef NS_ENUM(NSInteger, TRSettingItem)
 {
-    SearchDistance = 0,
-    TotalSettingCount
+    TRSearchDistance = 0,
+    TRTotalSettingCount
 };
 
 @interface SettingController()<UITableViewDelegate, UITableViewDataSource>
@@ -70,7 +70,7 @@ enum
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
-    return TotalSettingCount;
+    return TRTotalSettingCount;
 }
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
@@ -87,7 +87,7 @@ enum
 
     switch (indexPath.row)
     {
-        case SearchDistance:
+        case TRSearchDistance:
         {
             cell.textLabel.text = [I18N key:@"search_distance_title"];
             NSNumber *number = [[[Pref sharedInstance] searchDistance] getNumber];

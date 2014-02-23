@@ -5,7 +5,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class TRFilterState;
+
 @interface CoffeeManager : NSObject
 + (id) sharedInstance;
 
+- (NSArray *) filterShops:(NSArray *) array filterState:(TRFilterState *) filterState;
 @end
