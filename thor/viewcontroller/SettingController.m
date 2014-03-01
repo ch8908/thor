@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     if (self)
     {
         self.view.backgroundColor = [UIColor whiteColor];
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
     }
