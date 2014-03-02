@@ -312,8 +312,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 - (void) reloadFilteredCoffeeShops
 {
     [self.filteredCoffeeShops removeAllObjects];
-    [self.filteredCoffeeShops addObjectsFromArray:[[CoffeeManager sharedInstance] filterShops:self.coffeeShops
-                                                                                  filterState:self.filterState]];
+    [self.filteredCoffeeShops addObjectsFromArray:[[CoffeeManager sharedInstance] allShops:self.coffeeShops
+                                                                               filterState:self.filterState]];
     [self removeAllAnnotations];
     [self showCoffeeShopOnMap];
     [self.tableView reloadData];

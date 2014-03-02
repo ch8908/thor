@@ -10,5 +10,5 @@
 @interface CoffeeManager : NSObject
 + (id) sharedInstance;
 
-- (NSArray *) filterShops:(NSArray *) array filterState:(TRFilterState *) filterState;
+- (NSArray *) allShops:(NSArray *) array filterState:(TRFilterState *) filterState;
 @end

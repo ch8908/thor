@@ -32,7 +32,7 @@
     return self;
 }
 
-- (NSArray *) filterShops:(NSArray *) shops filterState:(TRFilterState *) filterState
+- (NSArray *) allShops:(NSArray *) shops filterState:(TRFilterState *) filterState
 {
     NSMutableArray *filteredResult = [NSMutableArray array];
     for (CoffeeShop *shop in shops)
@@ -55,4 +55,5 @@
     }
     return [filteredResult copy];
 }
+
 @end
