@@ -28,6 +28,7 @@
 #import "Pref.h"
 #import "TRFilterState.h"
 #import "CoffeeManager.h"
+#import "System.h"
 
 
 NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
@@ -56,7 +57,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     {
         [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
 
-        _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
+        _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
         self.mapView.delegate = self;
         self.mapView.showsUserLocation = YES;
 
@@ -78,6 +79,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
         self.tableViewController.tableView.delegate = self;
         self.tableViewController.tableView.dataSource = self;
         _tableView = self.tableViewController.tableView;
+        self.tableView.backgroundView = nil;
+        self.tableView.backgroundColor = [UIColor clearColor];
 
         _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.filterButton setTitle:[I18N key:@"filter_button_title"] forState:UIControlStateNormal];
@@ -145,17 +148,22 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    CGFloat mapHeight = 280;
-    if ([Views screenHeight] > 480)
+
+    CGFloat tableViewY = 280;
+    if ([Views screenHeight] > SCREEN_HEIGHT_3_5_INCH)
     {
-        mapHeight = 320;
+        tableViewY = 320;
     }
-    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, mapHeight)];
 
     [Views resize:self.tableView
-    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - self.mapView.bounds.size.height - self.bottomBarOffset)];
+    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - tableViewY - self.bottomBarOffset)];
 
-    [Views locate:self.tableView y:[Views bottomOf:self.mapView]];
+    UIToolbar *blurBg = [[UIToolbar alloc] initWithFrame:self.tableView.bounds];
+    blurBg.translucent = YES;
+    blurBg.barStyle = UIBarStyleDefault;
+    self.tableView.backgroundView = blurBg;
+
+    [Views locate:self.tableView y:tableViewY];
 
     [self.locateButton sizeToFit];
     [Views locate:self.locateButton x:5 y:[Views bottomOf:self.mapView] - self.locateButton.bounds.size.height - 5];
@@ -240,7 +248,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
     av.delegate = self;
     //    av.bounces = NO;
-    [av showInViewController:self.mm_drawerController
+    [av showInViewController:self.navigationController
                       center:CGPointMake(self.view.bounds.size.width / 2.f, self.view.bounds.size.height / 2.f)];
 }
 
@@ -384,7 +392,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     mapRegion.center = userLocation.coordinate;
     mapRegion.span.latitudeDelta = 0.01;
     mapRegion.span.longitudeDelta = 0.01;
-    [self.mapView setRegion:mapRegion animated:YES];
+
+    [self setOffsetRegion:mapRegion];
+
     self.initUserLocation = YES;
     [self listCoffeeShopsWithCoordinate:userLocation.coordinate];
 }
@@ -489,6 +499,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
+        cell.backgroundView = nil;
+        cell.backgroundColor = [UIColor clearColor];
     }
 
     CoffeeShop *coffeeShop = self.filteredCoffeeShops[(NSUInteger) indexPath.row];
@@ -518,6 +530,12 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     mapRegion.center = self.mapView.userLocation.coordinate;
     mapRegion.span.latitudeDelta = 0.01;
     mapRegion.span.longitudeDelta = 0.01;
+    [self setOffsetRegion:mapRegion];
+}
+
+- (void) setOffsetRegion:(MKCoordinateRegion) mapRegion
+{
+    mapRegion.center.latitude -= mapRegion.span.latitudeDelta * 0.30;
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
@@ -528,7 +546,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     mapRegion.center = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
     mapRegion.span.latitudeDelta = currentSpan.latitudeDelta < 0.01 ? currentSpan.latitudeDelta : 0.01;
     mapRegion.span.longitudeDelta = currentSpan.longitudeDelta < 0.01 ? currentSpan.longitudeDelta : 0.01;
-    [self.mapView setRegion:mapRegion animated:YES];
+
+    [self setOffsetRegion:mapRegion];
 }
 
 @end

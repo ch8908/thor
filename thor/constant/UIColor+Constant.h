@@ -21,4 +21,6 @@
 + (UIColor *) filterButtonBgColorNormal;
 
 + (UIColor *) filterButtonBgColorHighlighted;
+
++ (UIColor *) transparentBgColor;
 @end

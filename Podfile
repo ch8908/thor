@@ -6,7 +6,6 @@ pod 'Mixpanel'
 pod 'Facebook-iOS-SDK', '~> 3.11.0'
 pod 'CrittercismSDK'
 pod 'MMDrawerController'
-pod 'RNGridMenu', '~> 0.1.3'
 target :Tests do
   pod 'GHUnit'
 end

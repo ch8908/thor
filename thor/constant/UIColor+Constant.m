@@ -48,4 +48,10 @@
 {
     return [UIColor hexARGB:0xFF00DC71];
 }
+
++ (UIColor *) transparentBgColor
+{
+    return [UIColor hexARGB:0xFF87B8EB];
+}
+
 @end

@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 
 
+static const CGFloat SCREEN_HEIGHT_3_5_INCH = 480;
+
 @interface System : NSObject
 + (BOOL) isMinimumiOS7;
 
