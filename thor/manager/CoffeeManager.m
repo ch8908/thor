@@ -8,12 +8,10 @@
 #import "TRFilterState.h"
 #import "CoffeeShop.h"
 #import "BFTaskCompletionSource.h"
-#import "BFTask.h"
 
 
 @interface CoffeeManager()
 @property (nonatomic, strong) dispatch_queue_t queue;
-
 @end
 
 @implementation CoffeeManager
@@ -35,7 +33,7 @@
     self = [super init];
     if (self)
     {
-        _queue = dispatch_queue_create("com.osolve.thor", NULL);
+        _queue = dispatch_queue_create("com.osolve.thor.manager", NULL);
     }
     return self;
 }

@@ -7,6 +7,7 @@
 #import <Foundation/Foundation.h>
 
 @class SubmitInfo;
+@class BFTask;
 
 extern NSString *LoadShopFailedNotification;
 extern NSString *LoadShopSuccessNotification;
@@ -35,4 +36,6 @@ extern NSString *AddShopFailedNotification;
 - (void) signInWithEmail:(NSString *) email password:(NSString *) password;
 
 - (void) submitShopInfo:(SubmitInfo *) info;
+
+- (BFTask *) decodeShops:(id) object;
 @end

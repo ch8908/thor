@@ -4,6 +4,9 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
+#import <Bolts/BFTask.h>
+#import <Bolts/BFTaskCompletionSource.h>
+#import <Bolts/BFExecutor.h>
 #import "CoffeeService.h"
 #import "CoffeeShop.h"
 #import "JSONKit.h"
@@ -69,22 +72,24 @@ static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
     [params setObject:[NSNumber numberWithInt:500] forKey:@"per_page"];
     [params setObject:[NSNumber numberWithInt:1] forKey:@"page"];
 
-    NSMutableArray *coffeeShops = [[NSMutableArray alloc] init];
-
     self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
+    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }];
+
+    __weak CoffeeService *preventCircularRef = self;
     [self.manager GET:urlString parameters:params
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
-                                                                   encoding:NSUTF8StringEncoding];
-                  NSArray *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-                  for (NSDictionary *item in jsonDic)
-                  {
-                      CoffeeShop *shop = [CoffeeShop map:item];
-                      [coffeeShops addObject:shop];
-                  }
-                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopSuccessNotification
-                                                                      object:coffeeShops];
+
+                  [[preventCircularRef decodeShops:responseObject]
+                                       continueWithExecutor:myExecutor
+                                                  withBlock:^id(BFTask *task) {
+                                                      [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopSuccessNotification
+                                                                                                          object:task.result];
+                                                      return nil;
+                                                  }];
+
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -93,28 +98,67 @@ static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
               }];
 }
 
+- (BFTask *) decodeShops:(id) responseObject
+{
+    BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *coffeeShops = [[NSMutableArray alloc] init];
+
+        NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
+                                                         encoding:NSUTF8StringEncoding];
+        NSArray *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+        for (NSDictionary *item in jsonDic)
+        {
+            CoffeeShop *shop = [CoffeeShop map:item];
+            [coffeeShops addObject:shop];
+        }
+        [completionSource setResult:[coffeeShops copy]];
+    });
+    return completionSource.task;
+}
+
 - (void) fetchDetailWithShopId:(NSNumber *) number
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@", BASE_API_URL, @"/shops/", number];
 
     self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
+    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }];
+
+    __weak CoffeeService *preventCircularRef = self;
     [self.manager GET:urlString parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
-                                                                   encoding:NSUTF8StringEncoding];
-                  NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-
-                  CoffeeShopDetail *detail = [CoffeeShopDetail map:jsonDic];
-
-                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailSuccessNotification
-                                                                      object:detail];
+                  [[preventCircularRef decodeDetail:responseObject]
+                                       continueWithExecutor:myExecutor
+                                                  withBlock:^id(BFTask *task) {
+                                                      [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailSuccessNotification
+                                                                                                          object:task.result];
+                                                      return nil;
+                                                  }];
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   NSLog(@">>>>> fetchDetailWithShopId request failed");
                   [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailFailedNotification
                                                                       object:nil];
               }];
+}
+
+- (BFTask *) decodeDetail:(id) responseObject
+{
+    BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
+                                                         encoding:NSUTF8StringEncoding];
+        NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+
+        CoffeeShopDetail *detail = [CoffeeShopDetail map:jsonDic];
+        [completionSource setResult:detail];
+    });
+    return completionSource.task;
 }
 
 - (void) resisterWithParams:(NSDictionary *) dictionary
