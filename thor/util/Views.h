@@ -35,7 +35,7 @@ extern CGFloat const VIEWS_PAGE_CONTROL_HEIGHT;
 
 + (void) alignCenter:(UIView *) target containerWidth:(CGFloat) containerWidth;
 
-+ (void) alignCenterMiddle:(UIView *) target containerFrame:(CGRect) frameRect;
++ (void) alignCenterMiddle:(UIView *) target containerFrame:(CGRect) containerFrame;
 
 + (void) alignMiddle:(UIView *) target containerHeight:(CGFloat) containerHeight;
 
@@ -57,4 +57,19 @@ extern CGFloat const VIEWS_PAGE_CONTROL_HEIGHT;
 
 + (void) alignCenter:(UIView *) source withTarget:(UIView *) target;
 
++ (CGFloat) yOfView:(UIView *) view;
+
++ (CGFloat) xOfView:(UIView *) view;
+
++ (CGFloat) heightOfView:(UIView *) view;
+
++ (CGFloat) widthOfView:(UIView *) view;
+
++ (CGFloat) yOfRect:(CGRect) frame;
+
++ (CGFloat) xOfRect:(CGRect) frame;
+
++ (CGFloat) heightOfRect:(CGRect) frame;
+
++ (CGFloat) widthOfRect:(CGRect) frame;
 @end
