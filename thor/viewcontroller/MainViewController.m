@@ -149,6 +149,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 {
     [super viewDidLayoutSubviews];
 
+    // for different screen
     CGFloat tableViewY = 280;
     if ([Views screenHeight] > SCREEN_HEIGHT_3_5_INCH)
     {
@@ -156,7 +157,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     }
 
     [Views resize:self.tableView
-    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - tableViewY - self.bottomBarOffset)];
+    containerSize:CGSizeMake([Views widthOfView:self.view], [Views heightOfView:self.view] - tableViewY - self.bottomBarOffset)];
 
     UIToolbar *blurBg = [[UIToolbar alloc] initWithFrame:self.tableView.bounds];
     blurBg.translucent = YES;
@@ -166,18 +167,20 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [Views locate:self.tableView y:tableViewY];
 
     [self.locateButton sizeToFit];
-    [Views locate:self.locateButton x:5 y:[Views bottomOf:self.mapView] - self.locateButton.bounds.size.height - 5];
+    [Views locate:self.locateButton x:5
+                y:[Views yOfView:self.tableView] - [Views heightOfView:self.locateButton] - 5];
 
     self.filterButton.titleLabel.font = [UIFont systemFontOfSize:26];
     [self.filterButton sizeToFit];
-    [Views locate:self.filterButton x:self.mapView.bounds.size.width - self.filterButton.bounds.size.width - 5
-                y:[Views bottomOf:self.mapView] - self.filterButton.bounds.size.height - 5];
 
-    [Views locate:self.zoomOutButton x:self.view.bounds.size.width - self.zoomInButton.bounds.size.width - 10
-                y:self.filterButton.frame.origin.y - self.zoomOutButton.bounds.size.height];
+    [Views locate:self.filterButton x:[Views widthOfView:self.mapView] - [Views widthOfView:self.filterButton] - 5
+                y:[Views yOfView:self.tableView] - [Views heightOfView:self.filterButton] - 5];
 
-    [Views locate:self.zoomInButton x:self.zoomOutButton.frame.origin.x
-                y:self.zoomOutButton.frame.origin.y - self.zoomInButton.bounds.size.height - 5];
+    [Views locate:self.zoomOutButton x:[Views widthOfView:self.view] - [Views widthOfView:self.zoomInButton] - 10
+                y:[Views yOfView:self.filterButton] - [Views heightOfView:self.zoomOutButton]];
+
+    [Views locate:self.zoomInButton x:[Views xOfView:self.zoomOutButton]
+                y:[Views yOfView:self.zoomOutButton] - [Views heightOfView:self.zoomInButton] - 5];
 
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
@@ -249,7 +252,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     av.delegate = self;
     //    av.bounces = NO;
     [av showInViewController:self.navigationController
-                      center:CGPointMake(self.view.bounds.size.width / 2.f, self.view.bounds.size.height / 2.f)];
+                      center:CGPointMake([Views widthOfView:self.view] / 2.f, [Views heightOfView:self.view] / 2.f)];
 }
 
 - (void) zoomOut
