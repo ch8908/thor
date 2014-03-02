@@ -6,9 +6,10 @@
 #import <Foundation/Foundation.h>
 
 @class TRFilterState;
+@class BFTask;
 
 @interface CoffeeManager : NSObject
 + (id) sharedInstance;
 
-- (NSArray *) allShops:(NSArray *) array filterState:(TRFilterState *) filterState;
+- (BFTask *) allShops:(NSArray *) array filterState:(TRFilterState *) filterState;
 @end

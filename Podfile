@@ -6,6 +6,7 @@ pod 'Mixpanel'
 pod 'Facebook-iOS-SDK', '~> 3.11.0'
 pod 'CrittercismSDK'
 pod 'MMDrawerController'
+pod 'Bolts'
 target :Tests do
   pod 'GHUnit'
 end

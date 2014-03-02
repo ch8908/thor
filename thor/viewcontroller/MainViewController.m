@@ -8,6 +8,7 @@
 
 #import <MapKit/MapKit.h>
 #import <MMDrawerController/MMDrawerController.h>
+#import <Bolts/BFTask.h>
 #import "MainViewController.h"
 #import "I18N.h"
 #import "CoffeeShop.h"
@@ -29,6 +30,7 @@
 #import "TRFilterState.h"
 #import "CoffeeManager.h"
 #import "System.h"
+#import "BFExecutor.h"
 
 
 NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
@@ -311,12 +313,21 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
 - (void) reloadFilteredCoffeeShops
 {
-    [self.filteredCoffeeShops removeAllObjects];
-    [self.filteredCoffeeShops addObjectsFromArray:[[CoffeeManager sharedInstance] allShops:self.coffeeShops
-                                                                               filterState:self.filterState]];
-    [self removeAllAnnotations];
-    [self showCoffeeShopOnMap];
-    [self.tableView reloadData];
+    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }];
+
+    [[[CoffeeManager sharedInstance] allShops:self.coffeeShops
+                                  filterState:self.filterState]
+                     continueWithExecutor:myExecutor
+                                withBlock:^id(BFTask *task) {
+                                    [self.filteredCoffeeShops removeAllObjects];
+                                    [self.filteredCoffeeShops addObjectsFromArray:task.result];
+                                    [self removeAllAnnotations];
+                                    [self showCoffeeShopOnMap];
+                                    [self.tableView reloadData];
+                                    return nil;
+                                }];
 }
 
 - (void) removeAllAnnotations

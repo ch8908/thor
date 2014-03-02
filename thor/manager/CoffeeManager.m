@@ -3,10 +3,18 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import <Bolts/BFTask.h>
 #import "CoffeeManager.h"
 #import "TRFilterState.h"
 #import "CoffeeShop.h"
+#import "BFTaskCompletionSource.h"
+#import "BFTask.h"
 
+
+@interface CoffeeManager()
+@property (nonatomic, strong) dispatch_queue_t queue;
+
+@end
 
 @implementation CoffeeManager
 
@@ -27,33 +35,39 @@
     self = [super init];
     if (self)
     {
-
+        _queue = dispatch_queue_create("com.osolve.thor", NULL);
     }
     return self;
 }
 
-- (NSArray *) allShops:(NSArray *) shops filterState:(TRFilterState *) filterState
+- (BFTask *) allShops:(NSArray *) shops filterState:(TRFilterState *) filterState
 {
-    NSMutableArray *filteredResult = [NSMutableArray array];
-    for (CoffeeShop *shop in shops)
-    {
-        BOOL wifiCheck = YES;
-        BOOL powerCheck = YES;
-        if (filterState.needWifi && !shop.wifiFree)
-        {
-            wifiCheck = NO;
-        }
+    BFTaskCompletionSource *completer = [BFTaskCompletionSource taskCompletionSource];
 
-        if (filterState.needPower && !shop.powerOutlet)
+    dispatch_async(self.queue, ^{
+        NSMutableArray *filteredResult = [NSMutableArray array];
+        for (CoffeeShop *shop in shops)
         {
-            powerCheck = NO;
+            BOOL wifiCheck = YES;
+            BOOL powerCheck = YES;
+            if (filterState.needWifi && !shop.wifiFree)
+            {
+                wifiCheck = NO;
+            }
+
+            if (filterState.needPower && !shop.powerOutlet)
+            {
+                powerCheck = NO;
+            }
+            if (wifiCheck && powerCheck)
+            {
+                [filteredResult addObject:shop];
+            }
         }
-        if (wifiCheck && powerCheck)
-        {
-            [filteredResult addObject:shop];
-        }
-    }
-    return [filteredResult copy];
+        [completer setResult:[filteredResult copy]];
+    });
+
+    return completer.task;
 }
 
 @end

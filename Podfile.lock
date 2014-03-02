@@ -17,6 +17,7 @@ PODS:
   - AFNetworking/Serialization (2.1.0)
   - AFNetworking/UIKit (2.1.0):
     - AFNetworking/NSURLConnection
+  - Bolts (1.0.0)
   - CrittercismSDK (4.3.1)
   - Facebook-iOS-SDK (3.11.1)
   - GHUnit (0.5.9)
@@ -38,6 +39,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - Bolts
   - CrittercismSDK
   - Facebook-iOS-SDK (~> 3.11.0)
   - GHUnit
@@ -48,6 +50,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
   CrittercismSDK: 3b4eefdb985e08702836e2a0d234e4d117e3116c
   Facebook-iOS-SDK: 42a1de39170b858d675c2453d8aace55c51be2bb
   GHUnit: 2f3ea0192633e92afaef959476a8d28db179797d
