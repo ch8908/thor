@@ -35,8 +35,6 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor loginViewBgColor];
-
         _signInWithFacebookButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _signInWithTwitterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _signUpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -84,6 +82,9 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor loginViewBgColor];
+
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                   target:self
                                                                                   action:@selector(onCancel)];

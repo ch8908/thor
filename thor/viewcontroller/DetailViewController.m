@@ -44,9 +44,7 @@ enum
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
         _id = id;
-        [[CoffeeService sharedInstance] fetchDetailWithShopId:id];
 
         _shopImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/image_placeholder.png"]];
         self.shopImageView.clipsToBounds = YES;
@@ -70,6 +68,10 @@ enum
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    [[CoffeeService sharedInstance] fetchDetailWithShopId:self.id];
 
     UIBarButtonItem *navigateButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"navigate_to_title"]
                                                                        style:UIBarButtonItemStylePlain

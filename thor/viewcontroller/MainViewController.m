@@ -444,7 +444,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
         return;
     }
     TRAnnotation *annotation = (TRAnnotation *) view.annotation;
-    DetailViewController *controller = [[DetailViewController alloc] initDetailViewControllerWithId:annotation.id];
+    DetailViewController *detailViewController = [[DetailViewController alloc] initDetailViewControllerWithId:annotation.id];
+    DetailViewController *controller = detailViewController;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
