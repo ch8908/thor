@@ -4,6 +4,8 @@
 //
 
 #import <MapKit/MapKit.h>
+#import <Bolts/BFTask.h>
+#import <Bolts/BFExecutor.h>
 #import "AbstractUIViewController.h"
 #import "DetailViewController.h"
 #import "CoffeeService.h"
@@ -35,6 +37,7 @@ enum
 @property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) CoffeeShopDetail *coffeeShopDetail;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) BFTask *fetchTask;
 @end
 
 @implementation DetailViewController
@@ -55,11 +58,6 @@ enum
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopDetailSuccessNotification:)
-                                                     name:LoadShopDetailSuccessNotification object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopDetailFailedNotification)
-                                                     name:LoadShopDetailFailedNotification object:nil];
     }
 
     return self;
@@ -71,13 +69,34 @@ enum
 
     self.view.backgroundColor = [UIColor whiteColor];
 
-    [[CoffeeService sharedInstance] fetchDetailWithShopId:self.id];
-
     UIBarButtonItem *navigateButton = [[UIBarButtonItem alloc] initWithTitle:[I18N key:@"navigate_to_title"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(navigateTo)];
     [self.navigationItem setRightBarButtonItem:navigateButton];
+
+    __weak DetailViewController *preventCircularRef = self;
+
+    self.fetchTask = [[CoffeeService sharedInstance] fetchDetailWithShopId:self.id];
+    [self.fetchTask
+      continueWithExecutor:[BFExecutor mainThreadExecutor]
+                 withBlock:^id(BFTask *task) {
+                     preventCircularRef.fetchTask = nil;
+                     if (task.error)
+                     {
+                         NSLog(@">>>>> error");
+                         return nil;
+                     }
+                     if (task.isCancelled)
+                     {
+                         NSLog(@">>>>> isCancelled");
+                         return nil;
+                     }
+                     NSLog(@">>>>> success2");
+                     preventCircularRef.coffeeShopDetail = task.result;
+                     [preventCircularRef.tableView reloadData];
+                     return nil;
+                 }];
 }
 
 - (void) viewDidLayoutSubviews
@@ -131,22 +150,6 @@ enum
         CLLocationCoordinate2D toLocation = CLLocationCoordinate2DMake(self.coffeeShopDetail.coffeeShop.latitude, self.coffeeShopDetail.coffeeShop.longitude);
         [ExternalApp openGoogleMapDirection:toLocation];
     }
-}
-
-- (void) onLoadShopDetailSuccessNotification:(NSNotification *) notification
-{
-    self.coffeeShopDetail = notification.object;
-    [self.tableView reloadData];
-}
-
-- (void) onLoadShopDetailFailedNotification
-{
-
-}
-
-- (void) locationManager:(CLLocationManager *) manager didUpdateLocations:(NSArray *) locations
-{
-
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section

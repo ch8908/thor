@@ -9,12 +9,6 @@
 @class SubmitInfo;
 @class BFTask;
 
-extern NSString *LoadShopFailedNotification;
-extern NSString *LoadShopSuccessNotification;
-
-extern NSString *LoadShopDetailSuccessNotification;
-extern NSString *LoadShopDetailFailedNotification;
-
 extern NSString *RegisterSuccessNotification;
 extern NSString *RegisterFailedNotification;
 
@@ -27,9 +21,9 @@ extern NSString *AddShopFailedNotification;
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
 
-- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance;
+- (BFTask *) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance;
 
-- (void) fetchDetailWithShopId:(NSNumber *) number;
+- (BFTask *) fetchDetailWithShopId:(NSNumber *) number;
 
 - (void) resisterWithParams:(NSDictionary *) dictionary;
 

@@ -35,7 +35,7 @@
 
 NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
-@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
+@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate, UISearchBarDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *filteredCoffeeShops;
@@ -48,6 +48,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 @property (nonatomic, strong) UIButton *zoomInButton;
 @property (nonatomic, strong) UIButton *zoomOutButton;
 @property (nonatomic, strong) TRFilterState *filterState;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @end
 
 @implementation MainViewController
@@ -57,8 +58,6 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
-
         _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
         self.mapView.delegate = self;
         self.mapView.showsUserLocation = YES;
@@ -117,11 +116,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
         _filterState = [[TRFilterState alloc] init];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopSuccessNotification:)
-                                                     name:LoadShopSuccessNotification object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadShopFailedNotification)
-                                                     name:LoadShopFailedNotification object:nil];
+        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, [Views widthOfView:self.view], 50)];
+        self.searchBar.translucent = YES;
+        self.searchBar.delegate = self;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
                                                      name:SearchDistanceChangedNotification object:nil];
@@ -133,6 +130,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
+
     self.filteredCoffeeShops = [[NSMutableArray alloc] init];
     self.coffeeShops = [[NSMutableArray alloc] init];
     MMDrawerBarButtonItem *leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
@@ -184,12 +184,15 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [Views locate:self.zoomInButton x:[Views xOfView:self.zoomOutButton]
                 y:[Views yOfView:self.zoomOutButton] - [Views heightOfView:self.zoomInButton] - 5];
 
+    [Views locate:self.searchBar x:0 y:self.topBarOffset];
+
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.locateButton];
     [self.view addSubview:self.filterButton];
     [self.view addSubview:self.zoomInButton];
     [self.view addSubview:self.zoomOutButton];
+    [self.view addSubview:self.searchBar];
 }
 
 - (void) onSearchDistanceChangedNotification:(NSNotification *) notification
@@ -275,7 +278,32 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate distance:(NSNumber *) distance
 {
-    [[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance];
+    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }];
+
+    __weak MainViewController *preventCircularRef = self;
+    [[[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance]
+                     continueWithExecutor:myExecutor
+                                withBlock:^id(BFTask *task) {
+                                    if (task.error)
+                                    {
+                                        [preventCircularRef endRefreshShops];
+                                        return nil;
+                                    }
+                                    if (task.isCancelled)
+                                    {
+                                        [preventCircularRef endRefreshShops];
+                                        return nil;
+                                    }
+
+                                    [preventCircularRef endRefreshShops];
+                                    [preventCircularRef.coffeeShops removeAllObjects];
+                                    [preventCircularRef.coffeeShops addObjectsFromArray:task.result];
+
+                                    [preventCircularRef reloadFilteredCoffeeShops];
+                                    return nil;
+                                }];
 }
 
 - (void) onRefreshShops
@@ -297,29 +325,11 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self.tableViewController.refreshControl endRefreshing];
 }
 
-- (void) onLoadShopFailedNotification
-{
-    [self endRefreshShops];
-}
-
-- (void) onLoadShopSuccessNotification:(NSNotification *) notification
-{
-    [self endRefreshShops];
-    [self.coffeeShops removeAllObjects];
-    [self.coffeeShops addObjectsFromArray:notification.object];
-
-    [self reloadFilteredCoffeeShops];
-}
-
 - (void) reloadFilteredCoffeeShops
 {
-    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
-        dispatch_async(dispatch_get_main_queue(), block);
-    }];
-
     [[[CoffeeManager sharedInstance] allShops:self.coffeeShops
                                   filterState:self.filterState]
-                     continueWithExecutor:myExecutor
+                     continueWithExecutor:[BFExecutor mainThreadExecutor]
                                 withBlock:^id(BFTask *task) {
                                     [self.filteredCoffeeShops removeAllObjects];
                                     [self.filteredCoffeeShops addObjectsFromArray:task.result];
@@ -563,6 +573,12 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     mapRegion.span.longitudeDelta = currentSpan.longitudeDelta < 0.01 ? currentSpan.longitudeDelta : 0.01;
 
     [self setOffsetRegion:mapRegion];
+}
+
+#pragma SearchBar delegate
+- (void) searchBarTextDidBeginEditing:(UISearchBar *) searchBar
+{
+    [self.searchDisplayController setActive:YES animated:YES];
 }
 
 @end

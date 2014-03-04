@@ -16,12 +16,6 @@
 #import "SubmitInfo.h"
 #import "LogStateMachine.h"
 
-NSString *LoadShopFailedNotification = @"LoadShopFailedNotification";
-NSString *LoadShopSuccessNotification = @"LoadShopSuccessNotification";
-
-NSString *LoadShopDetailSuccessNotification = @"LoadShopDetailSuccessNotification";
-NSString *LoadShopDetailFailedNotification = @"LoadShopDetailFailedNotification";
-
 NSString *SignInSuccessNotification = @"SignInSuccessNotification";
 NSString *SignInFailedNotification = @"SignInFailedNotification";
 
@@ -61,7 +55,25 @@ static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
     return self;
 }
 
-- (void) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance
+- (BFTask *) afNetworkingGet:(NSString *) urlString parameters:(NSDictionary *) params
+{
+    BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager GET:urlString parameters:params
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             [completionSource setResult:responseObject];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [completionSource setError:error];
+         }];
+
+    return completionSource.task;
+}
+
+- (BFTask *) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/near"];
 
@@ -72,30 +84,10 @@ static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
     [params setObject:[NSNumber numberWithInt:500] forKey:@"per_page"];
     [params setObject:[NSNumber numberWithInt:1] forKey:@"page"];
 
-    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
-    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
-        dispatch_async(dispatch_get_main_queue(), block);
-    }];
-
     __weak CoffeeService *preventCircularRef = self;
-    [self.manager GET:urlString parameters:params
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-                  [[preventCircularRef decodeShops:responseObject]
-                                       continueWithExecutor:myExecutor
-                                                  withBlock:^id(BFTask *task) {
-                                                      [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopSuccessNotification
-                                                                                                          object:task.result];
-                                                      return nil;
-                                                  }];
-
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-                  NSLog(@">>>>> request failed:%@", error.localizedDescription);
-                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopFailedNotification object:nil];
-              }];
+    return [[self afNetworkingGet:urlString parameters:params] continueWithSuccessBlock:^id(BFTask *task) {
+        return [preventCircularRef decodeShops:task.result];
+    }];
 }
 
 - (BFTask *) decodeShops:(id) responseObject
@@ -118,32 +110,15 @@ static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
     return completionSource.task;
 }
 
-- (void) fetchDetailWithShopId:(NSNumber *) number
+- (BFTask *) fetchDetailWithShopId:(NSNumber *) number
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@", BASE_API_URL, @"/shops/", number];
 
-    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
-    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
-        dispatch_async(dispatch_get_main_queue(), block);
-    }];
-
     __weak CoffeeService *preventCircularRef = self;
-    [self.manager GET:urlString parameters:nil
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  [[preventCircularRef decodeDetail:responseObject]
-                                       continueWithExecutor:myExecutor
-                                                  withBlock:^id(BFTask *task) {
-                                                      [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailSuccessNotification
-                                                                                                          object:task.result];
-                                                      return nil;
-                                                  }];
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@">>>>> fetchDetailWithShopId request failed");
-                  [[NSNotificationCenter defaultCenter] postNotificationName:LoadShopDetailFailedNotification
-                                                                      object:nil];
-              }];
+
+    return [[self afNetworkingGet:urlString parameters:nil] continueWithSuccessBlock:^id(BFTask *task) {
+        return [preventCircularRef decodeDetail:task.result];
+    }];
 }
 
 - (BFTask *) decodeDetail:(id) responseObject
