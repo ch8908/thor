@@ -23,4 +23,6 @@
 + (UIColor *) filterButtonBgColorHighlighted;
 
 + (UIColor *) transparentBgColor;
+
++ (UIColor *) navigationBarTintColor;
 @end

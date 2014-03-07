@@ -54,4 +54,9 @@
     return [UIColor hexARGB:0xFF87B8EB];
 }
 
++ (UIColor *) navigationBarTintColor
+{
+    return [UIColor hexARGB:0x8000FA03];
+}
+
 @end

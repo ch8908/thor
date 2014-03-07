@@ -13,6 +13,7 @@
 #import "LogStateMachine.h"
 #import "LeftDrawerController.h"
 #import "MMDrawerController.h"
+#import "UIColor+Constant.h"
 
 @implementation thorAppDelegate
 
@@ -33,6 +34,8 @@
 
     MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:mainNavViewController
                                                                            leftDrawerViewController:leftDrawerNavViewController];
+
+    mainNavViewController.navigationBar.barTintColor = [UIColor navigationBarTintColor];
 
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];

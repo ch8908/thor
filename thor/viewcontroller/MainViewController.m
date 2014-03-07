@@ -192,7 +192,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self.view addSubview:self.filterButton];
     [self.view addSubview:self.zoomInButton];
     [self.view addSubview:self.zoomOutButton];
-    [self.view addSubview:self.searchBar];
+//    [self.view addSubview:self.searchBar];
 }
 
 - (void) onSearchDistanceChangedNotification:(NSNotification *) notification

@@ -84,15 +84,12 @@ enum
                      preventCircularRef.fetchTask = nil;
                      if (task.error)
                      {
-                         NSLog(@">>>>> error");
                          return nil;
                      }
                      if (task.isCancelled)
                      {
-                         NSLog(@">>>>> isCancelled");
                          return nil;
                      }
-                     NSLog(@">>>>> success2");
                      preventCircularRef.coffeeShopDetail = task.result;
                      [preventCircularRef.tableView reloadData];
                      return nil;
