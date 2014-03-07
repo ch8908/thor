@@ -28,6 +28,60 @@
 		1958469817C266C8004B8592 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469717C266C8004B8592 /* Default@2x.png */; };
 		1958469A17C266C8004B8592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
 		195E62BA17E59EF600576209 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
+		1960A0FC18C84E4800726DC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1958468F17C266C8004B8592 /* main.m */; };
+		1960A0FD18C84E4800726DC9 /* thorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1958469317C266C8004B8592 /* thorAppDelegate.m */; };
+		1960A0FE18C84E4800726DC9 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E831885654F004FCBA7 /* NSString+Util.m */; };
+		1960A0FF18C84E4800726DC9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9218856618004FCBA7 /* MainViewController.m */; };
+		1960A10018C84E4800726DC9 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E871885654F004FCBA7 /* Views.m */; };
+		1960A10118C84E4800726DC9 /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E811885654F004FCBA7 /* I18N.m */; };
+		1960A10218C84E4800726DC9 /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
+		1960A10318C84E4800726DC9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9018856618004FCBA7 /* LoginViewController.m */; };
+		1960A10418C84E4800726DC9 /* CoffeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */; };
+		1960A10518C84E4800726DC9 /* Pref.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D58570188C0B840086DA82 /* Pref.m */; };
+		1960A10618C84E4800726DC9 /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
+		1960A10718C84E4800726DC9 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
+		1960A10818C84E4800726DC9 /* CoffeeShop+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */; };
+		1960A10918C84E4800726DC9 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A27A8488A14E95502F4D /* DetailViewController.m */; };
+		1960A10A18C84E4800726DC9 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5856C1889948E0086DA82 /* UIColor+Util.m */; };
+		1960A10B18C84E4800726DC9 /* CoffeeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A326D67B1D409AD436E2 /* CoffeeService.m */; };
+		1960A10C18C84E4800726DC9 /* UIColor+Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA16F1846149509F9444 /* UIColor+Constant.m */; };
+		1960A10D18C84E4800726DC9 /* CoffeeShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */; };
+		1960A10E18C84E4800726DC9 /* AbstractState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1CDD7F7F79D53004C90 /* AbstractState.m */; };
+		1960A10F18C84E4800726DC9 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		1960A11018C84E4800726DC9 /* LogingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* LogingState.m */; };
+		1960A11118C84E4800726DC9 /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* LoginState.m */; };
+		1960A11218C84E4800726DC9 /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
+		1960A11318C84E4800726DC9 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
+		1960A11418C84E4800726DC9 /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
+		1960A11518C84E4800726DC9 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
+		1960A11618C84E4800726DC9 /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
+		1960A11718C84E4800726DC9 /* AddShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF812EA31A3594E08DF /* AddShopViewController.m */; };
+		1960A11818C84E4800726DC9 /* SubmitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */; };
+		1960A11918C84E4800726DC9 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */; };
+		1960A11A18C84E4800726DC9 /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
+		1960A11B18C84E4800726DC9 /* UIImage+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */; };
+		1960A11C18C84E4800726DC9 /* AbstractPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFE4F0985AEC60D83452 /* AbstractPref.m */; };
+		1960A11D18C84E4800726DC9 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A4636A449BF441538AD1 /* SettingController.m */; };
+		1960A11E18C84E4800726DC9 /* ThorUis.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A243DA38B16BA100F0C6 /* ThorUis.m */; };
+		1960A11F18C84E4800726DC9 /* DistancePickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3020509751B890F0D86 /* DistancePickViewController.m */; };
+		1960A12018C84E4800726DC9 /* ExternalApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */; };
+		1960A12118C84E4800726DC9 /* TRFilterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AE674B91BB25AE80B7B5 /* TRFilterState.m */; };
+		1960A12218C84E4800726DC9 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AAF5C797FB0DF4B8BDC2 /* RNGridMenu.m */; };
+		1960A12418C84E4800726DC9 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 197952471892B61500B9DA3D /* AddressBookUI.framework */; };
+		1960A12518C84E4800726DC9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195E62B917E59EF600576209 /* QuartzCore.framework */; };
+		1960A12618C84E4800726DC9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 191AED4C17C5AA18003B10F0 /* CoreLocation.framework */; };
+		1960A12718C84E4800726DC9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 191AED4117C33E39003B10F0 /* MapKit.framework */; };
+		1960A12818C84E4800726DC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468317C266C8004B8592 /* UIKit.framework */; };
+		1960A12918C84E4800726DC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468517C266C8004B8592 /* Foundation.framework */; };
+		1960A12A18C84E4800726DC9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1958468717C266C8004B8592 /* CoreGraphics.framework */; };
+		1960A12B18C84E4800726DC9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB46A6B010F648FCB20DA62E /* libPods.a */; };
+		1960A12D18C84E4800726DC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1958468C17C266C8004B8592 /* InfoPlist.strings */; };
+		1960A12E18C84E4800726DC9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469517C266C8004B8592 /* Default.png */; };
+		1960A12F18C84E4800726DC9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469717C266C8004B8592 /* Default@2x.png */; };
+		1960A13018C84E4800726DC9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1958469917C266C8004B8592 /* Default-568h@2x.png */; };
+		1960A13118C84E4800726DC9 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 191AED4A17C4F951003B10F0 /* res */; };
+		1960A13218C84E4800726DC9 /* image in Resources */ = {isa = PBXBuildFile; fileRef = 192F311217D0F77D00509135 /* image */; };
+		1960A13318C84E4800726DC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1955A56D17E3178100BEF77F /* Localizable.strings */; };
 		197952481892B61500B9DA3D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 197952471892B61500B9DA3D /* AddressBookUI.framework */; };
 		19D5856D1889948E0086DA82 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5856C1889948E0086DA82 /* UIColor+Util.m */; };
 		19D58571188C0B840086DA82 /* Pref.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D58570188C0B840086DA82 /* Pref.m */; };
@@ -111,6 +165,7 @@
 		1958469717C266C8004B8592 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		1958469917C266C8004B8592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		195E62B917E59EF600576209 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1960A13818C84E4800726DC9 /* thorstage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thorstage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		197952451892B5DF00B9DA3D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		197952471892B61500B9DA3D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		19D5856B1889948E0086DA82 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
@@ -200,6 +255,21 @@
 				1958468617C266C8004B8592 /* Foundation.framework in Frameworks */,
 				1958468817C266C8004B8592 /* CoreGraphics.framework in Frameworks */,
 				77C84B90CB00466CBFC937DA /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1960A12318C84E4800726DC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1960A12418C84E4800726DC9 /* AddressBookUI.framework in Frameworks */,
+				1960A12518C84E4800726DC9 /* QuartzCore.framework in Frameworks */,
+				1960A12618C84E4800726DC9 /* CoreLocation.framework in Frameworks */,
+				1960A12718C84E4800726DC9 /* MapKit.framework in Frameworks */,
+				1960A12818C84E4800726DC9 /* UIKit.framework in Frameworks */,
+				1960A12918C84E4800726DC9 /* Foundation.framework in Frameworks */,
+				1960A12A18C84E4800726DC9 /* CoreGraphics.framework in Frameworks */,
+				1960A12B18C84E4800726DC9 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +395,7 @@
 			children = (
 				1958468017C266C8004B8592 /* thor.app */,
 				E61A57B23725472BB94B0B1C /* Tests.app */,
+				1960A13818C84E4800726DC9 /* thorstage.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -491,6 +562,25 @@
 			productReference = 1958468017C266C8004B8592 /* thor.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1960A0F918C84E4800726DC9 /* thorstage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1960A13518C84E4800726DC9 /* Build configuration list for PBXNativeTarget "thorstage" */;
+			buildPhases = (
+				1960A0FA18C84E4800726DC9 /* Check Pods Manifest.lock */,
+				1960A0FB18C84E4800726DC9 /* Sources */,
+				1960A12318C84E4800726DC9 /* Frameworks */,
+				1960A12C18C84E4800726DC9 /* Resources */,
+				1960A13418C84E4800726DC9 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = thorstage;
+			productName = thor;
+			productReference = 1960A13818C84E4800726DC9 /* thorstage.app */;
+			productType = "com.apple.product-type.application";
+		};
 		C3D9CB80B4B74A90BE785CE6 /* Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 78AE1196D31E48B4983C5DF0 /* Build configuration list for PBXNativeTarget "Tests" */;
@@ -520,6 +610,11 @@
 				CLASSPREFIX = thor;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = ThousandSquare;
+				TargetAttributes = {
+					1960A0F918C84E4800726DC9 = {
+						DevelopmentTeam = WRL6633XG9;
+					};
+				};
 			};
 			buildConfigurationList = 1958467B17C266C8004B8592 /* Build configuration list for PBXProject "thor" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -532,11 +627,10 @@
 			mainGroup = 1958467717C266C8004B8592;
 			productRefGroup = 1958468117C266C8004B8592 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				1958467F17C266C8004B8592 /* thor */,
+				1960A0F918C84E4800726DC9 /* thorstage */,
 				C3D9CB80B4B74A90BE785CE6 /* Tests */,
 			);
 		};
@@ -557,9 +651,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1960A12C18C84E4800726DC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1960A12D18C84E4800726DC9 /* InfoPlist.strings in Resources */,
+				1960A12E18C84E4800726DC9 /* Default.png in Resources */,
+				1960A12F18C84E4800726DC9 /* Default@2x.png in Resources */,
+				1960A13018C84E4800726DC9 /* Default-568h@2x.png in Resources */,
+				1960A13118C84E4800726DC9 /* res in Resources */,
+				1960A13218C84E4800726DC9 /* image in Resources */,
+				1960A13318C84E4800726DC9 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1960A0FA18C84E4800726DC9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		1960A13418C84E4800726DC9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4C2C900A1BCE44E483F24673 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -666,6 +804,52 @@
 				23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */,
 				23D1AAB789294401C3EED352 /* TRFilterState.m in Sources */,
 				23D1A7D26C67FC23F403B240 /* RNGridMenu.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1960A0FB18C84E4800726DC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1960A0FC18C84E4800726DC9 /* main.m in Sources */,
+				1960A0FD18C84E4800726DC9 /* thorAppDelegate.m in Sources */,
+				1960A0FE18C84E4800726DC9 /* NSString+Util.m in Sources */,
+				1960A0FF18C84E4800726DC9 /* MainViewController.m in Sources */,
+				1960A10018C84E4800726DC9 /* Views.m in Sources */,
+				1960A10118C84E4800726DC9 /* I18N.m in Sources */,
+				1960A10218C84E4800726DC9 /* ThorNavigationController.m in Sources */,
+				1960A10318C84E4800726DC9 /* LoginViewController.m in Sources */,
+				1960A10418C84E4800726DC9 /* CoffeeManager.m in Sources */,
+				1960A10518C84E4800726DC9 /* Pref.m in Sources */,
+				1960A10618C84E4800726DC9 /* CoffeeShop.m in Sources */,
+				1960A10718C84E4800726DC9 /* TRAnnotation.m in Sources */,
+				1960A10818C84E4800726DC9 /* CoffeeShop+Strings.m in Sources */,
+				1960A10918C84E4800726DC9 /* DetailViewController.m in Sources */,
+				1960A10A18C84E4800726DC9 /* UIColor+Util.m in Sources */,
+				1960A10B18C84E4800726DC9 /* CoffeeService.m in Sources */,
+				1960A10C18C84E4800726DC9 /* UIColor+Constant.m in Sources */,
+				1960A10D18C84E4800726DC9 /* CoffeeShopDetail.m in Sources */,
+				1960A10E18C84E4800726DC9 /* AbstractState.m in Sources */,
+				1960A10F18C84E4800726DC9 /* LogoutState.m in Sources */,
+				1960A11018C84E4800726DC9 /* LogingState.m in Sources */,
+				1960A11118C84E4800726DC9 /* LoginState.m in Sources */,
+				1960A11218C84E4800726DC9 /* LogStateMachine.m in Sources */,
+				1960A11318C84E4800726DC9 /* SignUpViewController.m in Sources */,
+				1960A11418C84E4800726DC9 /* AbstractUIViewController.m in Sources */,
+				1960A11518C84E4800726DC9 /* System.m in Sources */,
+				1960A11618C84E4800726DC9 /* LeftDrawerController.m in Sources */,
+				1960A11718C84E4800726DC9 /* AddShopViewController.m in Sources */,
+				1960A11818C84E4800726DC9 /* SubmitInfo.m in Sources */,
+				1960A11918C84E4800726DC9 /* MKMapView+ZoomLevel.m in Sources */,
+				1960A11A18C84E4800726DC9 /* UINavigationItem+Util.m in Sources */,
+				1960A11B18C84E4800726DC9 /* UIImage+Util.m in Sources */,
+				1960A11C18C84E4800726DC9 /* AbstractPref.m in Sources */,
+				1960A11D18C84E4800726DC9 /* SettingController.m in Sources */,
+				1960A11E18C84E4800726DC9 /* ThorUis.m in Sources */,
+				1960A11F18C84E4800726DC9 /* DistancePickViewController.m in Sources */,
+				1960A12018C84E4800726DC9 /* ExternalApp.m in Sources */,
+				1960A12118C84E4800726DC9 /* TRFilterState.m in Sources */,
+				1960A12218C84E4800726DC9 /* RNGridMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,6 +977,208 @@
 			};
 			name = Release;
 		};
+		1960A13618C84E4800726DC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				INFOPLIST_FILE = "thor copy-Info.plist";
+				PRODUCT_NAME = thorstage;
+				PROVISIONING_PROFILE = "3EE4D668-08A8-41E7-92C5-8E91D13E1233";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1960A13718C84E4800726DC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				INFOPLIST_FILE = "thor copy-Info.plist";
+				PRODUCT_NAME = thorstage;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1960A13A18C8D98100726DC9 /* adhoc_distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = adhoc_distribution;
+		};
+		1960A13B18C8D98100726DC9 /* adhoc_distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CHIEN SHUO HUANG (WRL6633XG9)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				INFOPLIST_FILE = "thor/thor-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5C7081F2-FECA-4C37-941F-3DFFA9610B74";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = adhoc_distribution;
+		};
+		1960A13C18C8D98100726DC9 /* adhoc_distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				INFOPLIST_FILE = "thor copy-Info.plist";
+				PRODUCT_NAME = thorstage;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = adhoc_distribution;
+		};
+		1960A13D18C8D98100726DC9 /* adhoc_distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 697CFABA8DE8472CA1DFC7CF /* Pods-Tests.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = adhoc_distribution;
+		};
+		1960A13E18C8D99400726DC9 /* app_store_distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = app_store_distribution;
+		};
+		1960A13F18C8D99400726DC9 /* app_store_distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				INFOPLIST_FILE = "thor/thor-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = app_store_distribution;
+		};
+		1960A14018C8D99400726DC9 /* app_store_distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8C78E996A5B4AFCB18A1A89 /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				INFOPLIST_FILE = "thor copy-Info.plist";
+				PRODUCT_NAME = thorstage;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = app_store_distribution;
+		};
+		1960A14118C8D99400726DC9 /* app_store_distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 697CFABA8DE8472CA1DFC7CF /* Pods-Tests.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "thor/thor-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = app_store_distribution;
+		};
 		8FB58C7855464028A86DC2E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 697CFABA8DE8472CA1DFC7CF /* Pods-Tests.xcconfig */;
@@ -859,6 +1245,8 @@
 			buildConfigurations = (
 				1958469B17C266C8004B8592 /* Debug */,
 				1958469C17C266C8004B8592 /* Release */,
+				1960A13A18C8D98100726DC9 /* adhoc_distribution */,
+				1960A13E18C8D99400726DC9 /* app_store_distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -868,6 +1256,19 @@
 			buildConfigurations = (
 				1958469E17C266C8004B8592 /* Debug */,
 				1958469F17C266C8004B8592 /* Release */,
+				1960A13B18C8D98100726DC9 /* adhoc_distribution */,
+				1960A13F18C8D99400726DC9 /* app_store_distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1960A13518C84E4800726DC9 /* Build configuration list for PBXNativeTarget "thorstage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1960A13618C84E4800726DC9 /* Debug */,
+				1960A13718C84E4800726DC9 /* Release */,
+				1960A13C18C8D98100726DC9 /* adhoc_distribution */,
+				1960A14018C8D99400726DC9 /* app_store_distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -876,6 +1277,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BFBB3EA11CF44E9FAA578EE2 /* Release */,
+				1960A13D18C8D98100726DC9 /* adhoc_distribution */,
+				1960A14118C8D99400726DC9 /* app_store_distribution */,
 				8FB58C7855464028A86DC2E7 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
