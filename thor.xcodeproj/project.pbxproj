@@ -98,6 +98,7 @@
 		23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */; };
 		23D1A49FEAC497E4D78696F3 /* DistancePickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3020509751B890F0D86 /* DistancePickViewController.m */; };
 		23D1A4CAA20E7AE3AEE0195A /* SearchShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5C7E2194F6A94E875E1 /* SearchShopViewController.m */; };
+		23D1A4D452EC1383DCB43141 /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
 		23D1A4FA5078287033E22B22 /* CoffeeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A326D67B1D409AD436E2 /* CoffeeService.m */; };
 		23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */; };
 		23D1A62022DEE8338D98E6AE /* UIImage+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */; };
@@ -107,7 +108,9 @@
 		23D1A7D26C67FC23F403B240 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AAF5C797FB0DF4B8BDC2 /* RNGridMenu.m */; };
 		23D1A7F5F809766DC9C7D2EE /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC9BBF56282E4512F9F7 /* ThorNavigationController.m */; };
 		23D1A924BA74F5701B173043 /* SearchShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5C7E2194F6A94E875E1 /* SearchShopViewController.m */; };
+		23D1A955E52BF28BBD6C2F1F /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
+		23D1AA5BE0C191E9BD4CE2B5 /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
 		23D1AAA666E4D17926AC985F /* LogingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* LogingState.m */; };
 		23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
 		23D1AAB789294401C3EED352 /* TRFilterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AE674B91BB25AE80B7B5 /* TRFilterState.m */; };
@@ -180,6 +183,7 @@
 		23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractState.h; sourceTree = "<group>"; };
 		23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Constant.h"; sourceTree = "<group>"; };
 		23D1A1468711D39C6AB838AA /* System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
+		23D1A1BE688912AE36156663 /* NSArray+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Util.m"; sourceTree = "<group>"; };
 		23D1A1CDD7F7F79D53004C90 /* AbstractState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractState.m; sourceTree = "<group>"; };
 		23D1A243DA38B16BA100F0C6 /* ThorUis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorUis.m; sourceTree = "<group>"; };
 		23D1A251A54477874EEDE336 /* ThorUis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorUis.h; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 		23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeService.h; sourceTree = "<group>"; };
 		23D1A646E75AD076769EA43A /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
+		23D1A7127BF64CC4D2311FD0 /* NSArray+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Util.h"; sourceTree = "<group>"; };
 		23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftDrawerController.h; sourceTree = "<group>"; };
 		23D1A740CB25632BD838B160 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
@@ -339,6 +344,8 @@
 				23D1A398EC5FB31F0218DACE /* UINavigationItem+Util.h */,
 				23D1A334A1C2A2D172ACF83B /* UIImage+Util.h */,
 				23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */,
+				23D1A7127BF64CC4D2311FD0 /* NSArray+Util.h */,
+				23D1A1BE688912AE36156663 /* NSArray+Util.m */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -811,6 +818,7 @@
 				23D1AAB789294401C3EED352 /* TRFilterState.m in Sources */,
 				23D1A7D26C67FC23F403B240 /* RNGridMenu.m in Sources */,
 				23D1A4CAA20E7AE3AEE0195A /* SearchShopViewController.m in Sources */,
+				23D1AA5BE0C191E9BD4CE2B5 /* NSArray+Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +866,7 @@
 				1960A12118C84E4800726DC9 /* TRFilterState.m in Sources */,
 				1960A12218C84E4800726DC9 /* RNGridMenu.m in Sources */,
 				23D1A924BA74F5701B173043 /* SearchShopViewController.m in Sources */,
+				23D1A4D452EC1383DCB43141 /* NSArray+Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,6 +877,7 @@
 				00092FC9DEA84E2BBA274C70 /* main.m in Sources */,
 				2E3BC82F225A458B8DE73188 /* MyTest.m in Sources */,
 				4AA0266F4E8C41F7B00D5A05 /* CoffeeManagerTests.m in Sources */,
+				23D1A955E52BF28BBD6C2F1F /* NSArray+Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
