@@ -202,9 +202,8 @@ CGFloat const VIEWS_STATUS_BAR_HEIGHT = 20;
 
 + (void) alignParentBottom:(UIView *) view withParent:(UIView *) parentView
 {
-    // C'y  = P'y + P'height - +C'height
     CGRect parentFrame = parentView.frame;
-    [self locate:view y:[self yOfRect:parentFrame] + [self heightOfRect:parentFrame] - [self heightOfView:view]];
+    [self locate:view y:[self heightOfRect:parentFrame] - [self heightOfView:view]];
 }
 
 @end
