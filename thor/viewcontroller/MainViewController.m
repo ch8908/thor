@@ -157,6 +157,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 {
     [super viewDidLayoutSubviews];
 
+    [self.searchShopViewController.view setNeedsLayout];
+    [self.searchShopViewController.view layoutIfNeeded];
+
     // for different screen
     CGFloat tableViewY = 280;
     if ([Views screenHeight] > SCREEN_HEIGHT_3_5_INCH)

@@ -10,11 +10,15 @@
 #import "UIImage+Util.h"
 
 
+CGFloat SEARCH_TABLE_VIEW_PADDING = 20;
+
 @interface SearchShopViewController()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (nonatomic, strong) UIViewController *mainViewController;
+@property (nonatomic, strong) UITableView *searchResultTableView;
 @property (nonatomic, strong) UIView *searchBarView;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *searchResults;
+@property (nonatomic, assign) BOOL initComplete;
 @end
 
 @implementation SearchShopViewController
@@ -26,10 +30,16 @@
     {
         _mainViewController = mainViewController;
 
+        _searchResultTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        self.searchResultTableView.dataSource = self;
+        self.searchResultTableView.delegate = self;
+
         _searchBarView = [[UIView alloc] init];
         self.searchBarView.backgroundColor = [UIColor whiteColor];
+        self.searchBarView.clipsToBounds = YES;
 
         _searchBar = [[UISearchBar alloc] init];
+        self.searchBar.delegate = self;
         if ([System isMinimumiOS7])
         {
             [self.searchBar setBarTintColor:[UIColor whiteColor]];
@@ -37,25 +47,6 @@
         }
 
         _searchResults = [NSMutableArray array];
-
-//        UISearchDisplayController *searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar
-//                                                                                               contentsController:self];
-//
-//        self.searchBar.delegate = self;
-//        searchDisplayController.searchResultsDataSource = self;
-//        searchDisplayController.searchResultsDelegate = self;
-//
-//        NSLog(@">>>>> 0 self:%@", self.searchDisplayController);
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
     }
 
     return self;
@@ -80,27 +71,47 @@
     }
 
     [self.searchResults addObjectsFromArray:@[@"shop1, shop2, shop3"]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void) viewDidLayoutSubviews
 {
+    NSLog(@">>>>> viewDidLayoutSubviews");
     [super viewDidLayoutSubviews];
-    [Views resize:self.searchBarView containerSize:[self searchViewSize]];
+    if (!self.initComplete)
+    {
+        self.initComplete = YES;
+        [Views resize:self.searchBarView containerSize:[self searchViewSize]];
+        [Views locate:self.searchBarView y:-[Views heightOfView:self.searchBarView]];
 
-    [Views resize:self.searchBar containerSize:CGSizeMake([Views widthOfView:self.searchBarView],
-                                                          [Views heightOfView:self.searchBarView] - [Views statusBarHeight])];
-    [Views alignParentBottom:self.searchBar withParent:self.searchBarView];
+        [Views resize:self.searchBar containerSize:CGSizeMake([Views widthOfView:self.searchBarView],
+                                                              [Views heightOfView:self.searchBarView] - [Views statusBarHeight])];
 
-    [Views locate:self.searchBarView x:0 y:-[Views heightOfView:self.searchBarView]];
+        [Views alignParentBottom:self.searchBar withParent:self.searchBarView];
 
-    UIImage *searchFieldBackgroundImage = [UIImage imageWithRect:CGRectMake(0, 0, [Views widthOfView:self.searchBar], [Views heightOfView:self.searchBar] - 14)
-                                                           color:[UIColor lightGrayColor]];
+        [Views resize:self.searchResultTableView containerWidth:[Views widthOfView:self.view]];
+        [Views locate:self.searchResultTableView x:0 y:0];
 
-    [self.searchBar setSearchFieldBackgroundImage:searchFieldBackgroundImage
-                                         forState:UIControlStateNormal];
+        UIImage *searchFieldBackgroundImage = [UIImage imageWithRect:CGRectMake(0, 0, [Views widthOfView:self.searchBar], [Views heightOfView:self.searchBar] - 14)
+                                                               color:[UIColor lightGrayColor]];
 
-    [self.searchBarView addSubview:self.searchBar];
-    [self.view addSubview:self.searchBarView];
+        [self.searchBar setSearchFieldBackgroundImage:searchFieldBackgroundImage
+                                             forState:UIControlStateNormal];
+
+
+        [self.searchBarView addSubview:self.searchBar];
+        [self.view addSubview:self.searchResultTableView];
+        [self.view addSubview:self.searchBarView];
+    }
 }
 
 - (CGSize) searchViewSize
@@ -126,13 +137,23 @@
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
+    CGRect targetFrame = CGRectMake(0, -[Views heightOfView:self.searchBarView], [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
+    NSLog(@">>>>>> keyboardWillHide:%@", NSStringFromCGRect(targetFrame));
+
     __weak SearchShopViewController *preventCircularRef = self;
     [UIView animateWithDuration:duration delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-                         [Views locate:preventCircularRef.searchBarView
-                                     y:-[Views heightOfView:preventCircularRef.searchBarView]];
+
                          preventCircularRef.view.backgroundColor = [UIColor clearColor];
+
+                         [preventCircularRef.searchBarView setFrame:targetFrame];
+//                         // Resize tableView
+//                         [Views resize:preventCircularRef.searchResultTableView containerHeight:0];
+//
+//                         // Move tableView
+//                         [Views locate:preventCircularRef.searchResultTableView
+//                                     y:0];
                      }
                      completion:^(BOOL finished) {
                          [preventCircularRef.view removeFromSuperview];
@@ -147,13 +168,31 @@
     NSTimeInterval duration = 0;
     [value getValue:&duration];
 
+    CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:endFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
+
+    CGRect targetFrame = CGRectMake(0, 0, [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
+    NSLog(@">>>>>> keyboardWillShow:%@", NSStringFromCGRect(targetFrame));
+
     self.view.backgroundColor = [UIColor clearColor];
     __weak SearchShopViewController *preventCircularRef = self;
     [UIView animateWithDuration:duration delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
+
+                         // Change background color
                          preventCircularRef.view.backgroundColor = [UIColor searchViewBgColor];
-                         [Views locate:preventCircularRef.searchBarView y:0];
+
+                         // Move searchBar
+                         [preventCircularRef.searchBarView setFrame:targetFrame];
+
+//                         // Move tableView
+//                         [Views locate:preventCircularRef.searchResultTableView
+//                                     y:[Views heightOfView:preventCircularRef.searchBarView]];
+//
+//                         // Resize tableView
+//                         [Views resize:preventCircularRef.searchResultTableView containerHeight:tableViewHeight];
                      }
                      completion:^(BOOL finished) {
 
@@ -162,9 +201,7 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
 {
-    NSLog(@">>>>> self:%@", self.searchDisplayController);
 
-    [self.searchDisplayController setActive:YES animated:YES];
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
