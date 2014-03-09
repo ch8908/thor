@@ -25,4 +25,6 @@
 + (UIColor *) transparentBgColor;
 
 + (UIColor *) navigationBarTintColor;
+
++ (UIColor *) searchViewBgColor;
 @end

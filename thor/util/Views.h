@@ -72,4 +72,8 @@ extern CGFloat const VIEWS_PAGE_CONTROL_HEIGHT;
 + (CGFloat) heightOfRect:(CGRect) frame;
 
 + (CGFloat) widthOfRect:(CGRect) frame;
+
++ (CGFloat) statusBarHeight;
+
++ (void) alignParentBottom:(UIView *) view withParent:(UIView *) parentView;
 @end

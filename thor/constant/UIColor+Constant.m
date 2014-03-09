@@ -57,6 +57,12 @@
 + (UIColor *) navigationBarTintColor
 {
     return [UIColor hexARGB:0x8000FA03];
+
+}
+
++ (UIColor *) searchViewBgColor
+{
+    return [UIColor hexARGB:0xC8000000];
 }
 
 @end

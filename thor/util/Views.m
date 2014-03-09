@@ -194,4 +194,17 @@ CGFloat const VIEWS_STATUS_BAR_HEIGHT = 20;
     return CGRectGetWidth(frame);
 }
 
++ (CGFloat) statusBarHeight
+{
+    CGRect frame = [[UIApplication sharedApplication] statusBarFrame];
+    return [Views heightOfRect:frame];
+}
+
++ (void) alignParentBottom:(UIView *) view withParent:(UIView *) parentView
+{
+    // C'y  = P'y + P'height - +C'height
+    CGRect parentFrame = parentView.frame;
+    [self locate:view y:[self yOfRect:parentFrame] + [self heightOfRect:parentFrame] - [self heightOfView:view]];
+}
+
 @end

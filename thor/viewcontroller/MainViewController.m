@@ -31,11 +31,12 @@
 #import "CoffeeManager.h"
 #import "System.h"
 #import "BFExecutor.h"
+#import "SearchShopViewController.h"
 
 
 NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
-@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate, UISearchBarDelegate>
+@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *filteredCoffeeShops;
@@ -48,7 +49,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 @property (nonatomic, strong) UIButton *zoomInButton;
 @property (nonatomic, strong) UIButton *zoomOutButton;
 @property (nonatomic, strong) TRFilterState *filterState;
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UIButton *searchButton;
+@property (nonatomic, strong) SearchShopViewController *searchShopViewController;
 @end
 
 @implementation MainViewController
@@ -116,9 +118,13 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
         _filterState = [[TRFilterState alloc] init];
 
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, [Views widthOfView:self.view], 50)];
-        self.searchBar.translucent = YES;
-        self.searchBar.delegate = self;
+        _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.searchButton setImage:[UIImage imageNamed:@"image/icon_search.png"] forState:UIControlStateNormal];
+        [self.searchButton addTarget:self action:@selector(onSearchButtonClick:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        [self.searchButton setBackgroundColor:[UIColor filterButtonBgColorNormal]];
+
+        _searchShopViewController = [[SearchShopViewController alloc] initWithMainViewController:self];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
                                                      name:SearchDistanceChangedNotification object:nil];
@@ -184,7 +190,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [Views locate:self.zoomInButton x:[Views xOfView:self.zoomOutButton]
                 y:[Views yOfView:self.zoomOutButton] - [Views heightOfView:self.zoomInButton] - 5];
 
-    [Views locate:self.searchBar x:0 y:self.topBarOffset];
+    [self.searchButton sizeToFit];
+    [Views locate:self.searchButton x:[Views widthOfView:self.view] - [Views widthOfView:self.searchButton] - 5
+                y:self.topBarOffset + 5];
 
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
@@ -192,13 +200,21 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self.view addSubview:self.filterButton];
     [self.view addSubview:self.zoomInButton];
     [self.view addSubview:self.zoomOutButton];
-//    [self.view addSubview:self.searchBar];
+    [self.view addSubview:self.searchButton];
 }
 
 - (void) onSearchDistanceChangedNotification:(NSNotification *) notification
 {
     NSNumber *distance = notification.object;
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate distance:distance];
+}
+
+- (void) onSearchButtonClick:(UIButton *) sender
+{
+    [self.mm_drawerController addChildViewController:self.searchShopViewController];
+    [self.mm_drawerController.view insertSubview:self.searchShopViewController.view
+                                    aboveSubview:self.mm_drawerController.centerViewController.view];
+    [self.searchShopViewController searchBarBecomeFirstResponder];
 }
 
 #pragma RNGridMenu delegate
@@ -578,7 +594,19 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 #pragma SearchBar delegate
 - (void) searchBarTextDidBeginEditing:(UISearchBar *) searchBar
 {
+    NSLog(@">>> searchBarTextDidBeginEditing");
+//    [self.searchDisplayController setActive:YES animated:YES];
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
+{
     [self.searchDisplayController setActive:YES animated:YES];
 }
+
+- (void) searchDisplayController:(UISearchDisplayController *) controller didLoadSearchResultsTableView:(UITableView *) tableView
+{
+
+}
+
 
 @end
