@@ -6,6 +6,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
+@interface AutoCompleteResult : NSObject
+@property (nonatomic, strong) NSArray *candidates;
+@property (nonatomic, copy) NSString *searchText;
+
+- (id) initWithCandidates:(NSArray *) candidates searchText:(NSString *) searchText;
+
+@end
+
 @class SubmitInfo;
 @class BFTask;
 
@@ -32,4 +40,6 @@ extern NSString *AddShopFailedNotification;
 - (void) submitShopInfo:(SubmitInfo *) info;
 
 - (BFTask *) decodeShops:(id) object;
+
+- (BFTask *) autoCompleteResultWithSearchText:(NSString *) searchKeyword;
 @end

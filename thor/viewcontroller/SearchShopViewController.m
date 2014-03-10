@@ -3,6 +3,8 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import <Bolts/BFTask.h>
+#import <Bolts/BFExecutor.h>
 #import "SearchShopViewController.h"
 #import "Views.h"
 #import "UIColor+Constant.h"
@@ -10,6 +12,7 @@
 #import "UIImage+Util.h"
 #import "NSArray+Util.h"
 #import "NSString+Util.h"
+#import "CoffeeService.h"
 
 
 CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
@@ -17,12 +20,13 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 @interface SearchShopViewController()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (nonatomic, strong) UIViewController *mainViewController;
 @property (nonatomic, strong) UIView *backgroundMaskView;
-@property (nonatomic, strong) UITableView *searchResultTableView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *searchBarView;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *searchResults;
 @property (nonatomic, assign) BOOL initComplete;
 @property (nonatomic, assign) CGRect keyboardFrame;
+@property (nonatomic, copy) NSString *searchKeyword;
 @end
 
 @implementation SearchShopViewController
@@ -37,9 +41,9 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
         _backgroundMaskView = [[UIView alloc] init];
         self.backgroundMaskView.backgroundColor = [UIColor clearColor];
 
-        _searchResultTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        self.searchResultTableView.dataSource = self;
-        self.searchResultTableView.delegate = self;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
 
         _searchBarView = [[UIView alloc] init];
         self.searchBarView.backgroundColor = [UIColor whiteColor];
@@ -107,8 +111,8 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 
         [Views alignParentBottom:self.searchBar withParent:self.searchBarView];
 
-        [Views resize:self.searchResultTableView containerWidth:[Views widthOfView:self.view]];
-        [Views locate:self.searchResultTableView x:0 y:0];
+        [Views resize:self.tableView containerWidth:[Views widthOfView:self.view]];
+        [Views locate:self.tableView x:0 y:0];
 
         UIImage *searchFieldBackgroundImage = [UIImage imageWithRect:CGRectMake(0, 0, [Views widthOfView:self.searchBar], [Views heightOfView:self.searchBar] - 14)
                                                                color:[UIColor lightGrayColor]];
@@ -120,7 +124,7 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
         [self.searchBarView addSubview:self.searchBar];
 
         [self.view addSubview:self.backgroundMaskView];
-        [self.view addSubview:self.searchResultTableView];
+        [self.view addSubview:self.tableView];
         [self.view addSubview:self.searchBarView];
     }
 }
@@ -150,7 +154,7 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 
     CGRect targetFrame = CGRectMake(0, -[Views heightOfView:self.searchBarView], [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
 
-    CGRect tableViewFrame = CGRectMake(0, 0, [Views widthOfView:self.searchResultTableView], 0);
+    CGRect tableViewFrame = CGRectMake(0, 0, [Views widthOfView:self.tableView], 0);
 
     NSLog(@">>>>>> keyboardWillHide:%@", NSStringFromCGRect(targetFrame));
 
@@ -163,7 +167,7 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 
                          [preventCircularRef.searchBarView setFrame:targetFrame];
 
-                         [preventCircularRef.searchResultTableView setFrame:tableViewFrame];
+                         [preventCircularRef.tableView setFrame:tableViewFrame];
                      }
                      completion:^(BOOL finished) {
                          [preventCircularRef.view removeFromSuperview];
@@ -190,7 +194,7 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
     {
         tableViewHeight = 0;
     }
-    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.searchResultTableView], tableViewHeight);
+    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], tableViewHeight);
 
     self.view.backgroundColor = [UIColor clearColor];
     __weak SearchShopViewController *preventCircularRef = self;
@@ -205,7 +209,7 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
                          [preventCircularRef.searchBarView setFrame:targetFrame];
 
                          // Move tableView
-                         [preventCircularRef.searchResultTableView setFrame:tableViewFrame];
+                         [preventCircularRef.tableView setFrame:tableViewFrame];
                      }
                      completion:^(BOOL finished) {
 
@@ -215,17 +219,17 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 #pragma UISearchBar delegate
 - (void) searchBar:(UISearchBar *) searchBar textDidChange:(NSString *) searchText
 {
-    if ([NSString isEmptyAfterTrim:searchBar.text])
+    if ([NSString isEmptyAfterTrim:searchText])
     {
-        if ([Views heightOfView:self.searchResultTableView] > 0)
+        if ([Views heightOfView:self.tableView] > 0)
         {
             [self.searchResults removeAllObjects];
             __weak SearchShopViewController *preventCircularRef = self;
-            CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.searchResultTableView], 0);
+            CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], 0);
             [UIView animateWithDuration:0.3f delay:0.0f
                                 options:UIViewAnimationOptionCurveEaseOut
                              animations:^{
-                                 [preventCircularRef.searchResultTableView setFrame:tableViewFrame];
+                                 [preventCircularRef.tableView setFrame:tableViewFrame];
                              }
                              completion:^(BOOL finished) {
 
@@ -234,28 +238,49 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
         return;
     }
 
-    [self.searchResults addObjectsFromArray:@[@"小強快點寫AutoComplete", @"小強快點寫AutoComplete", @"小強快點寫AutoComplete",
-      @"小強快點寫AutoComplete", @"小強快點寫AutoComplete"]];
-
-    if (self.searchResults.count > 0 && [Views heightOfView:self.searchResultTableView] == 0)
-    {
-        CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:self.keyboardFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
-        CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.searchResultTableView], tableViewHeight);
-        __weak SearchShopViewController *preventCircularRef = self;
-        [UIView animateWithDuration:0.3f delay:0.0f
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             [preventCircularRef.searchResultTableView setFrame:tableViewFrame];
-                         }
-                         completion:^(BOOL finished) {
-
+    __weak SearchShopViewController *preventCircularRef = self;
+    [[[CoffeeService sharedInstance] autoCompleteResultWithSearchText:searchText]
+                     continueWithExecutor:[BFExecutor mainThreadExecutor]
+                         withSuccessBlock:^id(BFTask *task) {
+                             AutoCompleteResult *autoCompleteResult = task.result;
+                             if (![autoCompleteResult.searchText isEqualToString:searchText])
+                             {
+                                 return nil;
+                             }
+                             [preventCircularRef.searchResults removeAllObjects];
+                             [preventCircularRef.searchResults addObjectsFromArray:autoCompleteResult.candidates];
+                             [preventCircularRef.tableView reloadData];
+                             if ([Views heightOfView:preventCircularRef.tableView] < 1.0)
+                             {
+                                 [preventCircularRef expandTableView];
+                             }
+                             return nil;
                          }];
-    }
-    [self.searchResultTableView reloadData];
+}
+
+- (void) expandTableView
+{
+    CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:self.keyboardFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
+    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], tableViewHeight);
+    __weak SearchShopViewController *preventCircularRef = self;
+    [UIView animateWithDuration:0.3f delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [preventCircularRef.tableView setFrame:tableViewFrame];
+                     }
+                     completion:^(BOOL finished) {
+
+                     }];
 }
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
 {
+    NSString *searchText = searchBar.text;
+    if ([NSString isEmptyAfterTrim:searchText])
+    {
+        return;
+    }
+
     [self.searchBar resignFirstResponder];
 }
 
@@ -297,7 +322,7 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
     }];
     [self.searchResults removeAllObjects];
     [self.searchResults addObjectsFromArray:newArray];
-    [self.searchResultTableView reloadData];
+    [self.tableView reloadData];
 }
 
 @end

@@ -14,6 +14,32 @@
 #import "CoffeeShopDetail.h"
 #import "SubmitInfo.h"
 #import "LogStateMachine.h"
+#import "NSArray+Util.h"
+
+@implementation AutoCompleteResult
+
+- (id) initWithCandidates:(NSArray *) candidates searchText:(NSString *) searchText
+{
+    self = [super init];
+    if (self)
+    {
+        _candidates = candidates;
+        _searchText = searchText;
+    }
+
+    return self;
+}
+
+- (NSString *) description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"self.candidates=%@", self.candidates];
+    [description appendFormat:@", self.searchText=%@", self.searchText];
+    [description appendString:@">"];
+    return description;
+}
+
+@end
 
 NSString *SignInSuccessNotification = @"SignInSuccessNotification";
 NSString *SignInFailedNotification = @"SignInFailedNotification";
@@ -24,7 +50,7 @@ NSString *RegisterFailedNotification = @"RegisterFailedNotification";
 NSString *AddShopSuccessNotification = @"AddShopSuccessNotification";
 NSString *AddShopFailedNotification = @"AddShopFailedNotification";
 
-static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
+NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 @interface CoffeeService()
 @property (nonatomic) AFHTTPRequestOperationManager *manager;
@@ -208,6 +234,33 @@ static NSString *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1
                    [[NSNotificationCenter defaultCenter] postNotificationName:AddShopFailedNotification
                                                                        object:[jsonDic objectForKey:@"error"]];
                }];
+}
+
+- (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchKeyword
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/search"];
+    NSDictionary *params = @{@"query" : searchKeyword};
+    return [[self afNetworkingGet:urlString parameters:params] continueWithSuccessBlock:^id(BFTask *task) {
+        return [self decodeSearchResult:task.result searchText:searchKeyword];
+    }];
+}
+
+- (BFTask *) decodeSearchResult:(id) responseObject searchText:(NSString *) searchText
+{
+    BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
+                                                         encoding:NSUTF8StringEncoding];
+        NSArray *jsonArray = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+        NSArray *candidates = [jsonArray map:^id(NSDictionary *raw, NSUInteger index) {
+            return raw[@"name"];
+        }];
+
+        [completionSource setResult:[[AutoCompleteResult alloc] initWithCandidates:candidates
+                                                                        searchText:searchText]];
+    });
+    return completionSource.task;
 }
 
 @end
