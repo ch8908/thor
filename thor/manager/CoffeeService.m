@@ -236,12 +236,12 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                }];
 }
 
-- (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchKeyword
+- (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchText
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/search"];
-    NSDictionary *params = @{@"query" : searchKeyword};
+    NSDictionary *params = @{@"query" : searchText};
     return [[self afNetworkingGet:urlString parameters:params] continueWithSuccessBlock:^id(BFTask *task) {
-        return [self decodeSearchResult:task.result searchText:searchKeyword];
+        return [self decodeSearchResult:task.result searchText:searchText];
     }];
 }
 
@@ -254,7 +254,7 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                                                          encoding:NSUTF8StringEncoding];
         NSArray *jsonArray = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
         NSArray *candidates = [jsonArray map:^id(NSDictionary *raw, NSUInteger index) {
-            return raw[@"name"];
+            return [CoffeeShop map:raw];
         }];
 
         [completionSource setResult:[[AutoCompleteResult alloc] initWithCandidates:candidates

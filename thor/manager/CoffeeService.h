@@ -41,5 +41,7 @@ extern NSString *AddShopFailedNotification;
 
 - (BFTask *) decodeShops:(id) object;
 
-- (BFTask *) autoCompleteResultWithSearchText:(NSString *) searchKeyword;
+- (BFTask *) autoCompleteResultWithSearchText:(NSString *) searchText;
+
+- (BFTask *) searchShopWithSearchText:(NSString *) searchText;
 @end

@@ -36,11 +36,11 @@
 
 NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
-@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *filteredCoffeeShops;
-@property (nonatomic, strong) NSMutableArray *coffeeShops;
+@property (nonatomic, strong) NSMutableArray *coffeeShopsUseInTableView;
+@property (nonatomic, strong) NSMutableArray *allCoffeeShops;
 @property (nonatomic, strong) NSMutableDictionary *annotations;
 @property (nonatomic, strong) UIButton *locateButton;
 @property (nonatomic, assign) BOOL initUserLocation;
@@ -128,6 +128,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
                                                      name:SearchDistanceChangedNotification object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchShopSuccessNotification:)
+                                                     name:SearchShopSuccessNotification object:nil];
     }
 
     return self;
@@ -139,8 +142,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
     [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
 
-    self.filteredCoffeeShops = [[NSMutableArray alloc] init];
-    self.coffeeShops = [[NSMutableArray alloc] init];
+    self.coffeeShopsUseInTableView = [[NSMutableArray alloc] init];
+    self.allCoffeeShops = [[NSMutableArray alloc] init];
     MMDrawerBarButtonItem *leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
                                                                                      style:UIBarButtonItemStylePlain
                                                                                     target:self
@@ -206,6 +209,24 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self.view addSubview:self.searchButton];
 }
 
+#pragma Notification call back
+
+- (void) onSearchShopSuccessNotification:(NSNotification *) notification
+{
+    CoffeeShop *coffeeShop = notification.object;
+
+    if ([self.coffeeShopsUseInTableView containsObject:coffeeShop])
+    {
+        [self openAnnotationWithShop:coffeeShop];
+        return;
+    }
+    [self.allCoffeeShops addObject:coffeeShop];
+
+    [self reloadFilteredCoffeeShopsWithCompletion:^{
+        [self openAnnotationWithShop:coffeeShop];
+    }];
+}
+
 - (void) onSearchDistanceChangedNotification:(NSNotification *) notification
 {
     NSNumber *distance = notification.object;
@@ -233,7 +254,26 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
         self.filterState.needPower = !self.filterState.needPower;
     }
 
-    [self reloadFilteredCoffeeShops];
+    [self reloadFilteredCoffeeShopsWithCompletion:nil];
+}
+
+- (void) filter
+{
+    RNGridMenuItem *wifiItem = [[RNGridMenuItem alloc] initWithImage:[self wifiItemImage]
+                                                               title:@"Wifi"];
+
+    RNGridMenuItem *powerItem = [[RNGridMenuItem alloc] initWithImage:[self powerItemImage]
+                                                                title:@"Power"];
+    NSArray *items = @[
+      wifiItem,
+      powerItem
+    ];
+
+    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
+    av.delegate = self;
+    //    av.bounces = NO;
+    [av showInViewController:self.navigationController
+                      center:CGPointMake([Views widthOfView:self.view] / 2.f, [Views heightOfView:self.view] / 2.f)];
 }
 
 - (UIImage *) wifiItemImage
@@ -260,24 +300,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                             color:[UIColor grayColor]];
 }
 
-- (void) filter
-{
-    RNGridMenuItem *wifiItem = [[RNGridMenuItem alloc] initWithImage:[self wifiItemImage]
-                                                               title:@"Wifi"];
-
-    RNGridMenuItem *powerItem = [[RNGridMenuItem alloc] initWithImage:[self powerItemImage]
-                                                                title:@"Power"];
-    NSArray *items = @[
-      wifiItem,
-      powerItem
-    ];
-
-    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, items.count)]];
-    av.delegate = self;
-    //    av.bounces = NO;
-    [av showInViewController:self.navigationController
-                      center:CGPointMake([Views widthOfView:self.view] / 2.f, [Views heightOfView:self.view] / 2.f)];
-}
+#pragma mapView Zoom method
 
 - (void) zoomOut
 {
@@ -317,10 +340,10 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                                     }
 
                                     [preventCircularRef endRefreshShops];
-                                    [preventCircularRef.coffeeShops removeAllObjects];
-                                    [preventCircularRef.coffeeShops addObjectsFromArray:task.result];
+                                    [preventCircularRef.allCoffeeShops removeAllObjects];
+                                    [preventCircularRef.allCoffeeShops addObjectsFromArray:task.result];
 
-                                    [preventCircularRef reloadFilteredCoffeeShops];
+                                    [preventCircularRef reloadFilteredCoffeeShopsWithCompletion:nil];
                                     return nil;
                                 }];
 }
@@ -344,17 +367,22 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self.tableViewController.refreshControl endRefreshing];
 }
 
-- (void) reloadFilteredCoffeeShops
+- (void) reloadFilteredCoffeeShopsWithCompletion:(void (^)(void)) completion
 {
-    [[[CoffeeManager sharedInstance] allShops:self.coffeeShops
+    __weak MainViewController *preventCircularRef = self;
+    [[[CoffeeManager sharedInstance] allShops:self.allCoffeeShops
                                   filterState:self.filterState]
                      continueWithExecutor:[BFExecutor mainThreadExecutor]
                                 withBlock:^id(BFTask *task) {
-                                    [self.filteredCoffeeShops removeAllObjects];
-                                    [self.filteredCoffeeShops addObjectsFromArray:task.result];
-                                    [self removeAllAnnotations];
-                                    [self showCoffeeShopOnMap];
-                                    [self.tableView reloadData];
+                                    [preventCircularRef.coffeeShopsUseInTableView removeAllObjects];
+                                    [preventCircularRef.coffeeShopsUseInTableView addObjectsFromArray:task.result];
+                                    [preventCircularRef removeAllAnnotations];
+                                    [preventCircularRef showCoffeeShopOnMap];
+                                    [preventCircularRef.tableView reloadData];
+                                    if (completion)
+                                    {
+                                        completion();
+                                    }
                                     return nil;
                                 }];
 }
@@ -371,7 +399,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
         self.annotations = nil;
     }
     self.annotations = [[NSMutableDictionary alloc] init];
-    for (CoffeeShop *coffeeShop in self.filteredCoffeeShops)
+    for (CoffeeShop *coffeeShop in self.coffeeShopsUseInTableView)
     {
         TRAnnotation *annotation = [[TRAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(coffeeShop.latitude, coffeeShop.longitude)
                                                                          id:coffeeShop.id
@@ -424,6 +452,8 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                                                 animated:YES completion:nil];
     }
 }
+
+#pragma MKMapViewDelegate method
 
 - (void) mapView:(MKMapView *) mapView didUpdateUserLocation:(MKUserLocation *) userLocation
 {
@@ -497,7 +527,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 {
     NSNumber *id = annotation.id;
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    CoffeeShop *selectedShop = self.filteredCoffeeShops[(NSUInteger) selectedIndexPath.row];
+    CoffeeShop *selectedShop = self.coffeeShopsUseInTableView[(NSUInteger) selectedIndexPath.row];
 
     if ([selectedShop.id isEqualToNumber:id])
     {
@@ -505,9 +535,9 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     }
 
     NSInteger index = -1;
-    for (NSUInteger i = 0; i < self.filteredCoffeeShops.count; i++)
+    for (NSUInteger i = 0; i < self.coffeeShopsUseInTableView.count; i++)
     {
-        CoffeeShop *shop = self.filteredCoffeeShops[i];
+        CoffeeShop *shop = self.coffeeShopsUseInTableView[i];
         if ([shop.id isEqualToNumber:id])
         {
             index = i;
@@ -526,11 +556,11 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                           scrollPosition:UITableViewScrollPositionMiddle];
 }
 
-#pragma Table View delegate
+#pragma UITableViewDataSource method
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
-    return self.filteredCoffeeShops.count;
+    return self.coffeeShopsUseInTableView.count;
 }
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
@@ -547,7 +577,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
         cell.backgroundColor = [UIColor clearColor];
     }
 
-    CoffeeShop *coffeeShop = self.filteredCoffeeShops[(NSUInteger) indexPath.row];
+    CoffeeShop *coffeeShop = self.coffeeShopsUseInTableView[(NSUInteger) indexPath.row];
     cell.textLabel.text = coffeeShop.name;
     cell.detailTextLabel.text = [coffeeShop distanceStringWithCenter:self.mapView.userLocation.coordinate];
     return cell;
@@ -555,7 +585,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    CoffeeShop *shop = self.filteredCoffeeShops[(NSUInteger) indexPath.row];
+    CoffeeShop *shop = self.coffeeShopsUseInTableView[(NSUInteger) indexPath.row];
     [self openAnnotationWithShop:shop];
 }
 
@@ -593,23 +623,5 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
     [self setOffsetRegion:mapRegion];
 }
-
-#pragma SearchBar delegate
-- (void) searchBarTextDidBeginEditing:(UISearchBar *) searchBar
-{
-    NSLog(@">>> searchBarTextDidBeginEditing");
-//    [self.searchDisplayController setActive:YES animated:YES];
-}
-
-- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
-{
-    [self.searchDisplayController setActive:YES animated:YES];
-}
-
-- (void) searchDisplayController:(UISearchDisplayController *) controller didLoadSearchResultsTableView:(UITableView *) tableView
-{
-
-}
-
 
 @end

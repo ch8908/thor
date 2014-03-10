@@ -16,5 +16,11 @@
 
 - (instancetype) initWithId:(NSNumber *) id name:(NSString *) name latitude:(double) latitude longitude:(double) longitude wifiFree:(BOOL) wifiFree powerOutlet:(BOOL) powerOutlet;
 
+- (BOOL) isEqual:(id) other;
+
+- (BOOL) isEqualToShop:(CoffeeShop *) shop;
+
+- (NSUInteger) hash;
+
 + (instancetype) map:(NSDictionary *) raw;
 @end

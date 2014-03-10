@@ -45,4 +45,30 @@
                         powerOutlet:powerOutlet];
 }
 
+- (BOOL) isEqual:(id) other
+{
+    if (other == self)
+        return YES;
+    if (!other || ![[other class] isEqual:[self class]])
+        return NO;
+
+    return [self isEqualToShop:other];
+}
+
+- (BOOL) isEqualToShop:(CoffeeShop *) shop
+{
+    if (self == shop)
+        return YES;
+    if (shop == nil)
+        return NO;
+    if (self.id != shop.id && ![self.id isEqualToNumber:shop.id])
+        return NO;
+    return YES;
+}
+
+- (NSUInteger) hash
+{
+    return [self.id hash];
+}
+
 @end

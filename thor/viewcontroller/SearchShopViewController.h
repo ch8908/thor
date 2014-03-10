@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *SearchShopSuccessNotification;
 
 @interface SearchShopViewController : UIViewController
 - (id) initWithMainViewController:(UIViewController *) mainViewController;

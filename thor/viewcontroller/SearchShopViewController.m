@@ -10,12 +10,14 @@
 #import "UIColor+Constant.h"
 #import "System.h"
 #import "UIImage+Util.h"
-#import "NSArray+Util.h"
 #import "NSString+Util.h"
 #import "CoffeeService.h"
+#import "CoffeeShop.h"
 
 
 CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
+
+NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 @interface SearchShopViewController()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (nonatomic, strong) UIViewController *mainViewController;
@@ -26,7 +28,6 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 @property (nonatomic, strong) NSMutableArray *searchResults;
 @property (nonatomic, assign) BOOL initComplete;
 @property (nonatomic, assign) CGRect keyboardFrame;
-@property (nonatomic, copy) NSString *searchKeyword;
 @end
 
 @implementation SearchShopViewController
@@ -221,9 +222,9 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 {
     if ([NSString isEmptyAfterTrim:searchText])
     {
+        [self.searchResults removeAllObjects];
         if ([Views heightOfView:self.tableView] > 0)
         {
-            [self.searchResults removeAllObjects];
             __weak SearchShopViewController *preventCircularRef = self;
             CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], 0);
             [UIView animateWithDuration:0.3f delay:0.0f
@@ -308,7 +309,8 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
                                       reuseIdentifier:CellIdentifier];
     }
 
-    cell.textLabel.text = self.searchResults[(NSUInteger) indexPath.row];
+    CoffeeShop *coffeeShop = self.searchResults[(NSUInteger) indexPath.row];
+    cell.textLabel.text = coffeeShop.name;
     return cell;
 }
 
@@ -317,12 +319,9 @@ CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSArray *newArray = [self.searchResults map:^id(id obj, NSUInteger index) {
-        return @"沒有寫還想用！！！";
-    }];
-    [self.searchResults removeAllObjects];
-    [self.searchResults addObjectsFromArray:newArray];
-    [self.tableView reloadData];
+    CoffeeShop *coffeeShop = self.searchResults[(NSUInteger) indexPath.row];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SearchShopSuccessNotification object:coffeeShop];
+    [self.searchBar resignFirstResponder];
 }
 
 @end
