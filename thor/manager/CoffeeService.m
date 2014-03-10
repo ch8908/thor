@@ -239,7 +239,7 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 - (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchText
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/search"];
-    NSDictionary *params = @{@"query" : searchText};
+    NSDictionary *params = @{@"query" : [searchText copy]};
     return [[self afNetworkingGet:urlString parameters:params] continueWithSuccessBlock:^id(BFTask *task) {
         return [self decodeSearchResult:task.result searchText:searchText];
     }];

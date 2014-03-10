@@ -28,6 +28,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 @property (nonatomic, strong) NSMutableArray *searchResults;
 @property (nonatomic, assign) BOOL initComplete;
 @property (nonatomic, assign) CGRect keyboardFrame;
+@property (nonatomic, copy) NSString *searchTextGlobal;
 @end
 
 @implementation SearchShopViewController
@@ -218,45 +219,52 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 }
 
 #pragma UISearchBar delegate
+
 - (void) searchBar:(UISearchBar *) searchBar textDidChange:(NSString *) searchText
 {
-    if ([NSString isEmptyAfterTrim:searchText])
+    self.searchTextGlobal = [searchText stringByTrim];
+    if ([NSString isEmpty:self.searchTextGlobal])
     {
         [self.searchResults removeAllObjects];
-        if ([Views heightOfView:self.tableView] > 0)
+        if ([Views heightOfView:self.tableView] > 0.0f)
         {
-            __weak SearchShopViewController *preventCircularRef = self;
-            CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], 0);
-            [UIView animateWithDuration:0.3f delay:0.0f
-                                options:UIViewAnimationOptionCurveEaseOut
-                             animations:^{
-                                 [preventCircularRef.tableView setFrame:tableViewFrame];
-                             }
-                             completion:^(BOOL finished) {
-
-                             }];
+            [self collapseTableView];
         }
         return;
     }
 
     __weak SearchShopViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] autoCompleteResultWithSearchText:searchText]
+    [[[CoffeeService sharedInstance] autoCompleteResultWithSearchText:self.searchTextGlobal]
                      continueWithExecutor:[BFExecutor mainThreadExecutor]
                          withSuccessBlock:^id(BFTask *task) {
                              AutoCompleteResult *autoCompleteResult = task.result;
-                             if (![autoCompleteResult.searchText isEqualToString:searchText])
+                             if (![autoCompleteResult.searchText isEqualToString:preventCircularRef.searchTextGlobal])
                              {
                                  return nil;
                              }
                              [preventCircularRef.searchResults removeAllObjects];
                              [preventCircularRef.searchResults addObjectsFromArray:autoCompleteResult.candidates];
                              [preventCircularRef.tableView reloadData];
-                             if ([Views heightOfView:preventCircularRef.tableView] < 1.0)
+                             if ([Views heightOfView:preventCircularRef.tableView] < 1.0f)
                              {
                                  [preventCircularRef expandTableView];
                              }
                              return nil;
                          }];
+}
+
+- (void) collapseTableView
+{
+    __weak SearchShopViewController *preventCircularRef = self;
+    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], 0);
+    [UIView animateWithDuration:0.3f delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [preventCircularRef.tableView setFrame:tableViewFrame];
+                     }
+                     completion:^(BOOL finished) {
+
+                     }];
 }
 
 - (void) expandTableView
@@ -285,12 +293,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     [self.searchBar resignFirstResponder];
 }
 
-#pragma tableView data source delegate
-
-- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
-{
-    return 40;
-}
+#pragma UITableViewDataSource method
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
 {
@@ -299,7 +302,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    static NSString *CellIdentifier = @"SettingCell";
+    static NSString *CellIdentifier = @"SearchCandidateCell";
 
     UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -314,7 +317,12 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     return cell;
 }
 
-#pragma tableView delegate
+#pragma UITableViewDelegate method
+
+- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
+{
+    return 40;
+}
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
 {
