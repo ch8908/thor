@@ -5,6 +5,7 @@
 
 #import <AddressBookUI/AddressBookUI.h>
 #import <MapKit/MapKit.h>
+#import <Bolts/BFTask.h>
 #import "AddShopViewController.h"
 #import "Views.h"
 #import "I18N.h"
@@ -119,14 +120,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillHide:)
                                                      name:UIKeyboardWillHideNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onAddShopSuccessNotification)
-                                                     name:AddShopSuccessNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onAddShopFailedNotification:)
-                                                     name:AddShopFailedNotification
                                                    object:nil];
     }
     return self;
@@ -284,7 +277,17 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     info.hours = @"111";
     info.shopDescription = @"description";
 
-    [[CoffeeService sharedInstance] submitShopInfo:info];
+    __weak AddShopViewController *preventCircularRef = self;
+    [[[CoffeeService sharedInstance] submitShopInfo:info]
+                     continueWithBlock:^id(BFTask *task) {
+                         if (task.error)
+                         {
+                             [preventCircularRef showFailedAlert];
+                             return nil;
+                         }
+                         [preventCircularRef showNavigationTitleWithString:[I18N key:@"submit_success"]];
+                         return nil;
+                     }];
 
     [self showIndicatorOnNavigationBar];
 }
@@ -337,7 +340,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return view;
 }
 
-- (void) onAddShopFailedNotification:(NSNotification *) notification
+- (void) showFailedAlert
 {
     [self showNavigationTitleWithString:[I18N key:@"submit_failed"]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[I18N key:@"submit_failed"]
@@ -346,11 +349,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                                               cancelButtonTitle:nil
                                               otherButtonTitles:[I18N key:@"try_again"], nil];
     [alertView show];
-}
-
-- (void) onAddShopSuccessNotification
-{
-    [self showNavigationTitleWithString:[I18N key:@"submit_success"]];
 }
 
 - (void) showNavigationTitleWithString:(NSString *) message

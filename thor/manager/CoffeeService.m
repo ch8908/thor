@@ -119,7 +119,7 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 
               NSError *serviceError = [[NSError alloc] initWithDomain:THCoffeeServiceErrorDomain
-                                                                 code:TRCoffeeServiceWrongDataCode
+                                                                 code:TRCoffeeServiceServerReturnErrorCode
                                                              userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
 
               [completionSource setError:serviceError];
@@ -246,29 +246,16 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Add new coffee shop method
 
-- (void) submitShopInfo:(SubmitInfo *) info
+- (BFTask *) submitShopInfo:(SubmitInfo *) info
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops"];
 
     NSDictionary *parameters = [info infoAsDictionaryWithToken:[[LogStateMachine sharedInstance] authToken]];
 
-    [self.manager POST:urlString
-            parameters:parameters
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
-                                                                    encoding:NSUTF8StringEncoding];
-                   NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-
-                   [[NSNotificationCenter defaultCenter] postNotificationName:AddShopSuccessNotification
-                                                                       object:[jsonDic objectForKey:@"authentication_token"]];
-               }
-               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
-                                                                    encoding:NSUTF8StringEncoding];
-                   NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-                   [[NSNotificationCenter defaultCenter] postNotificationName:AddShopFailedNotification
-                                                                       object:[jsonDic objectForKey:@"error"]];
-               }];
+    return [[self afNetworkingPOST:urlString parameters:parameters]
+                  continueWithSuccessBlock:^id(BFTask *task) {
+                      return [BFTask taskWithResult:nil];
+                  }];
 }
 
 #pragma Search meghod

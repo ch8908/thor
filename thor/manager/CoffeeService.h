@@ -10,7 +10,7 @@ extern NSString *const THCoffeeServiceErrorDomain;
 
 typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 {
-    TRCoffeeServiceWrongDataCode,
+    TRCoffeeServiceServerReturnErrorCode = 0,
     TRCoffeeServiceNetworkIssueCode,
 };
 
@@ -42,7 +42,7 @@ extern NSString *AddShopFailedNotification;
 
 - (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password;
 
-- (void) submitShopInfo:(SubmitInfo *) info;
+- (BFTask *) submitShopInfo:(SubmitInfo *) info;
 
 - (BFTask *) decodeShops:(id) object;
 
