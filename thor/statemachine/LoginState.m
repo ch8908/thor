@@ -12,6 +12,7 @@
 - (void) enter
 {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
+    [[LogStateMachine sharedInstance] setAuthToken:[[[Pref sharedInstance] authenticationToken] getString]];
     [[NSNotificationCenter defaultCenter] postNotificationName:MachineLoginSuccessNotification object:nil];
 }
 
