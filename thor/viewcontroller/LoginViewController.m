@@ -6,6 +6,7 @@
 //
 
 
+#import <Bolts/BFTask.h>
 #import "AbstractUIViewController.h"
 #import "LoginViewController.h"
 #import "Views.h"
@@ -65,15 +66,6 @@
         [self.signUpButton addTarget:self action:@selector(onSignUp)
                     forControlEvents:UIControlEventTouchUpInside];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onSignInFailedNotification:)
-                                                     name:SignInFailedNotification
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onSignInSuccessNotification:)
-                                                     name:SignInSuccessNotification
-                                                   object:nil];
     }
 
     return self;
@@ -159,20 +151,6 @@
     return YES;
 }
 
-- (void) onSignInSuccessNotification:(NSNotification *) notification
-{
-    NSString *token = notification.object;
-    [[[Pref sharedInstance] authenticationToken] setString:token];
-    [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
-    [self onCancel];
-}
-
-- (void) onSignInFailedNotification:(NSNotification *) notification
-{
-    NSString *errorMessage = notification.object;
-    self.errorMessageLabel.text = errorMessage;
-}
-
 - (void) onSubmit
 {
     NSString *email = self.emailField.text;
@@ -180,7 +158,20 @@
 
     if (![NSString isEmptyAfterTrim:email] && ![NSString isEmptyAfterTrim:password])
     {
-        [[CoffeeService sharedInstance] signInWithEmail:email password:password];
+        __weak LoginViewController *preventCircularRef = self;
+        [[[CoffeeService sharedInstance] signInWithEmail:email password:password]
+                         continueWithBlock:^id(BFTask *task) {
+                             if (task.error)
+                             {
+                                 preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
+                                 return nil;
+                             }
+                             NSString *token = task.result;
+                             [[[Pref sharedInstance] authenticationToken] setString:token];
+                             [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
+                             [preventCircularRef onCancel];
+                             return nil;
+                         }];
     }
 }
 

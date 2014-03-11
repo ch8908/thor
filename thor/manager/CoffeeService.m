@@ -41,8 +41,7 @@
 
 @end
 
-NSString *SignInSuccessNotification = @"SignInSuccessNotification";
-NSString *SignInFailedNotification = @"SignInFailedNotification";
+NSString *const THCoffeeServiceErrorDomain = @"com.osolve.thor";
 
 NSString *RegisterSuccessNotification = @"RegisterSuccessNotification";
 NSString *RegisterFailedNotification = @"RegisterFailedNotification";
@@ -80,6 +79,8 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return self;
 }
 
+#pragma Encapsulate method
+
 - (BFTask *) afNetworkingGet:(NSString *) urlString parameters:(NSDictionary *) params
 {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
@@ -97,6 +98,37 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
     return completionSource.task;
 }
+
+- (BFTask *) afNetworkingPOST:(NSString *) urlString parameters:(NSDictionary *) params
+{
+    BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager POST:urlString parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              [completionSource setResult:responseObject];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //TODO - handle network issue
+              NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
+                                                               encoding:NSUTF8StringEncoding];
+              NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+              NSString *errorMessage = [jsonDic objectForKey:@"error"];
+
+
+              NSError *serviceError = [[NSError alloc] initWithDomain:THCoffeeServiceErrorDomain
+                                                                 code:TRCoffeeServiceWrongDataCode
+                                                             userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
+
+              [completionSource setError:serviceError];
+          }];
+
+    return completionSource.task;
+}
+
+#pragma Get shops around you
 
 - (BFTask *) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance
 {
@@ -135,6 +167,8 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
+#pragma Get shop details
+
 - (BFTask *) fetchDetailWithShopId:(NSNumber *) number
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@", BASE_API_URL, @"/shops/", number];
@@ -161,6 +195,8 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
+#pragma Register method
+
 - (void) resisterWithParams:(NSDictionary *) dictionary
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/sign_up"];
@@ -184,8 +220,9 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                }];
 }
 
+#pragma Sign In method
 
-- (void) signInWithEmail:(NSString *) email password:(NSString *) password
+- (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/tokens/create"];
 
@@ -193,23 +230,21 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     [params setObject:email forKey:@"email"];
     [params setObject:password forKey:@"password"];
 
-    [self.manager POST:urlString parameters:params
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
-                                                                    encoding:NSUTF8StringEncoding];
-                   NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+    return [[self afNetworkingPOST:urlString parameters:params]
+                  continueWithSuccessBlock:^id(BFTask *task) {
 
-                   [[NSNotificationCenter defaultCenter] postNotificationName:SignInSuccessNotification
-                                                                       object:[jsonDic objectForKey:@"authentication_token"]];
-               }
-               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
-                                                                    encoding:NSUTF8StringEncoding];
-                   NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-                   [[NSNotificationCenter defaultCenter] postNotificationName:SignInFailedNotification
-                                                                       object:[jsonDic objectForKey:@"error"]];
-               }];
+                      NSString *encodedJsonData = [[NSString alloc] initWithData:task.result
+                                                                        encoding:NSUTF8StringEncoding];
+
+                      NSDictionary *jsonDic = [encodedJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+
+                      NSString *token = [jsonDic objectForKey:@"authentication_token"];
+
+                      return [BFTask taskWithResult:token];
+                  }];
 }
+
+#pragma Add new coffee shop method
 
 - (void) submitShopInfo:(SubmitInfo *) info
 {
@@ -235,6 +270,8 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                                                                        object:[jsonDic objectForKey:@"error"]];
                }];
 }
+
+#pragma Search meghod
 
 - (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchText
 {

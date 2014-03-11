@@ -6,6 +6,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
+extern NSString *const THCoffeeServiceErrorDomain;
+
+typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
+{
+    TRCoffeeServiceWrongDataCode,
+    TRCoffeeServiceNetworkIssueCode,
+};
+
 @interface AutoCompleteResult : NSObject
 @property (nonatomic, strong) NSArray *candidates;
 @property (nonatomic, copy) NSString *searchText;
@@ -20,9 +28,6 @@
 extern NSString *RegisterSuccessNotification;
 extern NSString *RegisterFailedNotification;
 
-extern NSString *SignInSuccessNotification;
-extern NSString *SignInFailedNotification;
-
 extern NSString *AddShopSuccessNotification;
 extern NSString *AddShopFailedNotification;
 
@@ -35,7 +40,7 @@ extern NSString *AddShopFailedNotification;
 
 - (void) resisterWithParams:(NSDictionary *) dictionary;
 
-- (void) signInWithEmail:(NSString *) email password:(NSString *) password;
+- (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password;
 
 - (void) submitShopInfo:(SubmitInfo *) info;
 
@@ -43,5 +48,4 @@ extern NSString *AddShopFailedNotification;
 
 - (BFTask *) autoCompleteResultWithSearchText:(NSString *) searchText;
 
-- (BFTask *) searchShopWithSearchText:(NSString *) searchText;
 @end
