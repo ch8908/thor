@@ -3,7 +3,7 @@ pod 'JSONKit'
 pod "AFNetworking", "~> 2.0"
 pod 'TMCache'
 pod 'Mixpanel'
-pod 'Facebook-iOS-SDK', '~> 3.11.0'
+pod 'Facebook-iOS-SDK'
 pod 'CrittercismSDK'
 pod 'MMDrawerController'
 pod 'Bolts'

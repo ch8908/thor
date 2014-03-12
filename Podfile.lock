@@ -41,7 +41,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - Bolts
   - CrittercismSDK
-  - Facebook-iOS-SDK (~> 3.11.0)
+  - Facebook-iOS-SDK
   - GHUnit
   - JSONKit
   - Mixpanel
