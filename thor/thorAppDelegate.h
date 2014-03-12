@@ -3,7 +3,7 @@
 //  thor
 //
 //  Created by Huang ChienShuo on 8/19/13.
-//  Copyright (c) 2013 ThousandSquare. All rights reserved.
+//  Copyright (c) 2013 oSolve. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

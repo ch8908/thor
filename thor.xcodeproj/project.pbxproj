@@ -90,6 +90,7 @@
 		23D1A066EB52712B23F811C3 /* SubmitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */; };
 		23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF812EA31A3594E08DF /* AddShopViewController.m */; };
 		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		23D1A13F6F63CFDDF28AA57B /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
 		23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */; };
 		23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
 		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
@@ -117,6 +118,7 @@
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
 		23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */; };
+		23D1ACD11DE36F889D7D243E /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
 		23D1ADAF7031590D64AE4C1A /* ThorUis.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A243DA38B16BA100F0C6 /* ThorUis.m */; };
 		23D1AE4499B34B0941E7FEA2 /* AbstractPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFE4F0985AEC60D83452 /* AbstractPref.m */; };
 		23D1AFB5453C919E0EE1499A /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A4636A449BF441538AD1 /* SettingController.m */; };
@@ -203,6 +205,7 @@
 		23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		23D1A5C7E2194F6A94E875E1 /* SearchShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchShopViewController.m; sourceTree = "<group>"; };
 		23D1A5DB53CEE6694FC6C18F /* CoffeeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeService.h; sourceTree = "<group>"; };
+		23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookDaemon.m; sourceTree = "<group>"; };
 		23D1A646E75AD076769EA43A /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
 		23D1A702A947B002EC72EBD7 /* CoffeeShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShop.m; sourceTree = "<group>"; };
 		23D1A7127BF64CC4D2311FD0 /* NSArray+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Util.h"; sourceTree = "<group>"; };
@@ -225,6 +228,7 @@
 		23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		23D1AAF5C797FB0DF4B8BDC2 /* RNGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGridMenu.m; sourceTree = "<group>"; };
 		23D1AB80F2A22133B19F5B0F /* LogoutState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutState.h; sourceTree = "<group>"; };
+		23D1AB842B5E4D6FD7BD0EB6 /* FacebookDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookDaemon.h; sourceTree = "<group>"; };
 		23D1AC024B7C9EB60CB43861 /* AddShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopViewController.h; sourceTree = "<group>"; };
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 				1958468A17C266C8004B8592 /* Supporting Files */,
 				23D1A0213F5B3C9CE58B7C22 /* uis */,
 				23D1A75D601DACC98C2F6F82 /* external */,
+				23D1A4EE796A2E2B57B72460 /* facebook */,
 			);
 			path = thor;
 			sourceTree = "<group>";
@@ -525,6 +530,15 @@
 				23D1A251A54477874EEDE336 /* ThorUis.h */,
 			);
 			path = uis;
+			sourceTree = "<group>";
+		};
+		23D1A4EE796A2E2B57B72460 /* facebook */ = {
+			isa = PBXGroup;
+			children = (
+				23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */,
+				23D1AB842B5E4D6FD7BD0EB6 /* FacebookDaemon.h */,
+			);
+			path = facebook;
 			sourceTree = "<group>";
 		};
 		23D1A75D601DACC98C2F6F82 /* external */ = {
@@ -622,7 +636,7 @@
 			attributes = {
 				CLASSPREFIX = thor;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = ThousandSquare;
+				ORGANIZATIONNAME = oSolve;
 				TargetAttributes = {
 					1960A0F918C84E4800726DC9 = {
 						DevelopmentTeam = WRL6633XG9;
@@ -819,6 +833,7 @@
 				23D1A7D26C67FC23F403B240 /* RNGridMenu.m in Sources */,
 				23D1A4CAA20E7AE3AEE0195A /* SearchShopViewController.m in Sources */,
 				23D1AA5BE0C191E9BD4CE2B5 /* NSArray+Util.m in Sources */,
+				23D1ACD11DE36F889D7D243E /* FacebookDaemon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +882,7 @@
 				1960A12218C84E4800726DC9 /* RNGridMenu.m in Sources */,
 				23D1A924BA74F5701B173043 /* SearchShopViewController.m in Sources */,
 				23D1A4D452EC1383DCB43141 /* NSArray+Util.m in Sources */,
+				23D1A13F6F63CFDDF28AA57B /* FacebookDaemon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

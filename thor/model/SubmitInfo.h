@@ -1,6 +1,6 @@
 //
 // Created by Huang ChienShuo on 1/25/14.
-// Copyright (c) 2014 ThousandSquare. All rights reserved.
+// Copyright (c) 2014 oSolve. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

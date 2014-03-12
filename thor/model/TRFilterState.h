@@ -1,6 +1,6 @@
 //
 // Created by Huang ChienShuo on 2/23/14.
-// Copyright (c) 2014 ThousandSquare. All rights reserved.
+// Copyright (c) 2014 oSolve. All rights reserved.
 //
 
 @interface TRFilterState : NSObject
