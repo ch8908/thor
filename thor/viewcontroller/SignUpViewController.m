@@ -3,6 +3,7 @@
 // Copyright (c) 2014 ThousandSquare. All rights reserved.
 //
 
+#import <Bolts/BFTask.h>
 #import "SignUpViewController.h"
 #import "Views.h"
 #import "UIColor+Constant.h"
@@ -26,7 +27,6 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor loginViewBgColor];
         CGRect rect = CGRectMake(0, 0, 280, 44);
         _emailField = [[UITextField alloc] initWithFrame:rect];
         self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -50,6 +50,7 @@
         _errorMessageLabel = [[UILabel alloc] init];
         self.errorMessageLabel.textColor = [UIColor redColor];
         self.errorMessageLabel.backgroundColor = [UIColor clearColor];
+        self.errorMessageLabel.textAlignment = NSTextAlignmentCenter;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
@@ -60,28 +61,16 @@
                                                  selector:@selector(keyboardWillHide:)
                                                      name:UIKeyboardWillHideNotification
                                                    object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onRegisterFailedNotification:)
-                                                     name:RegisterFailedNotification
-                                                   object:nil];
     }
 
     return self;
 }
 
-- (void) onRegisterFailedNotification:(NSNotification *) notification
-{
-    NSString *errorMessage = notification.object;
-    self.errorMessageLabel.text = errorMessage;
-    [self.errorMessageLabel sizeToFit];
-    [Views alignCenter:self.errorMessageLabel containerWidth:self.view.bounds.size.width];
-    [Views locate:self.errorMessageLabel y:self.topBarOffset + 10];
-}
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor loginViewBgColor];
+
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                  action:@selector(onViewTap)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
@@ -110,6 +99,11 @@
 
     [Views alignCenter:self.submitButton containerWidth:self.view.bounds.size.width];
     [Views locate:self.submitButton y:[Views bottomOf:self.confirmPasswordField] + 10];
+
+    [Views resize:self.errorMessageLabel containerSize:CGSizeMake([Views widthOfView:self.view] - 10, 50)];
+    [Views alignCenter:self.errorMessageLabel containerWidth:[Views widthOfView:self.view]];
+    [Views locate:self.errorMessageLabel
+                y:[Views yOfView:self.emailField] - [Views heightOfView:self.errorMessageLabel] - 5];
 
     [self.view addSubview:self.emailField];
     [self.view addSubview:self.passwordField];
@@ -176,7 +170,17 @@
     [params setObject:email forKey:@"email"];
     [params setObject:password forKey:@"password"];
     [params setObject:confirmPassword forKey:@"password_confirmation"];
-    [[CoffeeService sharedInstance] resisterWithParams:[params copy]];
+
+    __weak SignUpViewController *preventCircularRef = self;
+    [[[CoffeeService sharedInstance] resisterWithParams:[params copy]]
+                     continueWithBlock:^id(BFTask *task) {
+                         if (task.error)
+                         {
+                             preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
+                             return nil;
+                         }
+                         return nil;
+                     }];
 }
 
 - (void) onViewTap
