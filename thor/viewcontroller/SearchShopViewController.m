@@ -284,13 +284,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
 {
-    NSString *searchText = searchBar.text;
-    if ([NSString isEmptyAfterTrim:searchText])
-    {
-        return;
-    }
 
-    [self.searchBar resignFirstResponder];
 }
 
 #pragma UITableViewDataSource method
