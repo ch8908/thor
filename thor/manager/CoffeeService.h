@@ -28,9 +28,6 @@ typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 extern NSString *RegisterSuccessNotification;
 extern NSString *RegisterFailedNotification;
 
-extern NSString *AddShopSuccessNotification;
-extern NSString *AddShopFailedNotification;
-
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
 
@@ -38,7 +35,7 @@ extern NSString *AddShopFailedNotification;
 
 - (BFTask *) fetchDetailWithShopId:(NSNumber *) number;
 
-- (void) resisterWithParams:(NSDictionary *) dictionary;
+- (BFTask *) resisterWithParams:(NSDictionary *) dictionary;
 
 - (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password;
 

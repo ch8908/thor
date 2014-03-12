@@ -41,18 +41,13 @@
 
 @end
 
+
+NSString *const TRCoffeeServiceErrorResponseObjectKey = @"TRCoffeeServiceErrorResponseObjectKey";
 NSString *const THCoffeeServiceErrorDomain = @"com.osolve.thor";
 
-NSString *RegisterSuccessNotification = @"RegisterSuccessNotification";
-NSString *RegisterFailedNotification = @"RegisterFailedNotification";
-
-NSString *AddShopSuccessNotification = @"AddShopSuccessNotification";
-NSString *AddShopFailedNotification = @"AddShopFailedNotification";
-
-NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
+NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 @interface CoffeeService()
-@property (nonatomic) AFHTTPRequestOperationManager *manager;
 @end
 
 @implementation CoffeeService
@@ -74,7 +69,6 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     self = [super init];
     if (self)
     {
-        _manager = [AFHTTPRequestOperationManager manager];
     }
     return self;
 }
@@ -111,16 +105,14 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
               [completionSource setResult:responseObject];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //TODO - handle network issue
-              NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
-                                                               encoding:NSUTF8StringEncoding];
-              NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-              NSString *errorMessage = [jsonDic objectForKey:@"error"];
 
+              NSDictionary *customUserInfo =
+                @{TRCoffeeServiceErrorResponseObjectKey : operation.responseObject,
+                  NSUnderlyingErrorKey : error};
 
               NSError *serviceError = [[NSError alloc] initWithDomain:THCoffeeServiceErrorDomain
                                                                  code:TRCoffeeServiceServerReturnErrorCode
-                                                             userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
+                                                             userInfo:customUserInfo];
 
               [completionSource setError:serviceError];
           }];
@@ -197,27 +189,34 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Register method
 
-- (void) resisterWithParams:(NSDictionary *) dictionary
+- (BFTask *) resisterWithParams:(NSDictionary *) dictionary
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/sign_up"];
 
-    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    return [[self afNetworkingPOST:urlString parameters:dictionary]
+                  continueWithBlock:^id(BFTask *task) {
+                      if (task.error)
+                      {
+                          NSError *error = task.error;
+                          NSString *encodeJsonData = [[NSString alloc] initWithData:error.userInfo[TRCoffeeServiceErrorResponseObjectKey]
+                                                                           encoding:NSUTF8StringEncoding];
+                          NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
 
-    [self.manager POST:urlString parameters:dictionary
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
-                                                                    encoding:NSUTF8StringEncoding];
-                   NSLog(@">>>>>> encodeJsonData:%@", encodeJsonData);
-               }
-               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSString *encodeJsonData = [[NSString alloc] initWithData:operation.responseObject
-                                                                    encoding:NSUTF8StringEncoding];
-                   NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+                          NSDictionary *errorDic = [jsonDic objectForKey:@"error"];
 
-                   [[NSNotificationCenter defaultCenter] postNotificationName:RegisterFailedNotification
-                                                                       object:[jsonDic objectForKey:@"error"]];
-                   NSLog(@">>>> resisterWithParams failed json:%@", encodeJsonData);
-               }];
+                          NSArray *errorMessages = errorDic[@"email"];
+                          NSString *errorMessage = errorMessages[0];
+
+                          NSMutableDictionary *newUserInfo = [error.userInfo mutableCopy];
+                          newUserInfo[NSLocalizedDescriptionKey] = errorMessage;
+
+                          NSError *newError = [[NSError alloc] initWithDomain:error.domain
+                                                                         code:error.code
+                                                                     userInfo:newUserInfo];
+                          return [BFTask taskWithError:newError];
+                      }
+                      return [BFTask taskWithResult:nil];
+                  }];
 }
 
 #pragma Sign In method
@@ -231,7 +230,24 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     [params setObject:password forKey:@"password"];
 
     return [[self afNetworkingPOST:urlString parameters:params]
-                  continueWithSuccessBlock:^id(BFTask *task) {
+                  continueWithBlock:^id(BFTask *task) {
+                      if (task.error)
+                      {
+                          NSError *error = task.error;
+                          NSString *encodeJsonData = [[NSString alloc] initWithData:error.userInfo[TRCoffeeServiceErrorResponseObjectKey]
+                                                                           encoding:NSUTF8StringEncoding];
+                          NSDictionary *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+
+                          NSString *errorMessage = [jsonDic objectForKey:@"error"];
+
+                          NSMutableDictionary *newUserInfo = [error.userInfo mutableCopy];
+                          newUserInfo[NSLocalizedDescriptionKey] = errorMessage;
+
+                          NSError *newError = [[NSError alloc] initWithDomain:error.domain
+                                                                         code:error.code
+                                                                     userInfo:newUserInfo];
+                          return [BFTask taskWithError:newError];
+                      }
 
                       NSString *encodedJsonData = [[NSString alloc] initWithData:task.result
                                                                         encoding:NSUTF8StringEncoding];
@@ -258,7 +274,7 @@ NSString const *BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                   }];
 }
 
-#pragma Search meghod
+#pragma Search method
 
 - (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchText
 {
