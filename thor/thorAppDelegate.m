@@ -14,6 +14,7 @@
 #import "LeftDrawerController.h"
 #import "MMDrawerController.h"
 #import "UIColor+Constant.h"
+#import "FBSession.h"
 
 @implementation thorAppDelegate
 

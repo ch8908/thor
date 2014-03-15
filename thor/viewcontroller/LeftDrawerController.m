@@ -3,6 +3,7 @@
 // Copyright (c) 2014 oSolve. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "LeftDrawerController.h"
 #import "I18N.h"
 #import "Views.h"
@@ -11,11 +12,13 @@
 #import "LogStateMachine.h"
 #import "LogoutState.h"
 #import "SettingController.h"
+#import "AboutViewController.h"
 
 enum
 {
     LogInLogOut = 0,
     Setting,
+    About,
     TotalCount
 };
 
@@ -108,6 +111,10 @@ enum
         }
         case Setting:
             cell.textLabel.text = [I18N key:@"setting_title"];
+            break;
+        case About:
+            cell.textLabel.text = [I18N key:@"about_title"];
+            break;
         default:
             break;
     }
@@ -144,6 +151,16 @@ enum
             [self.mm_drawerController closeDrawerAnimated:YES
                                                completion:nil];
 
+        }
+        case About:
+        {
+            AboutViewController *aboutViewController = [[AboutViewController alloc] initAbout];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
+            [self.mm_drawerController.centerViewController presentViewController:navigationController
+                                                                        animated:YES
+                                                                      completion:nil];
+            [self.mm_drawerController closeDrawerAnimated:YES
+                                               completion:nil];
         }
         default:
             break;

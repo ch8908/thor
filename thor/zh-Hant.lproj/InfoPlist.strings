@@ -1,2 +1,3 @@
 /* Localized versions of Info.plist keys */
-
+"CFBundleDisplayName" = "給我好咖啡";
+"CFBundleName" = "給我好咖啡";

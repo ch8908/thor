@@ -52,3 +52,8 @@
 "apple_map_navigation" = "開啟內建地圖導航";
 "google_map_navigation" = "開啟 Google Maps 導航";
 "choose_navigation" = "選擇導航系統";
+"about_title" = "關於";
+"about_coffee_title" = "關於 %1$@";
+"about_feedback_title" = "給予回饋";
+"about_open_source_title" = "有關 Open Source";
+"about_version" = "目前版本";

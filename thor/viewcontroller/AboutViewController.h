@@ -1,5 +1,5 @@
 //
-// Created by Huang ChienShuo on 2/16/14.
+// Created by Huang ChienShuo on 3/14/14.
 // Copyright (c) 2014 oSolve. All rights reserved.
 //
 
@@ -7,8 +7,6 @@
 #import "AbstractUIViewController.h"
 
 
-@interface SettingController : AbstractUIViewController
-
-- (id) initSettingController;
-
+@interface AboutViewController : AbstractUIViewController
+- (id) initAbout;
 @end

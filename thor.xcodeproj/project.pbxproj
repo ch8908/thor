@@ -90,7 +90,9 @@
 		23D1A066EB52712B23F811C3 /* SubmitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */; };
 		23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF812EA31A3594E08DF /* AddShopViewController.m */; };
 		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		23D1A0D0F97519FB6006DB96 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A96A7E370D0B851B068A /* AboutViewController.m */; };
 		23D1A13F6F63CFDDF28AA57B /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
+		23D1A16A6A63A25F830B1170 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A96A7E370D0B851B068A /* AboutViewController.m */; };
 		23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */; };
 		23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
 		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
@@ -185,6 +187,7 @@
 		23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractState.h; sourceTree = "<group>"; };
 		23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Constant.h"; sourceTree = "<group>"; };
 		23D1A1468711D39C6AB838AA /* System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
+		23D1A18903B895FD15914B6A /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		23D1A1BE688912AE36156663 /* NSArray+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Util.m"; sourceTree = "<group>"; };
 		23D1A1CDD7F7F79D53004C90 /* AbstractState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractState.m; sourceTree = "<group>"; };
 		23D1A243DA38B16BA100F0C6 /* ThorUis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorUis.m; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 		23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftDrawerController.m; sourceTree = "<group>"; };
 		23D1A95738A865504909BF24 /* SubmitInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitInfo.h; sourceTree = "<group>"; };
 		23D1A9662F95D333D7E3D6B1 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
+		23D1A96A7E370D0B851B068A /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStateMachine.m; sourceTree = "<group>"; };
 		23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalApp.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 				23D1A838E95E2123BD575694 /* DistancePickViewController.h */,
 				23D1A5C7E2194F6A94E875E1 /* SearchShopViewController.m */,
 				23D1A2F44AC6690EB3A5E9BC /* SearchShopViewController.h */,
+				23D1A96A7E370D0B851B068A /* AboutViewController.m */,
+				23D1A18903B895FD15914B6A /* AboutViewController.h */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -834,6 +840,7 @@
 				23D1A4CAA20E7AE3AEE0195A /* SearchShopViewController.m in Sources */,
 				23D1AA5BE0C191E9BD4CE2B5 /* NSArray+Util.m in Sources */,
 				23D1ACD11DE36F889D7D243E /* FacebookDaemon.m in Sources */,
+				23D1A16A6A63A25F830B1170 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +890,7 @@
 				23D1A924BA74F5701B173043 /* SearchShopViewController.m in Sources */,
 				23D1A4D452EC1383DCB43141 /* NSArray+Util.m in Sources */,
 				23D1A13F6F63CFDDF28AA57B /* FacebookDaemon.m in Sources */,
+				23D1A0D0F97519FB6006DB96 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

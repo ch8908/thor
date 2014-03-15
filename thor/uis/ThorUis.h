@@ -8,4 +8,8 @@
 
 @interface ThorUis : NSObject
 + (NSString *) searchDistanceString:(NSNumber *) number;
+
++ (NSString *) currentVersion;
+
++ (NSString *) bundleDisplayName;
 @end

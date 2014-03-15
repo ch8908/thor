@@ -14,4 +14,16 @@
     return [NSString stringWithFormat:@"%@ %@", number, [I18N key:@"distance_unit"]];
 }
 
++ (NSString *) currentVersion
+{
+    NSString *versionCode = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *) kCFBundleVersionKey];
+    return versionCode;
+}
+
++ (NSString *) bundleDisplayName
+{
+    NSString *versionCode = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *) kCFBundleNameKey];
+    return versionCode;
+}
+
 @end

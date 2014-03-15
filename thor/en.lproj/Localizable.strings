@@ -52,3 +52,8 @@
 "apple_map_navigation" = "Open navigation";
 "google_map_navigation" = "Open Google Maps navigation";
 "choose_navigation" = "Choose navigation";
+"about_title" = "About";
+"about_coffee_title" = "About %1$@";
+"about_feedback_title" = "Feed Back";
+"about_open_source_title" = "Open Source";
+"about_version" = "Version";
