@@ -6,7 +6,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
-extern NSString *const THCoffeeServiceErrorDomain;
+extern NSString *const TRCoffeeServiceErrorDomain;
 
 typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 {
@@ -14,12 +14,25 @@ typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
     TRCoffeeServiceNetworkIssueCode,
 };
 
+/*
+* Result for search
+* */
 @interface AutoCompleteResult : NSObject
 @property (nonatomic, strong) NSArray *candidates;
 @property (nonatomic, copy) NSString *searchText;
 
 - (id) initWithCandidates:(NSArray *) candidates searchText:(NSString *) searchText;
 
+@end
+
+/*
+* Register Class
+* */
+
+@interface RegisterSource : NSObject
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *confirmPassword;
 @end
 
 @class SubmitInfo;
@@ -35,7 +48,7 @@ extern NSString *RegisterFailedNotification;
 
 - (BFTask *) fetchDetailWithShopId:(NSNumber *) number;
 
-- (BFTask *) resisterWithParams:(NSDictionary *) dictionary;
+- (BFTask *) resisterWithParams:(RegisterSource *) source;
 
 - (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password;
 

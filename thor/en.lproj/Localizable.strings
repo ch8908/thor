@@ -57,3 +57,6 @@
 "about_feedback_title" = "Feed Back";
 "about_open_source_title" = "Open Source";
 "about_version" = "Version";
+"please_enter_email" = "Please enter e-mail";
+"please_enter_password" = "Please enter password";
+"confirm_password_failed" = "Confirm Password failed";

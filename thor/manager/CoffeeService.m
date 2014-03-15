@@ -15,6 +15,8 @@
 #import "SubmitInfo.h"
 #import "LogStateMachine.h"
 #import "NSArray+Util.h"
+#import "NSString+Util.h"
+#import "I18N.h"
 
 @implementation AutoCompleteResult
 
@@ -41,9 +43,14 @@
 
 @end
 
+/*
+* Register Source Implementation
+* */
+@implementation RegisterSource
+@end
 
 NSString *const TRCoffeeServiceErrorResponseObjectKey = @"TRCoffeeServiceErrorResponseObjectKey";
-NSString *const THCoffeeServiceErrorDomain = @"com.osolve.thor";
+NSString *const TRCoffeeServiceErrorDomain = @"com.osolve.thor";
 
 NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
@@ -110,7 +117,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                 @{TRCoffeeServiceErrorResponseObjectKey : operation.responseObject,
                   NSUnderlyingErrorKey : error};
 
-              NSError *serviceError = [[NSError alloc] initWithDomain:THCoffeeServiceErrorDomain
+              NSError *serviceError = [[NSError alloc] initWithDomain:TRCoffeeServiceErrorDomain
                                                                  code:TRCoffeeServiceServerReturnErrorCode
                                                              userInfo:customUserInfo];
 
@@ -189,11 +196,22 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Register method
 
-- (BFTask *) resisterWithParams:(NSDictionary *) dictionary
+- (BFTask *) resisterWithParams:(RegisterSource *) source
 {
+    NSError *sourceError = [self checkRegisterSource:source];
+    if (sourceError)
+    {
+        return [BFTask taskWithError:sourceError];
+    }
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:source.email forKey:@"email"];
+    [params setObject:source.password forKey:@"password"];
+    [params setObject:source.confirmPassword forKey:@"password_confirmation"];
+
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/sign_up"];
 
-    return [[self afNetworkingPOST:urlString parameters:dictionary]
+    return [[self afNetworkingPOST:urlString parameters:params]
                   continueWithBlock:^id(BFTask *task) {
                       if (task.error)
                       {
@@ -217,6 +235,33 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                       }
                       return [BFTask taskWithResult:nil];
                   }];
+}
+
+- (NSError *) checkRegisterSource:(RegisterSource *) source
+{
+    NSString *localizedDescription = nil;
+    if ([NSString isEmptyAfterTrim:source.email])
+    {
+        localizedDescription = [I18N key:@"please_enter_email"];
+    }
+    else if ([NSString isEmptyAfterTrim:source.password])
+    {
+        localizedDescription = [I18N key:@"please_enter_password"];
+    }
+    else if ([NSString isEmptyAfterTrim:source.confirmPassword] || ![source.password isEqualToString:source.confirmPassword])
+    {
+        localizedDescription = [I18N key:@"confirm_password_failed"];
+    }
+
+    if ([NSString isEmptyAfterTrim:localizedDescription])
+    {
+        return nil;
+    }
+
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
+    NSError *error = [[NSError alloc] initWithDomain:TRCoffeeServiceErrorDomain code:10 //meaningless
+                                            userInfo:userInfo];
+    return error;
 }
 
 #pragma Sign In method

@@ -57,3 +57,6 @@
 "about_feedback_title" = "給予回饋";
 "about_open_source_title" = "有關 Open Source";
 "about_version" = "目前版本";
+"please_enter_email" = "請輸入 e-mail";
+"please_enter_password" = "請輸入密碼";
+"confirm_password_failed" = "密碼與確認密碼不相同";

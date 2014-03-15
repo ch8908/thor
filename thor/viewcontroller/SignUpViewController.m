@@ -152,27 +152,13 @@
 
 - (void) onSubmit
 {
-    NSString *email = self.emailField.text;
-    NSString *password = self.passwordField.text;
-    NSString *confirmPassword = self.confirmPasswordField.text;
-
-    if ([NSString isEmptyAfterTrim:email] && [NSString isEmptyAfterTrim:password] && [NSString isEmptyAfterTrim:confirmPassword])
-    {
-        return;
-    }
-
-    if (![password isEqualToString:confirmPassword])
-    {
-        return;
-    }
-
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:email forKey:@"email"];
-    [params setObject:password forKey:@"password"];
-    [params setObject:confirmPassword forKey:@"password_confirmation"];
+    RegisterSource *source = [[RegisterSource alloc] init];
+    source.email = self.emailField.text;
+    source.password = self.passwordField.text;
+    source.confirmPassword = self.confirmPasswordField.text;
 
     __weak SignUpViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] resisterWithParams:[params copy]]
+    [[[CoffeeService sharedInstance] resisterWithParams:source]
                      continueWithBlock:^id(BFTask *task) {
                          if (task.error)
                          {
@@ -196,6 +182,12 @@
     {
         self.errorMessageLabel.text = @"";
     }
+    return YES;
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField *) textField
+{
+    [textField resignFirstResponder];
     return YES;
 }
 
