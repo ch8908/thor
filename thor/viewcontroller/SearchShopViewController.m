@@ -15,7 +15,9 @@
 #import "CoffeeShop.h"
 
 
-CGFloat SEARCH_TABLE_VIEW_PADDING = 40;
+CGFloat const SEARCH_TABLE_VIEW_PADDING = 40;
+CGFloat const SEARCH_BAR_DURATION = 0.2;
+CGFloat const SEARCH_RESULT_CELL_HEIGHT = 40;
 
 NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
@@ -139,59 +141,26 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (void) onTapBg:(UITapGestureRecognizer *) recognizer
 {
+    [self closeSearchController];
+}
+
+- (void) closeSearchController
+{
     [self.searchBar resignFirstResponder];
+    [self hideSearchControllerWithAnimation];
 }
 
 - (void) searchBarBecomeFirstResponder
 {
     [self.searchBar becomeFirstResponder];
+    [self showSearchControllerWithAnimation];
 }
 
-- (void) keyboardWillHide:(NSNotification *) notification
+- (void) showSearchControllerWithAnimation
 {
-    NSDictionary *info = [notification userInfo];
-    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval duration = 0;
-    [value getValue:&duration];
-
-    CGRect targetFrame = CGRectMake(0, -[Views heightOfView:self.searchBarView], [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
-
-    CGRect tableViewFrame = CGRectMake(0, 0, [Views widthOfView:self.tableView], 0);
-
-    NSLog(@">>>>>> keyboardWillHide:%@", NSStringFromCGRect(targetFrame));
-
-    __weak SearchShopViewController *preventCircularRef = self;
-    [UIView animateWithDuration:duration delay:0.0f
-                        options:UIViewAnimationOptionCurveLinear
-                     animations:^{
-
-                         preventCircularRef.backgroundMaskView.backgroundColor = [UIColor clearColor];
-
-                         [preventCircularRef.searchBarView setFrame:targetFrame];
-
-                         [preventCircularRef.tableView setFrame:tableViewFrame];
-                     }
-                     completion:^(BOOL finished) {
-                         [preventCircularRef.view removeFromSuperview];
-                         [preventCircularRef removeFromParentViewController];
-                     }];
-}
-
-- (void) keyboardWillShow:(NSNotification *) notification
-{
-    NSDictionary *info = [notification userInfo];
-    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval duration = 0;
-    [value getValue:&duration];
-
-    CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
-    self.keyboardFrame = endFrame;
-
     CGRect targetFrame = CGRectMake(0, 0, [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
-    NSLog(@">>>>>> keyboardWillShow:%@", NSStringFromCGRect(targetFrame));
 
-    CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:endFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
+    CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:self.keyboardFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
     if (self.searchResults.count == 0)
     {
         tableViewHeight = 0;
@@ -199,8 +168,9 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], tableViewHeight);
 
     self.view.backgroundColor = [UIColor clearColor];
+
     __weak SearchShopViewController *preventCircularRef = self;
-    [UIView animateWithDuration:duration delay:0.0f
+    [UIView animateWithDuration:SEARCH_BAR_DURATION delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
 
@@ -216,6 +186,48 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                      completion:^(BOOL finished) {
 
                      }];
+}
+
+- (void) hideSearchControllerWithAnimation
+{
+    __weak SearchShopViewController *preventCircularRef = self;
+
+    CGRect targetFrame = CGRectMake(0, -[Views heightOfView:self.searchBarView], [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
+
+    CGRect tableViewFrame = CGRectMake(0, 0, [Views widthOfView:self.tableView], 0);
+
+    [UIView animateWithDuration:SEARCH_BAR_DURATION delay:0.0f
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+
+                         preventCircularRef.backgroundMaskView.backgroundColor = [UIColor clearColor];
+
+                         [preventCircularRef.searchBarView setFrame:targetFrame];
+
+                         [preventCircularRef.tableView setFrame:tableViewFrame];
+                     }
+                     completion:^(BOOL finished) {
+                         [preventCircularRef.view removeFromSuperview];
+                         [preventCircularRef removeFromParentViewController];
+                     }];
+}
+
+- (void) keyboardWillHide:(NSNotification *) notification
+{
+    NSLog(@">>>>>> keyboardWillHide");
+}
+
+- (void) keyboardWillShow:(NSNotification *) notification
+{
+    NSDictionary *info = [notification userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval duration = 0;
+    [value getValue:&duration];
+
+    CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    self.keyboardFrame = endFrame;
+    NSLog(@">>>>>> keyboardWillShow");
 }
 
 #pragma UISearchBar delegate
@@ -253,6 +265,11 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                          }];
 }
 
+- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
+{
+    [self.searchBar resignFirstResponder];
+}
+
 - (void) collapseTableView
 {
     __weak SearchShopViewController *preventCircularRef = self;
@@ -280,11 +297,6 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                      completion:^(BOOL finished) {
 
                      }];
-}
-
-- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
-{
-
 }
 
 #pragma UITableViewDataSource method
@@ -315,7 +327,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    return 40;
+    return SEARCH_RESULT_CELL_HEIGHT;
 }
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
@@ -323,7 +335,10 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CoffeeShop *coffeeShop = self.searchResults[(NSUInteger) indexPath.row];
     [[NSNotificationCenter defaultCenter] postNotificationName:SearchShopSuccessNotification object:coffeeShop];
-    [self.searchBar resignFirstResponder];
+
+    self.searchBar.text = @"";
+    [self.searchResults removeAllObjects];
+    [self closeSearchController];
 }
 
 @end

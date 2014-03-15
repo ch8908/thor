@@ -13,14 +13,21 @@
 #import "LogoutState.h"
 #import "SettingController.h"
 #import "AboutViewController.h"
+#import "AddShopViewController.h"
 
 enum
 {
-    LogInLogOut = 0,
+    NewShop = 0,
     Setting,
     About,
+    LogInLogOut,
     TotalCount
 };
+
+CGFloat const DRAWER_CELL_HEIGHT = 50;
+
+NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
+NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 
 @interface LeftDrawerController()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property UITableView *tableView;
@@ -69,6 +76,32 @@ enum
     [self.view addSubview:self.tableView];
 }
 
+- (void) newShop
+{
+    if (![[LogStateMachine sharedInstance] isLogin])
+    {
+        [self showLoginOption];
+        return;
+    }
+    AddShopViewController *controller = [[AddShopViewController alloc] initAddShopViewController];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.mm_drawerController.centerViewController presentViewController:navigationController
+                                                                animated:YES completion:nil];
+}
+
+- (void) showLoginOption
+{
+    NSString *login = [I18N key:LOG_IN_I18N_KEY];
+    NSString *cancel = [I18N key:@"cancel"];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                                 initWithTitle:[I18N key:@"add_login_require_action_sheet_title"]
+                                                      delegate:self
+                                             cancelButtonTitle:nil
+                                        destructiveButtonTitle:login
+                                             otherButtonTitles:cancel, nil];
+    [actionSheet showInView:self.mm_drawerController.view];
+}
+
 - (void) onMachineLoginSuccessNotification
 {
     [self.tableView reloadData];
@@ -81,7 +114,7 @@ enum
 
 - (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    return 50;
+    return DRAWER_CELL_HEIGHT;
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
@@ -103,6 +136,11 @@ enum
 
     switch (indexPath.row)
     {
+        case NewShop:
+        {
+            cell.textLabel.text = [I18N key:@"add_shop_title"];
+            break;
+        }
         case LogInLogOut:
         {
             NSString *key = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
@@ -127,6 +165,11 @@ enum
 
     switch (indexPath.row)
     {
+        case NewShop:
+        {
+            [self newShop];
+            break;
+        }
         case LogInLogOut:
         {
             if ([[LogStateMachine sharedInstance] isLogin])
@@ -169,7 +212,7 @@ enum
 
 - (void) confirmSignOut
 {
-    NSString *signOut = [I18N key:@"log_out_button_title"];
+    NSString *signOut = [I18N key:LOG_OUT_I18N_KEY];
     NSString *cancel = [I18N key:@"cancel"];
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                                  initWithTitle:[I18N key:@"log_out_action_sheet_title"]
@@ -180,11 +223,19 @@ enum
     [actionSheet showInView:self.mm_drawerController.view];
 }
 
+#pragma Action Sheet delegete
+
 - (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
 {
-    if (buttonIndex == 0)
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LOG_OUT_I18N_KEY]])
     {
         [[LogStateMachine sharedInstance] changeState:[[LogoutState alloc] init]];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LOG_IN_I18N_KEY]])
+    {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
+        [self.navigationController presentViewController:navigationController
+                                                animated:YES completion:nil];
     }
 }
 

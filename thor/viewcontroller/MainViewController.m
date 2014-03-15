@@ -19,9 +19,6 @@
 #import "DetailViewController.h"
 #import "MMDrawerBarButtonItem.h"
 #import "UIViewController+MMDrawerController.h"
-#import "AddShopViewController.h"
-#import "LogStateMachine.h"
-#import "LoginViewController.h"
 #import "UINavigationItem+Util.h"
 #import "UIImage+Util.h"
 #import "UIColor+Constant.h"
@@ -33,8 +30,6 @@
 #import "BFExecutor.h"
 #import "SearchShopViewController.h"
 
-
-NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
@@ -49,7 +44,6 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 @property (nonatomic, strong) UIButton *zoomInButton;
 @property (nonatomic, strong) UIButton *zoomOutButton;
 @property (nonatomic, strong) TRFilterState *filterState;
-@property (nonatomic, strong) UIButton *searchButton;
 @property (nonatomic, strong) SearchShopViewController *searchShopViewController;
 @end
 
@@ -118,12 +112,6 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 
         _filterState = [[TRFilterState alloc] init];
 
-        _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.searchButton setImage:[UIImage imageNamed:@"image/icon_search.png"] forState:UIControlStateNormal];
-        [self.searchButton addTarget:self action:@selector(onSearchButtonClick:)
-                    forControlEvents:UIControlEventTouchUpInside];
-        [self.searchButton setBackgroundColor:[UIColor filterButtonBgColorNormal]];
-
         _searchShopViewController = [[SearchShopViewController alloc] initWithMainViewController:self];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
@@ -150,10 +138,12 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
                                                                                     action:@selector(onSlideMenuButtonPress)];
     [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                               target:self
-                                                                               action:@selector(onAddShop)];
-    [self.navigationItem setRightBarButtonItem:addButton];
+
+    UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/icon_search.png"]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(onSearchButtonClick)];
+    [self.navigationItem setRightBarButtonItem:searchBarButton];
 }
 
 - (void) viewDidLayoutSubviews
@@ -196,20 +186,15 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [Views locate:self.zoomInButton x:[Views xOfView:self.zoomOutButton]
                 y:[Views yOfView:self.zoomOutButton] - [Views heightOfView:self.zoomInButton] - 5];
 
-    [self.searchButton sizeToFit];
-    [Views locate:self.searchButton x:[Views widthOfView:self.view] - [Views widthOfView:self.searchButton] - 5
-                y:self.topBarOffset + 5];
-
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.locateButton];
     [self.view addSubview:self.filterButton];
     [self.view addSubview:self.zoomInButton];
     [self.view addSubview:self.zoomOutButton];
-    [self.view addSubview:self.searchButton];
 }
 
-#pragma Notification call back
+#pragma Notification callback
 
 - (void) onSearchShopSuccessNotification:(NSNotification *) notification
 {
@@ -233,7 +218,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate distance:distance];
 }
 
-- (void) onSearchButtonClick:(UIButton *) sender
+- (void) onSearchButtonClick
 {
     [self.mm_drawerController addChildViewController:self.searchShopViewController];
     [self.mm_drawerController.view insertSubview:self.searchShopViewController.view
@@ -413,44 +398,6 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 - (void) onSlideMenuButtonPress
 {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-}
-
-- (void) onAddShop
-{
-    if (![[LogStateMachine sharedInstance] isLogin])
-    {
-        [self showLoginOption];
-        return;
-    }
-    AddShopViewController *controller = [[AddShopViewController alloc] initAddShopViewController];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self.navigationController presentViewController:navigationController
-                                            animated:YES completion:nil];
-}
-
-- (void) showLoginOption
-{
-    NSString *login = [I18N key:LOG_IN_I18N_KEY];
-    NSString *cancel = [I18N key:@"cancel"];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                                 initWithTitle:[I18N key:@"add_login_require_action_sheet_title"]
-                                                      delegate:self
-                                             cancelButtonTitle:nil
-                                        destructiveButtonTitle:login
-                                             otherButtonTitles:cancel, nil];
-    [actionSheet showInView:self.view];
-}
-
-#pragma Action Sheet delegete
-
-- (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
-{
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LOG_IN_I18N_KEY]])
-    {
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] initLogin]];
-        [self.navigationController presentViewController:navigationController
-                                                animated:YES completion:nil];
-    }
 }
 
 #pragma MKMapViewDelegate method
