@@ -347,6 +347,13 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 - (BFTask *) submitShopInfo:(SubmitInfo *) info
 {
+    NSError *infoError = [self checkNewShopInfo:info];
+
+    if (infoError)
+    {
+        return [BFTask taskWithError:infoError];
+    }
+
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops"];
 
     NSDictionary *parameters = [info infoAsDictionaryWithToken:[[LogStateMachine sharedInstance] authToken]];
@@ -355,6 +362,22 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                   continueWithSuccessBlock:^id(BFTask *task) {
                       return [BFTask taskWithResult:nil];
                   }];
+}
+
+- (NSError *) checkNewShopInfo:(SubmitInfo *) info
+{
+    NSString *localizedDescription = nil;
+    if ([NSString isEmptyAfterTrim:info.name])
+    {
+        localizedDescription = [I18N key:@"shop_name_is_required"];
+    }
+
+    if (!localizedDescription)
+    {
+        return nil;
+    }
+
+    return [self customError:localizedDescription];
 }
 
 #pragma Search method

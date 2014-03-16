@@ -60,3 +60,4 @@
 "please_enter_email" = "請輸入 e-mail";
 "please_enter_password" = "請輸入密碼";
 "confirm_password_failed" = "密碼與確認密碼不相同";
+"shop_name_is_required" = "請輸入商店名稱";

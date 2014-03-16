@@ -257,11 +257,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 
 - (void) onSubmit
 {
-    if (![self checkRequiredField])
-    {
-        return;
-    }
-
     [self.view endEditing:YES];
     self.submitButton.enabled = NO;
 
@@ -280,9 +275,15 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     __weak AddShopViewController *preventCircularRef = self;
     [[[CoffeeService sharedInstance] submitShopInfo:info]
                      continueWithBlock:^id(BFTask *task) {
+                         preventCircularRef.submitButton.enabled = YES;
+
                          if (task.error)
                          {
-                             [preventCircularRef showFailedAlert];
+                             if ([NSString isEmptyAfterTrim:preventCircularRef.inputNameTextField.text])
+                             {
+                                 preventCircularRef.inputNameTextField.backgroundColor = [UIColor requiredFieldWarningColor];
+                             }
+                             [preventCircularRef showFailedAlertWithMessage:task.error.localizedDescription];
                              return nil;
                          }
                          [preventCircularRef showNavigationTitleWithString:[I18N key:@"submit_success"]];
@@ -290,16 +291,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                      }];
 
     [self showIndicatorOnNavigationBar];
-}
-
-- (BOOL) checkRequiredField
-{
-    if ([NSString isEmptyAfterTrim:self.inputNameTextField.text])
-    {
-        self.inputNameTextField.backgroundColor = [UIColor requiredFieldWarningColor];
-        return NO;
-    }
-    return YES;
 }
 
 - (void) showIndicatorOnNavigationBar
@@ -340,11 +331,11 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return view;
 }
 
-- (void) showFailedAlert
+- (void) showFailedAlertWithMessage:(NSString *) message
 {
     [self showNavigationTitleWithString:[I18N key:@"submit_failed"]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[I18N key:@"submit_failed"]
-                                                        message:[I18N key:@"submit_again_message"]
+                                                        message:message
                                                        delegate:self
                                               cancelButtonTitle:nil
                                               otherButtonTitles:[I18N key:@"try_again"], nil];
@@ -353,8 +344,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 
 - (void) showNavigationTitleWithString:(NSString *) message
 {
-    self.submitButton.enabled = YES;
-
     [self.navigationItem setTitleViewWithTitle:message animated:YES];
 
     double delayInSeconds = 1;

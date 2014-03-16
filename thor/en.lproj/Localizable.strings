@@ -60,3 +60,4 @@
 "please_enter_email" = "Please enter e-mail";
 "please_enter_password" = "Please enter password";
 "confirm_password_failed" = "Confirm Password failed";
+"shop_name_is_required" = "Shop name is required";
