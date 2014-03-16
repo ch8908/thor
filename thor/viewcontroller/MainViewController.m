@@ -305,13 +305,9 @@
 
 - (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate distance:(NSNumber *) distance
 {
-    BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
-        dispatch_async(dispatch_get_main_queue(), block);
-    }];
-
     __weak MainViewController *preventCircularRef = self;
     [[[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance]
-                     continueWithExecutor:myExecutor
+                     continueWithExecutor:[BFExecutor mainThreadExecutor]
                                 withBlock:^id(BFTask *task) {
                                     if (task.error)
                                     {
