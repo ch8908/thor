@@ -26,14 +26,25 @@ typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 @end
 
 /*
-* Register Class
+* Register Source
 * */
 
-@interface RegisterSource : NSObject
+@interface ServiceRegisterSource : NSObject
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *confirmPassword;
 @end
+
+
+/*
+* Login Source
+* */
+
+@interface ServiceLoginSource : NSObject
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *password;
+@end
+
 
 @class SubmitInfo;
 @class BFTask;
@@ -48,9 +59,9 @@ extern NSString *RegisterFailedNotification;
 
 - (BFTask *) fetchDetailWithShopId:(NSNumber *) number;
 
-- (BFTask *) resisterWithParams:(RegisterSource *) source;
+- (BFTask *) resisterWithParams:(ServiceRegisterSource *) source;
 
-- (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password;
+- (BFTask *) loginWithSource:(ServiceLoginSource *) source;
 
 - (BFTask *) submitShopInfo:(SubmitInfo *) info;
 

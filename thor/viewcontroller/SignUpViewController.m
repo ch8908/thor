@@ -152,7 +152,7 @@
 
 - (void) onSubmit
 {
-    RegisterSource *source = [[RegisterSource alloc] init];
+    ServiceRegisterSource *source = [[ServiceRegisterSource alloc] init];
     source.email = self.emailField.text;
     source.password = self.passwordField.text;
     source.confirmPassword = self.confirmPasswordField.text;

@@ -153,26 +153,24 @@
 
 - (void) onSubmit
 {
-    NSString *email = self.emailField.text;
-    NSString *password = self.passwordField.text;
+    ServiceLoginSource *source = [[ServiceLoginSource alloc] init];
+    source.email = self.emailField.text;
+    source.password = self.passwordField.text;
 
-    if (![NSString isEmptyAfterTrim:email] && ![NSString isEmptyAfterTrim:password])
-    {
-        __weak LoginViewController *preventCircularRef = self;
-        [[[CoffeeService sharedInstance] signInWithEmail:email password:password]
-                         continueWithBlock:^id(BFTask *task) {
-                             if (task.error)
-                             {
-                                 preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
-                                 return nil;
-                             }
-                             NSString *token = task.result;
-                             [[[Pref sharedInstance] authenticationToken] setString:token];
-                             [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
-                             [preventCircularRef onCancel];
+    __weak LoginViewController *preventCircularRef = self;
+    [[[CoffeeService sharedInstance] loginWithSource:source]
+                     continueWithBlock:^id(BFTask *task) {
+                         if (task.error)
+                         {
+                             preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
                              return nil;
-                         }];
-    }
+                         }
+                         NSString *token = task.result;
+                         [[[Pref sharedInstance] authenticationToken] setString:token];
+                         [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
+                         [preventCircularRef onCancel];
+                         return nil;
+                     }];
 }
 
 - (void) onCancel

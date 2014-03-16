@@ -46,7 +46,13 @@
 /*
 * Register Source Implementation
 * */
-@implementation RegisterSource
+@implementation ServiceRegisterSource
+@end
+
+/*
+* Login Source Implementation
+* */
+@implementation ServiceLoginSource
 @end
 
 NSString *const TRCoffeeServiceErrorResponseObjectKey = @"TRCoffeeServiceErrorResponseObjectKey";
@@ -166,6 +172,14 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
+- (NSError *) customError:(NSString *) localizedDescription
+{
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
+    NSError *error = [[NSError alloc] initWithDomain:TRCoffeeServiceErrorDomain code:10 //meaningless
+                                            userInfo:userInfo];
+    return error;
+}
+
 #pragma Get shop details
 
 - (BFTask *) fetchDetailWithShopId:(NSNumber *) number
@@ -196,7 +210,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Register method
 
-- (BFTask *) resisterWithParams:(RegisterSource *) source
+- (BFTask *) resisterWithParams:(ServiceRegisterSource *) source
 {
     NSError *sourceError = [self checkRegisterSource:source];
     if (sourceError)
@@ -237,7 +251,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                   }];
 }
 
-- (NSError *) checkRegisterSource:(RegisterSource *) source
+- (NSError *) checkRegisterSource:(ServiceRegisterSource *) source
 {
     NSString *localizedDescription = nil;
     if ([NSString isEmptyAfterTrim:source.email])
@@ -258,21 +272,24 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
         return nil;
     }
 
-    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
-    NSError *error = [[NSError alloc] initWithDomain:TRCoffeeServiceErrorDomain code:10 //meaningless
-                                            userInfo:userInfo];
-    return error;
+    return [self customError:localizedDescription];
 }
 
 #pragma Sign In method
 
-- (BFTask *) signInWithEmail:(NSString *) email password:(NSString *) password
+- (BFTask *) loginWithSource:(ServiceLoginSource *) source
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/tokens/create"];
 
+    NSError *sourceError = [self checkLoginSource:source];
+    if (sourceError)
+    {
+        return [BFTask taskWithError:sourceError];
+    }
+
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:email forKey:@"email"];
-    [params setObject:password forKey:@"password"];
+    [params setObject:source.email forKey:@"email"];
+    [params setObject:source.password forKey:@"password"];
 
     return [[self afNetworkingPOST:urlString parameters:params]
                   continueWithBlock:^id(BFTask *task) {
@@ -303,6 +320,27 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
                       return [BFTask taskWithResult:token];
                   }];
+}
+
+- (NSError *) checkLoginSource:(ServiceLoginSource *) source
+{
+    NSString *localizedDescription = nil;
+
+    if ([NSString isEmptyAfterTrim:source.email])
+    {
+        localizedDescription = [I18N key:@"please_enter_email"];
+    }
+    else if ([NSString isEmptyAfterTrim:source.password])
+    {
+        localizedDescription = [I18N key:@"please_enter_password"];
+    }
+
+    if ([NSString isEmptyAfterTrim:localizedDescription])
+    {
+        return nil;
+    }
+
+    return [self customError:localizedDescription];
 }
 
 #pragma Add new coffee shop method
