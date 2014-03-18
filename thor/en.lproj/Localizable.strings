@@ -30,6 +30,12 @@
 "input_phone_title" = "Input phone number:";
 "input_name_placeholder" = "Shop name";
 "input_name_title" = "Input shop name (required):";
+"input_description_placeholder" = "商店敘述";
+"input_description_title" = "輸入商店敘述:";
+"input_website_url_placeholder" = "店家網址";
+"input_website_url_title" = "輸入店家網址:";
+"input_hours_placeholder" = "輸入營業時間";
+"input_hours_title" = "營業時間:";
 "wifi_free_title" = "Wifi free:";
 "power_outlet_title" = "Power outlets:";
 "add_shop_title" = "Add a Coffee Shop";
@@ -61,3 +67,5 @@
 "please_enter_password" = "Please enter password";
 "confirm_password_failed" = "Confirm Password failed";
 "shop_name_is_required" = "Shop name is required";
+"required_section_title" = "Required Infomation";
+"optional_section_title" = "Optional Infomation";

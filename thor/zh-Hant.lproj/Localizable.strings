@@ -30,6 +30,12 @@
 "input_phone_title" = "輸入電話:";
 "input_name_placeholder" = "商店名稱";
 "input_name_title" = "輸入商店名稱(必要):";
+"input_description_placeholder" = "商店敘述";
+"input_description_title" = "輸入商店敘述:";
+"input_website_url_placeholder" = "店家網址";
+"input_website_url_title" = "輸入店家網址:";
+"input_hours_placeholder" = "輸入營業時間";
+"input_hours_title" = "營業時間:";
 "wifi_free_title" = "有免費WIFI:";
 "power_outlet_title" = "提供電源插頭:";
 "add_shop_title" = "新增咖啡廳";
@@ -61,3 +67,5 @@
 "please_enter_password" = "請輸入密碼";
 "confirm_password_failed" = "密碼與確認密碼不相同";
 "shop_name_is_required" = "請輸入商店名稱";
+"required_section_title" = "必要資訊";
+"optional_section_title" = "補充資訊";

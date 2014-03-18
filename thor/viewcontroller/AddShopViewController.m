@@ -13,38 +13,71 @@
 #import "SubmitInfo.h"
 #import "MKMapView+ZoomLevel.h"
 #import "NSString+Util.h"
-#import "UIColor+Constant.h"
 #import "UINavigationItem+Util.h"
+#import "TextFieldCell.h"
+#import "SwitchCell.h"
+#import "UIColor+Constant.h"
 
-CGFloat PADDING_HORIZONTAL = 10;
-NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
+CGFloat const PADDING_HORIZONTAL = 10;
 
+/*
+    Best Practice: Managing Text Fields and Text Views
+    https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/ManageTextFieldTextViews/ManageTextFieldTextViews.html
+ */
+enum
+{
+    AddressFieldTag = 0,
+    NameFieldTag,
+    PhoneNumberFieldTag,
+    WebsiteUrlFieldTag,
+    DescriptionFieldTag,
+    HoursFiendTag,
+    WifiAvailableTag,
+    PowerAvailableTag,
+};
 
-@interface AddShopViewController()<MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
-@property MKMapView *mapView;
+enum
+{
+    SectionRequiredInfo = 0,
+    SectionOfOptionalInfo,
+    TotalSections,
+};
+
+enum
+{
+    RequiredAddressRow = 0,
+    RequiredNameRow,
+    TotalCountOfRequiredRows,
+};
+
+enum
+{
+    OptionalPhoneNumberRow = 0,
+    OptionalWebsiteUrl,
+    OptionalDescription,
+    OptionalHours,
+    OptionalWifiAvailable,
+    OptionalPowerAvailable,
+    TotalCountOfOptionalRows,
+};
+
+@interface AddShopViewController()<MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) BOOL initUserLocation;
-@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, strong) UIImageView *centerPin;
 @property (nonatomic, strong) UITextView *addressTextViewFromMapCenter;
 @property (nonatomic, strong) UILabel *addressFromMapCenterTitle;
-@property (nonatomic, strong) UILabel *inputAddressTitle;
-@property (nonatomic, strong) UITextField *inputAddressTextField;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorViewForMap;
-@property (nonatomic, strong) UILabel *inputPhoneTitle;
-@property (nonatomic, strong) UITextField *inputPhoneTextField;
-@property (nonatomic, strong) UILabel *inputNameTitle;
-@property (nonatomic, strong) UITextField *inputNameTextField;
 @property (nonatomic, assign) CGFloat viewAndKeyboardOffset;
-@property (nonatomic, strong) UISwitch *wifiFreeSwitch;
-@property (nonatomic, strong) UISwitch *powerOutletSwitch;
-@property (nonatomic, strong) UILabel *wifiFreeTitle;
-@property (nonatomic, strong) UILabel *powerOutletTitle;
 @property (nonatomic, strong) UIButton *zoomInButton;
 @property (nonatomic, strong) UIButton *zoomOutButton;
 @property (nonatomic, strong) UIBarButtonItem *submitButton;
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
+@property (nonatomic, strong) SubmitInfo *submitInfo;
+@property (nonatomic, strong) UITextField *activeField;
 @end
 
 @implementation AddShopViewController
@@ -59,10 +92,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
         _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
         self.mapView.showsUserLocation = YES;
 
-        _scrollView = [[UIScrollView alloc] init];
-        self.scrollView.delegate = self;
-        self.scrollView.scrollEnabled = YES;
-        self.scrollView.alwaysBounceVertical = YES;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
 
         _locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
@@ -80,23 +112,8 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 
         _addressFromMapCenterTitle = [self titleLabelWithTitle:[I18N key:@"address_above_title"]];
 
-        _inputAddressTitle = [self titleLabelWithTitle:[I18N key:@"input_address_title"]];
-        _inputAddressTextField = [self inputTextFieldWithPlaceholder:[I18N key:@"input_address_placeholder"]];
-        self.inputAddressTextField.tag = INPUT_ADDRESS_TEXT_FIELD_TAG;
 
         _indicatorViewForMap = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-
-        _inputPhoneTitle = [self titleLabelWithTitle:[I18N key:@"input_phone_title"]];
-        _inputPhoneTextField = [self inputTextFieldWithPlaceholder:[I18N key:@"input_phone_placeholder"]];
-
-        _inputNameTitle = [self titleLabelWithTitle:[I18N key:@"input_name_title"]];
-        _inputNameTextField = [self inputTextFieldWithPlaceholder:[I18N key:@"input_name_placeholder"]];
-
-        _wifiFreeSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 70, 44)];
-        _powerOutletSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 70, 44)];
-
-        _wifiFreeTitle = [self switchLabelWithTitle:[I18N key:@"wifi_free_title"]];
-        _powerOutletTitle = [self switchLabelWithTitle:[I18N key:@"power_outlet_title"]];
 
         _zoomInButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.zoomInButton setImage:[UIImage imageNamed:@"image/button_map_zoomin.png"]
@@ -112,6 +129,8 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
         [self.zoomOutButton addTarget:self action:@selector(zoomOut)
                      forControlEvents:UIControlEventTouchUpInside];
 
+        _submitInfo = [[SubmitInfo alloc] init];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
@@ -125,16 +144,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return self;
 }
 
-- (UILabel *) switchLabelWithTitle:(NSString *) title
-{
-    UILabel *label = [[UILabel alloc] init];
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor blackColor];
-    label.font = [UIFont systemFontOfSize:16];
-    label.text = title;
-    return label;
-}
-
 - (UILabel *) titleLabelWithTitle:(NSString *) title
 {
     UILabel *label = [[UILabel alloc] init];
@@ -143,17 +152,6 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     label.font = [UIFont systemFontOfSize:12];
     label.text = title;
     return label;
-}
-
-- (UITextField *) inputTextFieldWithPlaceholder:(NSString *) placeHolder
-{
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - PADDING_HORIZONTAL * 2, 36)];
-    textField.font = [UIFont systemFontOfSize:12];
-    textField.backgroundColor = [UIColor inputFieldBgColor];
-    textField.textColor = [UIColor blackColor];
-    textField.placeholder = placeHolder;
-    textField.delegate = self;
-    return textField;
 }
 
 - (void) viewDidLoad
@@ -198,35 +196,9 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [Views locate:self.addressTextViewFromMapCenter x:PADDING_HORIZONTAL
                 y:[Views bottomOf:self.addressFromMapCenterTitle]];
 
-    // scroll view
-    [Views resize:self.scrollView
-    containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height - [Views bottomOf:self.addressTextViewFromMapCenter])];
-    [Views locate:self.scrollView y:[Views bottomOf:self.addressTextViewFromMapCenter]];
-
-    [self.inputAddressTitle sizeToFit];
-    [Views locate:self.inputAddressTitle x:PADDING_HORIZONTAL y:10];
-
-    [Views locate:self.inputAddressTextField x:PADDING_HORIZONTAL y:[Views bottomOf:self.inputAddressTitle] + 5];
-
-    [self.inputNameTitle sizeToFit];
-    [Views locate:self.inputNameTitle x:PADDING_HORIZONTAL y:[Views bottomOf:self.inputAddressTextField] + 5];
-
-    [Views locate:self.inputNameTextField x:PADDING_HORIZONTAL y:[Views bottomOf:self.inputNameTitle]];
-
-    [self.inputPhoneTitle sizeToFit];
-    [Views locate:self.inputPhoneTitle x:PADDING_HORIZONTAL y:[Views bottomOf:self.inputNameTextField] + 5];
-
-    [Views locate:self.inputPhoneTextField x:PADDING_HORIZONTAL y:[Views bottomOf:self.inputPhoneTitle]];
-
-    [self.wifiFreeTitle sizeToFit];
-    [Views locate:self.wifiFreeTitle x:PADDING_HORIZONTAL y:[Views bottomOf:self.inputPhoneTextField] + 10];
-    [Views alignCenter:self.wifiFreeSwitch withTarget:self.wifiFreeTitle];
-    [Views locate:self.wifiFreeSwitch x:[Views rightOf:self.wifiFreeTitle]];
-
-    [self.powerOutletTitle sizeToFit];
-    [Views locate:self.powerOutletTitle x:PADDING_HORIZONTAL y:[Views bottomOf:self.self.wifiFreeTitle] + 20];
-    [Views alignCenter:self.powerOutletSwitch withTarget:self.powerOutletTitle];
-    [Views locate:self.powerOutletSwitch x:[Views rightOf:self.powerOutletTitle]];
+    [Views resize:self.tableView containerSize:CGSizeMake([Views widthOfView:self.view],
+                                                          [Views heightOfView:self.view] - [Views bottomOf:self.addressTextViewFromMapCenter])];
+    [Views locate:self.tableView y:[Views bottomOf:self.addressTextViewFromMapCenter]];
 
     [self.mapView addSubview:self.centerPin];
     [self.mapView addSubview:self.zoomInButton];
@@ -235,19 +207,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [self.view addSubview:self.addressFromMapCenterTitle];
     [self.view addSubview:self.addressTextViewFromMapCenter];
     [self.view addSubview:self.indicatorViewForMap];
-
-    [self.view addSubview:self.scrollView];
-
-    [self.scrollView addSubview:self.inputAddressTitle];
-    [self.scrollView addSubview:self.inputAddressTextField];
-    [self.scrollView addSubview:self.inputPhoneTitle];
-    [self.scrollView addSubview:self.inputPhoneTextField];
-    [self.scrollView addSubview:self.inputNameTitle];
-    [self.scrollView addSubview:self.inputNameTextField];
-    [self.scrollView addSubview:self.wifiFreeTitle];
-    [self.scrollView addSubview:self.powerOutletTitle];
-    [self.scrollView addSubview:self.wifiFreeSwitch];
-    [self.scrollView addSubview:self.powerOutletSwitch];
+    [self.view addSubview:self.tableView];
 }
 
 - (void) onCancel
@@ -257,32 +217,24 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 
 - (void) onSubmit
 {
-    [self.view endEditing:YES];
+    [self.activeField resignFirstResponder];
     self.submitButton.enabled = NO;
 
-    SubmitInfo *info = [[SubmitInfo alloc] init];
-    info.name = self.inputNameTextField.text;
-    info.phone = self.inputPhoneTitle.text;
-    info.is_wifi_free = self.wifiFreeSwitch.isOn;
-    info.power_outlets = self.powerOutletSwitch.isOn;
-    info.latitude = self.mapView.centerCoordinate.latitude;
-    info.longitude = self.mapView.centerCoordinate.longitude;
-    info.address = self.addressTextViewFromMapCenter.text;
-    info.website_rul = @"http://tw.yahoo.com";
-    info.hours = @"111";
-    info.shopDescription = @"description";
+    self.submitInfo.address = self.addressTextViewFromMapCenter.text;
+    self.submitInfo.latitude = self.mapView.centerCoordinate.latitude;
+    self.submitInfo.longitude = self.mapView.centerCoordinate.longitude;
 
     __weak AddShopViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] submitShopInfo:info]
+    [[[CoffeeService sharedInstance] submitShopInfo:self.submitInfo]
                      continueWithBlock:^id(BFTask *task) {
                          preventCircularRef.submitButton.enabled = YES;
 
                          if (task.error)
                          {
-                             if ([NSString isEmptyAfterTrim:preventCircularRef.inputNameTextField.text])
-                             {
-                                 preventCircularRef.inputNameTextField.backgroundColor = [UIColor requiredFieldWarningColor];
-                             }
+                             // Set UI Warning
+                             UITextField *nameTextField = (UITextField *) [preventCircularRef.view viewWithTag:NameFieldTag];
+                             [nameTextField setBackgroundColor:[UIColor requiredFieldWarningColor]];
+
                              [preventCircularRef showFailedAlertWithMessage:task.error.localizedDescription];
                              return nil;
                          }
@@ -396,9 +348,10 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude
                                                       longitude:self.mapView.centerCoordinate.longitude];
 
+    __weak AddShopViewController *preventCircularRef = self;
     [self.geocoder reverseGeocodeLocation:location
                         completionHandler:^(NSArray *placemarks, NSError *error) {
-                            [self.indicatorViewForMap stopAnimating];
+                            [preventCircularRef.indicatorViewForMap stopAnimating];
                             if (error)
                             {
                                 return;
@@ -406,7 +359,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                             CLPlacemark *placemark = [placemarks lastObject];
                             if (placemark)
                             {
-                                [self setAddressWithPlacemark:placemark];
+                                [preventCircularRef setAddressWithPlacemark:placemark];
                             }
                         }];
 }
@@ -429,26 +382,62 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
+#pragma UITextFieldDelegate
+
 - (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
 {
     if ([string stringByTrim].length > 0)
     {
-        self.inputNameTextField.backgroundColor = [UIColor inputFieldBgColor];
+        UITextField *nameTextField = (UITextField *) [self.view viewWithTag:NameFieldTag];
+        [nameTextField setBackgroundColor:[UIColor inputFieldBgColor]];
     }
+    return YES;
+}
+
+- (BOOL) textFieldShouldBeginEditing:(UITextField *) textField
+{
+    self.activeField = textField;
     return YES;
 }
 
 - (void) textFieldDidEndEditing:(UITextField *) textField
 {
-    if (INPUT_ADDRESS_TEXT_FIELD_TAG != textField.tag)
+    self.activeField = nil;
+
+    switch (textField.tag)
+    {
+        case NameFieldTag:
+            self.submitInfo.name = textField.text;
+            break;
+        case PhoneNumberFieldTag:
+            self.submitInfo.phone = textField.text;
+            break;
+        case WebsiteUrlFieldTag:
+            self.submitInfo.websiteUrl = textField.text;
+            break;
+        case HoursFiendTag:
+            self.submitInfo.hours = textField.text;
+            break;
+        case DescriptionFieldTag:
+            self.submitInfo.shopDescription = textField.text;
+            break;
+        default:
+            break;
+    }
+
+    if (textField.tag != AddressFieldTag)
     {
         return;
     }
+
     [self.indicatorViewForMap startAnimating];
+
+    __weak AddShopViewController *preventCircularRef = self;
+
     NSString *queryAddressString = textField.text;
     [self.geocoder geocodeAddressString:queryAddressString
                       completionHandler:^(NSArray *placemarks, NSError *error) {
-                          [self.indicatorViewForMap stopAnimating];
+                          [preventCircularRef.indicatorViewForMap stopAnimating];
                           if (error)
                           {
                               return;
@@ -456,7 +445,7 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
                           CLPlacemark *placemark = [placemarks lastObject];
                           if (placemark)
                           {
-                              [self setLocationWithPlacemark:placemark];
+                              [preventCircularRef setLocationWithPlacemark:placemark];
                           }
                       }];
 }
@@ -467,8 +456,11 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
     return YES;
 }
 
+#pragma  UIKeyboardNotification
+
 - (void) keyboardWillHide:(NSNotification *) notification
 {
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     NSDictionary *info = [notification userInfo];
     NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
@@ -488,37 +480,181 @@ NSInteger INPUT_ADDRESS_TEXT_FIELD_TAG = 1;
 - (void) keyboardWillShow:(NSNotification *) notification
 {
     NSDictionary *info = [notification userInfo];
-    CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, kbSize.height, 0)];
+}
 
-    CGRect convertFrame = [self.view convertRect:self.inputPhoneTextField.frame fromView:self.scrollView];
-
-    CGFloat diff = endFrame.origin.y - (convertFrame.origin.y + convertFrame.size.height + self.view.frame.origin.y);
-    if (diff > 0)
+- (void) onSwitch:(UISwitch *) sender
+{
+    if (WifiAvailableTag == sender.tag)
     {
-        return;
+        self.submitInfo.isWifiFree = sender.isOn;
+    }
+    else if (PowerAvailableTag == sender.tag)
+    {
+        self.submitInfo.powerOutlets = sender.isOn;
+    }
+}
+
+#pragma UITableViewDataSourceDelegate
+
+- (NSString *) tableView:(UITableView *) tableView titleForHeaderInSection:(NSInteger) section
+{
+    switch (section)
+    {
+        case SectionRequiredInfo:
+            return [I18N key:@"required_section_title"];
+        case SectionOfOptionalInfo:
+            return [I18N key:@"optional_section_title"];
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *) tableView
+{
+    return TotalSections;
+}
+
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
+{
+    switch (section)
+    {
+        case SectionRequiredInfo:
+            return TotalCountOfRequiredRows;
+        case SectionOfOptionalInfo:
+            return TotalCountOfOptionalRows;
+        default:
+            break;
+    }
+    return 0;
+}
+
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
+{
+    if ([self isSwitchCell:indexPath])
+    {
+        static NSString *CellIdentifier = @"SwitchCell";
+
+        SwitchCell *cell = (SwitchCell *)
+          [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+        if (cell == nil)
+        {
+            cell = [[SwitchCell alloc] initWithReuseIdentifier:CellIdentifier];
+            [cell.switchButton addTarget:self action:@selector(onSwitch:)
+                        forControlEvents:UIControlEventValueChanged];
+        }
+
+        switch (indexPath.row)
+        {
+            case OptionalWifiAvailable:
+                cell.titleLabel.text = [I18N key:@"wifi_free_title"];
+                cell.switchButton.tag = WifiAvailableTag;
+                [cell.switchButton setOn:self.submitInfo.isWifiFree];
+                break;
+            case OptionalPowerAvailable:
+                cell.titleLabel.text = [I18N key:@"power_outlet_title"];
+                cell.switchButton.tag = PowerAvailableTag;
+                [cell.switchButton setOn:self.submitInfo.powerOutlets];
+                break;
+            default:
+                break;
+        }
+        return cell;
     }
 
-    CGFloat moveOffset = 0;
-    if (self.viewAndKeyboardOffset > 0)
-    {
-        self.viewAndKeyboardOffset += (CGFloat) fabs(diff) + 5;
-        moveOffset = (CGFloat) fabs(diff) + 5;
-    }
-    else
-    {
-        self.viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
-        moveOffset = self.viewAndKeyboardOffset;
-    }
-    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval duration = 0;
-    [value getValue:&duration];
 
-    [UIView animateWithDuration:duration animations:^{
-        self.view.frame = CGRectMake(self.view.frame.origin.x,
-                                     self.view.frame.origin.y - moveOffset,
-                                     self.view.bounds.size.width,
-                                     self.view.bounds.size.height);
-    }];
+    static NSString *CellIdentifier = @"TextFieldCell";
+
+    TextFieldCell *cell = (TextFieldCell *)
+      [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    if (cell == nil)
+    {
+        cell = [[TextFieldCell alloc] initTextFieldCellWithReuseIdentifier:CellIdentifier];
+        cell.inputField.delegate = self;
+    }
+
+    cell.inputField.keyboardType = UIKeyboardTypeDefault;
+
+    if (SectionRequiredInfo == indexPath.section)
+    {
+        switch (indexPath.row)
+        {
+            case RequiredNameRow:
+                cell.inputFieldTitleLabel.text = [I18N key:@"input_name_title"];
+                cell.inputField.placeholder = [I18N key:@"input_name_placeholder"];
+                cell.inputField.tag = NameFieldTag;
+                cell.inputField.text = self.submitInfo.name;
+                break;
+            case RequiredAddressRow:
+                cell.inputFieldTitleLabel.text = [I18N key:@"input_address_title"];
+                cell.inputField.placeholder = [I18N key:@"input_address_placeholder"];
+                cell.inputField.tag = AddressFieldTag;
+                break;
+            default:
+                break;
+        }
+    }
+    else if (SectionOfOptionalInfo == indexPath.section)
+    {
+        switch (indexPath.row)
+        {
+            case OptionalPhoneNumberRow:
+                cell.inputFieldTitleLabel.text = [I18N key:@"input_phone_title"];
+                cell.inputField.placeholder = [I18N key:@"input_phone_placeholder"];
+                cell.inputField.tag = PhoneNumberFieldTag;
+                cell.inputField.text = self.submitInfo.phone;
+                cell.inputField.keyboardType = UIKeyboardTypePhonePad;
+                break;
+            case OptionalWebsiteUrl:
+                cell.inputFieldTitleLabel.text = [I18N key:@"input_website_url_title"];
+                cell.inputField.placeholder = [I18N key:@"input_website_url_placeholder"];
+                cell.inputField.tag = WebsiteUrlFieldTag;
+                cell.inputField.text = self.submitInfo.websiteUrl;
+                cell.inputField.keyboardType = UIKeyboardTypeURL;
+                break;
+            case OptionalHours:
+                cell.inputFieldTitleLabel.text = [I18N key:@"input_hours_title"];
+                cell.inputField.placeholder = [I18N key:@"input_hours_placeholder"];
+                cell.inputField.text = self.submitInfo.hours;
+                cell.inputField.tag = HoursFiendTag;
+                break;
+            case OptionalDescription:
+                cell.inputFieldTitleLabel.text = [I18N key:@"input_description_title"];
+                cell.inputField.placeholder = [I18N key:@"input_description_placeholder"];
+                cell.inputField.text = self.submitInfo.shopDescription;
+                cell.inputField.tag = DescriptionFieldTag;
+                break;
+            default:
+                break;
+        }
+    }
+    return cell;
+}
+
+- (BOOL) isSwitchCell:(NSIndexPath *) indexPath
+{
+    return SectionOfOptionalInfo == indexPath.section &&
+      (OptionalWifiAvailable == indexPath.row || OptionalPowerAvailable == indexPath.row);
+}
+
+#pragma UITableViewDelegate
+
+- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
+{
+    if ([self isSwitchCell:indexPath])
+    {
+        return [SwitchCell cellHeight];
+    }
+    return [TextFieldCell cellHeight];
+}
+
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end
