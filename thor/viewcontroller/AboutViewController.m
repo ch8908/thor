@@ -29,12 +29,21 @@ CGFloat const ABOUT_CELL_HEIGHT = 44;
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        _tableView = [[UITableView alloc] init];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
+
     }
 
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+
+    _tableView = [[UITableView alloc] init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
+    [self.view addSubview:self.tableView];
 }
 
 - (void) viewDidLoad
@@ -53,7 +62,6 @@ CGFloat const ABOUT_CELL_HEIGHT = 44;
     [super viewDidLayoutSubviews];
     [Views resize:self.tableView containerSize:self.view.frame.size];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
-    [self.view addSubview:self.tableView];
 }
 
 - (void) onDone
