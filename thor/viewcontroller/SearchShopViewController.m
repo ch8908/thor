@@ -41,36 +41,41 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     if (self)
     {
         _mainViewController = mainViewController;
-
-        _backgroundMaskView = [[UIView alloc] init];
-        self.backgroundMaskView.backgroundColor = [UIColor clearColor];
-
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-
-        _searchBarView = [[UIView alloc] init];
-        self.searchBarView.backgroundColor = [UIColor whiteColor];
-        self.searchBarView.clipsToBounds = YES;
-
-        _searchBar = [[UISearchBar alloc] init];
-        self.searchBar.delegate = self;
-        if ([System isMinimumiOS7])
-        {
-            [self.searchBar setBarTintColor:[UIColor whiteColor]];
-            self.searchBar.searchBarStyle = UISearchBarStyleProminent;
-        }
-
         _searchResults = [NSMutableArray array];
     }
 
     return self;
 }
 
+- (void) loadView
+{
+    [super loadView];
+
+    _backgroundMaskView = [[UIView alloc] init];
+    self.backgroundMaskView.backgroundColor = [UIColor clearColor];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+
+    _searchBarView = [[UIView alloc] init];
+    self.searchBarView.backgroundColor = [UIColor whiteColor];
+    self.searchBarView.clipsToBounds = YES;
+
+    _searchBar = [[UISearchBar alloc] init];
+    self.searchBar.delegate = self;
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
+
+    if ([System isMinimumiOS7])
+    {
+        [self.searchBar setBarTintColor:[UIColor whiteColor]];
+        self.searchBar.searchBarStyle = UISearchBarStyleProminent;
+    }
 
     UITapGestureRecognizer *singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                           action:@selector(onTapBg:)];

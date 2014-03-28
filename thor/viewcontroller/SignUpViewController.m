@@ -12,12 +12,12 @@
 #import "CoffeeService.h"
 
 @interface SignUpViewController()<UITextFieldDelegate>
-@property (nonatomic) UITextField *emailField;
-@property (nonatomic) UITextField *passwordField;
-@property (nonatomic) UITextField *confirmPasswordField;
-@property (nonatomic) CGFloat viewAndKeyboardOffset;
-@property (nonatomic) UIButton *submitButton;
-@property (nonatomic) UILabel *errorMessageLabel;
+@property (nonatomic, strong) UITextField *emailField;
+@property (nonatomic, strong) UITextField *passwordField;
+@property (nonatomic, strong) UITextField *confirmPasswordField;
+@property (nonatomic, assign) CGFloat viewAndKeyboardOffset;
+@property (nonatomic, strong) UIButton *submitButton;
+@property (nonatomic, strong) UILabel *errorMessageLabel;
 @end
 
 @implementation SignUpViewController
@@ -27,43 +27,46 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        CGRect rect = CGRectMake(0, 0, 280, 44);
-        _emailField = [[UITextField alloc] initWithFrame:rect];
-        self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
-        self.emailField.delegate = self;
-        self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
-
-        _passwordField = [[UITextField alloc] initWithFrame:rect];
-        self.passwordField.secureTextEntry = YES;
-        self.passwordField.delegate = self;
-        self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
-
-        _confirmPasswordField = [[UITextField alloc] initWithFrame:rect];
-        self.confirmPasswordField.secureTextEntry = YES;
-        self.confirmPasswordField.delegate = self;
-        self.confirmPasswordField.placeholder = [I18N key:@"confirm_password_placeholder"];
-
-        _submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.submitButton addTarget:self action:@selector(onSubmit)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        _errorMessageLabel = [[UILabel alloc] init];
-        self.errorMessageLabel.textColor = [UIColor redColor];
-        self.errorMessageLabel.backgroundColor = [UIColor clearColor];
-        self.errorMessageLabel.textAlignment = NSTextAlignmentCenter;
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
     }
 
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+
+    CGRect rect = CGRectMake(0, 0, 280, 44);
+
+    _emailField = [[UITextField alloc] initWithFrame:rect];
+    self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
+    self.emailField.delegate = self;
+    self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
+
+    _passwordField = [[UITextField alloc] initWithFrame:rect];
+    self.passwordField.secureTextEntry = YES;
+    self.passwordField.delegate = self;
+    self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
+
+    _confirmPasswordField = [[UITextField alloc] initWithFrame:rect];
+    self.confirmPasswordField.secureTextEntry = YES;
+    self.confirmPasswordField.delegate = self;
+    self.confirmPasswordField.placeholder = [I18N key:@"confirm_password_placeholder"];
+
+    _submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.submitButton addTarget:self action:@selector(onSubmit)
+                forControlEvents:UIControlEventTouchUpInside];
+
+    _errorMessageLabel = [[UILabel alloc] init];
+    self.errorMessageLabel.textColor = [UIColor redColor];
+    self.errorMessageLabel.backgroundColor = [UIColor clearColor];
+    self.errorMessageLabel.textAlignment = NSTextAlignmentCenter;
+
+    [self.view addSubview:self.emailField];
+    [self.view addSubview:self.passwordField];
+    [self.view addSubview:self.confirmPasswordField];
+    [self.view addSubview:self.submitButton];
+    [self.view addSubview:self.errorMessageLabel];
 }
 
 - (void) viewDidLoad
@@ -75,6 +78,16 @@
                                                                                                  action:@selector(onViewTap)];
     singleTapGestureRecognizer.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:singleTapGestureRecognizer];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void) viewDidLayoutSubviews
@@ -104,12 +117,6 @@
     [Views alignCenter:self.errorMessageLabel containerWidth:[Views widthOfView:self.view]];
     [Views locate:self.errorMessageLabel
                 y:[Views yOfView:self.emailField] - [Views heightOfView:self.errorMessageLabel] - 5];
-
-    [self.view addSubview:self.emailField];
-    [self.view addSubview:self.passwordField];
-    [self.view addSubview:self.confirmPasswordField];
-    [self.view addSubview:self.submitButton];
-    [self.view addSubview:self.errorMessageLabel];
 }
 
 - (void) keyboardWillHide:(NSNotification *) notification

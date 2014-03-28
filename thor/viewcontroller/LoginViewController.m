@@ -20,13 +20,13 @@
 #import "LoginState.h"
 
 @interface LoginViewController()<UITextFieldDelegate>
-@property (nonatomic) UIButton *signInWithFacebookButton;
-@property (nonatomic) UIButton *signInWithTwitterButton;
-@property (nonatomic) UIButton *signUpButton;
-@property (nonatomic) UITextField *emailField;
-@property (nonatomic) UITextField *passwordField;
-@property (nonatomic) UIButton *logInButton;
-@property (nonatomic) UILabel *errorMessageLabel;
+@property (nonatomic, strong) UIButton *signInWithFacebookButton;
+@property (nonatomic, strong) UIButton *signInWithTwitterButton;
+@property (nonatomic, strong) UIButton *signUpButton;
+@property (nonatomic, strong) UITextField *emailField;
+@property (nonatomic, strong) UITextField *passwordField;
+@property (nonatomic, strong) UIButton *logInButton;
+@property (nonatomic, strong) UILabel *errorMessageLabel;
 @end
 
 @implementation LoginViewController
@@ -36,39 +36,52 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        _signInWithFacebookButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _signInWithTwitterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _signUpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-
-        _logInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.logInButton addTarget:self action:@selector(onSubmit)
-                   forControlEvents:UIControlEventTouchUpInside];
-
-        CGRect rect = CGRectMake(0, 0, 280, 44);
-        _emailField = [[UITextField alloc] initWithFrame:rect];
-        self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
-        self.emailField.delegate = self;
-        self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
-        self.emailField.backgroundColor = [UIColor inputFieldBgColor];
-
-        _passwordField = [[UITextField alloc] initWithFrame:rect];
-        self.passwordField.secureTextEntry = YES;
-        self.passwordField.delegate = self;
-        self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
-        self.passwordField.backgroundColor = [UIColor inputFieldBgColor];
-
-        _errorMessageLabel = [[UILabel alloc] init];
-        self.errorMessageLabel.textColor = [UIColor redColor];
-        self.errorMessageLabel.backgroundColor = [UIColor clearColor];
-        self.errorMessageLabel.numberOfLines = 2;
-        self.errorMessageLabel.textAlignment = NSTextAlignmentCenter;
-
-        [self.signUpButton addTarget:self action:@selector(onSignUp)
-                    forControlEvents:UIControlEventTouchUpInside];
-
     }
 
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+
+    _signInWithFacebookButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _signInWithTwitterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _signUpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+
+    _logInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.logInButton addTarget:self action:@selector(onSubmit)
+               forControlEvents:UIControlEventTouchUpInside];
+
+    CGRect rect = CGRectMake(0, 0, 280, 44);
+    _emailField = [[UITextField alloc] initWithFrame:rect];
+    self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
+    self.emailField.delegate = self;
+    self.emailField.placeholder = [I18N key:@"enter_email_placeholder"];
+    self.emailField.backgroundColor = [UIColor inputFieldBgColor];
+
+    _passwordField = [[UITextField alloc] initWithFrame:rect];
+    self.passwordField.secureTextEntry = YES;
+    self.passwordField.delegate = self;
+    self.passwordField.placeholder = [I18N key:@"enter_password_placeholder"];
+    self.passwordField.backgroundColor = [UIColor inputFieldBgColor];
+
+    _errorMessageLabel = [[UILabel alloc] init];
+    self.errorMessageLabel.textColor = [UIColor redColor];
+    self.errorMessageLabel.backgroundColor = [UIColor clearColor];
+    self.errorMessageLabel.numberOfLines = 2;
+    self.errorMessageLabel.textAlignment = NSTextAlignmentCenter;
+
+    [self.signUpButton addTarget:self action:@selector(onSignUp)
+                forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:self.errorMessageLabel];
+    [self.view addSubview:self.emailField];
+    [self.view addSubview:self.passwordField];
+    [self.view addSubview:self.logInButton];
+    [self.view addSubview:self.signInWithFacebookButton];
+    [self.view addSubview:self.signInWithTwitterButton];
+    [self.view addSubview:self.signUpButton];
 }
 
 - (void) viewDidLoad
@@ -126,14 +139,6 @@
 
     [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
     [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
-
-    [self.view addSubview:self.errorMessageLabel];
-    [self.view addSubview:self.emailField];
-    [self.view addSubview:self.passwordField];
-    [self.view addSubview:self.logInButton];
-    [self.view addSubview:self.signInWithFacebookButton];
-    [self.view addSubview:self.signInWithTwitterButton];
-    [self.view addSubview:self.signUpButton];
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *) textField

@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
 };
 
 @interface SettingController()<UITableViewDelegate, UITableViewDataSource>
-@property UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation SettingController
@@ -28,18 +28,26 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
     }
-
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                 target:self
                                                                                 action:@selector(onDone)];
@@ -65,7 +73,6 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     [Views resize:self.tableView containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
     [Views locate:self.tableView x:0 y:0];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
-    [self.view addSubview:self.tableView];
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
@@ -107,6 +114,5 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     DistancePickViewController *distancePickViewController = [[DistancePickViewController alloc] init];
     [self.navigationController pushViewController:distancePickViewController animated:YES];
 }
-
 
 @end

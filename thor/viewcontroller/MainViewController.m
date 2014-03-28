@@ -54,75 +54,79 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
-        self.mapView.delegate = self;
-        self.mapView.showsUserLocation = YES;
-
-        _locateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_normal.png"]
-                           forState:UIControlStateNormal];
-        [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_pressed.png"]
-                           forState:UIControlStateHighlighted];
-        [self.locateButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
-                                     forState:UIControlStateNormal];
-
-        [self.locateButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
-                                     forState:UIControlStateHighlighted];
-        [self.locateButton addTarget:self action:@selector(setMapCenterUser)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        _tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self addChildViewController:self.tableViewController];
-        self.tableViewController.tableView.delegate = self;
-        self.tableViewController.tableView.dataSource = self;
-        _tableView = self.tableViewController.tableView;
-        self.tableView.backgroundView = nil;
-        self.tableView.backgroundColor = [UIColor clearColor];
-
-        _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.filterButton setTitle:[I18N key:@"filter_button_title"] forState:UIControlStateNormal];
-        [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
-                                     forState:UIControlStateNormal];
-        [self.filterButton addTarget:self action:@selector(filter)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
-                                     forState:UIControlStateHighlighted];
-
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-        [refreshControl addTarget:self action:@selector(onRefreshShops)
-                 forControlEvents:UIControlEventValueChanged];
-
-        self.tableViewController.refreshControl = refreshControl;
-
-        _zoomInButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.zoomInButton setImage:[UIImage imageNamed:@"image/button_map_zoomin.png"]
-                           forState:UIControlStateNormal];
-        [self.zoomInButton sizeToFit];
-        [self.zoomInButton addTarget:self action:@selector(zoomIn)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        _zoomOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.zoomOutButton setImage:[UIImage imageNamed:@"image/button_map_zoomout.png"]
-                            forState:UIControlStateNormal];
-        [self.zoomOutButton sizeToFit];
-        [self.zoomOutButton addTarget:self action:@selector(zoomOut)
-                     forControlEvents:UIControlEventTouchUpInside];
-
-        _filterState = [[TRFilterState alloc] init];
-
-        _searchShopViewController = [[SearchShopViewController alloc] initWithMainViewController:self];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
-                                                     name:SearchDistanceChangedNotification object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchShopSuccessNotification:)
-                                                     name:SearchShopSuccessNotification object:nil];
+        _coffeeShopsUseInTableView = [NSMutableArray array];
+        _allCoffeeShops = [NSMutableArray array];
     }
-
     return self;
 }
+
+- (void) loadView
+{
+    [super loadView];
+
+    _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
+    self.mapView.delegate = self;
+    self.mapView.showsUserLocation = YES;
+
+    _locateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_normal.png"]
+                       forState:UIControlStateNormal];
+    [self.locateButton setImage:[UIImage imageNamed:@"image/button_locate_pressed.png"]
+                       forState:UIControlStateHighlighted];
+    [self.locateButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
+                                 forState:UIControlStateNormal];
+
+    [self.locateButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
+                                 forState:UIControlStateHighlighted];
+    [self.locateButton addTarget:self action:@selector(setMapCenterUser)
+                forControlEvents:UIControlEventTouchUpInside];
+
+    _tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self addChildViewController:self.tableViewController];
+    self.tableViewController.tableView.delegate = self;
+    self.tableViewController.tableView.dataSource = self;
+
+    _tableView = self.tableViewController.tableView;
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor clearColor];
+
+    _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.filterButton setTitle:[I18N key:@"filter_button_title"] forState:UIControlStateNormal];
+    [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorNormal]]
+                                 forState:UIControlStateNormal];
+    [self.filterButton addTarget:self action:@selector(filter)
+                forControlEvents:UIControlEventTouchUpInside];
+
+    [self.filterButton setBackgroundImage:[UIImage imageWithColor:[UIColor filterButtonBgColorHighlighted]]
+                                 forState:UIControlStateHighlighted];
+
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [refreshControl addTarget:self action:@selector(onRefreshShops)
+             forControlEvents:UIControlEventValueChanged];
+
+    self.tableViewController.refreshControl = refreshControl;
+
+    _zoomInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.zoomInButton setImage:[UIImage imageNamed:@"image/button_map_zoomin.png"]
+                       forState:UIControlStateNormal];
+    [self.zoomInButton sizeToFit];
+    [self.zoomInButton addTarget:self action:@selector(zoomIn)
+                forControlEvents:UIControlEventTouchUpInside];
+
+    _zoomOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.zoomOutButton setImage:[UIImage imageNamed:@"image/button_map_zoomout.png"]
+                        forState:UIControlStateNormal];
+    [self.zoomOutButton sizeToFit];
+    [self.zoomOutButton addTarget:self action:@selector(zoomOut)
+                 forControlEvents:UIControlEventTouchUpInside];
+
+    _filterState = [[TRFilterState alloc] init];
+
+    _searchShopViewController = [[SearchShopViewController alloc] initWithMainViewController:self];
+
+}
+
 
 - (void) viewDidLoad
 {
@@ -130,8 +134,6 @@
 
     [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
 
-    self.coffeeShopsUseInTableView = [[NSMutableArray alloc] init];
-    self.allCoffeeShops = [[NSMutableArray alloc] init];
     MMDrawerBarButtonItem *leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image/button_drawer_icon.png"]
                                                                                      style:UIBarButtonItemStylePlain
                                                                                     target:self
@@ -144,6 +146,13 @@
                                                                        target:self
                                                                        action:@selector(onSearchButtonClick)];
     [self.navigationItem setRightBarButtonItem:searchBarButton];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchDistanceChangedNotification:)
+                                                 name:SearchDistanceChangedNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSearchShopSuccessNotification:)
+                                                 name:SearchShopSuccessNotification object:nil];
+
 }
 
 - (void) viewDidLayoutSubviews
@@ -205,6 +214,7 @@
         [self openAnnotationWithShop:coffeeShop];
         return;
     }
+
     [self.allCoffeeShops addObject:coffeeShop];
 
     [self reloadFilteredCoffeeShopsWithCompletion:^{
@@ -477,7 +487,7 @@
         return;
     }
 
-    NSInteger index = -1;
+    NSInteger index = NSNotFound;
     for (NSUInteger i = 0; i < self.coffeeShopsUseInTableView.count; i++)
     {
         CoffeeShop *shop = self.coffeeShopsUseInTableView[i];
@@ -488,7 +498,7 @@
         }
     }
 
-    if (index < 0)
+    if (index == NSNotFound)
     {
         return;
     }

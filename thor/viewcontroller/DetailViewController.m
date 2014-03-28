@@ -48,20 +48,28 @@ enum
     if (self)
     {
         _id = id;
-
-        _shopImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/image_placeholder.png"]];
-        self.shopImageView.clipsToBounds = YES;
-
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.shopImageView.bounds.size.height)
-                                                  style:UITableViewStyleGrouped];
-
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-
     }
 
     return self;
 }
+
+- (void) loadView
+{
+    [super loadView];
+
+    _shopImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/image_placeholder.png"]];
+    self.shopImageView.clipsToBounds = YES;
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.shopImageView.bounds.size.height)
+                                              style:UITableViewStyleGrouped];
+
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+
+    [self.view addSubview:self.shopImageView];
+    [self.view addSubview:self.tableView];
+}
+
 
 - (void) viewDidLoad
 {
@@ -105,9 +113,6 @@ enum
 
     [Views locate:self.tableView y:[Views bottomOf:self.shopImageView]];
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-
-    [self.view addSubview:self.shopImageView];
-    [self.view addSubview:self.tableView];
 }
 
 - (void) navigateTo

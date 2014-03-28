@@ -49,9 +49,6 @@ typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 @class SubmitInfo;
 @class BFTask;
 
-extern NSString *RegisterSuccessNotification;
-extern NSString *RegisterFailedNotification;
-
 @interface CoffeeService : NSObject
 + (id) sharedInstance;
 

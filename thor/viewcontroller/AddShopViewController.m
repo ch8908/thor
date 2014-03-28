@@ -87,61 +87,63 @@ enum
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
-
-        _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
-        self.mapView.showsUserLocation = YES;
-
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
+        _submitInfo = [[SubmitInfo alloc] init];
 
         _locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [self.locationManager startUpdatingLocation];
 
         _geocoder = [[CLGeocoder alloc] init];
-        _centerPin = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/icon_map_center_pin.png"]];
-
-        _addressTextViewFromMapCenter = [[UITextView alloc] init];
-        self.addressTextViewFromMapCenter.editable = NO;
-        self.addressTextViewFromMapCenter.backgroundColor = [UIColor clearColor];
-        self.addressTextViewFromMapCenter.textColor = [UIColor blackColor];
-        self.addressTextViewFromMapCenter.font = [UIFont systemFontOfSize:14];
-
-        _addressFromMapCenterTitle = [self titleLabelWithTitle:[I18N key:@"address_above_title"]];
-
-
-        _indicatorViewForMap = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-
-        _zoomInButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.zoomInButton setImage:[UIImage imageNamed:@"image/button_map_zoomin.png"]
-                           forState:UIControlStateNormal];
-        [self.zoomInButton sizeToFit];
-        [self.zoomInButton addTarget:self action:@selector(zoomIn)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        _zoomOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.zoomOutButton setImage:[UIImage imageNamed:@"image/button_map_zoomout.png"]
-                            forState:UIControlStateNormal];
-        [self.zoomOutButton sizeToFit];
-        [self.zoomOutButton addTarget:self action:@selector(zoomOut)
-                     forControlEvents:UIControlEventTouchUpInside];
-
-        _submitInfo = [[SubmitInfo alloc] init];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
     }
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+
+    _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
+    self.mapView.showsUserLocation = YES;
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
+    _centerPin = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/icon_map_center_pin.png"]];
+
+    _addressTextViewFromMapCenter = [[UITextView alloc] init];
+    self.addressTextViewFromMapCenter.editable = NO;
+    self.addressTextViewFromMapCenter.backgroundColor = [UIColor clearColor];
+    self.addressTextViewFromMapCenter.textColor = [UIColor blackColor];
+    self.addressTextViewFromMapCenter.font = [UIFont systemFontOfSize:14];
+
+    _addressFromMapCenterTitle = [self titleLabelWithTitle:[I18N key:@"address_above_title"]];
+    [self.addressFromMapCenterTitle sizeToFit];
+
+    _indicatorViewForMap = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+    _zoomInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.zoomInButton setImage:[UIImage imageNamed:@"image/button_map_zoomin.png"]
+                       forState:UIControlStateNormal];
+    [self.zoomInButton sizeToFit];
+    [self.zoomInButton addTarget:self action:@selector(zoomIn)
+                forControlEvents:UIControlEventTouchUpInside];
+
+    _zoomOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.zoomOutButton setImage:[UIImage imageNamed:@"image/button_map_zoomout.png"]
+                        forState:UIControlStateNormal];
+    [self.zoomOutButton sizeToFit];
+    [self.zoomOutButton addTarget:self action:@selector(zoomOut)
+                 forControlEvents:UIControlEventTouchUpInside];
+
+    [self.mapView addSubview:self.centerPin];
+    [self.mapView addSubview:self.zoomInButton];
+    [self.mapView addSubview:self.zoomOutButton];
+    [self.view addSubview:self.mapView];
+    [self.view addSubview:self.addressFromMapCenterTitle];
+    [self.view addSubview:self.addressTextViewFromMapCenter];
+    [self.view addSubview:self.indicatorViewForMap];
+    [self.view addSubview:self.tableView];
 }
 
 - (UILabel *) titleLabelWithTitle:(NSString *) title
@@ -157,6 +159,11 @@ enum
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    [self.locationManager startUpdatingLocation];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+
     self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                       target:self
                                                                       action:@selector(onCancel)];
@@ -168,6 +175,16 @@ enum
     [self.navigationItem setRightBarButtonItem:self.submitButton];
 
     [self.navigationItem setTitleViewWithTitle:[I18N key:@"add_shop_title"] animated:NO];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void) viewDidLayoutSubviews
@@ -184,7 +201,6 @@ enum
     [Views locate:self.zoomInButton x:self.zoomOutButton.frame.origin.x - self.zoomInButton.bounds.size.width - 3
                 y:self.zoomOutButton.frame.origin.y];
 
-    [self.addressFromMapCenterTitle sizeToFit];
     [Views locate:self.addressFromMapCenterTitle x:PADDING_HORIZONTAL y:[Views bottomOf:self.mapView] + 10];
 
     [Views resize:self.indicatorViewForMap containerSize:CGSizeMake(24, 24)];
@@ -199,15 +215,6 @@ enum
     [Views resize:self.tableView containerSize:CGSizeMake([Views widthOfView:self.view],
                                                           [Views heightOfView:self.view] - [Views bottomOf:self.addressTextViewFromMapCenter])];
     [Views locate:self.tableView y:[Views bottomOf:self.addressTextViewFromMapCenter]];
-
-    [self.mapView addSubview:self.centerPin];
-    [self.mapView addSubview:self.zoomInButton];
-    [self.mapView addSubview:self.zoomOutButton];
-    [self.view addSubview:self.mapView];
-    [self.view addSubview:self.addressFromMapCenterTitle];
-    [self.view addSubview:self.addressTextViewFromMapCenter];
-    [self.view addSubview:self.indicatorViewForMap];
-    [self.view addSubview:self.tableView];
 }
 
 - (void) onCancel

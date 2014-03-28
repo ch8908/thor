@@ -21,23 +21,29 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-
         _distanceOptions = @[@1, @3, @5, @10, @30, @50];
-
         _selectedDistance = [[[Pref sharedInstance] searchDistance] getNumber];
-
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
     }
 
     return self;
 }
 
+- (void) loadView
+{
+    [super loadView];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
+    [self.view addSubview:self.tableView];
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void) viewWillDisappear:(BOOL) animated
@@ -58,7 +64,6 @@
     [Views resize:self.tableView containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
     [Views locate:self.tableView x:0 y:0];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
-    [self.view addSubview:self.tableView];
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section

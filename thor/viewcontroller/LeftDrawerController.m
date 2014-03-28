@@ -3,7 +3,6 @@
 // Copyright (c) 2014 oSolve. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "LeftDrawerController.h"
 #import "I18N.h"
 #import "Views.h"
@@ -30,7 +29,7 @@ NSString *const LOG_IN_I18N_KEY = @"log_in_button_title";
 NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 
 @interface LeftDrawerController()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
-@property UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation LeftDrawerController
@@ -39,31 +38,38 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor whiteColor];
-
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero
-                                                  style:UITableViewStylePlain];
-        self.tableView.backgroundView = nil;
-        self.tableView.backgroundColor = [UIColor clearColor];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onMachineLoginSuccessNotification)
-                                                     name:MachineLoginSuccessNotification
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onMachineLogoutNotification)
-                                                     name:MachineLogoutNotification
-                                                   object:nil];
     }
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero
+                                              style:UITableViewStylePlain];
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
+    [self.view addSubview:self.tableView];
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onMachineLoginSuccessNotification)
+                                                 name:MachineLoginSuccessNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onMachineLogoutNotification)
+                                                 name:MachineLogoutNotification
+                                               object:nil];
 }
 
 - (void) viewDidLayoutSubviews
@@ -72,8 +78,6 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
     [Views resize:self.tableView containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
     [Views locate:self.tableView x:0 y:0];
     self.tableView.contentInset = UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0);
-
-    [self.view addSubview:self.tableView];
 }
 
 - (void) newShop
