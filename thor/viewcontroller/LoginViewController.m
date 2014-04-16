@@ -16,8 +16,8 @@
 #import "CoffeeService.h"
 #import "NSString+Util.h"
 #import "Pref.h"
-#import "LogStateMachine.h"
-#import "LoginState.h"
+#import "StateMachine.h"
+#import "UserLoginState.h"
 
 @interface LoginViewController()<UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *signInWithFacebookButton;
@@ -170,9 +170,6 @@
                              preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
                              return nil;
                          }
-                         NSString *token = task.result;
-                         [[[Pref sharedInstance] authenticationToken] setString:token];
-                         [[LogStateMachine sharedInstance] changeState:[[LoginState alloc] init]];
                          [preventCircularRef onCancel];
                          return nil;
                      }];

@@ -8,18 +8,19 @@
 #import "Views.h"
 #import "LoginViewController.h"
 #import "UIViewController+MMDrawerController.h"
-#import "LogStateMachine.h"
-#import "LogoutState.h"
+#import "StateMachine.h"
+#import "UserLogoutState.h"
 #import "SettingController.h"
 #import "AboutViewController.h"
 #import "AddShopViewController.h"
+#import "CoffeeService.h"
 
 enum
 {
     NewShop = 0,
     Setting,
     About,
-    LogInLogOut,
+    LogInOrLogOut,
     TotalCount
 };
 
@@ -82,7 +83,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 
 - (void) newShop
 {
-    if (![[LogStateMachine sharedInstance] isLogin])
+    if (![[CoffeeService sharedInstance] isLogin])
     {
         [self showLoginOption];
         return;
@@ -145,9 +146,9 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
             cell.textLabel.text = [I18N key:@"add_shop_title"];
             break;
         }
-        case LogInLogOut:
+        case LogInOrLogOut:
         {
-            NSString *key = [[LogStateMachine sharedInstance] isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
+            NSString *key = [[CoffeeService sharedInstance] isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
             cell.textLabel.text = key;
             break;
         }
@@ -174,9 +175,9 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
             [self newShop];
             break;
         }
-        case LogInLogOut:
+        case LogInOrLogOut:
         {
-            if ([[LogStateMachine sharedInstance] isLogin])
+            if ([[CoffeeService sharedInstance] isLogin])
             {
                 [self confirmSignOut];
             }
@@ -233,7 +234,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 {
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LOG_OUT_I18N_KEY]])
     {
-        [[LogStateMachine sharedInstance] changeState:[[LogoutState alloc] init]];
+        [[CoffeeService sharedInstance] triggerSignOut];
     }
     else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LOG_IN_I18N_KEY]])
     {

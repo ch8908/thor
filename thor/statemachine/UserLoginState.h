@@ -7,5 +7,6 @@
 #import "AbstractState.h"
 
 
-@interface LogoutState : AbstractState
+@interface UserLoginState : AbstractState
+- (id) initWithToken:(NSString *) token;
 @end

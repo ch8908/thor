@@ -10,7 +10,7 @@
 #import "MainViewController.h"
 #import "CoffeeService.h"
 #import "CoffeeManager.h"
-#import "LogStateMachine.h"
+#import "StateMachine.h"
 #import "LeftDrawerController.h"
 #import "MMDrawerController.h"
 #import "UIColor+Constant.h"
@@ -53,7 +53,6 @@
 {
     [CoffeeService sharedInstance];
     [CoffeeManager sharedInstance];
-    [LogStateMachine sharedInstance];
 }
 
 - (void) applicationWillResignActive:(UIApplication *) application

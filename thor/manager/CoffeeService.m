@@ -13,10 +13,13 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "CoffeeShopDetail.h"
 #import "SubmitInfo.h"
-#import "LogStateMachine.h"
+#import "StateMachine.h"
 #import "NSArray+Util.h"
 #import "NSString+Util.h"
 #import "I18N.h"
+#import "UserStateTrigger.h"
+#import "Pref.h"
+#import "UserLogoutState.h"
 
 @implementation AutoCompleteResult
 
@@ -61,6 +64,7 @@ NSString *const TRCoffeeServiceErrorDomain = @"com.osolve.thor";
 NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 @interface CoffeeService()
+@property (nonatomic, strong) StateMachine *userStateMachine;
 @end
 
 @implementation CoffeeService
@@ -82,6 +86,8 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     self = [super init];
     if (self)
     {
+        _userStateMachine = [[StateMachine alloc] initWithState:[[UserLogoutState alloc] init]];
+        [self triggerCheckLogin];
     }
     return self;
 }
@@ -318,6 +324,10 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
                       NSString *token = [jsonDic objectForKey:@"authentication_token"];
 
+                      [[[Pref sharedInstance] authenticationToken] setString:token];
+
+                      [self triggerLoginState];
+
                       return [BFTask taskWithResult:token];
                   }];
 }
@@ -356,7 +366,8 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops"];
 
-    NSDictionary *parameters = [info infoAsDictionaryWithToken:[[LogStateMachine sharedInstance] authToken]];
+    //TODO get authenticationToken from state machine
+    NSDictionary *parameters = [info infoAsDictionaryWithToken:[[[Pref sharedInstance] authenticationToken] getString]];
 
     return [[self afNetworkingPOST:urlString parameters:parameters]
                   continueWithSuccessBlock:^id(BFTask *task) {
@@ -407,6 +418,34 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                                                                         searchText:searchText]];
     });
     return completionSource.task;
+}
+
+#pragma state machine trigger methods
+
+- (void) triggerLoginState
+{
+    UserStateTrigger *trigger = [[UserStateTrigger alloc] init];
+    trigger.signIn = YES;
+    [self.userStateMachine trigger:trigger];
+}
+
+- (void) triggerCheckLogin
+{
+    UserStateTrigger *trigger = [[UserStateTrigger alloc] init];
+    trigger.checkLogin = YES;
+    [self.userStateMachine trigger:trigger];
+}
+
+- (void) triggerSignOut
+{
+    UserStateTrigger *trigger = [[UserStateTrigger alloc] init];
+    trigger.signOut = YES;
+    [self.userStateMachine trigger:trigger];
+}
+
+- (BOOL) isLogin
+{
+    return [self.userStateMachine isLogin];
 }
 
 @end

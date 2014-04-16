@@ -4,16 +4,26 @@
 //
 
 #import "AbstractState.h"
+#import "UserStateTrigger.h"
 
+
+NSString *const AbstractStateTransitToStateNotification = @"AbstractStateTransitToStateNotification";
 
 @implementation AbstractState
 
-- (void) enter
+- (void) transitToState:(AbstractState *) state
+{
+    [[NSNotificationCenter defaultCenter]
+                           postNotificationName:AbstractStateTransitToStateNotification
+                                         object:state];
+}
+
+- (void) trigger:(UserStateTrigger *) trigger
 {
     [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void) execute
+- (void) enter
 {
     [self doesNotRecognizeSelector:_cmd];
 }

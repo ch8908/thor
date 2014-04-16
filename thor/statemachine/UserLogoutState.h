@@ -7,5 +7,5 @@
 #import "AbstractState.h"
 
 
-@interface LoginState : AbstractState
+@interface UserLogoutState : AbstractState
 @end

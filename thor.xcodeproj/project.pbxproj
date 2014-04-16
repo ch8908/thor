@@ -46,10 +46,10 @@
 		1960A10C18C84E4800726DC9 /* UIColor+Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AA16F1846149509F9444 /* UIColor+Constant.m */; };
 		1960A10D18C84E4800726DC9 /* CoffeeShopDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */; };
 		1960A10E18C84E4800726DC9 /* AbstractState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1CDD7F7F79D53004C90 /* AbstractState.m */; };
-		1960A10F18C84E4800726DC9 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
-		1960A11018C84E4800726DC9 /* LogingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* LogingState.m */; };
-		1960A11118C84E4800726DC9 /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* LoginState.m */; };
-		1960A11218C84E4800726DC9 /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
+		1960A10F18C84E4800726DC9 /* UserLogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* UserLogoutState.m */; };
+		1960A11018C84E4800726DC9 /* UserLoggingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* UserLoggingState.m */; };
+		1960A11118C84E4800726DC9 /* UserLoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */; };
+		1960A11218C84E4800726DC9 /* StateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* StateMachine.m */; };
 		1960A11318C84E4800726DC9 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
 		1960A11418C84E4800726DC9 /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		1960A11518C84E4800726DC9 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
@@ -88,10 +88,11 @@
 		23D1A01456E0168690DFD20D /* CoffeeShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A702A947B002EC72EBD7 /* CoffeeShop.m */; };
 		23D1A066EB52712B23F811C3 /* SubmitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */; };
 		23D1A0802F8614F2F8CB2131 /* AddShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF812EA31A3594E08DF /* AddShopViewController.m */; };
-		23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* LogoutState.m */; };
+		23D1A0907F15ACB7C83C2A37 /* UserLogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* UserLogoutState.m */; };
 		23D1A0D0F97519FB6006DB96 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A96A7E370D0B851B068A /* AboutViewController.m */; };
 		23D1A13F6F63CFDDF28AA57B /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
 		23D1A16A6A63A25F830B1170 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A96A7E370D0B851B068A /* AboutViewController.m */; };
+		23D1A1F4BB8312AEDB0B3905 /* UserStateTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */; };
 		23D1A24BEC21E583500E5167 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */; };
 		23D1A2937854FB6F0786E13B /* LeftDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */; };
 		23D1A391C2ADA57631EF0D74 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
@@ -107,7 +108,7 @@
 		23D1A62022DEE8338D98E6AE /* UIImage+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */; };
 		23D1A6EE325FF366C4CE14AC /* CoffeeShop+Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */; };
 		23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
-		23D1A7B8B1FF42FD6C55C0BF /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* LoginState.m */; };
+		23D1A7B8B1FF42FD6C55C0BF /* UserLoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */; };
 		23D1A7D26C67FC23F403B240 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AAF5C797FB0DF4B8BDC2 /* RNGridMenu.m */; };
 		23D1A81CA81356BE6DA09EA1 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9B3D414907C5DA1B2DC /* TextFieldCell.m */; };
 		23D1A924BA74F5701B173043 /* SearchShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5C7E2194F6A94E875E1 /* SearchShopViewController.m */; };
@@ -115,11 +116,12 @@
 		23D1A955E52BF28BBD6C2F1F /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
 		23D1AA5BE0C191E9BD4CE2B5 /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
-		23D1AAA666E4D17926AC985F /* LogingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* LogingState.m */; };
+		23D1AAA666E4D17926AC985F /* UserLoggingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AD7599D1816C1FB154C7 /* UserLoggingState.m */; };
 		23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
 		23D1AAB789294401C3EED352 /* TRFilterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AE674B91BB25AE80B7B5 /* TRFilterState.m */; };
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
-		23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */; };
+		23D1ABC5273CF8D0453445C1 /* UserStateTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */; };
+		23D1ABCB3AC6E3DDA0F45D4E /* StateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* StateMachine.m */; };
 		23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */; };
 		23D1ACD11DE36F889D7D243E /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
 		23D1AD27F30DC48CA6EB86FB /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A45E97B23306300B0B08 /* ThorNavigationController.m */; };
@@ -189,12 +191,14 @@
 		23D1A09CCED36E427FB0EEA5 /* CoffeeShopDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeShopDetail.m; sourceTree = "<group>"; };
 		23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractState.h; sourceTree = "<group>"; };
 		23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Constant.h"; sourceTree = "<group>"; };
+		23D1A0D998AAE418AEE0C93C /* UserStateTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStateTrigger.h; sourceTree = "<group>"; };
 		23D1A0F6D8EEFB42B3BF6A4F /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
 		23D1A1468711D39C6AB838AA /* System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
 		23D1A18903B895FD15914B6A /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		23D1A1BE688912AE36156663 /* NSArray+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Util.m"; sourceTree = "<group>"; };
 		23D1A1CDD7F7F79D53004C90 /* AbstractState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractState.m; sourceTree = "<group>"; };
 		23D1A243DA38B16BA100F0C6 /* ThorUis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorUis.m; sourceTree = "<group>"; };
+		23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStateTrigger.m; sourceTree = "<group>"; };
 		23D1A251A54477874EEDE336 /* ThorUis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorUis.h; sourceTree = "<group>"; };
 		23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		23D1A27A8488A14E95502F4D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
@@ -207,7 +211,7 @@
 		23D1A398EC5FB31F0218DACE /* UINavigationItem+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Util.h"; sourceTree = "<group>"; };
 		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
 		23D1A3C17A2C3980E9A6CAF0 /* System.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = System.m; sourceTree = "<group>"; };
-		23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogStateMachine.h; sourceTree = "<group>"; };
+		23D1A42B8EF619CFF442DA0F /* StateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateMachine.h; sourceTree = "<group>"; };
 		23D1A45E97B23306300B0B08 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
 		23D1A4636A449BF441538AD1 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
 		23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
@@ -219,7 +223,7 @@
 		23D1A7127BF64CC4D2311FD0 /* NSArray+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Util.h"; sourceTree = "<group>"; };
 		23D1A732279188897DCB1537 /* TextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCell.h; sourceTree = "<group>"; };
 		23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftDrawerController.h; sourceTree = "<group>"; };
-		23D1A740CB25632BD838B160 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
+		23D1A740CB25632BD838B160 /* UserLoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoginState.h; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
 		23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitInfo.m; sourceTree = "<group>"; };
 		23D1A838E95E2123BD575694 /* DistancePickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickViewController.h; sourceTree = "<group>"; };
@@ -228,11 +232,11 @@
 		23D1A8D3129C44C831678F98 /* AbstractPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractPref.h; sourceTree = "<group>"; };
 		23D1A93746AEE103AF74DD26 /* LeftDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftDrawerController.m; sourceTree = "<group>"; };
 		23D1A95738A865504909BF24 /* SubmitInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitInfo.h; sourceTree = "<group>"; };
-		23D1A9662F95D333D7E3D6B1 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
+		23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLoginState.m; sourceTree = "<group>"; };
 		23D1A96A7E370D0B851B068A /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		23D1A9AB6C5604ACD7AD38D5 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A9B3D414907C5DA1B2DC /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
-		23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogStateMachine.m; sourceTree = "<group>"; };
+		23D1A9F340E9867E1F0792E2 /* StateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateMachine.m; sourceTree = "<group>"; };
 		23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalApp.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
 		23D1AA3E1152E188B892CE22 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
@@ -240,21 +244,21 @@
 		23D1AAC4487A1510BC025964 /* AbstractUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractUIViewController.h; sourceTree = "<group>"; };
 		23D1AAEFEB44AAA3F5A88225 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		23D1AAF5C797FB0DF4B8BDC2 /* RNGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGridMenu.m; sourceTree = "<group>"; };
-		23D1AB80F2A22133B19F5B0F /* LogoutState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutState.h; sourceTree = "<group>"; };
+		23D1AB80F2A22133B19F5B0F /* UserLogoutState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLogoutState.h; sourceTree = "<group>"; };
 		23D1AB842B5E4D6FD7BD0EB6 /* FacebookDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookDaemon.h; sourceTree = "<group>"; };
 		23D1AC024B7C9EB60CB43861 /* AddShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopViewController.h; sourceTree = "<group>"; };
 		23D1AC3492DC64A799EBE477 /* CoffeeShop+Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoffeeShop+Strings.m"; sourceTree = "<group>"; };
 		23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeManager.m; sourceTree = "<group>"; };
 		23D1ACB703730537CED19AED /* ExternalApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalApp.h; sourceTree = "<group>"; };
 		23D1AD2FB23E68372C3FB2FC /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
-		23D1AD7599D1816C1FB154C7 /* LogingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogingState.m; sourceTree = "<group>"; };
+		23D1AD7599D1816C1FB154C7 /* UserLoggingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLoggingState.m; sourceTree = "<group>"; };
 		23D1AE0AC8D4D3CF56EF0449 /* TRFilterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFilterState.h; sourceTree = "<group>"; };
 		23D1AE3A3B1B2099ADAE6A6D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		23D1AE674B91BB25AE80B7B5 /* TRFilterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFilterState.m; sourceTree = "<group>"; };
 		23D1AE86B44326A8525736E2 /* CoffeeShopDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShopDetail.h; sourceTree = "<group>"; };
 		23D1AE90B22EF5500267ECBD /* CoffeeShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeShop.h; sourceTree = "<group>"; };
-		23D1AF3067EB607F0EEB3682 /* LogoutState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutState.m; sourceTree = "<group>"; };
-		23D1AF548060079D38D25BF2 /* LogingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogingState.h; sourceTree = "<group>"; };
+		23D1AF3067EB607F0EEB3682 /* UserLogoutState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLogoutState.m; sourceTree = "<group>"; };
+		23D1AF548060079D38D25BF2 /* UserLoggingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoggingState.h; sourceTree = "<group>"; };
 		23D1AFE4F0985AEC60D83452 /* AbstractPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractPref.m; sourceTree = "<group>"; };
 		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		23D1AFF812EA31A3594E08DF /* AddShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopViewController.m; sourceTree = "<group>"; };
@@ -506,14 +510,16 @@
 			children = (
 				23D1A1CDD7F7F79D53004C90 /* AbstractState.m */,
 				23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */,
-				23D1AF3067EB607F0EEB3682 /* LogoutState.m */,
-				23D1AB80F2A22133B19F5B0F /* LogoutState.h */,
-				23D1AD7599D1816C1FB154C7 /* LogingState.m */,
-				23D1AF548060079D38D25BF2 /* LogingState.h */,
-				23D1A9662F95D333D7E3D6B1 /* LoginState.m */,
-				23D1A740CB25632BD838B160 /* LoginState.h */,
-				23D1A9F340E9867E1F0792E2 /* LogStateMachine.m */,
-				23D1A42B8EF619CFF442DA0F /* LogStateMachine.h */,
+				23D1AF3067EB607F0EEB3682 /* UserLogoutState.m */,
+				23D1AB80F2A22133B19F5B0F /* UserLogoutState.h */,
+				23D1AD7599D1816C1FB154C7 /* UserLoggingState.m */,
+				23D1AF548060079D38D25BF2 /* UserLoggingState.h */,
+				23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */,
+				23D1A740CB25632BD838B160 /* UserLoginState.h */,
+				23D1A9F340E9867E1F0792E2 /* StateMachine.m */,
+				23D1A42B8EF619CFF442DA0F /* StateMachine.h */,
+				23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */,
+				23D1A0D998AAE418AEE0C93C /* UserStateTrigger.h */,
 			);
 			path = statemachine;
 			sourceTree = "<group>";
@@ -828,10 +834,10 @@
 				23D1A42F470001D0894B8ADC /* UIColor+Constant.m in Sources */,
 				23D1A5EEA9EBAC2FD78449A2 /* CoffeeShopDetail.m in Sources */,
 				23D1AFCBC759CBFFD96D5443 /* AbstractState.m in Sources */,
-				23D1A0907F15ACB7C83C2A37 /* LogoutState.m in Sources */,
-				23D1AAA666E4D17926AC985F /* LogingState.m in Sources */,
-				23D1A7B8B1FF42FD6C55C0BF /* LoginState.m in Sources */,
-				23D1ABCB3AC6E3DDA0F45D4E /* LogStateMachine.m in Sources */,
+				23D1A0907F15ACB7C83C2A37 /* UserLogoutState.m in Sources */,
+				23D1AAA666E4D17926AC985F /* UserLoggingState.m in Sources */,
+				23D1A7B8B1FF42FD6C55C0BF /* UserLoginState.m in Sources */,
+				23D1ABCB3AC6E3DDA0F45D4E /* StateMachine.m in Sources */,
 				23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */,
 				23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */,
 				23D1A391C2ADA57631EF0D74 /* System.m in Sources */,
@@ -855,6 +861,7 @@
 				23D1AE19368C717AF3378F60 /* SwitchCell.m in Sources */,
 				23D1A81CA81356BE6DA09EA1 /* TextFieldCell.m in Sources */,
 				23D1AD27F30DC48CA6EB86FB /* ThorNavigationController.m in Sources */,
+				23D1ABC5273CF8D0453445C1 /* UserStateTrigger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,10 +887,10 @@
 				1960A10C18C84E4800726DC9 /* UIColor+Constant.m in Sources */,
 				1960A10D18C84E4800726DC9 /* CoffeeShopDetail.m in Sources */,
 				1960A10E18C84E4800726DC9 /* AbstractState.m in Sources */,
-				1960A10F18C84E4800726DC9 /* LogoutState.m in Sources */,
-				1960A11018C84E4800726DC9 /* LogingState.m in Sources */,
-				1960A11118C84E4800726DC9 /* LoginState.m in Sources */,
-				1960A11218C84E4800726DC9 /* LogStateMachine.m in Sources */,
+				1960A10F18C84E4800726DC9 /* UserLogoutState.m in Sources */,
+				1960A11018C84E4800726DC9 /* UserLoggingState.m in Sources */,
+				1960A11118C84E4800726DC9 /* UserLoginState.m in Sources */,
+				1960A11218C84E4800726DC9 /* StateMachine.m in Sources */,
 				1960A11318C84E4800726DC9 /* SignUpViewController.m in Sources */,
 				1960A11418C84E4800726DC9 /* AbstractUIViewController.m in Sources */,
 				1960A11518C84E4800726DC9 /* System.m in Sources */,
@@ -907,6 +914,7 @@
 				23D1AE9C1E53B097FD834A29 /* SwitchCell.m in Sources */,
 				23D1A433DCBF10D022EAE603 /* TextFieldCell.m in Sources */,
 				23D1A93A9968ECAC49018CB5 /* ThorNavigationController.m in Sources */,
+				23D1A1F4BB8312AEDB0B3905 /* UserStateTrigger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
