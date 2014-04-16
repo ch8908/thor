@@ -19,10 +19,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:MachineLogoutNotification object:nil];
 }
 
-- (void) execute
-{
-}
-
 - (void) exit
 {
     NSLog(@"Log: exit:%@", NSStringFromClass([self class]));

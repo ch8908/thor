@@ -32,11 +32,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:MachineLoginSuccessNotification object:nil];
 }
 
-- (void) execute
-{
-
-}
-
 - (void) exit
 {
     NSLog(@"Log: exit:%@", NSStringFromClass([self class]));
