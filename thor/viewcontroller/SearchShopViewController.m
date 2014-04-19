@@ -6,7 +6,7 @@
 #import <Bolts/BFTask.h>
 #import <Bolts/BFExecutor.h>
 #import "SearchShopViewController.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "UIColor+Constant.h"
 #import "System.h"
 #import "UIImage+Util.h"
@@ -112,18 +112,18 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
         [self.backgroundMaskView setFrame:self.view.frame];
 
-        [Views resize:self.searchBarView containerSize:[self searchViewSize]];
-        [Views locate:self.searchBarView y:-[Views heightOfView:self.searchBarView]];
+        [OSViewHelper resize:self.searchBarView containerSize:[self searchViewSize]];
+        [OSViewHelper locate:self.searchBarView y:-[OSViewHelper heightOfView:self.searchBarView]];
 
-        [Views resize:self.searchBar containerSize:CGSizeMake([Views widthOfView:self.searchBarView],
-                                                              [Views heightOfView:self.searchBarView] - [Views statusBarHeight])];
+        [OSViewHelper resize:self.searchBar containerSize:CGSizeMake([OSViewHelper widthOfView:self.searchBarView],
+                                                                     [OSViewHelper heightOfView:self.searchBarView] - [OSViewHelper statusBarHeight])];
 
-        [Views alignParentBottom:self.searchBar withParent:self.searchBarView];
+        [OSViewHelper alignParentBottom:self.searchBar withParent:self.searchBarView];
 
-        [Views resize:self.tableView containerWidth:[Views widthOfView:self.view]];
-        [Views locate:self.tableView x:0 y:0];
+        [OSViewHelper resize:self.tableView containerWidth:[OSViewHelper widthOfView:self.view]];
+        [OSViewHelper locate:self.tableView x:0 y:0];
 
-        UIImage *searchFieldBackgroundImage = [UIImage imageWithRect:CGRectMake(0, 0, [Views widthOfView:self.searchBar], [Views heightOfView:self.searchBar] - 14)
+        UIImage *searchFieldBackgroundImage = [UIImage imageWithRect:CGRectMake(0, 0, [OSViewHelper widthOfView:self.searchBar], [OSViewHelper heightOfView:self.searchBar] - 14)
                                                                color:[UIColor lightGrayColor]];
 
         [self.searchBar setSearchFieldBackgroundImage:searchFieldBackgroundImage
@@ -140,8 +140,8 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (CGSize) searchViewSize
 {
-    return CGSizeMake([Views screenWidth],
-                      [Views statusBarHeight] + [Views heightOfView:self.mainViewController.navigationController.navigationBar]);
+    return CGSizeMake([OSViewHelper screenWidth],
+                      [OSViewHelper statusBarHeight] + [OSViewHelper heightOfView:self.mainViewController.navigationController.navigationBar]);
 }
 
 - (void) onTapBg:(UITapGestureRecognizer *) recognizer
@@ -163,14 +163,14 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (void) showSearchControllerWithAnimation
 {
-    CGRect targetFrame = CGRectMake(0, 0, [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
+    CGRect targetFrame = CGRectMake(0, 0, [OSViewHelper widthOfView:self.searchBarView], [OSViewHelper heightOfView:self.searchBarView]);
 
-    CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:self.keyboardFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
+    CGFloat tableViewHeight = [OSViewHelper heightOfView:self.view] - [OSViewHelper heightOfRect:self.keyboardFrame] - [OSViewHelper heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
     if (self.searchResults.count == 0)
     {
         tableViewHeight = 0;
     }
-    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], tableViewHeight);
+    CGRect tableViewFrame = CGRectMake(0, [OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.tableView], tableViewHeight);
 
     self.view.backgroundColor = [UIColor clearColor];
 
@@ -197,9 +197,9 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 {
     __weak SearchShopViewController *preventCircularRef = self;
 
-    CGRect targetFrame = CGRectMake(0, -[Views heightOfView:self.searchBarView], [Views widthOfView:self.searchBarView], [Views heightOfView:self.searchBarView]);
+    CGRect targetFrame = CGRectMake(0, -[OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.searchBarView], [OSViewHelper heightOfView:self.searchBarView]);
 
-    CGRect tableViewFrame = CGRectMake(0, 0, [Views widthOfView:self.tableView], 0);
+    CGRect tableViewFrame = CGRectMake(0, 0, [OSViewHelper widthOfView:self.tableView], 0);
 
     [UIView animateWithDuration:SEARCH_BAR_DURATION delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
@@ -243,7 +243,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     if ([NSString isEmpty:self.searchTextGlobal])
     {
         [self.searchResults removeAllObjects];
-        if ([Views heightOfView:self.tableView] > 0.0f)
+        if ([OSViewHelper heightOfView:self.tableView] > 0.0f)
         {
             [self collapseTableView];
         }
@@ -262,7 +262,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                              [preventCircularRef.searchResults removeAllObjects];
                              [preventCircularRef.searchResults addObjectsFromArray:autoCompleteResult.candidates];
                              [preventCircularRef.tableView reloadData];
-                             if ([Views heightOfView:preventCircularRef.tableView] < 1.0f)
+                             if ([OSViewHelper heightOfView:preventCircularRef.tableView] < 1.0f)
                              {
                                  [preventCircularRef expandTableView];
                              }
@@ -278,7 +278,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 - (void) collapseTableView
 {
     __weak SearchShopViewController *preventCircularRef = self;
-    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], 0);
+    CGRect tableViewFrame = CGRectMake(0, [OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.tableView], 0);
     [UIView animateWithDuration:0.3f delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
@@ -291,8 +291,8 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 - (void) expandTableView
 {
-    CGFloat tableViewHeight = [Views heightOfView:self.view] - [Views heightOfRect:self.keyboardFrame] - [Views heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
-    CGRect tableViewFrame = CGRectMake(0, [Views heightOfView:self.searchBarView], [Views widthOfView:self.tableView], tableViewHeight);
+    CGFloat tableViewHeight = [OSViewHelper heightOfView:self.view] - [OSViewHelper heightOfRect:self.keyboardFrame] - [OSViewHelper heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
+    CGRect tableViewFrame = CGRectMake(0, [OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.tableView], tableViewHeight);
     __weak SearchShopViewController *preventCircularRef = self;
     [UIView animateWithDuration:0.3f delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut

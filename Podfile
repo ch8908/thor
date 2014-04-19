@@ -7,6 +7,9 @@ pod 'Facebook-iOS-SDK'
 pod 'CrittercismSDK'
 pod 'MMDrawerController'
 pod 'Bolts'
+
+pod 'OSViewHelper'
+
 target :Tests do
   pod 'GHUnit'
 end

@@ -9,7 +9,7 @@
 #import "AbstractUIViewController.h"
 #import "DetailViewController.h"
 #import "CoffeeService.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "CoffeeShopDetail.h"
 #import "I18N.h"
 #import "CoffeeShop.h"
@@ -108,10 +108,10 @@ enum
 {
     [super viewDidLayoutSubviews];
 
-    [Views alignCenter:self.shopImageView containerWidth:self.view.bounds.size.width];
-    [Views locate:self.shopImageView y:self.topBarOffset];
+    [OSViewHelper alignCenter:self.shopImageView containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.shopImageView y:self.topBarOffset];
 
-    [Views locate:self.tableView y:[Views bottomOf:self.shopImageView]];
+    [OSViewHelper locate:self.tableView y:[OSViewHelper bottomOf:self.shopImageView]];
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 }
 

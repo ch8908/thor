@@ -5,7 +5,7 @@
 
 #import "LeftDrawerController.h"
 #import "I18N.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "LoginViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "StateMachine.h"
@@ -76,8 +76,9 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [Views resize:self.tableView containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
-    [Views locate:self.tableView x:0 y:0];
+    [OSViewHelper resize:self.tableView
+           containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
+    [OSViewHelper locate:self.tableView x:0 y:0];
     self.tableView.contentInset = UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0);
 }
 

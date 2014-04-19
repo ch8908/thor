@@ -14,7 +14,6 @@
 		192F311317D0F77D00509135 /* image in Resources */ = {isa = PBXBuildFile; fileRef = 192F311217D0F77D00509135 /* image */; };
 		194B1E881885654F004FCBA7 /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E811885654F004FCBA7 /* I18N.m */; };
 		194B1E891885654F004FCBA7 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E831885654F004FCBA7 /* NSString+Util.m */; };
-		194B1E8B1885654F004FCBA7 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E871885654F004FCBA7 /* Views.m */; };
 		194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9018856618004FCBA7 /* LoginViewController.m */; };
 		194B1E9F18856618004FCBA7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9218856618004FCBA7 /* MainViewController.m */; };
 		1955A56B17E3178100BEF77F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1955A56D17E3178100BEF77F /* Localizable.strings */; };
@@ -32,7 +31,6 @@
 		1960A0FD18C84E4800726DC9 /* thorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1958469317C266C8004B8592 /* thorAppDelegate.m */; };
 		1960A0FE18C84E4800726DC9 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E831885654F004FCBA7 /* NSString+Util.m */; };
 		1960A0FF18C84E4800726DC9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9218856618004FCBA7 /* MainViewController.m */; };
-		1960A10018C84E4800726DC9 /* Views.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E871885654F004FCBA7 /* Views.m */; };
 		1960A10118C84E4800726DC9 /* I18N.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E811885654F004FCBA7 /* I18N.m */; };
 		1960A10318C84E4800726DC9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194B1E9018856618004FCBA7 /* LoginViewController.m */; };
 		1960A10418C84E4800726DC9 /* CoffeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AC8EF72D800DBE6619AA /* CoffeeManager.m */; };
@@ -155,8 +153,6 @@
 		194B1E811885654F004FCBA7 /* I18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I18N.m; sourceTree = "<group>"; };
 		194B1E821885654F004FCBA7 /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		194B1E831885654F004FCBA7 /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
-		194B1E861885654F004FCBA7 /* Views.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Views.h; sourceTree = "<group>"; };
-		194B1E871885654F004FCBA7 /* Views.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Views.m; sourceTree = "<group>"; };
 		194B1E8F18856618004FCBA7 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		194B1E9018856618004FCBA7 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		194B1E9118856618004FCBA7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -350,8 +346,6 @@
 				194B1E811885654F004FCBA7 /* I18N.m */,
 				194B1E821885654F004FCBA7 /* NSString+Util.h */,
 				194B1E831885654F004FCBA7 /* NSString+Util.m */,
-				194B1E861885654F004FCBA7 /* Views.h */,
-				194B1E871885654F004FCBA7 /* Views.m */,
 				23D1A1468711D39C6AB838AA /* System.h */,
 				23D1A3C17A2C3980E9A6CAF0 /* System.m */,
 				23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */,
@@ -814,7 +808,6 @@
 				1958469417C266C8004B8592 /* thorAppDelegate.m in Sources */,
 				194B1E891885654F004FCBA7 /* NSString+Util.m in Sources */,
 				194B1E9F18856618004FCBA7 /* MainViewController.m in Sources */,
-				194B1E8B1885654F004FCBA7 /* Views.m in Sources */,
 				194B1E881885654F004FCBA7 /* I18N.m in Sources */,
 				194B1E9E18856618004FCBA7 /* LoginViewController.m in Sources */,
 				23D1A49A66472AAD3B75B44A /* CoffeeManager.m in Sources */,
@@ -866,7 +859,6 @@
 				1960A0FD18C84E4800726DC9 /* thorAppDelegate.m in Sources */,
 				1960A0FE18C84E4800726DC9 /* NSString+Util.m in Sources */,
 				1960A0FF18C84E4800726DC9 /* MainViewController.m in Sources */,
-				1960A10018C84E4800726DC9 /* Views.m in Sources */,
 				1960A10118C84E4800726DC9 /* I18N.m in Sources */,
 				1960A10318C84E4800726DC9 /* LoginViewController.m in Sources */,
 				1960A10418C84E4800726DC9 /* CoffeeManager.m in Sources */,

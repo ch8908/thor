@@ -6,7 +6,7 @@
 #import "SettingController.h"
 #import "I18N.h"
 #import "Pref.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "ThorUis.h"
 #import "DistancePickViewController.h"
 
@@ -70,8 +70,9 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [Views resize:self.tableView containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
-    [Views locate:self.tableView x:0 y:0];
+    [OSViewHelper resize:self.tableView
+           containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
+    [OSViewHelper locate:self.tableView x:0 y:0];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
 }
 

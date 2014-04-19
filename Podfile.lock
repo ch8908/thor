@@ -36,6 +36,7 @@ PODS:
     - MMDrawerController/Core
   - MMDrawerController/Subclass (0.5.3):
     - MMDrawerController/Core
+  - OSViewHelper (0.1.0)
   - TMCache (1.2.0)
 
 DEPENDENCIES:
@@ -47,17 +48,19 @@ DEPENDENCIES:
   - JSONKit
   - Mixpanel
   - MMDrawerController
+  - OSViewHelper
   - TMCache
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
-  CrittercismSDK: 63c5abf42522b33acc8078e6b496e4e997669c63
-  Facebook-iOS-SDK: 5788541337dc88265bc940cb5ffb05915f9b64e3
+  CrittercismSDK: b05cb8468f499088f93a2d49160c72fe4d1431c0
+  Facebook-iOS-SDK: 762cebd849e9c2c6274ba000212c61eabec1bde8
   GHUnit: 2f3ea0192633e92afaef959476a8d28db179797d
-  JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
+  JSONKit: b1f52f3f522b8602307769511d4fb47c6f856159
   Mixpanel: 16e6f1d5f8aeb9282ee864e169557de0bd9549df
   MMDrawerController: 4445e1927e8947b7e2382136c9b7109840efbfb9
+  OSViewHelper: 44d6acc2ff43eec94dc2e40883303c18a29aef43
   TMCache: 4b05e1b124d9f7e8d449640e059cff4cda17ed27
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

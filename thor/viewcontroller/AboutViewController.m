@@ -4,7 +4,7 @@
 //
 
 #import "AboutViewController.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "I18N.h"
 #import "ThorUis.h"
 
@@ -60,7 +60,7 @@ CGFloat const ABOUT_CELL_HEIGHT = 44;
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [Views resize:self.tableView containerSize:self.view.frame.size];
+    [OSViewHelper resize:self.tableView containerSize:self.view.frame.size];
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
 }
 

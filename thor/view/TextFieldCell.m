@@ -4,7 +4,7 @@
 //
 
 #import "TextFieldCell.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "UIColor+Constant.h"
 
 
@@ -43,18 +43,18 @@ CGFloat const TEXT_FIELD_X_PADDING = 5;
     [super layoutSubviews];
 
     // Title Label
-    [Views resize:self.inputFieldTitleLabel
-    containerSize:CGSizeMake([Views widthOfView:self], 20)];
+    [OSViewHelper resize:self.inputFieldTitleLabel
+           containerSize:CGSizeMake([OSViewHelper widthOfView:self], 20)];
 
-    [Views locate:self.inputFieldTitleLabel x:TEXT_FIELD_X_PADDING y:0];
+    [OSViewHelper locate:self.inputFieldTitleLabel x:TEXT_FIELD_X_PADDING y:0];
 
     // Input TextField
-    [Views resize:self.inputField
-    containerSize:CGSizeMake([Views widthOfView:self] - TEXT_FIELD_X_PADDING * 2,
-                             [Views heightOfView:self] - [Views bottomOf:self.inputFieldTitleLabel])];
+    [OSViewHelper resize:self.inputField
+           containerSize:CGSizeMake([OSViewHelper widthOfView:self] - TEXT_FIELD_X_PADDING * 2,
+                                    [OSViewHelper heightOfView:self] - [OSViewHelper bottomOf:self.inputFieldTitleLabel])];
 
-    [Views locate:self.inputField x:TEXT_FIELD_X_PADDING
-                y:[Views bottomOf:self.inputFieldTitleLabel]];
+    [OSViewHelper locate:self.inputField x:TEXT_FIELD_X_PADDING
+                       y:[OSViewHelper bottomOf:self.inputFieldTitleLabel]];
 
     [self addSubview:self.inputFieldTitleLabel];
     [self addSubview:self.inputField];

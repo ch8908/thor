@@ -5,7 +5,7 @@
 
 #import <Bolts/BFTask.h>
 #import "SignUpViewController.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "UIColor+Constant.h"
 #import "I18N.h"
 #import "NSString+Util.h"
@@ -98,25 +98,25 @@
     self.passwordField.backgroundColor = [UIColor inputFieldBgColor];
     self.confirmPasswordField.backgroundColor = [UIColor inputFieldBgColor];
 
-    [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
-    [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
-    [Views alignCenter:self.confirmPasswordField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper alignCenter:self.confirmPasswordField containerWidth:self.view.bounds.size.width];
 
-    [Views locate:self.emailField y:self.topBarOffset + 64];
-    [Views locate:self.passwordField y:[Views bottomOf:self.emailField] + 5];
-    [Views locate:self.confirmPasswordField y:[Views bottomOf:self.passwordField] + 5];
+    [OSViewHelper locate:self.emailField y:self.topBarOffset + 64];
+    [OSViewHelper locate:self.passwordField y:[OSViewHelper bottomOf:self.emailField] + 5];
+    [OSViewHelper locate:self.confirmPasswordField y:[OSViewHelper bottomOf:self.passwordField] + 5];
 
     [self.submitButton setTitle:[I18N key:@"register_button_title"] forState:UIControlStateNormal];
     [self.submitButton sizeToFit];
-    [Views resize:self.submitButton containerHeight:44];
+    [OSViewHelper resize:self.submitButton containerHeight:44];
 
-    [Views alignCenter:self.submitButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.submitButton y:[Views bottomOf:self.confirmPasswordField] + 10];
+    [OSViewHelper alignCenter:self.submitButton containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.submitButton y:[OSViewHelper bottomOf:self.confirmPasswordField] + 10];
 
-    [Views resize:self.errorMessageLabel containerSize:CGSizeMake([Views widthOfView:self.view] - 10, 50)];
-    [Views alignCenter:self.errorMessageLabel containerWidth:[Views widthOfView:self.view]];
-    [Views locate:self.errorMessageLabel
-                y:[Views yOfView:self.emailField] - [Views heightOfView:self.errorMessageLabel] - 5];
+    [OSViewHelper resize:self.errorMessageLabel containerSize:CGSizeMake([OSViewHelper widthOfView:self.view] - 10, 50)];
+    [OSViewHelper alignCenter:self.errorMessageLabel containerWidth:[OSViewHelper widthOfView:self.view]];
+    [OSViewHelper locate:self.errorMessageLabel
+                       y:[OSViewHelper yOfView:self.emailField] - [OSViewHelper heightOfView:self.errorMessageLabel] - 5];
 }
 
 - (void) keyboardWillHide:(NSNotification *) notification
@@ -127,7 +127,7 @@
     [value getValue:&duration];
 
     [UIView animateWithDuration:duration animations:^{
-        [Views locate:self.view y:self.view.frame.origin.y];
+        [OSViewHelper locate:self.view y:self.view.frame.origin.y];
         self.view.frame = CGRectMake(self.view.frame.origin.x,
                                      self.view.frame.origin.y + self.viewAndKeyboardOffset,
                                      self.view.bounds.size.width,

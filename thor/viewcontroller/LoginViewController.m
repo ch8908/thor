@@ -9,7 +9,7 @@
 #import <Bolts/BFTask.h>
 #import "AbstractUIViewController.h"
 #import "LoginViewController.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "I18N.h"
 #import "UIColor+Constant.h"
 #import "SignUpViewController.h"
@@ -104,41 +104,41 @@
 {
     [super viewDidLayoutSubviews];
 
-    [Views resize:self.errorMessageLabel containerSize:CGSizeMake(300, 50)];
-    [Views alignCenter:self.errorMessageLabel containerWidth:self.view.bounds.size.width];
-    [Views locate:self.errorMessageLabel y:self.topBarOffset + 5];
+    [OSViewHelper resize:self.errorMessageLabel containerSize:CGSizeMake(300, 50)];
+    [OSViewHelper alignCenter:self.errorMessageLabel containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.errorMessageLabel y:self.topBarOffset + 5];
 
-    [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
-    [Views locate:self.emailField y:[Views bottomOf:self.errorMessageLabel] + 5];
+    [OSViewHelper alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.emailField y:[OSViewHelper bottomOf:self.errorMessageLabel] + 5];
 
-    [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
-    [Views locate:self.passwordField y:[Views bottomOf:self.emailField] + 5];
+    [OSViewHelper alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.passwordField y:[OSViewHelper bottomOf:self.emailField] + 5];
 
     [self.logInButton setTitle:[I18N key:@"log_in_button_title"] forState:UIControlStateNormal];
     [self.logInButton sizeToFit];
 
-    [Views alignCenter:self.logInButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.logInButton y:[Views bottomOf:self.passwordField] + 10];
+    [OSViewHelper alignCenter:self.logInButton containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.logInButton y:[OSViewHelper bottomOf:self.passwordField] + 10];
 
     [self.signInWithFacebookButton setTitle:[I18N key:@"log_in_with_facebook"] forState:UIControlStateNormal];
     self.signInWithFacebookButton.backgroundColor = [UIColor facebookLoginButtonBgColor];
-    [Views resize:self.signInWithFacebookButton containerSize:CGSizeMake(260, 50)];
-    [Views alignCenter:self.signInWithFacebookButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.signInWithFacebookButton y:[Views bottomOf:self.logInButton] + 20];
+    [OSViewHelper resize:self.signInWithFacebookButton containerSize:CGSizeMake(260, 50)];
+    [OSViewHelper alignCenter:self.signInWithFacebookButton containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.signInWithFacebookButton y:[OSViewHelper bottomOf:self.logInButton] + 20];
 
     [self.signInWithTwitterButton setTitle:[I18N key:@"log_in_with_twitter"] forState:UIControlStateNormal];
     self.signInWithTwitterButton.backgroundColor = [UIColor twitterLoginButtonBgColor];
-    [Views resize:self.signInWithTwitterButton containerSize:CGSizeMake(260, 50)];
-    [Views alignCenter:self.signInWithTwitterButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.signInWithTwitterButton y:[Views bottomOf:self.signInWithFacebookButton]];
+    [OSViewHelper resize:self.signInWithTwitterButton containerSize:CGSizeMake(260, 50)];
+    [OSViewHelper alignCenter:self.signInWithTwitterButton containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.signInWithTwitterButton y:[OSViewHelper bottomOf:self.signInWithFacebookButton]];
 
     [self.signUpButton setTitle:[I18N key:@"sign_up"] forState:UIControlStateNormal];
-    [Views resize:self.signUpButton containerSize:CGSizeMake(260, 50)];
-    [Views alignCenter:self.signUpButton containerWidth:self.view.bounds.size.width];
-    [Views locate:self.signUpButton y:[Views bottomOf:self.signInWithTwitterButton]];
+    [OSViewHelper resize:self.signUpButton containerSize:CGSizeMake(260, 50)];
+    [OSViewHelper alignCenter:self.signUpButton containerWidth:self.view.bounds.size.width];
+    [OSViewHelper locate:self.signUpButton y:[OSViewHelper bottomOf:self.signInWithTwitterButton]];
 
-    [Views alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
-    [Views alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper alignCenter:self.emailField containerWidth:self.view.bounds.size.width];
+    [OSViewHelper alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *) textField

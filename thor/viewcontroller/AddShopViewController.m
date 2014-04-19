@@ -7,7 +7,7 @@
 #import <MapKit/MapKit.h>
 #import <Bolts/BFTask.h>
 #import "AddShopViewController.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 #import "I18N.h"
 #import "CoffeeService.h"
 #import "SubmitInfo.h"
@@ -190,31 +190,31 @@ enum
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [Views resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 120)];
-    [Views locate:self.mapView y:self.topBarOffset];
+    [OSViewHelper resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 120)];
+    [OSViewHelper locate:self.mapView y:self.topBarOffset];
 
-    [Views alignCenterMiddle:self.centerPin containerFrame:self.mapView.bounds];
+    [OSViewHelper alignCenterMiddle:self.centerPin containerFrame:self.mapView.bounds];
 
     // zoom in, zoom out buttons
-    [Views locate:self.zoomOutButton x:self.mapView.bounds.size.width - self.zoomOutButton.bounds.size.width - 3
-                y:self.mapView.bounds.size.height - self.zoomOutButton.bounds.size.height];
-    [Views locate:self.zoomInButton x:self.zoomOutButton.frame.origin.x - self.zoomInButton.bounds.size.width - 3
-                y:self.zoomOutButton.frame.origin.y];
+    [OSViewHelper locate:self.zoomOutButton x:self.mapView.bounds.size.width - self.zoomOutButton.bounds.size.width - 3
+                       y:self.mapView.bounds.size.height - self.zoomOutButton.bounds.size.height];
+    [OSViewHelper locate:self.zoomInButton x:self.zoomOutButton.frame.origin.x - self.zoomInButton.bounds.size.width - 3
+                       y:self.zoomOutButton.frame.origin.y];
 
-    [Views locate:self.addressFromMapCenterTitle x:PADDING_HORIZONTAL y:[Views bottomOf:self.mapView] + 10];
+    [OSViewHelper locate:self.addressFromMapCenterTitle x:PADDING_HORIZONTAL y:[OSViewHelper bottomOf:self.mapView] + 10];
 
-    [Views resize:self.indicatorViewForMap containerSize:CGSizeMake(24, 24)];
-    [Views alignCenter:self.indicatorViewForMap withTarget:self.addressFromMapCenterTitle];
-    [Views locate:self.indicatorViewForMap x:[Views rightOf:self.addressFromMapCenterTitle] + 3];
+    [OSViewHelper resize:self.indicatorViewForMap containerSize:CGSizeMake(24, 24)];
+    [OSViewHelper alignCenter:self.indicatorViewForMap withTarget:self.addressFromMapCenterTitle];
+    [OSViewHelper locate:self.indicatorViewForMap x:[OSViewHelper rightOf:self.addressFromMapCenterTitle] + 3];
 
-    [Views resize:self.addressTextViewFromMapCenter
-    containerSize:CGSizeMake(self.view.bounds.size.width - PADDING_HORIZONTAL * 2, 40)];
-    [Views locate:self.addressTextViewFromMapCenter x:PADDING_HORIZONTAL
-                y:[Views bottomOf:self.addressFromMapCenterTitle]];
+    [OSViewHelper resize:self.addressTextViewFromMapCenter
+           containerSize:CGSizeMake(self.view.bounds.size.width - PADDING_HORIZONTAL * 2, 40)];
+    [OSViewHelper locate:self.addressTextViewFromMapCenter x:PADDING_HORIZONTAL
+                       y:[OSViewHelper bottomOf:self.addressFromMapCenterTitle]];
 
-    [Views resize:self.tableView containerSize:CGSizeMake([Views widthOfView:self.view],
-                                                          [Views heightOfView:self.view] - [Views bottomOf:self.addressTextViewFromMapCenter])];
-    [Views locate:self.tableView y:[Views bottomOf:self.addressTextViewFromMapCenter]];
+    [OSViewHelper resize:self.tableView containerSize:CGSizeMake([OSViewHelper widthOfView:self.view],
+                                                                 [OSViewHelper heightOfView:self.view] - [OSViewHelper bottomOf:self.addressTextViewFromMapCenter])];
+    [OSViewHelper locate:self.tableView y:[OSViewHelper bottomOf:self.addressTextViewFromMapCenter]];
 }
 
 - (void) onCancel
@@ -279,9 +279,9 @@ enum
 
     UILabel *titleLabel = [self navigationBarTitleLabelWithString:[I18N key:@"submiting_message"]];
 
-    [Views alignCenterMiddle:titleLabel containerFrame:view.frame];
-    [Views alignMiddle:indicatorView containerHeight:view.bounds.size.height];
-    [Views locate:indicatorView x:titleLabel.frame.origin.x - indicatorView.bounds.size.width - 3];
+    [OSViewHelper alignCenterMiddle:titleLabel containerFrame:view.frame];
+    [OSViewHelper alignMiddle:indicatorView containerHeight:view.bounds.size.height];
+    [OSViewHelper locate:indicatorView x:titleLabel.frame.origin.x - indicatorView.bounds.size.width - 3];
 
     [view addSubview:indicatorView];
     [view addSubview:titleLabel];
@@ -475,7 +475,7 @@ enum
 
     CGFloat offset = self.viewAndKeyboardOffset;
     [UIView animateWithDuration:duration animations:^{
-        [Views locate:self.view y:self.view.frame.origin.y];
+        [OSViewHelper locate:self.view y:self.view.frame.origin.y];
         self.view.frame = CGRectMake(self.view.frame.origin.x,
                                      self.view.frame.origin.y + offset,
                                      self.view.bounds.size.width,

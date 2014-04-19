@@ -14,7 +14,6 @@
 #import "CoffeeShop.h"
 #import "TRAnnotation.h"
 #import "CoffeeShop+Strings.h"
-#import "Views.h"
 #import "CoffeeService.h"
 #import "DetailViewController.h"
 #import "MMDrawerBarButtonItem.h"
@@ -29,6 +28,7 @@
 #import "System.h"
 #import "BFExecutor.h"
 #import "SearchShopViewController.h"
+#import "OSViewHelper.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
@@ -163,36 +163,38 @@
 
     // for different screen
     CGFloat tableViewY = 280;
-    if ([Views screenHeight] > SCREEN_HEIGHT_3_5_INCH)
+    if ([OSViewHelper screenHeight] > SCREEN_HEIGHT_3_5_INCH)
     {
         tableViewY = 320;
     }
 
-    [Views resize:self.tableView
-    containerSize:CGSizeMake([Views widthOfView:self.view], [Views heightOfView:self.view] - tableViewY - self.bottomBarOffset)];
+    [OSViewHelper resize:self.tableView
+           containerSize:CGSizeMake([OSViewHelper widthOfView:self.view], [OSViewHelper heightOfView:self.view] - tableViewY - self.bottomBarOffset)];
 
     UIToolbar *blurBg = [[UIToolbar alloc] initWithFrame:self.tableView.bounds];
     blurBg.translucent = YES;
     blurBg.barStyle = UIBarStyleDefault;
     self.tableView.backgroundView = blurBg;
 
-    [Views locate:self.tableView y:tableViewY];
+    [OSViewHelper locate:self.tableView y:tableViewY];
 
     [self.locateButton sizeToFit];
-    [Views locate:self.locateButton x:5
-                y:[Views yOfView:self.tableView] - [Views heightOfView:self.locateButton] - 5];
+    [OSViewHelper locate:self.locateButton x:5
+                       y:[OSViewHelper yOfView:self.tableView] - [OSViewHelper heightOfView:self.locateButton] - 5];
 
     self.filterButton.titleLabel.font = [UIFont systemFontOfSize:26];
     [self.filterButton sizeToFit];
 
-    [Views locate:self.filterButton x:[Views widthOfView:self.mapView] - [Views widthOfView:self.filterButton] - 5
-                y:[Views yOfView:self.tableView] - [Views heightOfView:self.filterButton] - 5];
+    [OSViewHelper locate:self.filterButton
+                       x:[OSViewHelper widthOfView:self.mapView] - [OSViewHelper widthOfView:self.filterButton] - 5
+                       y:[OSViewHelper yOfView:self.tableView] - [OSViewHelper heightOfView:self.filterButton] - 5];
 
-    [Views locate:self.zoomOutButton x:[Views widthOfView:self.view] - [Views widthOfView:self.zoomInButton] - 10
-                y:[Views yOfView:self.filterButton] - [Views heightOfView:self.zoomOutButton]];
+    [OSViewHelper locate:self.zoomOutButton
+                       x:[OSViewHelper widthOfView:self.view] - [OSViewHelper widthOfView:self.zoomInButton] - 10
+                       y:[OSViewHelper yOfView:self.filterButton] - [OSViewHelper heightOfView:self.zoomOutButton]];
 
-    [Views locate:self.zoomInButton x:[Views xOfView:self.zoomOutButton]
-                y:[Views yOfView:self.zoomOutButton] - [Views heightOfView:self.zoomInButton] - 5];
+    [OSViewHelper locate:self.zoomInButton x:[OSViewHelper xOfView:self.zoomOutButton]
+                       y:[OSViewHelper yOfView:self.zoomOutButton] - [OSViewHelper heightOfView:self.zoomInButton] - 5];
 
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.tableView];
@@ -267,7 +269,7 @@
     av.delegate = self;
     //    av.bounces = NO;
     [av showInViewController:self.navigationController
-                      center:CGPointMake([Views widthOfView:self.view] / 2.f, [Views heightOfView:self.view] / 2.f)];
+                      center:CGPointMake([OSViewHelper widthOfView:self.view] / 2.f, [OSViewHelper heightOfView:self.view] / 2.f)];
 }
 
 - (UIImage *) wifiItemImage

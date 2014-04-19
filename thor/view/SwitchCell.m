@@ -4,7 +4,7 @@
 //
 
 #import "SwitchCell.h"
-#import "Views.h"
+#import "OSViewHelper.h"
 
 
 @implementation SwitchCell
@@ -32,13 +32,13 @@
 {
     [super layoutSubviews];
 
-    [Views resize:self.titleLabel containerSize:CGSizeMake(120, [SwitchCell cellHeight] - 6)];
-    [Views locate:self.titleLabel x:3];
-    [Views alignMiddle:self.titleLabel containerHeight:[Views heightOfView:self]];
+    [OSViewHelper resize:self.titleLabel containerSize:CGSizeMake(120, [SwitchCell cellHeight] - 6)];
+    [OSViewHelper locate:self.titleLabel x:3];
+    [OSViewHelper alignMiddle:self.titleLabel containerHeight:[OSViewHelper heightOfView:self]];
 
-    [Views resize:self.switchButton containerSize:CGSizeMake(150, [SwitchCell cellHeight] - 6)];
-    [Views locate:self.switchButton x:[Views rightOf:self.titleLabel] + 3];
-    [Views alignMiddle:self.switchButton containerHeight:[Views heightOfView:self]];
+    [OSViewHelper resize:self.switchButton containerSize:CGSizeMake(150, [SwitchCell cellHeight] - 6)];
+    [OSViewHelper locate:self.switchButton x:[OSViewHelper rightOf:self.titleLabel] + 3];
+    [OSViewHelper alignMiddle:self.switchButton containerHeight:[OSViewHelper heightOfView:self]];
 
     [self addSubview:self.titleLabel];
     [self addSubview:self.switchButton];
