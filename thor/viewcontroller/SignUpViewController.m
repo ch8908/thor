@@ -10,6 +10,8 @@
 #import "I18N.h"
 #import "NSString+Util.h"
 #import "CoffeeService.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 @interface SignUpViewController()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *emailField;
@@ -22,18 +24,15 @@
 
 @implementation SignUpViewController
 
-- (id) initSignUpViewController
-{
+- (id) initSignUpViewController {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
     }
 
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     CGRect rect = CGRectMake(0, 0, 280, 44);
@@ -69,8 +68,7 @@
     [self.view addSubview:self.errorMessageLabel];
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor loginViewBgColor];
 
@@ -90,8 +88,7 @@
                                                object:nil];
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
     self.emailField.backgroundColor = [UIColor inputFieldBgColor];
@@ -113,14 +110,14 @@
     [OSViewHelper alignCenter:self.submitButton containerWidth:self.view.bounds.size.width];
     [OSViewHelper locate:self.submitButton y:[OSViewHelper bottomOf:self.confirmPasswordField] + 10];
 
-    [OSViewHelper resize:self.errorMessageLabel containerSize:CGSizeMake([OSViewHelper widthOfView:self.view] - 10, 50)];
+    [OSViewHelper resize:self.errorMessageLabel
+           containerSize:CGSizeMake([OSViewHelper widthOfView:self.view] - 10, 50)];
     [OSViewHelper alignCenter:self.errorMessageLabel containerWidth:[OSViewHelper widthOfView:self.view]];
     [OSViewHelper locate:self.errorMessageLabel
                        y:[OSViewHelper yOfView:self.emailField] - [OSViewHelper heightOfView:self.errorMessageLabel] - 5];
 }
 
-- (void) keyboardWillHide:(NSNotification *) notification
-{
+- (void) keyboardWillHide:(NSNotification *) notification {
     NSDictionary *info = [notification userInfo];
     NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
@@ -135,13 +132,11 @@
     }];
 }
 
-- (void) keyboardWillShow:(NSNotification *) notification
-{
+- (void) keyboardWillShow:(NSNotification *) notification {
     NSDictionary *info = [notification userInfo];
     CGRect endFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat diff = endFrame.origin.y - (self.confirmPasswordField.frame.origin.y + self.confirmPasswordField.bounds.size.height + self.view.frame.origin.y);
-    if (diff > 0)
-    {
+    if (diff > 0) {
         return;
     }
     self.viewAndKeyboardOffset = (CGFloat) fabs(diff) + 5;
@@ -157,43 +152,37 @@
     }];
 }
 
-- (void) onSubmit
-{
+- (void) onSubmit {
     ServiceRegisterSource *source = [[ServiceRegisterSource alloc] init];
     source.email = self.emailField.text;
     source.password = self.passwordField.text;
     source.confirmPassword = self.confirmPasswordField.text;
 
     __weak SignUpViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] resisterWithParams:source]
-                     continueWithBlock:^id(BFTask *task) {
-                         if (task.error)
-                         {
-                             preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
-                             return nil;
-                         }
-                         return nil;
-                     }];
+    [[self.beans.coffeeService resisterWithParams:source]
+                               continueWithBlock:^id(BFTask *task) {
+                                   if (task.error) {
+                                       preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
+                                       return nil;
+                                   }
+                                   return nil;
+                               }];
 }
 
-- (void) onViewTap
-{
+- (void) onViewTap {
     [self.emailField resignFirstResponder];
     [self.passwordField resignFirstResponder];
     [self.confirmPasswordField resignFirstResponder];
 }
 
-- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
-{
-    if ([string stringByTrim].length > 0)
-    {
+- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string {
+    if ([string stringByTrim].length > 0) {
         self.errorMessageLabel.text = @"";
     }
     return YES;
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *) textField
-{
+- (BOOL) textFieldShouldReturn:(UITextField *) textField {
     [textField resignFirstResponder];
     return YES;
 }

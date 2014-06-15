@@ -16,49 +16,30 @@
 
 @implementation CoffeeManager
 
-+ (id) sharedInstance
-{
-    static CoffeeManager *sharedMyInstance = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMyInstance = [[self alloc] initThorManager];
-    });
-
-    return sharedMyInstance;
-}
-
-- (id) initThorManager
-{
+- (id) initManager {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _queue = dispatch_queue_create("com.osolve.thor.manager", NULL);
     }
     return self;
 }
 
-- (BFTask *) allShops:(NSArray *) shops filterState:(TRFilterState *) filterState
-{
+- (BFTask *) allShops:(NSArray *) shops filterState:(TRFilterState *) filterState {
     BFTaskCompletionSource *completer = [BFTaskCompletionSource taskCompletionSource];
 
     dispatch_async(self.queue, ^{
         NSMutableArray *filteredResult = [NSMutableArray array];
-        for (CoffeeShop *shop in shops)
-        {
+        for (CoffeeShop *shop in shops) {
             BOOL wifiCheck = YES;
             BOOL powerCheck = YES;
-            if (filterState.needWifi && !shop.wifiFree)
-            {
+            if (filterState.needWifi && !shop.wifiFree) {
                 wifiCheck = NO;
             }
 
-            if (filterState.needPower && !shop.powerOutlet)
-            {
+            if (filterState.needPower && !shop.powerOutlet) {
                 powerCheck = NO;
             }
-            if (wifiCheck && powerCheck)
-            {
+            if (wifiCheck && powerCheck) {
                 [filteredResult addObject:shop];
             }
         }

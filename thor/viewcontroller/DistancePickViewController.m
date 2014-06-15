@@ -7,6 +7,8 @@
 #import "OSViewHelper.h"
 #import "ThorUis.h"
 #import "Pref.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 @interface DistancePickViewController()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -16,20 +18,17 @@
 
 @implementation DistancePickViewController
 
-- (id) init
-{
+- (id) init {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
         _distanceOptions = @[@1, @3, @5, @10, @30, @50];
-        _selectedDistance = [[[Pref sharedInstance] searchDistance] getNumber];
+        _selectedDistance = [[self.beans.pref searchDistance] getNumber];
     }
 
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -39,27 +38,23 @@
     [self.view addSubview:self.tableView];
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
-- (void) viewWillDisappear:(BOOL) animated
-{
+- (void) viewWillDisappear:(BOOL) animated {
     [super viewWillDisappear:animated];
-    NSNumber *savedDistance = [[[Pref sharedInstance] searchDistance] getNumber];
-    if (![savedDistance isEqualToNumber:self.selectedDistance])
-    {
-        [[[Pref sharedInstance] searchDistance] setNumber:self.selectedDistance];
+    NSNumber *savedDistance = [[self.beans.pref searchDistance] getNumber];
+    if (![savedDistance isEqualToNumber:self.selectedDistance]) {
+        [[self.beans.pref searchDistance] setNumber:self.selectedDistance];
         [[NSNotificationCenter defaultCenter] postNotificationName:SearchDistanceChangedNotification
                                                             object:self.selectedDistance];
     }
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [OSViewHelper resize:self.tableView
            containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
@@ -67,38 +62,32 @@
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
 }
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
-{
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
     return self.distanceOptions.count;
 }
 
-- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     static NSString *CellIdentifier = @"DistanceCell";
 
     UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
     }
 
     NSNumber *distance = self.distanceOptions[(NSUInteger) indexPath.row];
     cell.textLabel.text = [ThorUis searchDistanceString:distance];
-    if ([distance isEqualToNumber:self.selectedDistance])
-    {
+    if ([distance isEqualToNumber:self.selectedDistance]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     return cell;
 }
 
-- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSUInteger index = [self.distanceOptions indexOfObject:self.selectedDistance];
-    if (index != NSNotFound)
-    {
+    if (index != NSNotFound) {
         NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;

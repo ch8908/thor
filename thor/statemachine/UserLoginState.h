@@ -8,5 +8,5 @@
 
 
 @interface UserLoginState : AbstractState
-- (id) initWithToken:(NSString *) token;
+- (id) initWithToken:(NSString *) token pref:(Pref *) pref;
 @end

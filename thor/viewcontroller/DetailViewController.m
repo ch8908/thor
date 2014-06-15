@@ -16,13 +16,14 @@
 #import "CoffeeShop+Strings.h"
 #import "NSString+Util.h"
 #import "ExternalApp.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 
 NSString *const LAUNCH_APPLE_MAP_DIRECTION_I18N_KEY = @"apple_map_navigation";
 NSString *const LAUNCH_GOOGLE_MAP_DIRECTION_I18N_KEY = @"google_map_navigation";
 
-enum
-{
+enum {
     ShopName = 0,
     ShopAddress,
     ShopDescription,
@@ -42,19 +43,16 @@ enum
 
 @implementation DetailViewController
 
-- (id) initDetailViewControllerWithId:(NSNumber *) id
-{
+- (id) initDetailViewControllerWithId:(NSNumber *) id {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
         _id = id;
     }
 
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _shopImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image/image_placeholder.png"]];
@@ -71,8 +69,7 @@ enum
 }
 
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
@@ -85,17 +82,15 @@ enum
 
     __weak DetailViewController *preventCircularRef = self;
 
-    self.fetchTask = [[CoffeeService sharedInstance] fetchDetailWithShopId:self.id];
+    self.fetchTask = [self.beans.coffeeService fetchDetailWithShopId:self.id];
     [self.fetchTask
       continueWithExecutor:[BFExecutor mainThreadExecutor]
                  withBlock:^id(BFTask *task) {
                      preventCircularRef.fetchTask = nil;
-                     if (task.error)
-                     {
+                     if (task.error) {
                          return nil;
                      }
-                     if (task.isCancelled)
-                     {
+                     if (task.isCancelled) {
                          return nil;
                      }
                      preventCircularRef.coffeeShopDetail = task.result;
@@ -104,8 +99,7 @@ enum
                  }];
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
     [OSViewHelper alignCenter:self.shopImageView containerWidth:self.view.bounds.size.width];
@@ -115,10 +109,8 @@ enum
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 }
 
-- (void) navigateTo
-{
-    if (![ExternalApp supportGoogleMap])
-    {
+- (void) navigateTo {
+    if (![ExternalApp supportGoogleMap]) {
         [self launchNativeNavigation];
         return;
     }
@@ -135,44 +127,36 @@ enum
     [actionSheet showInView:self.view];
 }
 
-- (void) launchNativeNavigation
-{
+- (void) launchNativeNavigation {
     CLLocationCoordinate2D toLocation = CLLocationCoordinate2DMake(self.coffeeShopDetail.coffeeShop.latitude, self.coffeeShopDetail.coffeeShop.longitude);
     [ExternalApp openNativeNavigation:toLocation address:self.coffeeShopDetail.address];
 }
 
-- (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex
-{
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LAUNCH_APPLE_MAP_DIRECTION_I18N_KEY]])
-    {
+- (void) actionSheet:(UIActionSheet *) actionSheet clickedButtonAtIndex:(NSInteger) buttonIndex {
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LAUNCH_APPLE_MAP_DIRECTION_I18N_KEY]]) {
         [self launchNativeNavigation];
     }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LAUNCH_GOOGLE_MAP_DIRECTION_I18N_KEY]])
-    {
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:[I18N key:LAUNCH_GOOGLE_MAP_DIRECTION_I18N_KEY]]) {
         CLLocationCoordinate2D toLocation = CLLocationCoordinate2DMake(self.coffeeShopDetail.coffeeShop.latitude, self.coffeeShopDetail.coffeeShop.longitude);
         [ExternalApp openGoogleMapDirection:toLocation];
     }
 }
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
-{
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
     return ShopDetailTotalCount;
 }
 
-- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     static NSString *CellIdentifier = @"DetailCell";
 
     UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
                                       reuseIdentifier:CellIdentifier];
     }
 
-    switch (indexPath.row)
-    {
+    switch (indexPath.row) {
         case ShopName:
             cell.textLabel.text = [I18N key:@"shop_name_title"];
             cell.detailTextLabel.text = self.coffeeShopDetail.coffeeShop.name;
@@ -181,29 +165,23 @@ enum
             cell.textLabel.text = [I18N key:@"address_title"];
             cell.detailTextLabel.text = self.coffeeShopDetail.address;
             break;
-        case ShopDescription:
-        {
+        case ShopDescription: {
             cell.textLabel.text = [I18N key:@"desctiption_title"];
-            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.shopDescription])
-            {
+            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.shopDescription]) {
                 cell.detailTextLabel.text = self.coffeeShopDetail.shopDescription;
             }
             break;
         }
-        case ShopHour:
-        {
+        case ShopHour: {
             cell.textLabel.text = [I18N key:@"hour_title"];
-            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.hours])
-            {
+            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.hours]) {
                 cell.detailTextLabel.text = self.coffeeShopDetail.hours;
             }
             break;
         }
-        case ShopWebSite:
-        {
+        case ShopWebSite: {
             cell.textLabel.text = [I18N key:@"website_title"];
-            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.websiteUrl])
-            {
+            if (![NSString isEmptyAfterTrim:self.coffeeShopDetail.websiteUrl]) {
                 cell.detailTextLabel.text = self.coffeeShopDetail.websiteUrl;
             }
             break;

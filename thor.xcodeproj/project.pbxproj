@@ -107,21 +107,25 @@
 		23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
 		23D1A7B8B1FF42FD6C55C0BF /* UserLoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */; };
 		23D1A7D26C67FC23F403B240 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AAF5C797FB0DF4B8BDC2 /* RNGridMenu.m */; };
+		23D1A7E951AC6925232E336F /* Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF9DE7663B1FFB75A7D /* Beans.m */; };
 		23D1A81CA81356BE6DA09EA1 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9B3D414907C5DA1B2DC /* TextFieldCell.m */; };
 		23D1A924BA74F5701B173043 /* SearchShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5C7E2194F6A94E875E1 /* SearchShopViewController.m */; };
 		23D1A93A9968ECAC49018CB5 /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A45E97B23306300B0B08 /* ThorNavigationController.m */; };
 		23D1A955E52BF28BBD6C2F1F /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
+		23D1AA441D45885FA92EE02A /* UIViewController+Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7CB355D76B47CF04A3B /* UIViewController+Beans.m */; };
 		23D1AA59B69DC6F116A1A180 /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */; };
 		23D1AA5BE0C191E9BD4CE2B5 /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1BE688912AE36156663 /* NSArray+Util.m */; };
 		23D1AAB68B739D768A1C33BA /* UINavigationItem+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A31676E778A8DA50503A /* UINavigationItem+Util.m */; };
 		23D1AAB789294401C3EED352 /* TRFilterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AE674B91BB25AE80B7B5 /* TRFilterState.m */; };
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
+		23D1ABC2A584F4A6560884D2 /* UIViewController+Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7CB355D76B47CF04A3B /* UIViewController+Beans.m */; };
 		23D1ABC5273CF8D0453445C1 /* UserStateTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */; };
 		23D1ABCB3AC6E3DDA0F45D4E /* StateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* StateMachine.m */; };
 		23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */; };
 		23D1ACD11DE36F889D7D243E /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
 		23D1AD27F30DC48CA6EB86FB /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A45E97B23306300B0B08 /* ThorNavigationController.m */; };
 		23D1ADAF7031590D64AE4C1A /* ThorUis.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A243DA38B16BA100F0C6 /* ThorUis.m */; };
+		23D1ADC1A7E323306323BD89 /* Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFF9DE7663B1FFB75A7D /* Beans.m */; };
 		23D1AE19368C717AF3378F60 /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AABD7493F0FFF146B0D5 /* SwitchCell.m */; };
 		23D1AE4499B34B0941E7FEA2 /* AbstractPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AFE4F0985AEC60D83452 /* AbstractPref.m */; };
 		23D1AE9C1E53B097FD834A29 /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AABD7493F0FFF146B0D5 /* SwitchCell.m */; };
@@ -186,6 +190,7 @@
 		23D1A0BFC6EA19ACBE2C4A35 /* AbstractState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractState.h; sourceTree = "<group>"; };
 		23D1A0D773C7C998B07C2BA6 /* UIColor+Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Constant.h"; sourceTree = "<group>"; };
 		23D1A0D998AAE418AEE0C93C /* UserStateTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStateTrigger.h; sourceTree = "<group>"; };
+		23D1A0E7D3EC81010CDEA35D /* Beans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beans.h; sourceTree = "<group>"; };
 		23D1A0F6D8EEFB42B3BF6A4F /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
 		23D1A1468711D39C6AB838AA /* System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
 		23D1A18903B895FD15914B6A /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 		23D1A73B4BD33E5752EC8D66 /* LeftDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftDrawerController.h; sourceTree = "<group>"; };
 		23D1A740CB25632BD838B160 /* UserLoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoginState.h; sourceTree = "<group>"; };
 		23D1A7C2FEB8595DE0EA707A /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		23D1A7CB355D76B47CF04A3B /* UIViewController+Beans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Beans.m"; sourceTree = "<group>"; };
 		23D1A7F48C035587C1E9D2D1 /* SubmitInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitInfo.m; sourceTree = "<group>"; };
 		23D1A838E95E2123BD575694 /* DistancePickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickViewController.h; sourceTree = "<group>"; };
 		23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Util.m"; sourceTree = "<group>"; };
@@ -230,6 +236,7 @@
 		23D1A96A7E370D0B851B068A /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		23D1A9AB6C5604ACD7AD38D5 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A9B3D414907C5DA1B2DC /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
+		23D1A9DE7242350281345154 /* UIViewController+Beans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Beans.h"; sourceTree = "<group>"; };
 		23D1A9F340E9867E1F0792E2 /* StateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateMachine.m; sourceTree = "<group>"; };
 		23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalApp.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
@@ -254,6 +261,7 @@
 		23D1AFE4F0985AEC60D83452 /* AbstractPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractPref.m; sourceTree = "<group>"; };
 		23D1AFF7D00EDDCD6B5E195C /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		23D1AFF812EA31A3594E08DF /* AddShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopViewController.m; sourceTree = "<group>"; };
+		23D1AFF9DE7663B1FFB75A7D /* Beans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beans.m; sourceTree = "<group>"; };
 		61E150C746AD469B8E8930EA /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		697CFABA8DE8472CA1DFC7CF /* Pods-Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.xcconfig"; path = "Pods/Pods-Tests.xcconfig"; sourceTree = "<group>"; };
 		93305DB8A51B4F7C8612558D /* MyTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MyTest.m; path = Tests/MyTest.m; sourceTree = "<group>"; };
@@ -356,6 +364,10 @@
 				23D1A86B7CF0A3C534075EE6 /* UIImage+Util.m */,
 				23D1A7127BF64CC4D2311FD0 /* NSArray+Util.h */,
 				23D1A1BE688912AE36156663 /* NSArray+Util.m */,
+				23D1AFF9DE7663B1FFB75A7D /* Beans.m */,
+				23D1A0E7D3EC81010CDEA35D /* Beans.h */,
+				23D1A7CB355D76B47CF04A3B /* UIViewController+Beans.m */,
+				23D1A9DE7242350281345154 /* UIViewController+Beans.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -446,7 +458,6 @@
 		1958468917C266C8004B8592 /* thor */ = {
 			isa = PBXGroup;
 			children = (
-				197D92CA1890093D008B135A /* appearance */,
 				19D5856E188BFA800086DA82 /* statemachine */,
 				19D5856A188988FC0086DA82 /* constant */,
 				194B1EA5188566FF004FCBA7 /* manager */,
@@ -477,13 +488,6 @@
 				1958469917C266C8004B8592 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		197D92CA1890093D008B135A /* appearance */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = appearance;
 			sourceTree = "<group>";
 		};
 		19D5856A188988FC0086DA82 /* constant */ = {
@@ -848,6 +852,8 @@
 				23D1A81CA81356BE6DA09EA1 /* TextFieldCell.m in Sources */,
 				23D1AD27F30DC48CA6EB86FB /* ThorNavigationController.m in Sources */,
 				23D1ABC5273CF8D0453445C1 /* UserStateTrigger.m in Sources */,
+				23D1A7E951AC6925232E336F /* Beans.m in Sources */,
+				23D1ABC2A584F4A6560884D2 /* UIViewController+Beans.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,6 +905,8 @@
 				23D1A433DCBF10D022EAE603 /* TextFieldCell.m in Sources */,
 				23D1A93A9968ECAC49018CB5 /* ThorNavigationController.m in Sources */,
 				23D1A1F4BB8312AEDB0B3905 /* UserStateTrigger.m in Sources */,
+				23D1ADC1A7E323306323BD89 /* Beans.m in Sources */,
+				23D1AA441D45885FA92EE02A /* UIViewController+Beans.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

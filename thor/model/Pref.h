@@ -9,9 +9,6 @@
 extern NSString *const SearchDistanceChangedNotification;
 
 @interface Pref : AbstractPref
-@property NSStringPref *authenticationToken;
-@property NSNumberPref *searchDistance;
-
-+ (id) sharedInstance;
-
+@property (nonatomic, readonly, strong) NSStringPref *authenticationToken;
+@property (nonatomic, readonly, strong) NSNumberPref *searchDistance;
 @end

@@ -7,12 +7,15 @@
 
 @class CoffeeService;
 @class UserStateTrigger;
+@class Pref;
 
 extern NSString *const AbstractStateTransitToStateNotification;
 
 @interface AbstractState : NSObject
+@property (nonatomic, readonly, strong) CoffeeService *service;
+@property (nonatomic, readonly, strong) Pref *pref;
 
-@property (nonatomic) CoffeeService *service;
+- (id) initWithPref:(Pref *) pref;
 
 - (void) transitToState:(AbstractState *) state;
 

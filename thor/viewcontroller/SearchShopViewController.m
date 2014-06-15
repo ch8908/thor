@@ -13,6 +13,8 @@
 #import "NSString+Util.h"
 #import "CoffeeService.h"
 #import "CoffeeShop.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 
 CGFloat const SEARCH_TABLE_VIEW_PADDING = 40;
@@ -35,11 +37,9 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 @implementation SearchShopViewController
 
-- (id) initWithMainViewController:(UIViewController *) mainViewController
-{
+- (id) initWithMainViewController:(UIViewController *) mainViewController {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
         _mainViewController = mainViewController;
         _searchResults = [NSMutableArray array];
     }
@@ -47,8 +47,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _backgroundMaskView = [[UIView alloc] init];
@@ -66,13 +65,11 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     self.searchBar.delegate = self;
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
 
-    if ([System isMinimumiOS7])
-    {
+    if ([System isMinimumiOS7]) {
         [self.searchBar setBarTintColor:[UIColor whiteColor]];
         self.searchBar.searchBarStyle = UISearchBarStyleProminent;
     }
@@ -84,10 +81,8 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
     //Find textField and set keyboard appearance
     UIView *subView = self.searchBar.subviews[0];
-    for (UIView *searchTextField in subView.subviews)
-    {
-        if ([searchTextField isKindOfClass:[UITextField class]])
-        {
+    for (UIView *searchTextField in subView.subviews) {
+        if ([searchTextField isKindOfClass:[UITextField class]]) {
             [(UITextField *) searchTextField setKeyboardAppearance:UIKeyboardAppearanceDark];
         }
     }
@@ -103,11 +98,9 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                                                object:nil];
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if (!self.initComplete)
-    {
+    if (!self.initComplete) {
         self.initComplete = YES;
 
         [self.backgroundMaskView setFrame:self.view.frame];
@@ -138,36 +131,30 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
     }
 }
 
-- (CGSize) searchViewSize
-{
+- (CGSize) searchViewSize {
     return CGSizeMake([OSViewHelper screenWidth],
                       [OSViewHelper statusBarHeight] + [OSViewHelper heightOfView:self.mainViewController.navigationController.navigationBar]);
 }
 
-- (void) onTapBg:(UITapGestureRecognizer *) recognizer
-{
+- (void) onTapBg:(UITapGestureRecognizer *) recognizer {
     [self closeSearchController];
 }
 
-- (void) closeSearchController
-{
+- (void) closeSearchController {
     [self.searchBar resignFirstResponder];
     [self hideSearchControllerWithAnimation];
 }
 
-- (void) searchBarBecomeFirstResponder
-{
+- (void) searchBarBecomeFirstResponder {
     [self.searchBar becomeFirstResponder];
     [self showSearchControllerWithAnimation];
 }
 
-- (void) showSearchControllerWithAnimation
-{
+- (void) showSearchControllerWithAnimation {
     CGRect targetFrame = CGRectMake(0, 0, [OSViewHelper widthOfView:self.searchBarView], [OSViewHelper heightOfView:self.searchBarView]);
 
     CGFloat tableViewHeight = [OSViewHelper heightOfView:self.view] - [OSViewHelper heightOfRect:self.keyboardFrame] - [OSViewHelper heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
-    if (self.searchResults.count == 0)
-    {
+    if (self.searchResults.count == 0) {
         tableViewHeight = 0;
     }
     CGRect tableViewFrame = CGRectMake(0, [OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.tableView], tableViewHeight);
@@ -193,8 +180,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                      }];
 }
 
-- (void) hideSearchControllerWithAnimation
-{
+- (void) hideSearchControllerWithAnimation {
     __weak SearchShopViewController *preventCircularRef = self;
 
     CGRect targetFrame = CGRectMake(0, -[OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.searchBarView], [OSViewHelper heightOfView:self.searchBarView]);
@@ -217,13 +203,11 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                      }];
 }
 
-- (void) keyboardWillHide:(NSNotification *) notification
-{
+- (void) keyboardWillHide:(NSNotification *) notification {
     NSLog(@">>>>>> keyboardWillHide");
 }
 
-- (void) keyboardWillShow:(NSNotification *) notification
-{
+- (void) keyboardWillShow:(NSNotification *) notification {
     NSDictionary *info = [notification userInfo];
     NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
@@ -237,46 +221,39 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 #pragma UISearchBar delegate
 
-- (void) searchBar:(UISearchBar *) searchBar textDidChange:(NSString *) searchText
-{
+- (void) searchBar:(UISearchBar *) searchBar textDidChange:(NSString *) searchText {
     self.searchTextGlobal = [searchText stringByTrim];
-    if ([NSString isEmpty:self.searchTextGlobal])
-    {
+    if ([NSString isEmpty:self.searchTextGlobal]) {
         [self.searchResults removeAllObjects];
-        if ([OSViewHelper heightOfView:self.tableView] > 0.0f)
-        {
+        if ([OSViewHelper heightOfView:self.tableView] > 0.0f) {
             [self collapseTableView];
         }
         return;
     }
 
     __weak SearchShopViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] autoCompleteResultWithSearchText:self.searchTextGlobal]
-                     continueWithExecutor:[BFExecutor mainThreadExecutor]
-                         withSuccessBlock:^id(BFTask *task) {
-                             AutoCompleteResult *autoCompleteResult = task.result;
-                             if (![autoCompleteResult.searchText isEqualToString:preventCircularRef.searchTextGlobal])
-                             {
-                                 return nil;
-                             }
-                             [preventCircularRef.searchResults removeAllObjects];
-                             [preventCircularRef.searchResults addObjectsFromArray:autoCompleteResult.candidates];
-                             [preventCircularRef.tableView reloadData];
-                             if ([OSViewHelper heightOfView:preventCircularRef.tableView] < 1.0f)
-                             {
-                                 [preventCircularRef expandTableView];
-                             }
-                             return nil;
-                         }];
+    [[self.beans.coffeeService autoCompleteResultWithSearchText:self.searchTextGlobal]
+                               continueWithExecutor:[BFExecutor mainThreadExecutor]
+                                   withSuccessBlock:^id(BFTask *task) {
+                                       AutoCompleteResult *autoCompleteResult = task.result;
+                                       if (![autoCompleteResult.searchText isEqualToString:preventCircularRef.searchTextGlobal]) {
+                                           return nil;
+                                       }
+                                       [preventCircularRef.searchResults removeAllObjects];
+                                       [preventCircularRef.searchResults addObjectsFromArray:autoCompleteResult.candidates];
+                                       [preventCircularRef.tableView reloadData];
+                                       if ([OSViewHelper heightOfView:preventCircularRef.tableView] < 1.0f) {
+                                           [preventCircularRef expandTableView];
+                                       }
+                                       return nil;
+                                   }];
 }
 
-- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
-{
+- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar {
     [self.searchBar resignFirstResponder];
 }
 
-- (void) collapseTableView
-{
+- (void) collapseTableView {
     __weak SearchShopViewController *preventCircularRef = self;
     CGRect tableViewFrame = CGRectMake(0, [OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.tableView], 0);
     [UIView animateWithDuration:0.3f delay:0.0f
@@ -289,8 +266,7 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
                      }];
 }
 
-- (void) expandTableView
-{
+- (void) expandTableView {
     CGFloat tableViewHeight = [OSViewHelper heightOfView:self.view] - [OSViewHelper heightOfRect:self.keyboardFrame] - [OSViewHelper heightOfView:self.searchBarView] - SEARCH_TABLE_VIEW_PADDING;
     CGRect tableViewFrame = CGRectMake(0, [OSViewHelper heightOfView:self.searchBarView], [OSViewHelper widthOfView:self.tableView], tableViewHeight);
     __weak SearchShopViewController *preventCircularRef = self;
@@ -306,19 +282,16 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 #pragma UITableViewDataSource method
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
-{
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
     return self.searchResults.count;
 }
 
-- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     static NSString *CellIdentifier = @"SearchCandidateCell";
 
     UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:CellIdentifier];
     }
@@ -330,13 +303,11 @@ NSString *SearchShopSuccessNotification = @"SearchShopSuccessNotification";
 
 #pragma UITableViewDelegate method
 
-- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath {
     return SEARCH_RESULT_CELL_HEIGHT;
 }
 
-- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CoffeeShop *coffeeShop = self.searchResults[(NSUInteger) indexPath.row];
     [[NSNotificationCenter defaultCenter] postNotificationName:SearchShopSuccessNotification object:coffeeShop];

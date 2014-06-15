@@ -16,33 +16,27 @@
 
 @implementation UserLoginState
 
-- (id) initWithToken:(NSString *) token
-{
-    self = [super init];
-    if (self)
-    {
+- (id) initWithToken:(NSString *) token pref:(Pref *) pref {
+    self = [super initWithPref:pref];
+    if (self) {
         _authenticationToken = token;
     }
     return self;
 }
 
-- (void) enter
-{
+- (void) enter {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
     [[NSNotificationCenter defaultCenter] postNotificationName:MachineLoginSuccessNotification object:nil];
 }
 
-- (void) exit
-{
+- (void) exit {
     NSLog(@"Log: exit:%@", NSStringFromClass([self class]));
-    [[[Pref sharedInstance] authenticationToken] removeString];
+    [[self.pref authenticationToken] removeString];
 }
 
-- (void) trigger:(UserStateTrigger *) trigger
-{
-    if (trigger.signOut)
-    {
-        UserLogoutState *state = [[UserLogoutState alloc] init];
+- (void) trigger:(UserStateTrigger *) trigger {
+    if (trigger.signOut) {
+        UserLogoutState *state = [[UserLogoutState alloc] initWithPref:self.pref];
         [self transitToState:state];
     }
 }

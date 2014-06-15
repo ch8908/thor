@@ -15,9 +15,8 @@
 #import "SignUpViewController.h"
 #import "CoffeeService.h"
 #import "NSString+Util.h"
-#import "Pref.h"
-#import "StateMachine.h"
-#import "UserLoginState.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 @interface LoginViewController()<UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *signInWithFacebookButton;
@@ -31,18 +30,15 @@
 
 @implementation LoginViewController
 
-- (id) initLogin
-{
+- (id) initLogin {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
     }
 
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _signInWithFacebookButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -84,8 +80,7 @@
     [self.view addSubview:self.signUpButton];
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor loginViewBgColor];
@@ -100,8 +95,7 @@
     [self.view addGestureRecognizer:singleTapGestureRecognizer];
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
     [OSViewHelper resize:self.errorMessageLabel containerSize:CGSizeMake(300, 50)];
@@ -141,53 +135,45 @@
     [OSViewHelper alignCenter:self.passwordField containerWidth:self.view.bounds.size.width];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *) textField
-{
+- (BOOL) textFieldShouldReturn:(UITextField *) textField {
     [self onViewTap];
     return YES;
 }
 
-- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
-{
-    if ([string stringByTrim].length > 0)
-    {
+- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string {
+    if ([string stringByTrim].length > 0) {
         self.errorMessageLabel.text = @"";
     }
     return YES;
 }
 
-- (void) onSubmit
-{
+- (void) onSubmit {
     ServiceLoginSource *source = [[ServiceLoginSource alloc] init];
     source.email = self.emailField.text;
     source.password = self.passwordField.text;
 
     __weak LoginViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] loginWithSource:source]
-                     continueWithBlock:^id(BFTask *task) {
-                         if (task.error)
-                         {
-                             preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
-                             return nil;
-                         }
-                         [preventCircularRef onCancel];
-                         return nil;
-                     }];
+    [[self.beans.coffeeService loginWithSource:source]
+                               continueWithBlock:^id(BFTask *task) {
+                                   if (task.error) {
+                                       preventCircularRef.errorMessageLabel.text = task.error.localizedDescription;
+                                       return nil;
+                                   }
+                                   [preventCircularRef onCancel];
+                                   return nil;
+                               }];
 }
 
-- (void) onCancel
-{
+- (void) onCancel {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void) onViewTap
-{
+- (void) onViewTap {
     [self.emailField resignFirstResponder];
     [self.passwordField resignFirstResponder];
 }
 
-- (void) onSignUp
-{
+- (void) onSignUp {
     SignUpViewController *viewController = [[SignUpViewController alloc] initSignUpViewController];
     [self.navigationController pushViewController:viewController animated:YES];
 }

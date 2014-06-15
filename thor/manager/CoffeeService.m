@@ -23,11 +23,9 @@
 
 @implementation AutoCompleteResult
 
-- (id) initWithCandidates:(NSArray *) candidates searchText:(NSString *) searchText
-{
+- (id) initWithCandidates:(NSArray *) candidates searchText:(NSString *) searchText {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _candidates = candidates;
         _searchText = searchText;
     }
@@ -35,8 +33,7 @@
     return self;
 }
 
-- (NSString *) description
-{
+- (NSString *) description {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
     [description appendFormat:@"self.candidates=%@", self.candidates];
     [description appendFormat:@", self.searchText=%@", self.searchText];
@@ -64,29 +61,17 @@ NSString *const TRCoffeeServiceErrorDomain = @"com.osolve.thor";
 NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 @interface CoffeeService()
-@property (nonatomic, strong) StateMachine *userStateMachine;
+@property (nonatomic, readonly, strong) StateMachine *userStateMachine;
+@property (nonatomic, readonly, strong) Pref *pref;
 @end
 
 @implementation CoffeeService
 
-+ (id) sharedInstance
-{
-    static CoffeeService *sharedMyInstance = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMyInstance = [[self alloc] initService];
-    });
-
-    return sharedMyInstance;
-}
-
-- (id) initService
-{
+- (id) initWithPref:(Pref *) pref {
     self = [super init];
-    if (self)
-    {
-        _userStateMachine = [[StateMachine alloc] initWithState:[[UserLogoutState alloc] init]];
+    if (self) {
+        _userStateMachine = [[StateMachine alloc] initWithState:[[UserLogoutState alloc] initWithPref:pref]];
+        _pref = pref;
         [self triggerCheckLogin];
     }
     return self;
@@ -94,8 +79,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Encapsulate method
 
-- (BFTask *) afNetworkingGet:(NSString *) urlString parameters:(NSDictionary *) params
-{
+- (BFTask *) afNetworkingGet:(NSString *) urlString parameters:(NSDictionary *) params {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -112,8 +96,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
-- (BFTask *) afNetworkingPOST:(NSString *) urlString parameters:(NSDictionary *) params
-{
+- (BFTask *) afNetworkingPOST:(NSString *) urlString parameters:(NSDictionary *) params {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -141,8 +124,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Get shops around you
 
-- (BFTask *) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance
-{
+- (BFTask *) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/near"];
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -158,8 +140,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     }];
 }
 
-- (BFTask *) decodeShops:(id) responseObject
-{
+- (BFTask *) decodeShops:(id) responseObject {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -168,8 +149,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
         NSString *encodeJsonData = [[NSString alloc] initWithData:responseObject
                                                          encoding:NSUTF8StringEncoding];
         NSArray *jsonDic = [encodeJsonData objectFromJSONStringWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-        for (NSDictionary *item in jsonDic)
-        {
+        for (NSDictionary *item in jsonDic) {
             CoffeeShop *shop = [CoffeeShop map:item];
             [coffeeShops addObject:shop];
         }
@@ -178,8 +158,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
-- (NSError *) customError:(NSString *) localizedDescription
-{
+- (NSError *) customError:(NSString *) localizedDescription {
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey : localizedDescription};
     NSError *error = [[NSError alloc] initWithDomain:TRCoffeeServiceErrorDomain code:10 //meaningless
                                             userInfo:userInfo];
@@ -188,8 +167,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
 #pragma Get shop details
 
-- (BFTask *) fetchDetailWithShopId:(NSNumber *) number
-{
+- (BFTask *) fetchDetailWithShopId:(NSNumber *) number {
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@", BASE_API_URL, @"/shops/", number];
 
     __weak CoffeeService *preventCircularRef = self;
@@ -199,8 +177,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     }];
 }
 
-- (BFTask *) decodeDetail:(id) responseObject
-{
+- (BFTask *) decodeDetail:(id) responseObject {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -214,13 +191,11 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
-#pragma Register method
+#pragma mark Register method
 
-- (BFTask *) resisterWithParams:(ServiceRegisterSource *) source
-{
+- (BFTask *) resisterWithParams:(ServiceRegisterSource *) source {
     NSError *sourceError = [self checkRegisterSource:source];
-    if (sourceError)
-    {
+    if (sourceError) {
         return [BFTask taskWithError:sourceError];
     }
 
@@ -233,8 +208,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
     return [[self afNetworkingPOST:urlString parameters:params]
                   continueWithBlock:^id(BFTask *task) {
-                      if (task.error)
-                      {
+                      if (task.error) {
                           NSError *error = task.error;
                           NSString *encodeJsonData = [[NSString alloc] initWithData:error.userInfo[TRCoffeeServiceErrorResponseObjectKey]
                                                                            encoding:NSUTF8StringEncoding];
@@ -257,39 +231,32 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                   }];
 }
 
-- (NSError *) checkRegisterSource:(ServiceRegisterSource *) source
-{
+- (NSError *) checkRegisterSource:(ServiceRegisterSource *) source {
     NSString *localizedDescription = nil;
-    if ([NSString isEmptyAfterTrim:source.email])
-    {
+    if ([NSString isEmptyAfterTrim:source.email]) {
         localizedDescription = [I18N key:@"please_enter_email"];
     }
-    else if ([NSString isEmptyAfterTrim:source.password])
-    {
+    else if ([NSString isEmptyAfterTrim:source.password]) {
         localizedDescription = [I18N key:@"please_enter_password"];
     }
-    else if ([NSString isEmptyAfterTrim:source.confirmPassword] || ![source.password isEqualToString:source.confirmPassword])
-    {
+    else if ([NSString isEmptyAfterTrim:source.confirmPassword] || ![source.password isEqualToString:source.confirmPassword]) {
         localizedDescription = [I18N key:@"confirm_password_failed"];
     }
 
-    if ([NSString isEmptyAfterTrim:localizedDescription])
-    {
+    if ([NSString isEmptyAfterTrim:localizedDescription]) {
         return nil;
     }
 
     return [self customError:localizedDescription];
 }
 
-#pragma Sign In method
+#pragma mark Sign In method
 
-- (BFTask *) loginWithSource:(ServiceLoginSource *) source
-{
+- (BFTask *) loginWithSource:(ServiceLoginSource *) source {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/users/tokens/create"];
 
     NSError *sourceError = [self checkLoginSource:source];
-    if (sourceError)
-    {
+    if (sourceError) {
         return [BFTask taskWithError:sourceError];
     }
 
@@ -297,10 +264,10 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     [params setObject:source.email forKey:@"email"];
     [params setObject:source.password forKey:@"password"];
 
+    __weak CoffeeService *preventCircularRef = self;
     return [[self afNetworkingPOST:urlString parameters:params]
                   continueWithBlock:^id(BFTask *task) {
-                      if (task.error)
-                      {
+                      if (task.error) {
                           NSError *error = task.error;
                           NSString *encodeJsonData = [[NSString alloc] initWithData:error.userInfo[TRCoffeeServiceErrorResponseObjectKey]
                                                                            encoding:NSUTF8StringEncoding];
@@ -324,50 +291,44 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 
                       NSString *token = [jsonDic objectForKey:@"authentication_token"];
 
-                      [[[Pref sharedInstance] authenticationToken] setString:token];
+                      [[preventCircularRef.pref authenticationToken] setString:token];
 
                       [self triggerLoginState];
 
-                      return [BFTask taskWithResult:token];
+                      return token;
                   }];
 }
 
-- (NSError *) checkLoginSource:(ServiceLoginSource *) source
-{
+- (NSError *) checkLoginSource:(ServiceLoginSource *) source {
     NSString *localizedDescription = nil;
 
-    if ([NSString isEmptyAfterTrim:source.email])
-    {
+    if ([NSString isEmptyAfterTrim:source.email]) {
         localizedDescription = [I18N key:@"please_enter_email"];
     }
-    else if ([NSString isEmptyAfterTrim:source.password])
-    {
+    else if ([NSString isEmptyAfterTrim:source.password]) {
         localizedDescription = [I18N key:@"please_enter_password"];
     }
 
-    if ([NSString isEmptyAfterTrim:localizedDescription])
-    {
+    if ([NSString isEmptyAfterTrim:localizedDescription]) {
         return nil;
     }
 
     return [self customError:localizedDescription];
 }
 
-#pragma Add new coffee shop method
+#pragma mark Add new coffee shop method
 
-- (BFTask *) submitShopInfo:(SubmitInfo *) info
-{
+- (BFTask *) submitShopInfo:(SubmitInfo *) info {
     NSError *infoError = [self checkNewShopInfo:info];
 
-    if (infoError)
-    {
+    if (infoError) {
         return [BFTask taskWithError:infoError];
     }
 
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops"];
 
     //TODO get authenticationToken from state machine
-    NSDictionary *parameters = [info infoAsDictionaryWithToken:[[[Pref sharedInstance] authenticationToken] getString]];
+    NSDictionary *parameters = [info infoAsDictionaryWithToken:[[self.pref authenticationToken] getString]];
 
     return [[self afNetworkingPOST:urlString parameters:parameters]
                   continueWithSuccessBlock:^id(BFTask *task) {
@@ -375,26 +336,22 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
                   }];
 }
 
-- (NSError *) checkNewShopInfo:(SubmitInfo *) info
-{
+- (NSError *) checkNewShopInfo:(SubmitInfo *) info {
     NSString *localizedDescription = nil;
-    if ([NSString isEmptyAfterTrim:info.name])
-    {
+    if ([NSString isEmptyAfterTrim:info.name]) {
         localizedDescription = [I18N key:@"shop_name_is_required"];
     }
 
-    if (!localizedDescription)
-    {
+    if (!localizedDescription) {
         return nil;
     }
 
     return [self customError:localizedDescription];
 }
 
-#pragma Search method
+#pragma mark Search method
 
-- (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchText
-{
+- (BFTask */*@[AutoCompleteResult]*/) autoCompleteResultWithSearchText:(NSString *) searchText {
     NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_API_URL, @"/shops/search"];
     NSDictionary *params = @{@"query" : [searchText copy]};
     return [[self afNetworkingGet:urlString parameters:params] continueWithSuccessBlock:^id(BFTask *task) {
@@ -402,8 +359,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     }];
 }
 
-- (BFTask *) decodeSearchResult:(id) responseObject searchText:(NSString *) searchText
-{
+- (BFTask *) decodeSearchResult:(id) responseObject searchText:(NSString *) searchText {
     BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -420,31 +376,27 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     return completionSource.task;
 }
 
-#pragma state machine trigger methods
+#pragma mark state machine trigger methods
 
-- (void) triggerLoginState
-{
+- (void) triggerLoginState {
     UserStateTrigger *trigger = [[UserStateTrigger alloc] init];
     trigger.signIn = YES;
     [self.userStateMachine trigger:trigger];
 }
 
-- (void) triggerCheckLogin
-{
+- (void) triggerCheckLogin {
     UserStateTrigger *trigger = [[UserStateTrigger alloc] init];
     trigger.checkLogin = YES;
     [self.userStateMachine trigger:trigger];
 }
 
-- (void) triggerSignOut
-{
+- (void) triggerSignOut {
     UserStateTrigger *trigger = [[UserStateTrigger alloc] init];
     trigger.signOut = YES;
     [self.userStateMachine trigger:trigger];
 }
 
-- (BOOL) isLogin
-{
+- (BOOL) isLogin {
     return [self.userStateMachine isLogin];
 }
 

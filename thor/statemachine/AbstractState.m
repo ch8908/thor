@@ -5,31 +5,37 @@
 
 #import "AbstractState.h"
 #import "UserStateTrigger.h"
+#import "Pref.h"
 
 
 NSString *const AbstractStateTransitToStateNotification = @"AbstractStateTransitToStateNotification";
 
 @implementation AbstractState
 
-- (void) transitToState:(AbstractState *) state
-{
+- (id) initWithPref:(Pref *) pref {
+    self = [super init];
+    if (self) {
+        _pref = pref;
+    }
+
+    return self;
+}
+
+- (void) transitToState:(AbstractState *) state {
     [[NSNotificationCenter defaultCenter]
                            postNotificationName:AbstractStateTransitToStateNotification
                                          object:state];
 }
 
-- (void) trigger:(UserStateTrigger *) trigger
-{
+- (void) trigger:(UserStateTrigger *) trigger {
     [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void) enter
-{
+- (void) enter {
     [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void) exit
-{
+- (void) exit {
     [self doesNotRecognizeSelector:_cmd];
 }
 

@@ -48,9 +48,11 @@ typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 
 @class SubmitInfo;
 @class BFTask;
+@class Pref;
 
 @interface CoffeeService : NSObject
-+ (id) sharedInstance;
+
+- (id) initWithPref:(Pref *) pref;
 
 - (BFTask *) fetchShopsWithCenter:(CLLocationCoordinate2D) coordinate2D searchDistance:(NSNumber *) distance;
 

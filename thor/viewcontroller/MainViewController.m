@@ -29,6 +29,8 @@
 #import "BFExecutor.h"
 #import "SearchShopViewController.h"
 #import "OSViewHelper.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 
 @interface MainViewController()<MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, RNGridMenuDelegate>
@@ -49,19 +51,16 @@
 
 @implementation MainViewController
 
-- (id) initWithMainView
-{
+- (id) initWithMainView {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
         _coffeeShopsUseInTableView = [NSMutableArray array];
         _allCoffeeShops = [NSMutableArray array];
     }
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -125,10 +124,15 @@
 
     _searchShopViewController = [[SearchShopViewController alloc] initWithMainViewController:self];
 
+    [self.view addSubview:self.mapView];
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.locateButton];
+    [self.view addSubview:self.filterButton];
+    [self.view addSubview:self.zoomInButton];
+    [self.view addSubview:self.zoomOutButton];
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
@@ -154,8 +158,7 @@
 
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
     [self.searchShopViewController.view setNeedsLayout];
@@ -163,8 +166,7 @@
 
     // for different screen
     CGFloat tableViewY = 280;
-    if ([OSViewHelper screenHeight] > SCREEN_HEIGHT_3_5_INCH)
-    {
+    if ([OSViewHelper screenHeight] > SCREEN_HEIGHT_3_5_INCH) {
         tableViewY = 320;
     }
 
@@ -195,23 +197,14 @@
 
     [OSViewHelper locate:self.zoomInButton x:[OSViewHelper xOfView:self.zoomOutButton]
                        y:[OSViewHelper yOfView:self.zoomOutButton] - [OSViewHelper heightOfView:self.zoomInButton] - 5];
-
-    [self.view addSubview:self.mapView];
-    [self.view addSubview:self.tableView];
-    [self.view addSubview:self.locateButton];
-    [self.view addSubview:self.filterButton];
-    [self.view addSubview:self.zoomInButton];
-    [self.view addSubview:self.zoomOutButton];
 }
 
 #pragma Notification callback
 
-- (void) onSearchShopSuccessNotification:(NSNotification *) notification
-{
+- (void) onSearchShopSuccessNotification:(NSNotification *) notification {
     CoffeeShop *coffeeShop = notification.object;
 
-    if ([self.coffeeShopsUseInTableView containsObject:coffeeShop])
-    {
+    if ([self.coffeeShopsUseInTableView containsObject:coffeeShop]) {
         [self openAnnotationWithShop:coffeeShop];
         return;
     }
@@ -223,14 +216,12 @@
     }];
 }
 
-- (void) onSearchDistanceChangedNotification:(NSNotification *) notification
-{
+- (void) onSearchDistanceChangedNotification:(NSNotification *) notification {
     NSNumber *distance = notification.object;
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate distance:distance];
 }
 
-- (void) onSearchButtonClick
-{
+- (void) onSearchButtonClick {
     [self.mm_drawerController addChildViewController:self.searchShopViewController];
     [self.mm_drawerController.view insertSubview:self.searchShopViewController.view
                                     aboveSubview:self.mm_drawerController.centerViewController.view];
@@ -239,22 +230,18 @@
 
 #pragma RNGridMenu delegate
 
-- (void) gridMenu:(RNGridMenu *) gridMenu willDismissWithSelectedItem:(RNGridMenuItem *) item atIndex:(NSInteger) itemIndex
-{
-    if (itemIndex == 0)
-    {
+- (void) gridMenu:(RNGridMenu *) gridMenu willDismissWithSelectedItem:(RNGridMenuItem *) item atIndex:(NSInteger) itemIndex {
+    if (itemIndex == 0) {
         self.filterState.needWifi = !self.filterState.needWifi;
     }
-    else if (itemIndex == 1)
-    {
+    else if (itemIndex == 1) {
         self.filterState.needPower = !self.filterState.needPower;
     }
 
     [self reloadFilteredCoffeeShopsWithCompletion:nil];
 }
 
-- (void) filter
-{
+- (void) filter {
     RNGridMenuItem *wifiItem = [[RNGridMenuItem alloc] initWithImage:[self wifiItemImage]
                                                                title:@"Wifi"];
 
@@ -272,11 +259,9 @@
                       center:CGPointMake([OSViewHelper widthOfView:self.view] / 2.f, [OSViewHelper heightOfView:self.view] / 2.f)];
 }
 
-- (UIImage *) wifiItemImage
-{
+- (UIImage *) wifiItemImage {
     CGRect rect = CGRectMake(0, 0, 20, 20);
-    if (self.filterState.needWifi)
-    {
+    if (self.filterState.needWifi) {
         return [UIImage imageWithRect:rect
                                 color:[UIColor whiteColor]];
     }
@@ -284,11 +269,9 @@
                             color:[UIColor grayColor]];
 }
 
-- (UIImage *) powerItemImage
-{
+- (UIImage *) powerItemImage {
     CGRect rect = CGRectMake(0, 0, 20, 20);
-    if (self.filterState.needPower)
-    {
+    if (self.filterState.needPower) {
         return [UIImage imageWithRect:rect
                                 color:[UIColor whiteColor]];
     }
@@ -298,101 +281,85 @@
 
 #pragma mapView Zoom method
 
-- (void) zoomOut
-{
+- (void) zoomOut {
 
 }
 
-- (void) zoomIn
-{
+- (void) zoomIn {
 
 }
 
-- (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate
-{
-    NSNumber *distance = [[[Pref sharedInstance] searchDistance] getNumber];
+- (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate {
+    NSNumber *distance = [[self.beans.pref searchDistance] getNumber];
     [self listCoffeeShopsWithCoordinate:coordinate distance:distance];
 }
 
-- (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate distance:(NSNumber *) distance
-{
+- (void) listCoffeeShopsWithCoordinate:(CLLocationCoordinate2D) coordinate distance:(NSNumber *) distance {
     __weak MainViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] fetchShopsWithCenter:coordinate searchDistance:distance]
-                     continueWithExecutor:[BFExecutor mainThreadExecutor]
-                                withBlock:^id(BFTask *task) {
-                                    if (task.error)
-                                    {
-                                        [preventCircularRef endRefreshShops];
-                                        return nil;
-                                    }
-                                    if (task.isCancelled)
-                                    {
-                                        [preventCircularRef endRefreshShops];
-                                        return nil;
-                                    }
+    [[self.beans.coffeeService fetchShopsWithCenter:coordinate searchDistance:distance]
+                               continueWithExecutor:[BFExecutor mainThreadExecutor]
+                                          withBlock:^id(BFTask *task) {
+                                              if (task.error) {
+                                                  [preventCircularRef endRefreshShops];
+                                                  return nil;
+                                              }
+                                              if (task.isCancelled) {
+                                                  [preventCircularRef endRefreshShops];
+                                                  return nil;
+                                              }
 
-                                    [preventCircularRef endRefreshShops];
-                                    [preventCircularRef.allCoffeeShops removeAllObjects];
-                                    [preventCircularRef.allCoffeeShops addObjectsFromArray:task.result];
+                                              [preventCircularRef endRefreshShops];
+                                              [preventCircularRef.allCoffeeShops removeAllObjects];
+                                              [preventCircularRef.allCoffeeShops addObjectsFromArray:task.result];
 
-                                    [preventCircularRef reloadFilteredCoffeeShopsWithCompletion:nil];
-                                    return nil;
-                                }];
+                                              [preventCircularRef reloadFilteredCoffeeShopsWithCompletion:nil];
+                                              return nil;
+                                          }];
 }
 
-- (void) onRefreshShops
-{
+- (void) onRefreshShops {
     [self.navigationItem setTitleViewWithTitle:@"Refresh" animated:YES];
     [self listCoffeeShopsWithCoordinate:self.mapView.userLocation.coordinate];
 }
 
-- (void) endRefreshShops
-{
-    if (self.tableViewController.refreshControl.refreshing)
-    {
+- (void) endRefreshShops {
+    if (self.tableViewController.refreshControl.refreshing) {
         [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:YES];
     }
-    else
-    {
+    else {
         [self.navigationItem setTitleViewWithTitle:[I18N key:@"places_title"] animated:NO];
     }
     [self.tableViewController.refreshControl endRefreshing];
 }
 
-- (void) reloadFilteredCoffeeShopsWithCompletion:(void (^)(void)) completion
-{
+- (void) reloadFilteredCoffeeShopsWithCompletion:(void (^)(void)) completion {
     __weak MainViewController *preventCircularRef = self;
-    [[[CoffeeManager sharedInstance] allShops:self.allCoffeeShops
-                                  filterState:self.filterState]
-                     continueWithExecutor:[BFExecutor mainThreadExecutor]
-                                withBlock:^id(BFTask *task) {
-                                    [preventCircularRef.coffeeShopsUseInTableView removeAllObjects];
-                                    [preventCircularRef.coffeeShopsUseInTableView addObjectsFromArray:task.result];
-                                    [preventCircularRef removeAllAnnotations];
-                                    [preventCircularRef showCoffeeShopOnMap];
-                                    [preventCircularRef.tableView reloadData];
-                                    if (completion)
-                                    {
-                                        completion();
-                                    }
-                                    return nil;
-                                }];
+    [[self.beans.coffeeManager allShops:self.allCoffeeShops
+                            filterState:self.filterState]
+                               continueWithExecutor:[BFExecutor mainThreadExecutor]
+                                          withBlock:^id(BFTask *task) {
+                                              [preventCircularRef.coffeeShopsUseInTableView removeAllObjects];
+                                              [preventCircularRef.coffeeShopsUseInTableView addObjectsFromArray:task.result];
+                                              [preventCircularRef removeAllAnnotations];
+                                              [preventCircularRef showCoffeeShopOnMap];
+                                              [preventCircularRef.tableView reloadData];
+                                              if (completion) {
+                                                  completion();
+                                              }
+                                              return nil;
+                                          }];
 }
 
-- (void) removeAllAnnotations
-{
+- (void) removeAllAnnotations {
     [self.mapView removeAnnotations:[self.annotations allValues]];
 }
 
-- (void) showCoffeeShopOnMap
-{
-    if (self.annotations)
-    {
+- (void) showCoffeeShopOnMap {
+    if (self.annotations) {
         self.annotations = nil;
     }
     self.annotations = [[NSMutableDictionary alloc] init];
-    for (CoffeeShop *coffeeShop in self.coffeeShopsUseInTableView)
-    {
+    for (CoffeeShop *coffeeShop in self.coffeeShopsUseInTableView) {
         TRAnnotation *annotation = [[TRAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(coffeeShop.latitude, coffeeShop.longitude)
                                                                          id:coffeeShop.id
                                                                        name:coffeeShop.name
@@ -402,17 +369,14 @@
     }
 }
 
-- (void) onSlideMenuButtonPress
-{
+- (void) onSlideMenuButtonPress {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 #pragma MKMapViewDelegate method
 
-- (void) mapView:(MKMapView *) mapView didUpdateUserLocation:(MKUserLocation *) userLocation
-{
-    if (self.initUserLocation)
-    {
+- (void) mapView:(MKMapView *) mapView didUpdateUserLocation:(MKUserLocation *) userLocation {
+    if (self.initUserLocation) {
         return;
     }
     MKCoordinateRegion mapRegion;
@@ -426,18 +390,15 @@
     [self listCoffeeShopsWithCoordinate:userLocation.coordinate];
 }
 
-- (MKAnnotationView *) mapView:(MKMapView *) mapView viewForAnnotation:(id<MKAnnotation>) annotation
-{
+- (MKAnnotationView *) mapView:(MKMapView *) mapView viewForAnnotation:(id<MKAnnotation>) annotation {
     MKPinAnnotationView *mapPin = nil;
-    if ([self isUserLocationAnnotation:annotation])
-    {
+    if ([self isUserLocationAnnotation:annotation]) {
         return nil;
     }
 
     static NSString *defaultPinID = @"defaultPin";
     mapPin = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-    if (mapPin == nil )
-    {
+    if (mapPin == nil ) {
         mapPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                  reuseIdentifier:defaultPinID];
         mapPin.canShowCallout = YES;
@@ -450,10 +411,8 @@
     return mapPin;
 }
 
-- (void) mapView:(MKMapView *) mapView annotationView:(MKAnnotationView *) view calloutAccessoryControlTapped:(UIControl *) control
-{
-    if (![view.annotation isKindOfClass:[TRAnnotation class]])
-    {
+- (void) mapView:(MKMapView *) mapView annotationView:(MKAnnotationView *) view calloutAccessoryControlTapped:(UIControl *) control {
+    if (![view.annotation isKindOfClass:[TRAnnotation class]]) {
         return;
     }
     TRAnnotation *annotation = (TRAnnotation *) view.annotation;
@@ -462,45 +421,37 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void) mapView:(MKMapView *) mapView didSelectAnnotationView:(MKAnnotationView *) view
-{
-    if ([self isUserLocationAnnotation:view.annotation])
-    {
+- (void) mapView:(MKMapView *) mapView didSelectAnnotationView:(MKAnnotationView *) view {
+    if ([self isUserLocationAnnotation:view.annotation]) {
         return;
     }
     [self setMapCenterToCoordinate:view.annotation.coordinate];
     [self selectCellWithAnnotation:(TRAnnotation *) view.annotation];
 }
 
-- (BOOL) isUserLocationAnnotation:(id<MKAnnotation>) annotation
-{
+- (BOOL) isUserLocationAnnotation:(id<MKAnnotation>) annotation {
     return annotation == self.mapView.userLocation;
 }
 
-- (void) selectCellWithAnnotation:(TRAnnotation *) annotation
-{
+- (void) selectCellWithAnnotation:(TRAnnotation *) annotation {
     NSNumber *id = annotation.id;
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
     CoffeeShop *selectedShop = self.coffeeShopsUseInTableView[(NSUInteger) selectedIndexPath.row];
 
-    if ([selectedShop.id isEqualToNumber:id])
-    {
+    if ([selectedShop.id isEqualToNumber:id]) {
         return;
     }
 
     NSInteger index = NSNotFound;
-    for (NSUInteger i = 0; i < self.coffeeShopsUseInTableView.count; i++)
-    {
+    for (NSUInteger i = 0; i < self.coffeeShopsUseInTableView.count; i++) {
         CoffeeShop *shop = self.coffeeShopsUseInTableView[i];
-        if ([shop.id isEqualToNumber:id])
-        {
+        if ([shop.id isEqualToNumber:id]) {
             index = i;
             break;
         }
     }
 
-    if (index == NSNotFound)
-    {
+    if (index == NSNotFound) {
         return;
     }
 
@@ -512,19 +463,16 @@
 
 #pragma UITableViewDataSource method
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
-{
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
     return self.coffeeShopsUseInTableView.count;
 }
 
-- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     static NSString *CellIdentifier = @"Cell";
 
     UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
         cell.backgroundView = nil;
@@ -537,23 +485,19 @@
     return cell;
 }
 
-- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     CoffeeShop *shop = self.coffeeShopsUseInTableView[(NSUInteger) indexPath.row];
     [self openAnnotationWithShop:shop];
 }
 
-- (void) openAnnotationWithShop:(CoffeeShop *) coffeeShop
-{
+- (void) openAnnotationWithShop:(CoffeeShop *) coffeeShop {
     TRAnnotation *shopAnnotation = [self.annotations objectForKey:coffeeShop.id];
-    if (shopAnnotation)
-    {
+    if (shopAnnotation) {
         [self.mapView selectAnnotation:shopAnnotation animated:YES];
     }
 }
 
-- (void) setMapCenterUser
-{
+- (void) setMapCenterUser {
     MKCoordinateRegion mapRegion;
     mapRegion.center = self.mapView.userLocation.coordinate;
     mapRegion.span.latitudeDelta = 0.01;
@@ -561,14 +505,12 @@
     [self setOffsetRegion:mapRegion];
 }
 
-- (void) setOffsetRegion:(MKCoordinateRegion) mapRegion
-{
+- (void) setOffsetRegion:(MKCoordinateRegion) mapRegion {
     mapRegion.center.latitude -= mapRegion.span.latitudeDelta * 0.30;
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
-- (void) setMapCenterToCoordinate:(CLLocationCoordinate2D) coordinate
-{
+- (void) setMapCenterToCoordinate:(CLLocationCoordinate2D) coordinate {
     MKCoordinateSpan currentSpan = self.mapView.region.span;
     MKCoordinateRegion mapRegion;
     mapRegion.center = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);

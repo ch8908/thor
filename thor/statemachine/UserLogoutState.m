@@ -13,33 +13,26 @@
 
 @implementation UserLogoutState
 
-- (void) enter
-{
+- (void) enter {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
     [[NSNotificationCenter defaultCenter] postNotificationName:MachineLogoutNotification object:nil];
 }
 
-- (void) exit
-{
+- (void) exit {
     NSLog(@"Log: exit:%@", NSStringFromClass([self class]));
 }
 
-- (void) trigger:(UserStateTrigger *) trigger
-{
-    if (trigger.checkLogin)
-    {
-        NSString *token = [[[Pref sharedInstance] authenticationToken] getString];
-        if (![NSString isEmptyAfterTrim:token])
-        {
-            [self transitToState:[[UserLoginState alloc] initWithToken:token]];
+- (void) trigger:(UserStateTrigger *) trigger {
+    if (trigger.checkLogin) {
+        NSString *token = [[self.pref authenticationToken] getString];
+        if (![NSString isEmptyAfterTrim:token]) {
+            [self transitToState:[[UserLoginState alloc] initWithToken:token pref:self.pref]];
         }
     }
-    else if (trigger.signIn)
-    {
-        NSString *token = [[[Pref sharedInstance] authenticationToken] getString];
-        if (![NSString isEmptyAfterTrim:token])
-        {
-            [self transitToState:[[UserLoginState alloc] initWithToken:token]];
+    else if (trigger.signIn) {
+        NSString *token = [[self.pref authenticationToken] getString];
+        if (![NSString isEmptyAfterTrim:token]) {
+            [self transitToState:[[UserLoginState alloc] initWithToken:token pref:self.pref]];
         }
     }
 }

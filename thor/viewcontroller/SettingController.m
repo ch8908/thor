@@ -9,6 +9,8 @@
 #import "OSViewHelper.h"
 #import "ThorUis.h"
 #import "DistancePickViewController.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 
 typedef NS_ENUM(NSInteger, TRSettingItem)
@@ -23,17 +25,14 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
 
 @implementation SettingController
 
-- (id) initSettingController
-{
+- (id) initSettingController {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
     }
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -42,8 +41,7 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     [self.view addSubview:self.tableView];
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
@@ -54,21 +52,18 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     [self.navigationItem setLeftBarButtonItem:doneButton];
 }
 
-- (void) onDone
-{
+- (void) onDone {
     [self.presentingViewController dismissViewControllerAnimated:YES
                                                       completion:nil];
 }
 
-- (void) viewWillAppear:(BOOL) animated
-{
+- (void) viewWillAppear:(BOOL) animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [OSViewHelper resize:self.tableView
            containerSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
@@ -76,29 +71,24 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     [self.tableView setContentInset:UIEdgeInsetsMake(self.topBarOffset, 0, 0, 0)];
 }
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
-{
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
     return TRTotalSettingCount;
 }
 
-- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     static NSString *CellIdentifier = @"SettingCell";
 
     UITableViewCell *cell = (UITableViewCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:CellIdentifier];
     }
 
-    switch (indexPath.row)
-    {
-        case TRSearchDistance:
-        {
+    switch (indexPath.row) {
+        case TRSearchDistance: {
             cell.textLabel.text = [I18N key:@"search_distance_title"];
-            NSNumber *number = [[[Pref sharedInstance] searchDistance] getNumber];
+            NSNumber *number = [[self.beans.pref searchDistance] getNumber];
             cell.detailTextLabel.text = [ThorUis searchDistanceString:number];
             number;
             break;
@@ -109,8 +99,7 @@ typedef NS_ENUM(NSInteger, TRSettingItem)
     return cell;
 }
 
-- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     DistancePickViewController *distancePickViewController = [[DistancePickViewController alloc] init];
     [self.navigationController pushViewController:distancePickViewController animated:YES];

@@ -17,6 +17,8 @@
 #import "TextFieldCell.h"
 #import "SwitchCell.h"
 #import "UIColor+Constant.h"
+#import "UIViewController+Beans.h"
+#import "Beans.h"
 
 CGFloat const PADDING_HORIZONTAL = 10;
 
@@ -24,8 +26,7 @@ CGFloat const PADDING_HORIZONTAL = 10;
     Best Practice: Managing Text Fields and Text Views
     https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/ManageTextFieldTextViews/ManageTextFieldTextViews.html
  */
-enum
-{
+enum {
     AddressFieldTag = 0,
     NameFieldTag,
     PhoneNumberFieldTag,
@@ -36,22 +37,19 @@ enum
     PowerAvailableTag,
 };
 
-enum
-{
+enum {
     SectionRequiredInfo = 0,
     SectionOfOptionalInfo,
     TotalSections,
 };
 
-enum
-{
+enum {
     RequiredAddressRow = 0,
     RequiredNameRow,
     TotalCountOfRequiredRows,
 };
 
-enum
-{
+enum {
     OptionalPhoneNumberRow = 0,
     OptionalWebsiteUrl,
     OptionalDescription,
@@ -82,11 +80,9 @@ enum
 
 @implementation AddShopViewController
 
-- (id) initAddShopViewController
-{
+- (id) initAddShopViewController {
     self = [super initWithNibName:nil bundle:nil];
-    if (self)
-    {
+    if (self) {
         _submitInfo = [[SubmitInfo alloc] init];
 
         _locationManager = [[CLLocationManager alloc] init];
@@ -98,8 +94,7 @@ enum
     return self;
 }
 
-- (void) loadView
-{
+- (void) loadView {
     [super loadView];
 
     _mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
@@ -146,8 +141,7 @@ enum
     [self.view addSubview:self.tableView];
 }
 
-- (UILabel *) titleLabelWithTitle:(NSString *) title
-{
+- (UILabel *) titleLabelWithTitle:(NSString *) title {
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor grayColor];
@@ -156,8 +150,7 @@ enum
     return label;
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     [self.locationManager startUpdatingLocation];
@@ -187,8 +180,7 @@ enum
                                                object:nil];
 }
 
-- (void) viewDidLayoutSubviews
-{
+- (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [OSViewHelper resize:self.mapView containerSize:CGSizeMake(self.view.bounds.size.width, 120)];
     [OSViewHelper locate:self.mapView y:self.topBarOffset];
@@ -201,7 +193,8 @@ enum
     [OSViewHelper locate:self.zoomInButton x:self.zoomOutButton.frame.origin.x - self.zoomInButton.bounds.size.width - 3
                        y:self.zoomOutButton.frame.origin.y];
 
-    [OSViewHelper locate:self.addressFromMapCenterTitle x:PADDING_HORIZONTAL y:[OSViewHelper bottomOf:self.mapView] + 10];
+    [OSViewHelper locate:self.addressFromMapCenterTitle x:PADDING_HORIZONTAL
+                       y:[OSViewHelper bottomOf:self.mapView] + 10];
 
     [OSViewHelper resize:self.indicatorViewForMap containerSize:CGSizeMake(24, 24)];
     [OSViewHelper alignCenter:self.indicatorViewForMap withTarget:self.addressFromMapCenterTitle];
@@ -217,13 +210,11 @@ enum
     [OSViewHelper locate:self.tableView y:[OSViewHelper bottomOf:self.addressTextViewFromMapCenter]];
 }
 
-- (void) onCancel
-{
+- (void) onCancel {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void) onSubmit
-{
+- (void) onSubmit {
     [self.activeField resignFirstResponder];
     self.submitButton.enabled = NO;
 
@@ -232,34 +223,31 @@ enum
     self.submitInfo.longitude = self.mapView.centerCoordinate.longitude;
 
     __weak AddShopViewController *preventCircularRef = self;
-    [[[CoffeeService sharedInstance] submitShopInfo:self.submitInfo]
-                     continueWithBlock:^id(BFTask *task) {
-                         preventCircularRef.submitButton.enabled = YES;
+    [[self.beans.coffeeService submitShopInfo:self.submitInfo]
+                               continueWithBlock:^id(BFTask *task) {
+                                   preventCircularRef.submitButton.enabled = YES;
 
-                         if (task.error)
-                         {
-                             // Set UI Warning
-                             UITextField *nameTextField = (UITextField *) [preventCircularRef.view viewWithTag:NameFieldTag];
-                             [nameTextField setBackgroundColor:[UIColor requiredFieldWarningColor]];
+                                   if (task.error) {
+                                       // Set UI Warning
+                                       UITextField *nameTextField = (UITextField *) [preventCircularRef.view viewWithTag:NameFieldTag];
+                                       [nameTextField setBackgroundColor:[UIColor requiredFieldWarningColor]];
 
-                             [preventCircularRef showFailedAlertWithMessage:task.error.localizedDescription];
-                             return nil;
-                         }
-                         [preventCircularRef showNavigationTitleWithString:[I18N key:@"submit_success"]];
-                         return nil;
-                     }];
+                                       [preventCircularRef showFailedAlertWithMessage:task.error.localizedDescription];
+                                       return nil;
+                                   }
+                                   [preventCircularRef showNavigationTitleWithString:[I18N key:@"submit_success"]];
+                                   return nil;
+                               }];
 
     [self showIndicatorOnNavigationBar];
 }
 
-- (void) showIndicatorOnNavigationBar
-{
+- (void) showIndicatorOnNavigationBar {
     self.navigationItem.title = @"";
     [self.navigationItem setTitleView:[self getIndicatorView] animated:YES];
 }
 
-- (UILabel *) navigationBarTitleLabelWithString:(NSString *) title
-{
+- (UILabel *) navigationBarTitleLabelWithString:(NSString *) title {
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -269,8 +257,7 @@ enum
     return titleLabel;
 }
 
-- (UIView *) getIndicatorView
-{
+- (UIView *) getIndicatorView {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
@@ -290,8 +277,7 @@ enum
     return view;
 }
 
-- (void) showFailedAlertWithMessage:(NSString *) message
-{
+- (void) showFailedAlertWithMessage:(NSString *) message {
     [self showNavigationTitleWithString:[I18N key:@"submit_failed"]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[I18N key:@"submit_failed"]
                                                         message:message
@@ -301,8 +287,7 @@ enum
     [alertView show];
 }
 
-- (void) showNavigationTitleWithString:(NSString *) message
-{
+- (void) showNavigationTitleWithString:(NSString *) message {
     [self.navigationItem setTitleViewWithTitle:message animated:YES];
 
     double delayInSeconds = 1;
@@ -313,24 +298,20 @@ enum
     });
 }
 
-- (void) zoomOut
-{
+- (void) zoomOut {
     NSUInteger nextZoomLevel = self.mapView.zoomLevel - 1;
     [self.mapView setCenterCoordinate:self.mapView.centerCoordinate zoomLevel:nextZoomLevel
                              animated:YES];
 }
 
-- (void) zoomIn
-{
+- (void) zoomIn {
     NSUInteger nextZoomLevel = self.mapView.zoomLevel + 1;
     [self.mapView setCenterCoordinate:self.mapView.centerCoordinate zoomLevel:nextZoomLevel
                              animated:YES];
 }
 
-- (void) locationManager:(CLLocationManager *) manager didUpdateLocations:(NSArray *) locations
-{
-    if (self.initUserLocation)
-    {
+- (void) locationManager:(CLLocationManager *) manager didUpdateLocations:(NSArray *) locations {
+    if (self.initUserLocation) {
         return;
     }
     MKCoordinateRegion mapRegion;
@@ -345,13 +326,11 @@ enum
     self.initUserLocation = YES;
 }
 
-- (void) mapView:(MKMapView *) mapView regionWillChangeAnimated:(BOOL) animated
-{
+- (void) mapView:(MKMapView *) mapView regionWillChangeAnimated:(BOOL) animated {
     [self.indicatorViewForMap startAnimating];
 }
 
-- (void) mapView:(MKMapView *) mapView regionDidChangeAnimated:(BOOL) animated
-{
+- (void) mapView:(MKMapView *) mapView regionDidChangeAnimated:(BOOL) animated {
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude
                                                       longitude:self.mapView.centerCoordinate.longitude];
 
@@ -359,28 +338,24 @@ enum
     [self.geocoder reverseGeocodeLocation:location
                         completionHandler:^(NSArray *placemarks, NSError *error) {
                             [preventCircularRef.indicatorViewForMap stopAnimating];
-                            if (error)
-                            {
+                            if (error) {
                                 return;
                             }
                             CLPlacemark *placemark = [placemarks lastObject];
-                            if (placemark)
-                            {
+                            if (placemark) {
                                 [preventCircularRef setAddressWithPlacemark:placemark];
                             }
                         }];
 }
 
-- (void) setAddressWithPlacemark:(CLPlacemark *) placemark
-{
+- (void) setAddressWithPlacemark:(CLPlacemark *) placemark {
     NSString *addressString = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
     NSString *newAddress = [addressString stringByReplacingOccurrencesOfString:@"\n"
                                                                     withString:@" "];
     self.addressTextViewFromMapCenter.text = newAddress;
 }
 
-- (void) setLocationWithPlacemark:(CLPlacemark *) placemark
-{
+- (void) setLocationWithPlacemark:(CLPlacemark *) placemark {
     MKCoordinateSpan currentSpan = self.mapView.region.span;
     MKCoordinateRegion mapRegion;
     mapRegion.center = CLLocationCoordinate2DMake(placemark.location.coordinate.latitude, placemark.location.coordinate.longitude);
@@ -389,30 +364,25 @@ enum
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
-#pragma UITextFieldDelegate
+#pragma mark UITextFieldDelegate
 
-- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string
-{
-    if ([string stringByTrim].length > 0)
-    {
+- (BOOL) textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange) range replacementString:(NSString *) string {
+    if ([string stringByTrim].length > 0) {
         UITextField *nameTextField = (UITextField *) [self.view viewWithTag:NameFieldTag];
         [nameTextField setBackgroundColor:[UIColor inputFieldBgColor]];
     }
     return YES;
 }
 
-- (BOOL) textFieldShouldBeginEditing:(UITextField *) textField
-{
+- (BOOL) textFieldShouldBeginEditing:(UITextField *) textField {
     self.activeField = textField;
     return YES;
 }
 
-- (void) textFieldDidEndEditing:(UITextField *) textField
-{
+- (void) textFieldDidEndEditing:(UITextField *) textField {
     self.activeField = nil;
 
-    switch (textField.tag)
-    {
+    switch (textField.tag) {
         case NameFieldTag:
             self.submitInfo.name = textField.text;
             break;
@@ -432,8 +402,7 @@ enum
             break;
     }
 
-    if (textField.tag != AddressFieldTag)
-    {
+    if (textField.tag != AddressFieldTag) {
         return;
     }
 
@@ -445,28 +414,24 @@ enum
     [self.geocoder geocodeAddressString:queryAddressString
                       completionHandler:^(NSArray *placemarks, NSError *error) {
                           [preventCircularRef.indicatorViewForMap stopAnimating];
-                          if (error)
-                          {
+                          if (error) {
                               return;
                           }
                           CLPlacemark *placemark = [placemarks lastObject];
-                          if (placemark)
-                          {
+                          if (placemark) {
                               [preventCircularRef setLocationWithPlacemark:placemark];
                           }
                       }];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *) textField
-{
+- (BOOL) textFieldShouldReturn:(UITextField *) textField {
     [self.view endEditing:YES];
     return YES;
 }
 
-#pragma  UIKeyboardNotification
+#pragma mark  UIKeyboardNotification
 
-- (void) keyboardWillHide:(NSNotification *) notification
-{
+- (void) keyboardWillHide:(NSNotification *) notification {
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     NSDictionary *info = [notification userInfo];
     NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -484,31 +449,25 @@ enum
     self.viewAndKeyboardOffset = 0;
 }
 
-- (void) keyboardWillShow:(NSNotification *) notification
-{
+- (void) keyboardWillShow:(NSNotification *) notification {
     NSDictionary *info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, kbSize.height, 0)];
 }
 
-- (void) onSwitch:(UISwitch *) sender
-{
-    if (WifiAvailableTag == sender.tag)
-    {
+- (void) onSwitch:(UISwitch *) sender {
+    if (WifiAvailableTag == sender.tag) {
         self.submitInfo.isWifiFree = sender.isOn;
     }
-    else if (PowerAvailableTag == sender.tag)
-    {
+    else if (PowerAvailableTag == sender.tag) {
         self.submitInfo.powerOutlets = sender.isOn;
     }
 }
 
-#pragma UITableViewDataSourceDelegate
+#pragma mark UITableViewDataSourceDelegate
 
-- (NSString *) tableView:(UITableView *) tableView titleForHeaderInSection:(NSInteger) section
-{
-    switch (section)
-    {
+- (NSString *) tableView:(UITableView *) tableView titleForHeaderInSection:(NSInteger) section {
+    switch (section) {
         case SectionRequiredInfo:
             return [I18N key:@"required_section_title"];
         case SectionOfOptionalInfo:
@@ -519,15 +478,12 @@ enum
     return nil;
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *) tableView
-{
+- (NSInteger) numberOfSectionsInTableView:(UITableView *) tableView {
     return TotalSections;
 }
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section
-{
-    switch (section)
-    {
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
+    switch (section) {
         case SectionRequiredInfo:
             return TotalCountOfRequiredRows;
         case SectionOfOptionalInfo:
@@ -538,24 +494,20 @@ enum
     return 0;
 }
 
-- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
-{
-    if ([self isSwitchCell:indexPath])
-    {
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
+    if ([self isSwitchCell:indexPath]) {
         static NSString *CellIdentifier = @"SwitchCell";
 
         SwitchCell *cell = (SwitchCell *)
           [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-        if (cell == nil)
-        {
+        if (cell == nil) {
             cell = [[SwitchCell alloc] initWithReuseIdentifier:CellIdentifier];
             [cell.switchButton addTarget:self action:@selector(onSwitch:)
                         forControlEvents:UIControlEventValueChanged];
         }
 
-        switch (indexPath.row)
-        {
+        switch (indexPath.row) {
             case OptionalWifiAvailable:
                 cell.titleLabel.text = [I18N key:@"wifi_free_title"];
                 cell.switchButton.tag = WifiAvailableTag;
@@ -578,18 +530,15 @@ enum
     TextFieldCell *cell = (TextFieldCell *)
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[TextFieldCell alloc] initTextFieldCellWithReuseIdentifier:CellIdentifier];
         cell.inputField.delegate = self;
     }
 
     cell.inputField.keyboardType = UIKeyboardTypeDefault;
 
-    if (SectionRequiredInfo == indexPath.section)
-    {
-        switch (indexPath.row)
-        {
+    if (SectionRequiredInfo == indexPath.section) {
+        switch (indexPath.row) {
             case RequiredNameRow:
                 cell.inputFieldTitleLabel.text = [I18N key:@"input_name_title"];
                 cell.inputField.placeholder = [I18N key:@"input_name_placeholder"];
@@ -605,10 +554,8 @@ enum
                 break;
         }
     }
-    else if (SectionOfOptionalInfo == indexPath.section)
-    {
-        switch (indexPath.row)
-        {
+    else if (SectionOfOptionalInfo == indexPath.section) {
+        switch (indexPath.row) {
             case OptionalPhoneNumberRow:
                 cell.inputFieldTitleLabel.text = [I18N key:@"input_phone_title"];
                 cell.inputField.placeholder = [I18N key:@"input_phone_placeholder"];
@@ -642,25 +589,21 @@ enum
     return cell;
 }
 
-- (BOOL) isSwitchCell:(NSIndexPath *) indexPath
-{
+- (BOOL) isSwitchCell:(NSIndexPath *) indexPath {
     return SectionOfOptionalInfo == indexPath.section &&
       (OptionalWifiAvailable == indexPath.row || OptionalPowerAvailable == indexPath.row);
 }
 
-#pragma UITableViewDelegate
+#pragma mark UITableViewDelegate
 
-- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath
-{
-    if ([self isSwitchCell:indexPath])
-    {
+- (CGFloat) tableView:(UITableView *) tableView heightForRowAtIndexPath:(NSIndexPath *) indexPath {
+    if ([self isSwitchCell:indexPath]) {
         return [SwitchCell cellHeight];
     }
     return [TextFieldCell cellHeight];
 }
 
-- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath
-{
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

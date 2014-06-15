@@ -9,7 +9,7 @@
 @class BFTask;
 
 @interface CoffeeManager : NSObject
-+ (id) sharedInstance;
+- (id) initManager;
 
 - (BFTask *) allShops:(NSArray *) array filterState:(TRFilterState *) filterState;
 @end
