@@ -4,7 +4,7 @@
 //
 
 #import "UserLogoutState.h"
-#import "StateMachine.h"
+#import "UserStateMachine.h"
 #import "UserStateTrigger.h"
 #import "Pref.h"
 #import "NSString+Util.h"
@@ -15,7 +15,7 @@
 
 - (void) enter {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
-    [[NSNotificationCenter defaultCenter] postNotificationName:MachineLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:StateMachineLogoutNotification object:nil];
 }
 
 - (void) exit {

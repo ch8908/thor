@@ -4,7 +4,7 @@
 //
 
 #import "UserLoginState.h"
-#import "StateMachine.h"
+#import "UserStateMachine.h"
 #import "Pref.h"
 #import "UserStateTrigger.h"
 #import "UserLogoutState.h"
@@ -26,7 +26,7 @@
 
 - (void) enter {
     NSLog(@"Log: enter:%@", NSStringFromClass([self class]));
-    [[NSNotificationCenter defaultCenter] postNotificationName:MachineLoginSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:StateMachineLoginSuccessNotification object:nil];
 }
 
 - (void) exit {
@@ -38,8 +38,9 @@
     if (trigger.signOut) {
         UserLogoutState *state = [[UserLogoutState alloc] initWithPref:self.pref];
         [self transitToState:state];
+    } else if (trigger.checkLogin) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:StateMachineLoginSuccessNotification object:nil];
     }
 }
-
 
 @end

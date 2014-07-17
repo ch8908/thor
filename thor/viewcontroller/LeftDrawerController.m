@@ -8,7 +8,7 @@
 #import "OSViewHelper.h"
 #import "LoginViewController.h"
 #import "UIViewController+MMDrawerController.h"
-#import "StateMachine.h"
+#import "UserStateMachine.h"
 #import "UserLogoutState.h"
 #import "SettingController.h"
 #import "AboutViewController.h"
@@ -18,11 +18,11 @@
 #import "Beans.h"
 
 enum {
-    NewShop = 0,
-    Setting,
-    About,
-    LogInOrLogOut,
-    TotalCount
+    NewShopSection = 0,
+    SettingSection,
+    AboutSection,
+    LogInOrLogOutSection,
+    TotalSectionCount
 };
 
 CGFloat const DRAWER_CELL_HEIGHT = 50;
@@ -32,12 +32,14 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 
 @interface LeftDrawerController()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) BOOL isLogin;
 @end
 
 @implementation LeftDrawerController
 - (id) initLeftDrawerViewController {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        _isLogin = NO;
     }
     return self;
 }
@@ -61,13 +63,16 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onMachineLoginSuccessNotification)
-                                                 name:MachineLoginSuccessNotification
+                                                 name:StateMachineLoginSuccessNotification
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onMachineLogoutNotification)
-                                                 name:MachineLogoutNotification
+                                                 name:StateMachineLogoutNotification
                                                object:nil];
+
+    [self.beans.coffeeService isLogin];
+
 }
 
 - (void) viewDidLayoutSubviews {
@@ -79,7 +84,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 }
 
 - (void) newShop {
-    if (![self.beans.coffeeService isLogin]) {
+    if (! self.isLogin) {
         [self showLoginOption];
         return;
     }
@@ -102,6 +107,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 }
 
 - (void) onMachineLoginSuccessNotification {
+    self.isLogin = YES;
     [self.tableView reloadData];
 }
 
@@ -114,7 +120,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
-    return TotalCount;
+    return TotalSectionCount;
 }
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
@@ -128,19 +134,19 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
     }
 
     switch (indexPath.row) {
-        case NewShop: {
+        case NewShopSection: {
             cell.textLabel.text = [I18N key:@"add_shop_title"];
             break;
         }
-        case LogInOrLogOut: {
-            NSString *key = [self.beans.coffeeService isLogin] ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
+        case LogInOrLogOutSection: {
+            NSString *key = self.isLogin ? [I18N key:@"log_out_button_title"] : [I18N key:@"log_in_button_title"];
             cell.textLabel.text = key;
             break;
         }
-        case Setting:
+        case SettingSection:
             cell.textLabel.text = [I18N key:@"setting_title"];
             break;
-        case About:
+        case AboutSection:
             cell.textLabel.text = [I18N key:@"about_title"];
             break;
         default:
@@ -153,12 +159,12 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     switch (indexPath.row) {
-        case NewShop: {
+        case NewShopSection: {
             [self newShop];
             break;
         }
-        case LogInOrLogOut: {
-            if ([self.beans.coffeeService isLogin]) {
+        case LogInOrLogOutSection: {
+            if (self.isLogin) {
                 [self confirmSignOut];
             }
             else {
@@ -168,7 +174,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
             }
             break;
         }
-        case Setting: {
+        case SettingSection: {
             SettingController *controller = [[SettingController alloc] initSettingController];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
             [self.mm_drawerController.centerViewController presentViewController:navigationController
@@ -178,7 +184,7 @@ NSString *const LOG_OUT_I18N_KEY = @"log_out_button_title";
                                                completion:nil];
 
         }
-        case About: {
+        case AboutSection: {
             AboutViewController *aboutViewController = [[AboutViewController alloc] initAbout];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
             [self.mm_drawerController.centerViewController presentViewController:navigationController

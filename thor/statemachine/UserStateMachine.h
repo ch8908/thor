@@ -8,15 +8,13 @@
 @class AbstractState;
 @class UserStateTrigger;
 
-extern NSString *const MachineLoginSuccessNotification;
-extern NSString *const MachineLogoutNotification;
+extern NSString *const StateMachineLoginSuccessNotification;
+extern NSString *const StateMachineLogoutNotification;
 
-@interface StateMachine : NSObject
+@interface UserStateMachine : NSObject
 @property (nonatomic, strong) AbstractState *currentState;
 
 - (id) initWithState:(AbstractState *) initState;
-
-- (BOOL) isLogin;
 
 - (void) trigger:(UserStateTrigger *) trigger;
 @end

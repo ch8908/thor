@@ -13,7 +13,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "CoffeeShopDetail.h"
 #import "SubmitInfo.h"
-#import "StateMachine.h"
+#import "UserStateMachine.h"
 #import "NSArray+Util.h"
 #import "NSString+Util.h"
 #import "I18N.h"
@@ -61,7 +61,7 @@ NSString *const TRCoffeeServiceErrorDomain = @"com.osolve.thor";
 NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1";
 
 @interface CoffeeService()
-@property (nonatomic, readonly, strong) StateMachine *userStateMachine;
+@property (nonatomic, readonly, strong) UserStateMachine *userStateMachine;
 @property (nonatomic, readonly, strong) Pref *pref;
 @end
 
@@ -70,7 +70,7 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
 - (id) initWithPref:(Pref *) pref {
     self = [super init];
     if (self) {
-        _userStateMachine = [[StateMachine alloc] initWithState:[[UserLogoutState alloc] initWithPref:pref]];
+        _userStateMachine = [[UserStateMachine alloc] initWithState:[[UserLogoutState alloc] initWithPref:pref]];
         _pref = pref;
         [self triggerCheckLogin];
     }
@@ -396,8 +396,8 @@ NSString *const BASE_API_URL = @"http://geekcoffee-staging.roachking.net/api/v1"
     [self.userStateMachine trigger:trigger];
 }
 
-- (BOOL) isLogin {
-    return [self.userStateMachine isLogin];
+- (void) isLogin {
+    return [self triggerCheckLogin];
 }
 
 @end

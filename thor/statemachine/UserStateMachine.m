@@ -3,15 +3,14 @@
 // Copyright (c) 2014 oSolve. All rights reserved.
 //
 
-#import "StateMachine.h"
+#import "UserStateMachine.h"
 #import "AbstractState.h"
-#import "UserLoginState.h"
 #import "UserStateTrigger.h"
 
-NSString *const MachineLoginSuccessNotification = @"MachineLoginSuccessNotification";
-NSString *const MachineLogoutNotification = @"MachineLogoutNotification";
+NSString *const StateMachineLoginSuccessNotification = @"StateMachineLoginSuccessNotification";
+NSString *const StateMachineLogoutNotification = @"StateMachineLogoutNotification";
 
-@implementation StateMachine
+@implementation UserStateMachine
 
 - (id) initWithState:(AbstractState *) initState
 {
@@ -30,15 +29,6 @@ NSString *const MachineLogoutNotification = @"MachineLogoutNotification";
 {
     AbstractState *state = notification.object;
     [self changeState:state];
-}
-
-- (BOOL) isLogin
-{
-    if ([self.currentState isKindOfClass:[UserLoginState class]])
-    {
-        return YES;
-    }
-    return NO;
 }
 
 - (void) changeState:(AbstractState *) newState

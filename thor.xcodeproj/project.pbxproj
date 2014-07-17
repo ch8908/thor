@@ -46,7 +46,7 @@
 		1960A10E18C84E4800726DC9 /* AbstractState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A1CDD7F7F79D53004C90 /* AbstractState.m */; };
 		1960A10F18C84E4800726DC9 /* UserLogoutState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1AF3067EB607F0EEB3682 /* UserLogoutState.m */; };
 		1960A11118C84E4800726DC9 /* UserLoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */; };
-		1960A11218C84E4800726DC9 /* StateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* StateMachine.m */; };
+		1960A11218C84E4800726DC9 /* UserStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* UserStateMachine.m */; };
 		1960A11318C84E4800726DC9 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A2766A81E8DDBBA97A46 /* SignUpViewController.m */; };
 		1960A11418C84E4800726DC9 /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		1960A11518C84E4800726DC9 /* System.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A3C17A2C3980E9A6CAF0 /* System.m */; };
@@ -120,7 +120,7 @@
 		23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A88D12B7F2948BAAC6F0 /* AbstractUIViewController.m */; };
 		23D1ABC2A584F4A6560884D2 /* UIViewController+Beans.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A7CB355D76B47CF04A3B /* UIViewController+Beans.m */; };
 		23D1ABC5273CF8D0453445C1 /* UserStateTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */; };
-		23D1ABCB3AC6E3DDA0F45D4E /* StateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* StateMachine.m */; };
+		23D1ABCB3AC6E3DDA0F45D4E /* UserStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9F340E9867E1F0792E2 /* UserStateMachine.m */; };
 		23D1AC4C3429E9871F6C6617 /* ExternalApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */; };
 		23D1ACD11DE36F889D7D243E /* FacebookDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A5F9607846C493E4F1E0 /* FacebookDaemon.m */; };
 		23D1AD27F30DC48CA6EB86FB /* ThorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D1A45E97B23306300B0B08 /* ThorNavigationController.m */; };
@@ -210,7 +210,7 @@
 		23D1A398EC5FB31F0218DACE /* UINavigationItem+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Util.h"; sourceTree = "<group>"; };
 		23D1A3B4CB58F83AA30C1195 /* CoffeeShop+Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoffeeShop+Strings.h"; sourceTree = "<group>"; };
 		23D1A3C17A2C3980E9A6CAF0 /* System.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = System.m; sourceTree = "<group>"; };
-		23D1A42B8EF619CFF442DA0F /* StateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateMachine.h; sourceTree = "<group>"; };
+		23D1A42B8EF619CFF442DA0F /* UserStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStateMachine.h; sourceTree = "<group>"; };
 		23D1A45E97B23306300B0B08 /* ThorNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThorNavigationController.m; sourceTree = "<group>"; };
 		23D1A4636A449BF441538AD1 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
 		23D1A499DEBCC1E0D2F1CD94 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 		23D1A9AB6C5604ACD7AD38D5 /* ThorNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThorNavigationController.h; sourceTree = "<group>"; };
 		23D1A9B3D414907C5DA1B2DC /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		23D1A9DE7242350281345154 /* UIViewController+Beans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Beans.h"; sourceTree = "<group>"; };
-		23D1A9F340E9867E1F0792E2 /* StateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateMachine.m; sourceTree = "<group>"; };
+		23D1A9F340E9867E1F0792E2 /* UserStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStateMachine.m; sourceTree = "<group>"; };
 		23D1A9FCCC2E0D16F55744A0 /* ExternalApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalApp.m; sourceTree = "<group>"; };
 		23D1AA16F1846149509F9444 /* UIColor+Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Constant.m"; sourceTree = "<group>"; };
 		23D1AA3E1152E188B892CE22 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
@@ -508,8 +508,8 @@
 				23D1AB80F2A22133B19F5B0F /* UserLogoutState.h */,
 				23D1A9662F95D333D7E3D6B1 /* UserLoginState.m */,
 				23D1A740CB25632BD838B160 /* UserLoginState.h */,
-				23D1A9F340E9867E1F0792E2 /* StateMachine.m */,
-				23D1A42B8EF619CFF442DA0F /* StateMachine.h */,
+				23D1A9F340E9867E1F0792E2 /* UserStateMachine.m */,
+				23D1A42B8EF619CFF442DA0F /* UserStateMachine.h */,
 				23D1A24ED19F2B46A6B118E1 /* UserStateTrigger.m */,
 				23D1A0D998AAE418AEE0C93C /* UserStateTrigger.h */,
 			);
@@ -827,7 +827,7 @@
 				23D1AFCBC759CBFFD96D5443 /* AbstractState.m in Sources */,
 				23D1A0907F15ACB7C83C2A37 /* UserLogoutState.m in Sources */,
 				23D1A7B8B1FF42FD6C55C0BF /* UserLoginState.m in Sources */,
-				23D1ABCB3AC6E3DDA0F45D4E /* StateMachine.m in Sources */,
+				23D1ABCB3AC6E3DDA0F45D4E /* UserStateMachine.m in Sources */,
 				23D1A738EAEF2E2FC533C752 /* SignUpViewController.m in Sources */,
 				23D1ABA36B8175AE87BBBECA /* AbstractUIViewController.m in Sources */,
 				23D1A391C2ADA57631EF0D74 /* System.m in Sources */,
@@ -880,7 +880,7 @@
 				1960A10E18C84E4800726DC9 /* AbstractState.m in Sources */,
 				1960A10F18C84E4800726DC9 /* UserLogoutState.m in Sources */,
 				1960A11118C84E4800726DC9 /* UserLoginState.m in Sources */,
-				1960A11218C84E4800726DC9 /* StateMachine.m in Sources */,
+				1960A11218C84E4800726DC9 /* UserStateMachine.m in Sources */,
 				1960A11318C84E4800726DC9 /* SignUpViewController.m in Sources */,
 				1960A11418C84E4800726DC9 /* AbstractUIViewController.m in Sources */,
 				1960A11518C84E4800726DC9 /* System.m in Sources */,

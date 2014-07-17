@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, TRCoffeeServiceErrorCode)
 
 - (BFTask *) autoCompleteResultWithSearchText:(NSString *) searchText;
 
-- (BOOL) isLogin;
+- (void) isLogin;
 
 - (void) triggerSignOut;
 @end
